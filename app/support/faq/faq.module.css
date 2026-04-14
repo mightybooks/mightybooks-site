@@ -1,0 +1,64 @@
+.wrap { padding: 120px 80px 100px; min-height: 100vh; max-width: 860px; margin: 0 auto; }
+.header { text-align: center; margin-bottom: 60px; }
+.tag { font-family: 'Oswald', sans-serif; font-size: 11px; letter-spacing: 5px; color: var(--red); text-transform: uppercase; display: block; margin-bottom: 12px; }
+.title { font-family: 'Bebas Neue', cursive; font-size: clamp(40px,6vw,68px); letter-spacing: 3px; }
+.title em { color: var(--red); font-style: normal; }
+.line { width: 48px; height: 3px; background: var(--red); margin: 18px auto 0; }
+.item { border-bottom: 1px solid rgba(255,255,255,.07); }
+.question {
+  width: 100%; display: flex; justify-content: space-between; align-items: center;
+  padding: 22px 0; background: none; border: none; color: #fff;
+  font-size: 15px; font-weight: 500; text-align: left; cursor: pointer;
+  transition: color .2s;
+}
+.open .question { color: var(--red); }
+.arrow { font-size: 20px; color: var(--red); flex-shrink: 0; margin-left: 20px; }
+.answer {
+  max-height: 0; overflow: hidden; transition: max-height .35s ease, padding .35s;
+  padding: 0;
+}
+.open .answer { max-height: 200px; padding-bottom: 20px; }
+.answer p { font-size: 14px; color: rgba(255,255,255,.65); line-height: 1.7; padding-left: 4px; }
+@media (max-width: 768px) { .wrap { padding: 100px 20px 60px; } }
+
+.seoLine {
+ margin: 30 0 60 0px;  
+}
+
+/* CTA */
+.cta {
+  padding: 10 0 20 20px; background: var(--black2);
+  border-top: 1px solid rgba(255,255,255,.05); text-align: left;
+}
+.ctaInner { max-width: 700px; margin: 0 auto; }
+.ctaBtn {
+  display: inline-flex; align-items: center;
+  padding: 14px 36px; background: var(--red); color: #fff;
+  font-size: 14px; font-weight: 700; letter-spacing: 2px;
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 50%, calc(100% - 12px) 100%, 0 100%);
+  transition: background .3s;
+}
+.ctaBtn:hover { background: var(--red-dark); }
+.ctaBtnGhost {
+  display: inline-flex; align-items: center;
+  padding: 14px 36px; background: transparent;
+  color: rgba(255,255,255,.7);
+  font-size: 14px; font-weight: 700; letter-spacing: 2px;
+  border: 1px solid rgba(255,255,255,.2); transition: all .3s;
+}
+.ctaBtnGhost:hover { border-color: #fff; color: #fff; }
+
+.bottomNav {
+  margin-top: 48px;
+  text-align: center;
+}
+
+.backLink {
+  color: #aaa;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.backLink:hover {
+  color: #fff;
+}

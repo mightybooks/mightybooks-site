@@ -1,0 +1,112 @@
+.loginWrap {
+  min-height: 100vh; display: flex; align-items: center; justify-content: center;
+  background: var(--black);
+}
+.loginBox {
+  width: 100%; max-width: 400px; padding: 48px;
+  background: var(--black2); border: 1px solid rgba(255,255,255,.07);
+}
+.loginLogo {
+  font-family: 'Oswald', sans-serif; font-size: 20px; letter-spacing: 2px;
+  text-align: center; margin-bottom: 36px; color: rgba(255,255,255,.7);
+}
+.loginLogo em { color: var(--red); font-style: normal; }
+.input {
+  width: 100%; padding: 12px 16px; margin-bottom: 12px;
+  background: var(--black3); border: 1px solid rgba(255,255,255,.1);
+  color: #fff; font-size: 14px; outline: none; transition: border .2s;
+}
+.input:focus { border-color: var(--red); }
+.err { color: var(--red); font-size: 13px; margin-bottom: 12px; }
+.msg { color: #4caf50; font-size: 13px; }
+.submitBtn {
+  width: 100%; padding: 13px; background: var(--red); color: #fff;
+  border: none; font-size: 14px; font-weight: 700; letter-spacing: 2px;
+  cursor: pointer; transition: background .2s;
+}
+.submitBtn:hover { background: var(--red-dark); }
+.submitBtn:disabled { opacity: .6; cursor: not-allowed; }
+
+/* ADMIN LAYOUT */
+.adminWrap { min-height: 100vh; background: var(--black); }
+.adminHeader {
+  position: sticky; top: 70px; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 40px; height: 64px;
+  background: var(--black2); border-bottom: 1px solid rgba(255,255,255,.07);
+}
+.adminLogo { font-family: 'Oswald', sans-serif; font-size: 18px; letter-spacing: 2px; }
+.adminLogo em { color: var(--red); font-style: normal; }
+.adminBody { padding: 40px; }
+.adminTitle { font-size: 22px; font-weight: 700; margin-bottom: 28px; }
+
+.btnRed {
+  padding: 9px 20px; background: var(--red); color: #fff;
+  border: none; font-size: 13px; font-weight: 700; letter-spacing: 1px;
+  cursor: pointer; transition: background .2s;
+}
+.btnRed:hover { background: var(--red-dark); }
+.btnGhost {
+  padding: 9px 20px; background: transparent;
+  border: 1px solid rgba(255,255,255,.2); color: rgba(255,255,255,.7);
+  font-size: 13px; cursor: pointer; transition: all .2s;
+}
+.btnGhost:hover { border-color: #fff; color: #fff; }
+.btnSmall {
+  padding: 5px 12px; background: var(--black3);
+  border: 1px solid rgba(255,255,255,.15); color: rgba(255,255,255,.7);
+  font-size: 12px; cursor: pointer;
+}
+.btnSmallDanger {
+  padding: 5px 12px; background: transparent;
+  border: 1px solid rgba(232,0,30,.3); color: var(--red);
+  font-size: 12px; cursor: pointer; transition: all .2s;
+}
+.btnSmallDanger:hover { background: var(--red); color: #fff; }
+
+.table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.table th {
+  text-align: left; padding: 10px 16px;
+  background: var(--black3); font-size: 11px;
+  letter-spacing: 1px; color: var(--gray); text-transform: uppercase;
+  border-bottom: 1px solid rgba(255,255,255,.07);
+}
+.table td {
+  padding: 14px 16px; border-bottom: 1px solid rgba(255,255,255,.05);
+  vertical-align: middle;
+}
+.table tr:hover td { background: rgba(255,255,255,.02); }
+.badgeOn {
+  padding: 3px 10px; background: rgba(0,200,80,.15); color: #00c850;
+  border: 1px solid rgba(0,200,80,.3); font-size: 11px; cursor: pointer; border-radius: 2px;
+}
+.badgeOff {
+  padding: 3px 10px; background: rgba(255,255,255,.06); color: var(--gray);
+  border: 1px solid rgba(255,255,255,.1); font-size: 11px; cursor: pointer; border-radius: 2px;
+}
+
+/* FORM */
+.form { max-width: 800px; }
+.label { display: block; font-size: 11px; letter-spacing: 2px; color: var(--gray); text-transform: uppercase; margin-bottom: 6px; margin-top: 20px; }
+.textarea {
+  width: 100%; padding: 14px 16px;
+  background: var(--black3); border: 1px solid rgba(255,255,255,.1);
+  color: #fff; font-size: 14px; font-family: 'Noto Sans KR', monospace;
+  outline: none; resize: vertical; line-height: 1.6; transition: border .2s;
+}
+.textarea:focus { border-color: var(--red); }
+
+.imageUpload { display: flex; flex-direction: column; gap: 12px; margin-top: 4px; }
+.imagePreview {
+  position: relative; display: inline-block;
+  width: 280px;
+}
+.imagePreview img { width: 100%; height: 160px; object-fit: cover; display: block; }
+.imageRemove {
+  position: absolute; top: 6px; right: 6px;
+  width: 24px; height: 24px;
+  background: rgba(0,0,0,.7); color: #fff;
+  border: none; font-size: 12px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+}
+.editorWrap { position: relative; }

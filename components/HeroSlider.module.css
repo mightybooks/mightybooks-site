@@ -1,0 +1,76 @@
+.hero {
+  position: relative; width: 100%; height: 100vh;
+  overflow: hidden;
+}
+.slide {
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center;
+  opacity: 0; transition: opacity 1.2s ease;
+  transform: scale(1.05); transition: opacity 1.2s ease, transform 8s ease;
+}
+.active { opacity: 1; transform: scale(1); }
+
+.overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(0,0,0,.75) 0%, rgba(0,0,0,.3) 60%, rgba(232,0,30,.15) 100%);
+  z-index: 1;
+}
+.content {
+  position: absolute; bottom: 160px; left: 80px;
+  max-width: 700px; z-index: 2;
+}
+.label {
+  font-family: 'Oswald', sans-serif;
+  font-size: 12px; letter-spacing: 4px; color: var(--red);
+  text-transform: uppercase; margin-bottom: 20px;
+  animation: slideUp .8s .2s both;
+}
+.title {
+  font-size: clamp(30px, 5vw, 54px); font-weight: 900;
+  line-height: 1.2; letter-spacing: -1px; word-break: keep-all;
+  animation: slideUp .8s .35s both;
+}
+.sub {
+  margin-top: 18px; font-size: 15px;
+  color: rgba(255,255,255,.7); font-weight: 300; line-height: 1.7;
+  animation: slideUp .8s .5s both;
+}
+.btn {
+  display: inline-flex; align-items: center;
+  margin-top: 32px; padding: 13px 30px;
+  background: var(--red); color: #fff;
+  font-size: 13px; font-weight: 700; letter-spacing: 2px;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 0 100%);
+  transition: background .3s;
+  animation: slideUp .8s .65s both;
+}
+.btn:hover { background: var(--red-dark); }
+
+.dots {
+  position: absolute; bottom: 100px; left: 80px;
+  display: flex; gap: 10px; z-index: 2;
+}
+.dot {
+  width: 28px; height: 3px; background: rgba(255,255,255,.3);
+  border: none; cursor: pointer; transition: all .3s; padding: 0;
+}
+.dotActive { background: var(--red); width: 52px; }
+
+.progressBar {
+  position: absolute; bottom: 0; left: 0;
+  height: 3px; background: var(--red); z-index: 2;
+  animation: progress 6s linear forwards;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes progress {
+  from { width: 0%; } to { width: 100%; }
+}
+
+@media (max-width: 768px) {
+  .content { left: 24px; bottom: 140px; }
+  .dots { left: 24px; }
+}

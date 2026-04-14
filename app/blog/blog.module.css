@@ -1,0 +1,60 @@
+.wrap { padding: 120px 80px 100px; min-height: 100vh; }
+.header { text-align: center; margin-bottom: 70px; }
+.tag {
+  font-family: 'Oswald', sans-serif; font-size: 11px;
+  letter-spacing: 5px; color: var(--red); text-transform: uppercase;
+  display: block; margin-bottom: 12px;
+}
+.title {
+  font-family: 'Bebas Neue', cursive; font-size: clamp(40px,6vw,70px);
+  letter-spacing: 3px;
+}
+.title em { color: var(--red); font-style: normal; }
+.line { width: 48px; height: 3px; background: var(--red); margin: 18px auto 0; }
+.grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 32px;
+}
+.empty { color: var(--gray); text-align: center; grid-column: 1/-1; padding: 60px 0; }
+.card {
+  background: var(--black2); display: block;
+  border: 1px solid rgba(255,255,255,.06);
+  transition: border-color .3s, transform .3s;
+}
+.card:hover { border-color: var(--red); transform: translateY(-4px); }
+.thumb { height: 200px; overflow: hidden; }
+.thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
+.card:hover .thumb img { transform: scale(1.05); }
+.cardBody { padding: 24px; }
+.date { font-size: 11px; color: var(--gray); letter-spacing: 1px; margin-bottom: 10px; }
+.cardTitle { font-size: 18px; font-weight: 700; line-height: 1.4; margin-bottom: 10px; word-break: keep-all; }
+.excerpt { font-size: 13px; color: rgba(255,255,255,.6); line-height: 1.6; margin-bottom: 16px; }
+.readMore { font-size: 12px; color: var(--red); font-weight: 700; letter-spacing: 1px; }
+
+@media (max-width: 768px) { .wrap { padding: 100px 20px 60px; } }
+
+.tabs {
+  display: flex; gap: 0;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  margin-bottom: 48px;
+}
+.tab {
+  padding: 12px 28px;
+  background: none; border: none; border-bottom: 2px solid transparent;
+  color: rgba(255,255,255,.4);
+  font-size: 13px; font-weight: 500; letter-spacing: 1px;
+  cursor: pointer; transition: all .2s;
+  margin-bottom: -1px;
+}
+.tab:hover { color: rgba(255,255,255,.8); }
+.tabActive { color: #fff; border-bottom-color: var(--red); }
+
+.cardMeta {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 10px;
+}
+.catBadge {
+  font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--red); font-weight: 700;
+  border: 1px solid rgba(232,0,30,.3); padding: 2px 8px;
+}
+.date { font-size: 11px; color: var(--gray); letter-spacing: 1px; }

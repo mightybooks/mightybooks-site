@@ -1,0 +1,93 @@
+.wrap { min-height: 100vh; background: var(--black); }
+
+.hero {
+  padding: 160px 80px 80px;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.tag {
+  font-family: 'Oswald', sans-serif; font-size: 11px;
+  letter-spacing: 5px; color: var(--red); text-transform: uppercase;
+  display: block; margin-bottom: 14px;
+}
+.title {
+  font-family: 'Bebas Neue', cursive;
+  font-size: clamp(48px, 7vw, 80px); letter-spacing: 3px; line-height: 1;
+}
+.title em { color: var(--red); font-style: normal; }
+.line { width: 48px; height: 3px; background: var(--red); margin-top: 20px; }
+
+.content { max-width: 800px; padding: 80px 80px 120px; }
+
+.statement {
+  font-size: clamp(22px, 3vw, 32px); font-weight: 900;
+  line-height: 1.5; word-break: keep-all;
+  margin-bottom: 20px;
+}
+.statementSub {
+  font-size: 15px; color: rgba(255,255,255,.6);
+  line-height: 1.8; word-break: keep-all;
+}
+
+.divider {
+  width: 100%; height: 1px;
+  background: rgba(255,255,255,.08);
+  margin: 52px 0;
+}
+
+.subTitle {
+  font-family: 'Oswald', sans-serif;
+  font-size: 20px; letter-spacing: 2px;
+  color: var(--red); margin-bottom: 28px;
+  text-transform: uppercase;
+}
+
+.list {
+  list-style: none; display: flex; flex-direction: column; gap: 16px;
+}
+.list li {
+  font-size: 15px; color: rgba(255,255,255,.75);
+  line-height: 1.8; padding-left: 20px; position: relative;
+  word-break: keep-all;
+}
+.list li::before {
+  content: '';
+  position: absolute; left: 0; top: 12px;
+  width: 6px; height: 6px;
+  background: var(--red); border-radius: 50%;
+}
+.list strong { color: #fff; font-weight: 700; }
+
+.emailBox {
+  margin-top: 60px;
+  padding: 40px;
+  border: 1px solid rgba(232,0,30,.25);
+  background: rgba(232,0,30,.04);
+  position: relative;
+}
+.emailBox::before {
+  content: '';
+  position: absolute; top: 0; left: 0;
+  width: 4px; height: 100%;
+  background: var(--red);
+}
+.emailLabel {
+  font-family: 'Oswald', sans-serif;
+  font-size: 11px; letter-spacing: 3px;
+  color: var(--red); text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.emailAddr {
+  font-family: 'Oswald', sans-serif;
+  font-size: clamp(20px, 3vw, 30px);
+  color: #fff; letter-spacing: 1px;
+  display: block; margin-bottom: 12px;
+  transition: color .2s;
+}
+.emailAddr:hover { color: var(--red); }
+.emailNote { font-size: 13px; color: rgba(255,255,255,.4); }
+
+@media (max-width: 768px) {
+  .hero { padding: 120px 20px 60px; }
+  .content { padding: 60px 20px 80px; }
+  .emailBox { padding: 28px 24px; }
+}

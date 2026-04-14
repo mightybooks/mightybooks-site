@@ -1,0 +1,99 @@
+.nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 1000;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 40px; height: 70px;
+  background: rgba(10,10,10,0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  transition: background .3s;
+}
+.scrolled { background: rgba(10,10,10,0.98); }
+
+.logo { display: flex; align-items: center; gap: 10px; }
+.logoIcon {
+  width: 34px; height: 34px;
+  background: var(--red);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+  clip-path: polygon(0 0, 85% 0, 100% 50%, 85% 100%, 0 100%);
+}
+.logoText {
+  font-family: 'Oswald', sans-serif;
+  font-size: 20px; letter-spacing: 2px;
+}
+.logoText em { color: var(--red); font-style: normal; }
+
+.links {
+  display: flex;
+  align-items: center;  /* ← 추가 */
+  gap: 36px;
+  list-style: none;
+}
+
+.social { display: flex; gap: 10px; }
+.social a {
+  width: 32px; height: 32px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; letter-spacing: 0;
+  color: rgba(255,255,255,0.5);
+  transition: all .2s;
+}
+.social a:hover { border-color: var(--red); color: var(--red); }
+
+@media (max-width: 768px) {
+  .nav { padding: 0 20px; }
+  .links { display: none; }
+}
+
+.link {
+  font-size: 13px; font-weight: 500; letter-spacing: 1px;
+  color: rgba(255,255,255,0.7);
+  transition: color .2s;
+  position: relative;
+}
+.link::after {
+  content: ''; position: absolute; bottom: -4px; left: 0;
+  width: 0; height: 2px; background: var(--red);
+  transition: width .3s;
+}
+.link:hover { color: #fff; }
+.link:hover::after { width: 100%; }
+
+.dropWrap {
+  position: relative;
+  display: flex;        /* ← 추가 */
+  align-items: center;  /* ← 추가 */
+  height: 70px;         /* ← nav 높이와 동일하게 */
+}
+.dropTrigger {
+  background: none; border: none;
+  font-size: 13px; font-weight: 500; letter-spacing: 1px;
+  color: rgba(255,255,255,0.7);
+  cursor: pointer; display: flex; align-items: center; gap: 6px;
+  transition: color .2s; padding: 0;
+  height: 100%;      
+}
+.dropTrigger:hover, .dropTriggerActive { color: #fff; }
+.caret { font-size: 8px; }
+
+.dropdown {
+  position: absolute; top: 70px; left: 50%;  /* top: calc(100% + 20px) → 70px */
+  transform: translateX(-50%);
+  background: rgba(10,10,10,0.97);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-top: 2px solid var(--red);
+  min-width: 140px;
+  z-index: 200;
+}
+.dropItem {
+  display: block; padding: 13px 20px;
+  font-size: 13px; color: rgba(255,255,255,0.65);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  transition: all .2s; white-space: nowrap;
+}
+.dropItem:last-child { border-bottom: none; }
+.dropItem:hover { color: #fff; background: rgba(232,0,30,0.1); padding-left: 26px; }

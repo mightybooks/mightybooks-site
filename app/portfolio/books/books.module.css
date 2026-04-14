@@ -1,0 +1,123 @@
+.wrap { min-height: 100vh; background: var(--black); }
+
+/* HERO */
+.hero { padding: 160px 80px 60px; }
+.tag {
+  font-family: 'Oswald', sans-serif; font-size: 11px;
+  letter-spacing: 5px; color: var(--red); text-transform: uppercase;
+  display: block; margin-bottom: 14px;
+}
+.title {
+  font-family: 'Bebas Neue', cursive;
+  font-size: clamp(48px, 7vw, 80px); letter-spacing: 3px; line-height: 1;
+}
+.title em { color: var(--red); font-style: normal; }
+.line { width: 48px; height: 3px; background: var(--red); margin-top: 20px; }
+.heroSub {
+  margin-top: 16px; font-size: 14px;
+  color: rgba(255,255,255,.4); letter-spacing: 2px;
+  font-family: 'Oswald', sans-serif;
+}
+
+/* GRID */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 2px;
+  padding: 0 0 120px;
+}
+
+/* CARD */
+.card { cursor: pointer; }
+.card:hover .cover img { transform: scale(1.05); }
+.card:hover .cover { border-bottom-color: var(--brand-color); }
+
+/* COVER */
+.cover {
+  position: relative;
+  aspect-ratio: 3/4;
+  overflow: hidden;
+  background: var(--black3);
+  border-bottom: 3px solid transparent;
+  transition: border-color .3s;
+}
+.cover img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform .5s;
+}
+
+/* PLACEHOLDER */
+.coverPlaceholder {
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 24px;
+  background: linear-gradient(
+    135deg,
+    var(--black2) 0%,
+    var(--black3) 100%
+  );
+  border: 1px solid rgba(255,255,255,.06);
+}
+.placeholderTitle {
+  font-size: clamp(13px, 1.5vw, 17px);
+  font-weight: 900; text-align: center;
+  line-height: 1.4; word-break: keep-all;
+  color: rgba(255,255,255,.8);
+}
+.placeholderStatus {
+  margin-top: 12px;
+  font-size: 11px; letter-spacing: 1px;
+  color: var(--brand-color);
+  font-family: 'Oswald', sans-serif;
+  text-align: center;
+}
+
+/* BRAND BADGE */
+.brandBadge {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 5px 10px;
+  font-size: 10px; letter-spacing: 1px;
+  font-weight: 700; text-align: center;
+  opacity: 0;
+  transition: opacity .3s;
+}
+.card:hover .brandBadge { opacity: 1; }
+
+/* INFO */
+.info { padding: 14px 16px 20px; }
+.bookTitle {
+  font-size: 14px; font-weight: 700;
+  line-height: 1.4; margin-bottom: 5px;
+  word-break: keep-all;
+}
+.bookSub {
+  font-size: 11px; color: rgba(255,255,255,.45);
+  line-height: 1.5; margin-bottom: 4px;
+  word-break: keep-all;
+}
+.bookAuthor {
+  font-size: 11px; color: var(--gray);
+  margin-bottom: 4px;
+}
+.bookStatus {
+  font-size: 11px; color: var(--red);
+  font-weight: 700; letter-spacing: .5px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1200px) {
+  .grid { grid-template-columns: repeat(4, 1fr); }
+}
+@media (max-width: 900px) {
+  .grid { grid-template-columns: repeat(3, 1fr); }
+  .hero { padding: 120px 20px 40px; }
+}
+@media (max-width: 600px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+.seoIntro {
+  margin: 30px 0 40px 60px;
+}

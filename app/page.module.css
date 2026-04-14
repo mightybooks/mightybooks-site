@@ -1,0 +1,155 @@
+/* SECTION COMMONS */
+.tag {
+  font-family: 'Oswald', sans-serif;
+  font-size: 11px; letter-spacing: 5px; color: var(--red);
+  text-transform: uppercase; display: block; margin-bottom: 12px;
+}
+.bigTitle {
+  font-family: 'Bebas Neue', cursive;
+  font-size: clamp(40px, 6vw, 70px);
+  letter-spacing: 3px; line-height: 1; text-align: center;
+}
+.bigTitle em { color: var(--red); font-style: normal; }
+.line { width: 48px; height: 3px; background: var(--red); margin: 18px auto 0; }
+.sectionHeader { text-align: center; margin-bottom: 60px; }
+.moreLink {
+  display: flex; align-items: center; gap: 8px;
+  color: var(--red); font-size: 13px; letter-spacing: 2px;
+  font-weight: 700; text-transform: uppercase;
+  border-bottom: 1px solid var(--red); padding-bottom: 4px;
+  transition: gap .3s;
+}
+.moreLink:hover { gap: 14px; }
+
+/* MOVIE */
+.movie { background: var(--black); padding: 100px 0; }
+.videoWrap { max-width: 960px; margin: 0 auto; padding: 0 40px; position: relative; }
+.videoDeco {
+  position: absolute; top: -30px; left: 20px;
+  font-family: 'Bebas Neue', cursive; font-size: 110px;
+  color: rgba(232,0,30,.05); pointer-events: none; letter-spacing: -4px;
+}
+.videoBox {
+  position: relative; padding-bottom: 56.25%;
+  border: 1px solid rgba(255,255,255,.07);
+  overflow: hidden;
+}
+.videoBox::before {
+  content: ''; position: absolute; inset: 0;
+  border: 2px solid var(--red); z-index: 1;
+  pointer-events: none; opacity: .35;
+}
+.videoBox iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+/* PORTFOLIO */
+.portfolio { background: var(--black2); padding: 100px 0; overflow: hidden; }
+.portfolioHeader {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  padding: 0 80px; margin-bottom: 50px;
+}
+.portfolioLeft { display: flex; align-items: flex-end; gap: 24px; }
+.portfolioBig {
+  font-family: 'Bebas Neue', cursive;
+  font-size: clamp(60px, 9vw, 110px); line-height: .9;
+  color: rgba(255,255,255,.04); letter-spacing: -2px;
+}
+.bookGrid {
+  display: grid; grid-template-columns: repeat(6, 260px);
+  gap: 20px; padding: 0 80px;
+  overflow-x: auto;
+}
+.bookCard { cursor: pointer; }
+.bookImg {
+  width: 100%; height: 340px; overflow: hidden;
+  background: var(--black3); position: relative;
+  border-bottom: 3px solid transparent; transition: border-color .3s;
+}
+.bookCard:hover .bookImg { border-color: var(--red); }
+.bookImg img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
+.bookCard:hover .bookImg img { transform: scale(1.05); }
+.bookNum {
+  position: absolute; top: 14px; left: 14px;
+  font-family: 'Oswald', sans-serif; font-size: 10px; letter-spacing: 2px;
+  color: rgba(255,255,255,.5); background: rgba(0,0,0,.6); padding: 3px 8px;
+}
+.bookInfo { padding: 16px 0 0; }
+.bookGenre { font-size: 10px; letter-spacing: 2px; color: var(--red); text-transform: uppercase; margin-bottom: 5px; }
+.bookTitle { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+.bookAuthor { font-size: 11px; color: var(--gray); }
+
+/* BUSINESS */
+.business { background: var(--black); padding: 100px 0; }
+.bizHeader {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  padding: 0 80px; margin-bottom: 40px;
+}
+.bizGrid { display: grid; grid-template-columns: repeat(4,1fr); gap: 2px; padding: 0 80px; }
+.bizCard {
+  position: relative; height: 320px; overflow: hidden; cursor: pointer;
+  background-size: cover; background-position: center;
+}
+.bizOverlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,.9) 0%, transparent 60%);
+  transition: background .4s;
+}
+.bizCard:hover .bizOverlay {
+  background: linear-gradient(to top, rgba(232,0,30,.4) 0%, rgba(0,0,0,.4) 100%);
+}
+.bizContent {
+  position: absolute; bottom: 0; left: 0; right: 0; padding: 26px;
+}
+.bizIcon { font-size: 26px; display: block; margin-bottom: 8px; }
+.bizName { font-size: 17px; font-weight: 700; }
+.bizDesc { font-size: 12px; color: rgba(255,255,255,.6); margin-top: 4px; }
+.bizArrow {
+  position: absolute; top: 20px; right: 20px;
+  width: 34px; height: 34px; border: 1px solid rgba(255,255,255,.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; opacity: 0; transition: opacity .3s, background .3s;
+}
+.bizCard:hover .bizArrow { opacity: 1; background: var(--red); border-color: var(--red); }
+
+/* CONTACT */
+.contact {
+  background: var(--black); padding: 100px 80px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start;
+}
+.contactBrand {
+  font-family: 'Oswald', sans-serif; font-size: 12px;
+  letter-spacing: 4px; color: var(--red); text-transform: uppercase;
+  display: block; margin-bottom: 14px;
+}
+.contactTitle {
+  font-family: 'Bebas Neue', cursive; font-size: 60px;
+  letter-spacing: 2px; line-height: 1; margin-bottom: 12px;
+}
+.contactEmail {
+  font-family: 'Oswald', sans-serif;
+  font-size: clamp(18px, 2.5vw, 28px); color: var(--red); letter-spacing: 1px;
+  word-break: break-all; margin-bottom: 8px;
+}
+.contactSub { font-size: 13px; color: var(--gray); }
+.contactRight { display: grid; grid-template-columns: auto 1fr; }
+.contactRow { display: contents; }
+.contactKey {
+  background: var(--black3); padding: 13px 18px;
+  font-size: 11px; font-weight: 700; letter-spacing: 1px;
+  border-bottom: 1px solid rgba(255,255,255,.05);
+  color: rgba(255,255,255,.5); white-space: nowrap;
+}
+.contactVal {
+  background: var(--black2); padding: 13px 20px;
+  font-size: 13px; border-bottom: 1px solid rgba(255,255,255,.05);
+}
+
+@media (max-width: 1024px) {
+  .bizGrid { grid-template-columns: repeat(2,1fr); padding: 0 20px; }
+  .contact { grid-template-columns: 1fr; padding: 80px 20px; }
+  .portfolioHeader, .bizHeader { padding: 0 20px; }
+  .bookGrid { padding: 0 20px; }
+}
+@media (max-width: 768px) {
+  .portfolioBig { display: none; }
+  .bookGrid { grid-template-columns: repeat(2,260px); }
+}
