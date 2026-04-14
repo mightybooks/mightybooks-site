@@ -12,7 +12,8 @@ const supabase = createClient(
 export default function PostEditor({ postId }) {
   const isNew = !postId
   const router = useRouter()
-  const fileRef = useRef(null)
+  const coverFileRef = useRef(null)
+  const contentFileRef = useRef(null)
   const [form, setForm] = useState({
     title: '', slug: '', excerpt: '', content: '',
     cover_image: '', published: false, category: 'business'
@@ -41,25 +42,41 @@ export default function PostEditor({ postId }) {
       .replace(/\s+/g, '-')
       .slice(0, 60)
 
-  const uploadImage = async (file) => {
-    if (!file) return
-    setUploading(true)
-    const ext = file.name.split('.').pop()
-    const filename = `${Date.now()}.${ext}`
-    const { data, error } = await supabase.storage
-      .from('blog-images')
-      .upload(filename, file, { upsert: true })
+  const uploadImage = async (file, type = 'content') => {
+      if (!file) return
+      setUploading(true)
 
-    if (error) { setMsg('이미지 업로드 실패: ' + error.message); setUploading(false); return }
+      const ext = file.name.split('.').pop()
+      const filename = `${Date.now()}.${ext}`
 
-    const { data: urlData } = supabase.storage
-      .from('blog-images')
-      .getPublicUrl(filename)
+      const { error } = await supabase.storage
+        .from('blog-images')
+        .upload(filename, file)
 
-    set('cover_image', urlData.publicUrl)
-    setPreview(urlData.publicUrl)
-    setUploading(false)
-  }
+      if (error) {
+        setMsg('이미지 업로드 실패: ' + error.message)
+        setUploading(false)
+        return
+      }
+
+      const { data: urlData } = supabase.storage
+        .from('blog-images')
+        .getPublicUrl(filename)
+
+      const url = urlData.publicUrl
+
+      if (type === 'cover') {
+        set('cover_image', url)
+        setPreview(url)
+      } else {
+        setForm(f => ({
+          ...f,
+          content: f.content + `\n\n![이미지](${url})\n\n`
+        }))
+      }
+
+      setUploading(false)
+    }
 
   const save = async (publish) => {
     setSaving(true); setMsg('')
@@ -129,13 +146,13 @@ export default function PostEditor({ postId }) {
             <input
               type="file"
               accept="image/*"
-              ref={fileRef}
+              ref={coverFileRef}
               style={{ display: 'none' }}
-              onChange={e => uploadImage(e.target.files[0])}
+              onChange={e => uploadImage(e.target.files[0], 'cover')}
             />
             <button
               className={styles.btnGhost}
-              onClick={() => fileRef.current.click()}
+              onClick={() => coverFileRef.current.click()}
               disabled={uploading}
               type="button"
             >
@@ -162,6 +179,21 @@ export default function PostEditor({ postId }) {
               placeholder={`# 제목\n\n본문을 마크다운으로 작성하세요.\n\n**굵게**, *기울임*, [링크](url)`}
               rows={24}
             />
+            <input
+              type="file"
+              accept="image/*"
+              ref={contentFileRef}
+              style={{ display: 'none' }}
+              onChange={e => uploadImage(e.target.files[0], 'content')}
+            />
+            <button
+              type="button"
+              className={styles.btnGhost}
+              onClick={() => contentFileRef.current.click()}
+              disabled={uploading}
+            >
+              {uploading ? '업로드 중...' : '📁 본문 이미지 추가'}
+            </button>
           </div>
 
           {msg && <div className={styles.msg}>{msg}</div>}
