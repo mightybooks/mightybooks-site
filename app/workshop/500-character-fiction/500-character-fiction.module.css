@@ -1,0 +1,187 @@
+.wrap { min-height: 100vh; background: var(--black); }
+
+.hero {
+  padding: 160px 80px 90px;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.tag {
+  font-family: 'Oswald', sans-serif;
+  font-size: 11px;
+  letter-spacing: 5px;
+  color: var(--red);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 14px;
+}
+.title {
+  font-family: 'Bebas Neue', cursive;
+  font-size: clamp(48px, 7vw, 82px);
+  letter-spacing: 3px;
+  line-height: 1;
+}
+.title em, .sectionTitle em { color: var(--red); font-style: normal; }
+.line { width: 48px; height: 3px; background: var(--red); margin-top: 18px; }
+.heroSub {
+  margin-top: 26px;
+  max-width: 760px;
+  font-size: clamp(18px, 2vw, 24px);
+  font-weight: 700;
+  color: rgba(255,255,255,.86);
+  line-height: 1.55;
+  word-break: keep-all;
+}
+.seoLine {
+  margin-top: 12px;
+  max-width: 860px;
+  font-size: 14px;
+  color: rgba(255,255,255,.55);
+  line-height: 1.8;
+  word-break: keep-all;
+}
+
+.intro {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 500px;
+}
+.introText {
+  padding: 80px;
+  background: var(--black2);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.introText p, .method p {
+  margin-top: 22px;
+  font-size: 15px;
+  line-height: 1.9;
+  color: rgba(255,255,255,.74);
+  word-break: keep-all;
+}
+.introImg { overflow: hidden; }
+.introImg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(.68);
+}
+.sectionTitle {
+  font-family: 'Bebas Neue', cursive;
+  font-size: clamp(36px, 5vw, 58px);
+  letter-spacing: 3px;
+  line-height: 1.05;
+  word-break: keep-all;
+}
+.sectionHeader { text-align: center; margin-bottom: 50px; }
+.sectionHeader .line { margin-left: auto; margin-right: auto; }
+
+.targetWrap, .curriculumWrap { padding: 100px 80px; }
+.targetWrap { background: var(--black); }
+.targetGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+}
+.targetCard {
+  min-height: 190px;
+  padding: 30px 24px;
+  background: var(--black3);
+  border-bottom: 3px solid transparent;
+}
+.targetCard:hover { border-color: var(--red); }
+.targetNum {
+  font-family: 'Oswald', sans-serif;
+  font-size: 30px;
+  color: var(--red);
+  margin-bottom: 18px;
+}
+.targetCard p {
+  font-size: 14px;
+  line-height: 1.75;
+  color: rgba(255,255,255,.72);
+  word-break: keep-all;
+}
+
+.curriculumWrap { background: var(--black2); }
+.curriculumList {
+  max-width: 960px;
+  margin: 0 auto;
+  border: 1px solid rgba(255,255,255,.07);
+}
+.curriculumItem {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 28px;
+  padding: 26px 30px;
+  border-bottom: 1px solid rgba(255,255,255,.07);
+  background: var(--black3);
+}
+.curriculumItem:last-child { border-bottom: none; }
+.curriculumStep {
+  font-family: 'Oswald', sans-serif;
+  font-size: 32px;
+  color: var(--red);
+}
+.curriculumItem h3 { font-size: 20px; margin-bottom: 8px; }
+.curriculumItem p {
+  font-size: 14px;
+  line-height: 1.75;
+  color: rgba(255,255,255,.66);
+  word-break: keep-all;
+}
+
+.method {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  background: var(--black);
+}
+.method > div {
+  padding: 80px;
+  background: var(--black2);
+}
+
+.cta { padding: 100px 80px; background: var(--black); }
+.ctaInner {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+  border: 1px solid rgba(232,0,30,.25);
+  background: rgba(232,0,30,.04);
+  padding: 56px 30px;
+}
+.ctaTitle {
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 900;
+  word-break: keep-all;
+}
+.ctaBtns {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+.ctaBtn, .ctaBtnGhost {
+  display: inline-flex;
+  padding: 13px 28px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+.ctaBtn { background: var(--red); color: #fff; }
+.ctaBtnGhost { border: 1px solid rgba(255,255,255,.22); color: rgba(255,255,255,.85); }
+
+@media (max-width: 1024px) {
+  .intro, .method { grid-template-columns: 1fr; }
+  .introImg { height: 320px; }
+  .targetGrid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .hero, .introText, .targetWrap, .curriculumWrap, .method > div, .cta { padding: 100px 20px 60px; }
+  .targetGrid { grid-template-columns: 1fr; }
+  .curriculumItem { grid-template-columns: 1fr; gap: 8px; padding: 24px 20px; }
+  .ctaInner { padding: 40px 20px; }
+  .ctaBtn, .ctaBtnGhost { width: 100%; justify-content: center; }
+}

@@ -237,6 +237,8 @@
   .heroContent { padding: 0 24px; }
   .strengthSection, .handmadeSection, .plansSection, .cta { padding: 80px 20px; }
   .strengthGrid, .plansGrid { grid-template-columns: 1fr; }
+  .planBtn, .ctaBtn, .ctaBtnGhost { width: 100%; justify-content: center; }
+  .handmadeQuote { padding: 22px 20px; }
 }
 
 .seoLine {

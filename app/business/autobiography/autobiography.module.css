@@ -251,7 +251,13 @@
 @media (max-width: 768px) {
   .heroContent { padding: 0 24px; }
   .oneclick, .targetSection, .processSection, .photoSection, .cta { padding: 80px 20px; }
-  .targetGrid { grid-template-columns: 1fr 1fr; }
+  .targetGrid { grid-template-columns: 1fr; }
+  .processSteps { flex-direction: column; gap: 28px; }
+  .processStep { width: 100%; padding: 0; }
+  .processArrow { display: none; }
+  .oneclickFeature { align-items: flex-start; }
+  .photoIconWrap img { width: 100%; max-width: 100%; height: auto; }
+  .ctaBtn, .ctaBtnGhost { width: 100%; justify-content: center; }
 }
 
 .seoLine {

@@ -239,6 +239,11 @@
   .heroContent { padding: 0 24px; }
   .featuresSection, .platformSection, .royaltySection, .cta { padding: 80px 20px; }
   .royaltyCard { padding: 40px 24px; }
+  .royaltyFlow { flex-direction: column; gap: 12px; }
+  .royaltyArrow { padding-bottom: 0; transform: rotate(90deg); }
+  .platformItem { align-items: flex-start; }
+  .platformBar { display: none; }
+  .ctaBtn, .ctaBtnGhost { width: 100%; justify-content: center; }
 }
 
 .seoLine {

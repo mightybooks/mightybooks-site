@@ -47,13 +47,41 @@ export default function Footer() {
 
       {/* 추가 정보 */}
       <div style={{
-        fontSize: '12px',
-        color: 'rgba(255,255,255,0.25)',
-        lineHeight: '1.6'
+        display: 'flex',
+        gap: '48px',
+        flexWrap: 'wrap',
+        alignItems: 'flex-start'
       }}>
-        사업자등록번호: 558-28-01574<br />
-        통신판매신고번호: 2023-대구동구-0140<br />
-        연락처: 010-5148-9433
+        <div style={{
+          fontSize: '12px',
+          color: 'rgba(255,255,255,0.42)',
+          lineHeight: '1.6'
+        }}>
+          사업자등록번호: 558-28-01574<br />
+          통신판매신고번호: 2023-대구동구-0140<br />
+          연락처: 010-5148-9433
+        </div>
+
+        <div style={{
+          fontSize: '12px',
+          color: 'rgba(255,255,255,0.58)',
+          lineHeight: '1.9'
+        }}>
+          <div style={{
+            fontFamily: 'Oswald, sans-serif',
+            fontSize: '11px',
+            letterSpacing: '3px',
+            color: 'rgba(232,0,30,0.65)',
+            marginBottom: '8px',
+            textTransform: 'uppercase'
+          }}>
+            마이티북스
+          </div>
+          <a href="/about/greeting" style={{ display: 'block' }}>출판사 소개</a>
+          <a href="/about/brand" style={{ display: 'block' }}>브랜드 소개</a>
+          <a href="/about/location" style={{ display: 'block' }}>오시는 길</a>
+          <a href="/support/guide" style={{ display: 'block' }}>출판가이드</a>
+        </div>
       </div>
 
     </footer>

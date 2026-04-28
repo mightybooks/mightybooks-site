@@ -157,6 +157,7 @@
 /* RESPONSIVE */
 @media (max-width: 768px) {
   .hero { padding: 120px 20px 60px; }
+  .title { letter-spacing: 1px; }
   .item {
     grid-template-columns: 1fr;
     direction: ltr;
@@ -164,7 +165,8 @@
   .itemRight { direction: ltr; }
   .textBlock { padding: 48px 24px; }
   .symbolBlock { min-height: 200px; }
-  .itemNum { font-size: 60px; }
+  .itemNum { font-size: 56px; right: 24px; }
+  .symbolDeco { width: 150px; height: 150px; }
   .textBlock::before { left: 0 !important; right: auto !important; }
 }
 

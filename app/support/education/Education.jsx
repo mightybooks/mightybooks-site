@@ -1,76 +1,85 @@
 import styles from './education.module.css'
 
 export const metadata = {
-  title: '글쓰기 강의 | 출판까지 연결되는 교육',
-  description: '출판을 목표로 하는 글쓰기 교육. 1:1 맞춤 커리큘럼과 실제 출간까지 연결되는 과정',
+  title: '출판 관련 심화 교육 | 마이티북스',
+  description:
+    '마이티북스 출판 관련 실전 교육 안내. 글쓰기 심화교육, 저작권 교육, 1인 출판 툴 사용, 랜딩페이지와 결제툴 연동, AI 시대 퍼스널 브랜딩, 500자 글쓰기 워크숍을 안내합니다.',
 }
 
+const EDUCATION_APPLY_URL = 'https://open.kakao.com/me/mightybooks'
+
 const steps = [
-  { num: '01', icon: '📞', label: '상담하기' },
-  { num: '02', icon: '📝', label: '계약서 작성' },
-  { num: '03', icon: '💳', label: '신청 및 결제' },
-  { num: '04', icon: '📚', label: '수업 준비' },
+  { num: '01', icon: '🧭', label: '과정 선택' },
+  { num: '02', icon: '📝', label: '목적 확인' },
+  { num: '03', icon: '💳', label: '신청·결제' },
+  { num: '04', icon: '📚', label: '자료 준비' },
   { num: '05', icon: '🖥️', label: '수업 진행' },
-  { num: '06', icon: '📖', label: '투고 및 출간' },
+  { num: '06', icon: '📌', label: '실전 적용' },
 ]
 
 const stepDetails = [
   {
-    label: '전화상담 or ZOOM 미팅',
-    desc: '마이티북스의 모든 교육은 1:1 또는 소규모 그룹으로 이루어집니다. 이에 따라 예비 저자에게 필요한 현실 점검 후 수업을 진행하니, 반드시 결제 전 전화 또는 ZOOM 미팅 신청을 해 주세요.'
+    label: '과정 선택',
+    desc: '글쓰기, 저작권, 1인 출판, 랜딩페이지, 퍼스널 브랜딩, 500자 글쓰기 중 현재 필요한 교육 과정을 선택합니다.',
   },
   {
-    label: '계약서 작성',
-    desc: '모든 관계는 신뢰에서 시작한다고 믿습니다. 따라서 수업 기간과 커리큘럼 확인, 강사들의 콘텐츠 보안을 위해 수업 전 마이티북스와 수강생 간 계약서를 작성합니다.'
+    label: '목적 확인',
+    desc: '수강 목적이 창작 역량 강화인지, 출판 준비인지, 판매 구조 설계인지, 퍼스널 브랜딩인지 먼저 확인합니다.',
   },
   {
-    label: '신청 및 결제',
-    desc: '상담과 계약서 작성 완료 후에는 수업에 동의한다는 의미로 받아들이고, 결제 방식을 안내해 드립니다. 현금 결제 시 필요에 따라 현금영수증, 계산서, 지출 증빙 중 1종을 발급해 드리며, 카드 결제는 간편 결제 시스템으로 불편함을 최소화해 드립니다.'
+    label: '신청·결제',
+    desc: '과정별 상세 안내를 확인한 뒤 신청합니다. 결제 방식과 일정은 과정별 안내에 따라 진행됩니다.',
   },
   {
-    label: '수업 준비',
-    desc: '책 출간 또는 글쓰기 습관을 제대로 잡아보겠다는 의지만 준비해 주시면 됩니다. 경우에 따라 사전 과제가 주어질 수도 있습니다.'
+    label: '자료 준비',
+    desc: '필요한 경우 현재 원고, 소개문, 랜딩페이지 초안, 사용 중인 툴, 판매 페이지, 콘텐츠 자료 등을 준비합니다.',
   },
   {
     label: '수업 진행',
-    desc: '서로 합의한 시간에 커리큘럼에 따라 수업합니다. 매시간 과제가 주어지며, 제출한 과제를 바탕으로 피드백하는 방식을 원칙으로 두므로, 과제를 착실히 하는 만큼 성장하는 수업입니다.'
+    desc: '과정별 커리큘럼에 따라 실습 중심으로 진행합니다. 단순 이론보다 실제 작업에 적용할 수 있는 방식으로 안내합니다.',
   },
   {
-    label: '투고 및 출간',
-    desc: '초반에 계약한 내용에 따라 마이티북스에서의 출간 및 타 출판사 투고를 도와드립니다. 희망자에 한해 할인된 금액으로 재수강도 가능합니다.'
+    label: '실전 적용',
+    desc: '수업 결과물을 바탕으로 원고, 콘텐츠, 저작권 관리, 판매 페이지, 퍼스널 브랜드 운영에 적용할 수 있는 다음 단계를 정리합니다.',
   },
 ]
 
 const courses = [
   {
-    title: 'AI저작권 침해 대응',
-    desc: 'AI학습에 따른 저작권 침해를 미연에 방지하고자 개인 창작자의 콘텐츠 보안 강화 방법에 대해 알려드립니다.',
-    img: '/image/home/edu002.avif',
-  },
-  {
-    title: '개인 POD출간 클레스',
-    desc: '개인 창작자들이 직접 POD로 출간할 수 있도록 세부적인 방법을 안내해 드립니다.',
-    img: '/image/home/edu003.avif',
-  },
-  {
-    title: '독립출판사 창업 클레스',
-    desc: '1인출판사, 독립출판사 창업 과정을 세부적으로 도와드립니다. 사업경험 없는 초보들이 놓치기 쉬운 세금 문제 안내 등.',
-    img: '/image/home/edu004.avif',
-  },
-  {
-    title: '원데이 특강',
-    desc: '10명 내외 예비 작가 그룹을 대상으로 특강 요청이 가능합니다.',
-    img: '/image/home/edu005.avif',
-  },
-  {
-    title: '글쓰기 기초 이론',
-    desc: '글쓰기의 부담감을 없애고 싶은 예비 작가를 대상으로 진행하는 1:1 또는 소그룹 수업입니다.',
-    img: '/image/home/edu006.jpg',
-  },
-  {
-    title: '글쓰기 실전 특강',
-    desc: '글쓰기에 대한 부담감은 없지만 한 편의 글을 제대로 완성하고 싶은 예비 작가를 대상으로 하는 1:1 또는 소그룹 수업입니다.',
+    title: '장르 불문 글쓰기 심화교육',
+    desc: '소설, 에세이, 자서전, 칼럼, 콘텐츠 글쓰기에 공통으로 필요한 문장, 구조, 서사, 독자 설계를 다루는 8주 과정입니다.',
     img: '/image/home/edu007.avif',
+    href: EDUCATION_APPLY_URL,
+  },
+  {
+    title: '저작권 강화 교육',
+    desc: '창작자와 1인 출판사가 반드시 알아야 할 저작권, 인용, 이미지·폰트 사용, AI 활용, 계약 주의사항을 다루는 원데이 클래스입니다.',
+    img: '/image/home/edu003.avif',
+    href: EDUCATION_APPLY_URL,
+  },
+  {
+    title: '1인출판을 위한 툴 사용 교육',
+    desc: '원고 정리, 편집, 표지·이미지 관리, 전자책 제작, 판매 준비에 필요한 실무 도구를 익히는 4주 과정입니다.',
+    img: '/image/home/edu004.avif',
+    href: EDUCATION_APPLY_URL,
+  },
+  {
+    title: '랜딩페이지 작성과 결제툴 연동',
+    desc: '상품 설명, CTA 문구, 신청 동선, 결제 링크 연결까지 판매 가능한 페이지 구조를 점검하는 원데이 클래스입니다.',
+    img: '/image/home/edu005.avif',
+    href: EDUCATION_APPLY_URL,
+  },
+  {
+    title: 'AI 시대의 퍼스널 브랜딩',
+    desc: 'AI가 문장을 대량 생성하는 시대에 자기 경험, 전문성, 콘텐츠 방향을 브랜드 문장으로 정리하는 원데이 클래스입니다.',
+    img: '/image/home/edu006.jpg',
+    href: EDUCATION_APPLY_URL,
+  },
+  {
+    title: '500자 글쓰기 워크숍',
+    desc: 'AI 시대의 텍스트 숏폼을 훈련하는 8주 과정입니다. 500자 소설에서 시작해 자기서사, 원고 소개문, 카드뉴스, CTA 문장으로 확장합니다.',
+    img: '/image/home/edu002.avif',
+    href: '/workshop/500-character-fiction',
   },
 ]
 
@@ -80,28 +89,43 @@ export default function EducationPage() {
 
       {/* HERO */}
       <div className={styles.hero}>
-        <span className={styles.tag}>Online Education</span>
-        <h1 className={styles.title}>출판까지 연결되는 <em>글쓰기 교육</em></h1>
+        <span className={styles.tag}>Practical Publishing Education</span>
+        <h1 className={styles.title}>출판 관련 <em>실전 교육</em></h1>
         <div className={styles.line} />
-        <p className={styles.heroSub}>저자의, 저자에 의한, 저자를 위한 강의</p>
+        <p className={styles.heroSub}>
+          쓰고, 만들고, 알리고, 판매하기 위한 새 시대의 출판 실무 교육
+        </p>
         <p className={styles.seoLine}>
-          출판을 목표로 하는 글쓰기 교육과 1:1 맞춤 커리큘럼을 제공하는 마이티북스 온라인 강의입니다.
+          마이티북스는 글쓰기와 출판, 저작권, 1인 출판 도구, 랜딩페이지, 퍼스널 브랜딩,
+          500자 글쓰기까지 실제 작업에 필요한 교육을 안내합니다.
         </p>
       </div>
 
-      {/* 1:1 소개 */}
+      {/* 소개 */}
       <div className={styles.intro}>
         <div className={styles.introText}>
-          <h2 className={styles.introTitle}>1:1 맞춤형 커리큘럼</h2>
-          <p>마이티북스 대부분의 강의는<br/>1:1 맞춤형 커리큘럼입니다.<br/>그만큼 출간까지 들이는<br/>에너지 소모가 많기 때문입니다.</p>
-          <br/>
-          <p>전문가의 집중 케어에 따라<br/><strong>'저자'의 꿈을 달성하세요.</strong></p>
-          <a href="https://open.kakao.com/me/mightybooks" target="_blank" rel="noopener noreferrer" className={styles.introBtn}>
-            출판 상담 및 수강 문의 →
+          <h2 className={styles.introTitle}>이제 글만 잘 쓰는 것으로는 부족합니다</h2>
+          <p>
+            AI 시대의 창작자와 1인 출판자는 글을 쓰는 능력뿐 아니라
+            자신의 콘텐츠를 정리하고, 보호하고, 알리고, 판매하는 능력까지 함께 갖춰야 합니다.
+          </p>
+          <br />
+          <p>
+            마이티북스의 출판 관련 실전 교육은 이론 설명에 머물지 않습니다.
+            원고와 콘텐츠를 실제로 다루고, 저작권과 도구 사용을 점검하며,
+            랜딩페이지와 결제 동선, 퍼스널 브랜딩까지 출판 이후의 활용을 함께 고려합니다.
+          </p>
+          <br />
+          <p>
+            교육은 과정별로 8주 과정, 4주 과정, 원데이 클래스로 나뉘며
+            목적에 따라 필요한 과정을 선택할 수 있습니다.
+          </p>
+          <a href="#courses" className={styles.introBtn}>
+            교육 과정 확인하기 →
           </a>
         </div>
         <div className={styles.introImg}>
-          <img src="/image/home/edu001.avif" alt="1:1 맞춤형 커리큘럼" />
+          <img src="/image/home/edu001.avif" alt="출판 관련 실전 교육" />
         </div>
       </div>
 
@@ -109,11 +133,10 @@ export default function EducationPage() {
       <div className={styles.processWrap}>
         <div className={styles.sectionHeader}>
           <span className={styles.tag}>Process</span>
-          <h2 className={styles.sectionTitle}>수업 진행 <em>과정</em></h2>
+          <h2 className={styles.sectionTitle}>교육 진행 <em>과정</em></h2>
           <div className={styles.line} />
         </div>
 
-        {/* 스텝 아이콘 */}
         <div className={styles.steps}>
           {steps.map((s, i) => (
             <div key={i} className={styles.step}>
@@ -125,7 +148,6 @@ export default function EducationPage() {
           ))}
         </div>
 
-        {/* 스텝 상세 */}
         <div className={styles.stepDetails}>
           {stepDetails.map((s, i) => (
             <div key={i} className={styles.stepDetail}>
@@ -137,10 +159,10 @@ export default function EducationPage() {
       </div>
 
       {/* 강좌 목록 */}
-      <div className={styles.coursesWrap}>
+      <div className={styles.coursesWrap} id="courses">
         <div className={styles.sectionHeader}>
           <span className={styles.tag}>Courses</span>
-          <h2 className={styles.sectionTitle}>강좌 <em>목록</em></h2>
+          <h2 className={styles.sectionTitle}>실전 교육 <em>과정</em></h2>
           <div className={styles.line} />
         </div>
         <div className={styles.courseGrid}>
@@ -153,12 +175,39 @@ export default function EducationPage() {
               <div className={styles.courseBody}>
                 <h3 className={styles.courseTitle}>{c.title}</h3>
                 <p className={styles.courseDesc}>{c.desc}</p>
-                <a href="https://open.kakao.com/me/mightybooks" target="_blank" rel="noopener noreferrer" className={styles.courseBtn}>
-                  수강 문의 →
+                <a
+                  href={c.href}
+                  target={c.href.startsWith('http') ? '_blank' : '_self'}
+                  rel="noopener noreferrer"
+                  className={styles.courseBtn}
+                >
+                  교육 문의하기 →
                 </a>
               </div>
             </div>
           ))}
+        </div>
+      </div>
+
+      {/* CTA */}
+      <div className={styles.intro}>
+        <div className={styles.introText}>
+          <h2 className={styles.introTitle}>필요한 교육을 골라 실전으로 연결하세요</h2>
+          <p>
+            출판 관련 실전 교육은 단순한 교양 강의가 아니라
+            실제 원고, 콘텐츠, 판매 구조, 브랜드 운영에 연결되는 교육입니다.
+          </p>
+          <br />
+          <p>
+            수강 목적과 현재 준비 상태에 따라 적합한 과정을 선택해 주세요.
+            세부 일정과 신청 방식은 과정별 안내에 따라 개별 확인됩니다.
+          </p>
+          <a href={EDUCATION_APPLY_URL} className={styles.introBtn}>
+            교육 문의하기 →
+          </a>
+        </div>
+        <div className={styles.introImg}>
+          <img src="/image/home/edu006.jpg" alt="마이티북스 실전 교육 문의" />
         </div>
       </div>
 

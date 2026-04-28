@@ -75,8 +75,12 @@
 @media (max-width: 768px) {
   .hero { padding: 120px 20px 40px; }
   .mapWrap { height: 320px; }
-  .infoGrid { grid-template-columns: 1fr 1fr; }
+  .map { width: 100%; max-width: 100%; }
+  .infoGrid { grid-template-columns: 1fr; }
+  .infoCard { padding: 28px 20px; border-right: none; border-bottom: 1px solid rgba(255,255,255,.06); }
+  .transportItem { gap: 16px; }
   .transport { padding: 40px 20px 80px; }
+  .seoSection { margin: 40px 20px 20px; }
 }
 
 .seoSection {

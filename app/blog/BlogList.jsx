@@ -1,13 +1,7 @@
 'use client'
-import { useEffect, useState } from 'react'
-import { createClient } from '@supabase/supabase-js'
+import { useMemo, useState } from 'react'
 import Link from 'next/link'
 import styles from './blog.module.css'
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-)
 
 const CATEGORIES = [
   { key: 'all', label: '전체' },
@@ -15,28 +9,17 @@ const CATEGORIES = [
   { key: 'books', label: '출간 도서' },
 ]
 
-export default function BlogPage({ initialPosts }) {
-  const [posts, setPosts] = useState(initialPosts)
+const tagHref = (tag) => `/blog?tag=${encodeURIComponent(tag)}`
+
+export default function BlogPage({ initialPosts, initialQ = '', initialTag = '' }) {
   const [cat, setCat] = useState('all')
-  const [loading, setLoading] = useState(false)
 
-  useEffect(() => {
-    const fetch = async () => {
-      setLoading(true)
-      let query = supabase
-        .from('posts')
-        .select('id, title, slug, excerpt, cover_image, created_at, category')
-        .eq('published', true)
-        .order('created_at', { ascending: false })
+  const posts = useMemo(() => {
+    if (cat === 'all') return initialPosts
+    return initialPosts.filter(post => post.category === cat)
+  }, [cat, initialPosts])
 
-      if (cat !== 'all') query = query.eq('category', cat)
-
-      const { data } = await query
-      setPosts(data ?? [])
-      setLoading(false)
-    }
-    fetch()
-  }, [cat])
+  const isFiltered = Boolean(initialQ || initialTag)
 
   return (
     <div className={styles.wrap}>
@@ -46,7 +29,27 @@ export default function BlogPage({ initialPosts }) {
         <div className={styles.line} />
       </div>
 
-      {/* 카테고리 탭 */}
+      <form className={styles.searchForm} action="/blog">
+        <input
+          className={styles.searchInput}
+          type="search"
+          name="q"
+          defaultValue={initialQ}
+          placeholder="검색어를 입력하세요"
+        />
+        {initialTag && <input type="hidden" name="tag" value={initialTag} />}
+        <button className={styles.searchButton} type="submit">검색</button>
+        {isFiltered && (
+          <Link href="/blog" className={styles.resetLink}>전체보기</Link>
+        )}
+      </form>
+
+      {initialTag && (
+        <div className={styles.activeFilter}>
+          <span>#{initialTag}</span>
+        </div>
+      )}
+
       <div className={styles.tabs}>
         {CATEGORIES.map(c => (
           <button
@@ -60,32 +63,56 @@ export default function BlogPage({ initialPosts }) {
       </div>
 
       <div className={styles.grid}>
-        {loading && <p className={styles.empty}>불러오는 중...</p>}
-        {!loading && posts.length === 0 && (
-          <p className={styles.empty}>게시된 글이 없습니다.</p>
+        {posts.length === 0 && (
+          <p className={styles.empty}>
+            {isFiltered ? '검색 결과가 없습니다' : '게시된 글이 없습니다.'}
+          </p>
         )}
-        {!loading && posts.map(post => (
-          <Link key={post.id} href={`/blog/${post.slug}`} className={styles.card}>
-            {post.cover_image && (
-              <div className={styles.thumb}>
-                <img src={post.cover_image} alt={post.title} />
+
+        {posts.map(post => {
+          const tags = Array.isArray(post.tags) ? post.tags : []
+
+          return (
+            <article key={post.id} className={styles.card}>
+              {post.cover_image && (
+                <Link href={`/blog/${post.slug}`} className={styles.thumb}>
+                  <img src={post.cover_image} alt={post.title} />
+                </Link>
+              )}
+              <div className={styles.cardBody}>
+                <div className={styles.cardMeta}>
+                  <span className={styles.catBadge}>
+                    {CATEGORIES.find(c => c.key === post.category)?.label ?? post.category}
+                  </span>
+                  <span className={styles.date}>
+                    {new Date(post.created_at).toLocaleDateString('ko-KR')}
+                  </span>
+                </div>
+
+                {tags.length > 0 && (
+                  <div className={styles.cardTags}>
+                    {tags.map(tag => (
+                      <Link
+                        key={tag}
+                        href={tagHref(tag)}
+                        className={styles.cardTag}
+                        onClick={event => event.stopPropagation()}
+                      >
+                        #{tag}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+
+                <h2 className={styles.cardTitle}>
+                  <Link href={`/blog/${post.slug}`}>{post.title}</Link>
+                </h2>
+                {post.excerpt && <p className={styles.excerpt}>{post.excerpt}</p>}
+                <Link href={`/blog/${post.slug}`} className={styles.readMore}>읽기</Link>
               </div>
-            )}
-            <div className={styles.cardBody}>
-              <div className={styles.cardMeta}>
-                <span className={styles.catBadge}>
-                  {CATEGORIES.find(c => c.key === post.category)?.label ?? post.category}
-                </span>
-                <span className={styles.date}>
-                  {new Date(post.created_at).toLocaleDateString('ko-KR')}
-                </span>
-              </div>
-              <h2 className={styles.cardTitle}>{post.title}</h2>
-              {post.excerpt && <p className={styles.excerpt}>{post.excerpt}</p>}
-              <span className={styles.readMore}>읽기 →</span>
-            </div>
-          </Link>
-        ))}
+            </article>
+          )
+        })}
       </div>
     </div>
   )

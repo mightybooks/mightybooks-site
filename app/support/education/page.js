@@ -1,8 +1,8 @@
 import EducationPage from './Education'
 
 export const metadata = {
-  title: '글쓰기 강의 | 출판까지 연결되는 교육',
-  description: '출판을 목표로 하는 글쓰기 교육. 1:1 맞춤 커리큘럼과 실제 출간까지 연결되는 과정',
+  title: '온라인 교육 | 마이티북스 워크숍 안내',
+  description: '500자 글쓰기 창작 워크숍과 글쓰기 온라인 교육을 함께 안내하는 마이티북스 교육 페이지',
 }
 
 export default function Page() {

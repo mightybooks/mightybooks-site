@@ -9,14 +9,53 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 )
 
+const KST_OFFSET_MINUTES = 9 * 60
+
+const pad = (value) => String(value).padStart(2, '0')
+
+const scheduledAtToInput = (value) => {
+  if (!value) return ''
+
+  const date = new Date(value)
+  if (Number.isNaN(date.getTime())) return ''
+
+  const kst = new Date(date.getTime() + KST_OFFSET_MINUTES * 60 * 1000)
+
+  return [
+    kst.getUTCFullYear(),
+    pad(kst.getUTCMonth() + 1),
+    pad(kst.getUTCDate())
+  ].join('-') + `T${pad(kst.getUTCHours())}:${pad(kst.getUTCMinutes())}`
+}
+
+const inputToScheduledAt = (value) => {
+  const normalized = String(value ?? '').trim().replace(' ', 'T')
+  if (!normalized) return null
+
+  const match = normalized.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})$/)
+  if (!match) return null
+
+  const [, year, month, day, hour, minute] = match.map(Number)
+  const utcTime = Date.UTC(year, month - 1, day, hour, minute) - KST_OFFSET_MINUTES * 60 * 1000
+
+  return new Date(utcTime).toISOString()
+}
+
 export default function PostEditor({ postId }) {
   const isNew = !postId
   const router = useRouter()
   const coverFileRef = useRef(null)
   const contentFileRef = useRef(null)
   const [form, setForm] = useState({
-    title: '', slug: '', excerpt: '', content: '',
-    cover_image: '', published: false, category: 'business'
+    title: '',
+    slug: '',
+    excerpt: '',
+    content: '',
+    cover_image: '',
+    published: false,
+    category: 'business',
+    tags: '',
+    scheduled_at: ''
   })
   const [saving, setSaving] = useState(false)
   const [uploading, setUploading] = useState(false)
@@ -27,14 +66,33 @@ export default function PostEditor({ postId }) {
     supabase.auth.getSession().then(({ data }) => {
       if (!data.session) router.push('/admin')
     })
+
     if (!isNew) {
       supabase.from('posts').select('*').eq('id', postId).single().then(({ data }) => {
-        if (data) { setForm(data); setPreview(data.cover_image ?? '') }
+        if (data) {
+          setForm({
+            ...data,
+            tags: Array.isArray(data.tags) ? data.tags.join(', ') : '',
+            scheduled_at: scheduledAtToInput(data.scheduled_at)
+          })
+          setPreview(data.cover_image ?? '')
+        }
       })
     }
   }, [postId])
 
   const set = (k, v) => setForm(f => ({ ...f, [k]: v }))
+
+  const cleanTags = (value) => {
+    const source = Array.isArray(value) ? value.join(',') : value ?? ''
+
+    return [...new Set(
+      source
+        .split(',')
+        .map(tag => tag.trim())
+        .filter(Boolean)
+    )]
+  }
 
   const autoSlug = (title) =>
     title.toLowerCase()
@@ -43,51 +101,64 @@ export default function PostEditor({ postId }) {
       .slice(0, 60)
 
   const uploadImage = async (file, type = 'content') => {
-      if (!file) return
-      setUploading(true)
+    if (!file) return
+    setUploading(true)
 
-      const ext = file.name.split('.').pop()
-      const filename = `${Date.now()}.${ext}`
+    const ext = file.name.split('.').pop()
+    const filename = `${Date.now()}.${ext}`
 
-      const { error } = await supabase.storage
-        .from('blog-images')
-        .upload(filename, file)
+    const { error } = await supabase.storage
+      .from('blog-images')
+      .upload(filename, file)
 
-      if (error) {
-        setMsg('이미지 업로드 실패: ' + error.message)
-        setUploading(false)
-        return
-      }
-
-      const { data: urlData } = supabase.storage
-        .from('blog-images')
-        .getPublicUrl(filename)
-
-      const url = urlData.publicUrl
-
-      if (type === 'cover') {
-        set('cover_image', url)
-        setPreview(url)
-      } else {
-        setForm(f => ({
-          ...f,
-          content: f.content + `\n\n![이미지](${url})\n\n`
-        }))
-      }
-
+    if (error) {
+      setMsg('이미지 업로드 실패: ' + error.message)
       setUploading(false)
+      return
     }
 
+    const { data: urlData } = supabase.storage
+      .from('blog-images')
+      .getPublicUrl(filename)
+
+    const url = urlData.publicUrl
+
+    if (type === 'cover') {
+      set('cover_image', url)
+      setPreview(url)
+    } else {
+      setForm(f => ({
+        ...f,
+        content: f.content + `\n\n![이미지](${url})\n\n`
+      }))
+    }
+
+    setUploading(false)
+  }
+
   const save = async (publish) => {
-    setSaving(true); setMsg('')
-    const payload = { ...form, published: publish ?? form.published }
+    setSaving(true)
+    setMsg('')
+
+    const payload = {
+      ...form,
+      tags: cleanTags(form.tags),
+      scheduled_at: inputToScheduledAt(form.scheduled_at),
+      published: publish ?? form.published
+    }
+
     let error
     if (isNew) {
       ({ error } = await supabase.from('posts').insert(payload))
     } else {
       ({ error } = await supabase.from('posts').update(payload).eq('id', postId))
     }
-    if (error) { setMsg('저장 실패: ' + error.message); setSaving(false); return }
+
+    if (error) {
+      setMsg('저장 실패: ' + error.message)
+      setSaving(false)
+      return
+    }
 
     await fetch(`/api/revalidate?secret=${process.env.NEXT_PUBLIC_REVALIDATE_SECRET}&path=/blog`)
 
@@ -141,6 +212,23 @@ export default function PostEditor({ postId }) {
             placeholder="한두 줄 요약"
           />
 
+          <label className={styles.label}>태그</label>
+          <input
+            className={styles.input}
+            value={form.tags}
+            onChange={e => set('tags', e.target.value)}
+            placeholder="자비출판, 출판상담, 대구출판사"
+          />
+
+          <label className={styles.label}>예약 발행 일시</label>
+          <input
+            className={styles.input}
+            type="datetime-local"
+            value={form.scheduled_at}
+            onChange={e => set('scheduled_at', e.target.value)}
+          />
+          <p className={styles.helpText}>한국 시간 기준으로 입력하세요. 비워두면 즉시 공개 기준으로 저장됩니다.</p>
+
           <label className={styles.label}>커버 이미지</label>
           <div className={styles.imageUpload}>
             <input
@@ -156,7 +244,7 @@ export default function PostEditor({ postId }) {
               disabled={uploading}
               type="button"
             >
-              {uploading ? '업로드 중...' : '📁 이미지 선택'}
+              {uploading ? '업로드 중...' : '대표 이미지 선택'}
             </button>
             {preview && (
               <div className={styles.imagePreview}>
@@ -165,7 +253,9 @@ export default function PostEditor({ postId }) {
                   className={styles.imageRemove}
                   onClick={() => { set('cover_image', ''); setPreview('') }}
                   type="button"
-                >✕</button>
+                >
+                  ×
+                </button>
               </div>
             )}
           </div>
@@ -192,7 +282,7 @@ export default function PostEditor({ postId }) {
               onClick={() => contentFileRef.current.click()}
               disabled={uploading}
             >
-              {uploading ? '업로드 중...' : '📁 본문 이미지 추가'}
+              {uploading ? '업로드 중...' : '본문 이미지 추가'}
             </button>
           </div>
 

@@ -70,7 +70,7 @@ export default function PoetryPage() {
       </section>
 
       {/* 3 SERVICES */}
-      <section className={styles.servicesSection} ref={ref(0)}>
+      <section className={styles.servicesSection} ref={ref(0)} id="textbook">
         <div className={styles.servicesGrid}>
           {services.map((s, i) => (
             <div
@@ -91,7 +91,7 @@ export default function PoetryPage() {
       </section>
 
       {/* 소장용 시집 */}
-      <section className={styles.collectSection} ref={ref(4)}>
+      <section className={styles.collectSection} ref={ref(4)} id="poetry">
         <div className={styles.collectInner}>
           <div className={styles.collectLeft}>
             <span className={styles.tag}>Collection Book</span>

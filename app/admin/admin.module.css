@@ -88,6 +88,7 @@
 /* FORM */
 .form { max-width: 800px; }
 .label { display: block; font-size: 11px; letter-spacing: 2px; color: var(--gray); text-transform: uppercase; margin-bottom: 6px; margin-top: 20px; }
+.helpText { margin: -4px 0 12px; color: rgba(255,255,255,.48); font-size: 12px; line-height: 1.5; }
 .textarea {
   width: 100%; padding: 14px 16px;
   background: var(--black3); border: 1px solid rgba(255,255,255,.1);

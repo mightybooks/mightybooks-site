@@ -5,32 +5,36 @@ import styles from './HeroSlider.module.css'
 const slides = [
   {
     bg: '/image/home/slide004.avif',
-    label: 'Open Publishing / 자서전·문집',
-    title: '당신의 인생도\n한 권의 책이\n될 수 있습니다',
-    sub: '전문 편집팀과 함께\n당신만의 이야기를 완성합니다.',
-    btn: '자세히 보기', btnHref: '/business/autobiography',
-  },
-  {
-    bg: '/image/home/slide002.jpg',
-    label: 'Author Interview / 저자 인터뷰',
-    title: '저자와 함께하는\n1,172시간의\n특별한 대화',
-    sub: '국내 최다 저자 인터뷰 기록.\n진솔한 이야기를 담습니다.',
-    btn: '더 알아보기', btnHref: '/business/self-publishing',
-  },
-  {
-    bg: '/image/home/slide001.avif',
-    label: 'Mighty Books / 종합 출판 브랜드',
-    title: '단행본에서부터\n전문 서적\n전자책과 소량 제작까지',
-    sub: '당신의 이야기가 세상을 바꿉니다.\n마이티북스와 함께 여정을 시작하세요.',
-    btn: '소량 맞춤 제작', btnHref: '/business/poetry'
+    label: 'Paid Manuscript Review / 유료 원고 검토',
+    title: '선택받을 원고인지\n먼저\n점검합니다',
+    sub: '당신의 원고가 10,000 : 1의 경쟁을 뚫고\n기획 출간될 가능성이 있는지 검토합니다.',
+    btn: '유료 원고 검토 보기',
+    btnHref: '/support/diagnosis',
   },
   {
     bg: '/image/home/slide003.avif',
-    label: 'Portfolio / 출판 포트폴리오',
-    title: '마이티북스\n출간 도서 목록',
-    sub: '세분화 된 다양한 브랜드\n전체 출간 도서목록을 통해 확인해 보세요',
-    btn: '포트폴리오', btnHref: '/portfolio/books'
-  },  
+    label: '500 Writing Workshop / 500자 글쓰기',
+    title: 'AI 시대,\n500자로 먼저\n설득합니다',
+    sub: '자기 경험과 원고, 브랜드를\n감각적으로 빠르게 읽히는 텍스트 숏폼으로 정리합니다.',
+    btn: '워크숍 보기',
+    btnHref: '/workshop/500-character-fiction'
+  },
+  {
+    bg: '/image/home/slide001.avif',
+    label: 'Purpose-based Book Production / 목적형 도서 제작',
+    title: '목적이 분명한 책은\n무료상담으로\n시작합니다',
+    sub: '자서전, 개인 에세이, 시집, 문집, 교재처럼\n제작 목적이 뚜렷한 도서를 상담합니다.',
+    btn: '목적형 도서 상담',
+    btnHref: '/business/autobiography'
+  },
+  {
+    bg: '/image/home/slide002.jpg',
+    label: 'Portfolio / 출간 사례',
+    title: '마이티북스가\n만들어온 책들을\n확인합니다',
+    sub: '출간 도서와 제작 사례를 통해\n책의 방향과 완성 방식을 살펴볼 수 있습니다.',
+    btn: '출간 사례 보기',
+    btnHref: '/portfolio/books'
+  },
 ]
 
 export default function HeroSlider() {

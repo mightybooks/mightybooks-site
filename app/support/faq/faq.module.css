@@ -27,7 +27,7 @@
 
 /* CTA */
 .cta {
-  padding: 10 0 20 20px; background: var(--black2);
+  padding: 10px 0 20px 20px; background: var(--black2);
   border-top: 1px solid rgba(255,255,255,.05); text-align: left;
 }
 .ctaInner { max-width: 700px; margin: 0 auto; }
@@ -47,6 +47,11 @@
   border: 1px solid rgba(255,255,255,.2); transition: all .3s;
 }
 .ctaBtnGhost:hover { border-color: #fff; color: #fff; }
+
+@media (max-width: 768px) {
+  .cta { padding: 24px 20px; }
+  .ctaBtn, .ctaBtnGhost { width: 100%; justify-content: center; }
+}
 
 .bottomNav {
   margin-top: 48px;

@@ -95,6 +95,12 @@
 
 /* 사진 */
 .portraitWrap { position: relative; }
+.portraitImg {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
 .portraitPlaceholder {
   width: 100%; aspect-ratio: 3/4;
   background: var(--black3);
@@ -197,7 +203,10 @@
 }
 @media (max-width: 768px) {
   .heroContent { padding: 0 24px; }
+  .heroTitle { letter-spacing: 0; }
   .statement { padding: 80px 24px; }
+  .portraitWrap { max-width: 100%; }
+  .portraitDeco { right: 0; bottom: -10px; }
   .dark { padding: 80px 24px; }
   .closingContent { padding: 60px 24px; }
 }

@@ -255,9 +255,12 @@
 @media (max-width: 768px) {
   .heroContent { padding: 0 24px; }
   .pointSection, .brandingSection, .successSection, .cta { padding: 80px 20px; }
+  .pointCardStat { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .brandingItem { align-items: flex-start; }
   .successBook { white-space: normal; }
   .successItem { grid-template-columns: 1fr; }
   .successBook { border-right: none; border-bottom: 1px solid rgba(255,255,255,.06); }
+  .ctaBtn, .ctaBtnGhost { width: 100%; justify-content: center; }
 }
 
 .seoLine {

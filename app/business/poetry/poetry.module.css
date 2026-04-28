@@ -83,6 +83,7 @@
 
 /* SERVICES */
 .servicesSection { padding: 100px 80px; background: var(--black); }
+.servicesSection, .collectSection { scroll-margin-top: 90px; }
 .servicesGrid {
   display: grid; grid-template-columns: repeat(3, 1fr);
   gap: 2px; max-width: 1200px; margin: 0 auto;
@@ -229,9 +230,11 @@
 @media (max-width: 768px) {
   .heroContent { padding: 0 24px; }
   .servicesSection, .collectSection, .quoteSection, .cta { padding: 80px 20px; }
+  .targetGrid { grid-template-columns: 1fr; }
   .quoteStats { flex-direction: column; }
   .quoteStatDivider { width: 60px; height: 1px; }
   .quoteStat { padding: 20px 32px; }
+  .ctaBtn, .ctaBtnGhost { width: 100%; justify-content: center; }
 }
 
 .seoLine {

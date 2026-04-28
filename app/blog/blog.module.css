@@ -15,6 +15,33 @@
   display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 32px;
 }
+.searchForm {
+  display: flex; align-items: stretch; gap: 10px;
+  max-width: 720px; margin: -28px auto 28px;
+}
+.searchInput {
+  flex: 1; min-width: 0;
+  background: var(--black2); border: 1px solid rgba(255,255,255,.1);
+  color: #fff; font-size: 14px; padding: 13px 16px; outline: none;
+}
+.searchInput:focus { border-color: var(--red); }
+.searchButton {
+  background: var(--red); color: #fff; border: none;
+  padding: 0 22px; font-size: 13px; font-weight: 700;
+  letter-spacing: 1px; cursor: pointer;
+}
+.resetLink {
+  display: flex; align-items: center; justify-content: center;
+  padding: 0 16px; border: 1px solid rgba(255,255,255,.16);
+  color: rgba(255,255,255,.72); font-size: 13px;
+}
+.activeFilter {
+  display: flex; justify-content: center; margin: 0 0 24px;
+}
+.activeFilter span {
+  color: var(--red); border: 1px solid rgba(232,0,30,.3);
+  padding: 6px 12px; font-size: 13px; font-weight: 700;
+}
 .empty { color: var(--gray); text-align: center; grid-column: 1/-1; padding: 60px 0; }
 .card {
   background: var(--black2); display: block;
@@ -22,12 +49,13 @@
   transition: border-color .3s, transform .3s;
 }
 .card:hover { border-color: var(--red); transform: translateY(-4px); }
-.thumb { height: 200px; overflow: hidden; }
+.thumb { height: 200px; overflow: hidden; display: block; }
 .thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
 .card:hover .thumb img { transform: scale(1.05); }
 .cardBody { padding: 24px; }
 .date { font-size: 11px; color: var(--gray); letter-spacing: 1px; margin-bottom: 10px; }
 .cardTitle { font-size: 18px; font-weight: 700; line-height: 1.4; margin-bottom: 10px; word-break: keep-all; }
+.cardTitle a { color: inherit; }
 .excerpt { font-size: 13px; color: rgba(255,255,255,.6); line-height: 1.6; margin-bottom: 16px; }
 .readMore { font-size: 12px; color: var(--red); font-weight: 700; letter-spacing: 1px; }
 
@@ -57,4 +85,19 @@
   color: var(--red); font-weight: 700;
   border: 1px solid rgba(232,0,30,.3); padding: 2px 8px;
 }
+.cardTags {
+  display: flex; flex-wrap: wrap; gap: 6px; margin: -2px 0 12px;
+}
+.cardTag {
+  color: rgba(255,255,255,.68); background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.08);
+  padding: 3px 8px; font-size: 11px; line-height: 1.4;
+}
+.cardTag:hover { color: #fff; border-color: rgba(232,0,30,.45); }
 .date { font-size: 11px; color: var(--gray); letter-spacing: 1px; }
+
+@media (max-width: 768px) {
+  .searchForm { flex-wrap: wrap; margin-top: -34px; }
+  .searchInput { flex-basis: 100%; }
+  .searchButton, .resetLink { height: 42px; }
+}

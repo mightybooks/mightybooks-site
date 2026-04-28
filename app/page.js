@@ -14,10 +14,34 @@ const books = [
 ]
 
 const bizItems = [
-  { icon: '📚', name: '기획출판', desc: '전문 편집팀이 기획부터 완성까지', img: '/image/home/main001.avif', href: '/business/planning' },
-  { icon: '✍️', name: '자비출판', desc: '원하는 시기에, 원하는 책이 출간', img: '/image/home/main003.jpg', href: '/business/self-publishing' },
-  { icon: '🗣️', name: '자서전', desc: '당신의 인생 이야기를 한 권으로', img: '/image/home/main002.avif', href: '/business/autobiography' },
-  { icon: '🎓', name: '온라인 교육', desc: '글쓰기 전문 온라인 강좌', img: '/image/home/main004.avif', href: '/support/education' },
+  {
+    icon: '🔎',
+    name: '원고·출판 진단 유료상담',
+    desc: '원고 상태와 출간 목적을 바탕으로 필요한 다음 단계를 점검합니다',
+    img: '/image/home/main001.avif',
+    href: '/support/diagnosis'
+  },
+  {
+    icon: '✍️',
+    name: '500자 글쓰기 워크숍',
+    desc: '자기 경험과 원고, 브랜드를 500자로 압축해 설득하는 글쓰기 훈련입니다',
+    img: '/image/home/main004.avif',
+    href: '/workshop/500-character-fiction'
+  },
+  {
+    icon: '📘',
+    name: '목적형 도서 제작',
+    desc: '자서전, 회고록, 기념 도서, 문집처럼 목적이 분명한 책을 제작합니다',
+    img: '/image/home/main002.avif',
+    href: '/business/autobiography'
+  },
+  {
+    icon: '📚',
+    name: '출간 사례와 포트폴리오',
+    desc: '마이티북스가 만들어온 책과 제작 사례를 확인할 수 있습니다',
+    img: '/image/home/main003.jpg',
+    href: '/portfolio/books'
+  },
 ]
 
 export default function Home() {
@@ -76,14 +100,14 @@ export default function Home() {
         </div>
       </section>
 
-      {/* BUSINESS */}
+      {/* CONVERSION */}
       <section className={styles.business} id="business">
         <div className={styles.bizHeader}>
           <div>
-            <span className={styles.tag}>Business Area</span>
-            <h2 className={styles.bigTitle} style={{textAlign:'left'}}>마이티북스 <em>사업분야</em></h2>
+            <span className={styles.tag}>Publishing Path</span>
+            <h2 className={styles.bigTitle} style={{textAlign:'left'}}>마이티북스 <em>출판 서비스</em></h2>
           </div>
-          <a href="/business/self-publishing" className={styles.moreLink}>MORE →</a>
+          <a href="/support/diagnosis" className={styles.moreLink}>원고 진단 유료상담 →</a>
         </div>
         <div className={styles.bizGrid}>
           {bizItems.map((b, i) => (
@@ -106,23 +130,27 @@ export default function Home() {
           <span className={styles.contactBrand}>Mighty Books</span>
           <h2 className={styles.contactTitle}>Contact<br/>US</h2>
           <div className={styles.contactEmail}>novelstudylab@naver.com</div>
-          <p className={styles.contactSub}>투고 및 모든 문의는 이메일과 오픈톡으로 부탁드립니다</p>
+          <p className={styles.contactSub}>원고 검토와 출판 방향 상담은 유료상담 신청 후 순차적으로 안내합니다</p>
         </div>
         <div className={styles.contactRight}>
           {[
-            ['전화예약', '010-5148-9433'],
-            ['팩스번호', '0504-173-9433'],
+            [
+              '검토 및 유료상담',
+              <a key="diagnosis-contact" href="/support/diagnosis">
+                상담 페이지 보기 →
+              </a>
+            ],
             ['상담시간', '월~금 09-17시 / 주말, 국·공휴일 휴무'],
             [
-              '카카오 오픈톡',
-              <a href="https://open.kakao.com/me/mightybooks" target="_blank" rel="noopener noreferrer">
-                지금 문의하기 →
+              '이메일',
+              <a key="email-contact" href="mailto:novelstudylab@naver.com">
+                원클릭 메일 발송 →
               </a>
             ],
             [
-              '이메일',
-              <a href="mailto:novelstudylab@naver.com">
-                원클릭 메일 발송 →
+              '카카오 오픈톡',
+              <a key="kakao-contact" href="https://open.kakao.com/me/mightybooks" target="_blank" rel="noopener noreferrer">
+                지금 문의하기 →
               </a>
             ],
           ].map(([k, v]) => (

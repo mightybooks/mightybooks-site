@@ -9,18 +9,28 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 );
 
+function isPublicPost(post: { published?: boolean; scheduled_at?: string | null }) {
+  if (!post.published) return false;
+  if (!post.scheduled_at) return true;
+
+  const scheduledAt = new Date(post.scheduled_at).getTime();
+  return Number.isFinite(scheduledAt) && scheduledAt <= Date.now();
+}
+
 export async function GET() {
   const baseUrl = 'https://마이티북스.com';
 
   const { data: posts, error } = await supabase
     .from('posts')
-    .select('slug');
+    .select('slug, published, scheduled_at')
+    .eq('published', true);
 
   if (error) {
     return new NextResponse('Failed to generate sitemap', { status: 500 });
   }
 
   const urls = (posts || [])
+    .filter(isPublicPost)
     .map((post) => `
   <url>
     <loc>${baseUrl}/blog/${post.slug}</loc>

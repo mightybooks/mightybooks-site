@@ -1,4 +1,5 @@
 import { createClient } from '@supabase/supabase-js'
+import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
@@ -14,6 +15,14 @@ function getSupabase() {
   )
 }
 
+function isPublicPost(post) {
+  if (!post?.published) return false
+  if (!post.scheduled_at) return true
+
+  const scheduledAt = new Date(post.scheduled_at).getTime()
+  return Number.isFinite(scheduledAt) && scheduledAt <= Date.now()
+}
+
 async function getPost(slug) {
   const supabase = getSupabase()
 
@@ -23,6 +32,8 @@ async function getPost(slug) {
     .eq('slug', slug)
     .eq('published', true)
     .maybeSingle()
+
+  if (!isPublicPost(post)) return null
 
   return post
 }
@@ -57,6 +68,7 @@ export default async function PostPage({ params }) {
   const post = await getPost(slug)
 
   if (!post) notFound()
+  const tags = Array.isArray(post.tags) ? post.tags : []
 
   return (
     <article className={styles.wrap}>
@@ -89,6 +101,20 @@ export default async function PostPage({ params }) {
 
         {post.excerpt && <p className={styles.excerpt}>{post.excerpt}</p>}
 
+        {tags.length > 0 && (
+          <div className={styles.tags}>
+            {tags.map(tag => (
+              <Link
+                key={tag}
+                href={`/blog?tag=${encodeURIComponent(tag)}`}
+                className={styles.tag}
+              >
+                #{tag}
+              </Link>
+            ))}
+          </div>
+        )}
+
         <div className={styles.divider} />
 
         <div className={styles.content}>
@@ -98,14 +124,14 @@ export default async function PostPage({ params }) {
         </div>
 
         <div className={styles.bottomNav}>
-          <a href="/blog" className={styles.backLink}>
+          <Link href="/blog" className={styles.backLink}>
             ← 블로그 목록으로 돌아가기
-          </a>
+          </Link>
         </div>
         <div className={styles.bottomNav}>
-          <a href="/support/guide" className={styles.backLink}>
+          <Link href="/support/guide" className={styles.backLink}>
             ← 출판 가이드 보기
-          </a>
+          </Link>
         </div>
 
       </div>

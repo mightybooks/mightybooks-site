@@ -155,7 +155,12 @@
 @media (max-width: 768px) {
   .hero, .processWrap, .coursesWrap { padding: 100px 20px 60px; }
   .introText { padding: 40px 20px; }
+  .introImg img, .courseImg img { width: 100%; max-width: 100%; height: auto; }
   .courseGrid { grid-template-columns: 1fr; }
+  .steps { flex-direction: column; align-items: stretch; gap: 22px; }
+  .step { width: 100%; min-width: 0; }
+  .stepArrow { display: none; }
   .stepDetail { grid-template-columns: 1fr; }
   .stepDetailLabel { padding: 14px 20px; }
+  .introBtn { width: 100%; justify-content: center; }
 }
