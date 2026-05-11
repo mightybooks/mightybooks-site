@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://마이티북스.com/sitemap.xml
+Sitemap: https://xn--hz2b41ezwf0zf9tq.com/sitemap.xml
