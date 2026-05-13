@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import styles from './autobiography.module.css'
 
 const targets = [
@@ -19,6 +19,7 @@ const processSteps = [
 
 export default function AutobiographyPage() {
   const revealRefs = useRef([])
+  const [isPhoneOpen, setIsPhoneOpen] = useState(false)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -191,16 +192,53 @@ export default function AutobiographyPage() {
           </h2>
           <div style={{display:'flex', gap:'16px', flexWrap:'wrap', justifyContent:'center'}}>
             <a href="mailto:novelstudylab@naver.com" className={styles.ctaBtn}>이메일 문의 →</a>
-            <a href="https://open.kakao.com/me/mightybooks"
+                        <a href="https://open.kakao.com/me/mightybooks"
               target="_blank"
               rel="noopener noreferrer"
               className={styles.ctaBtnGhost}
             >
               카카오 상담 →
             </a>
+            <button
+              type="button"
+              className={styles.ctaBtnGhost}
+              onClick={() => setIsPhoneOpen(true)}
+            >
+              전화 상담 →
+            </button>
           </div>
         </div>
       </section>
+
+      {isPhoneOpen && (
+        <div
+          className={styles.phonePopupOverlay}
+          role="presentation"
+          onClick={() => setIsPhoneOpen(false)}
+        >
+          <div
+            className={styles.phonePopup}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="phone-popup-title"
+            onClick={e => e.stopPropagation()}
+          >
+            <button
+              type="button"
+              className={styles.phonePopupClose}
+              aria-label="전화 상담 연락처 닫기"
+              onClick={() => setIsPhoneOpen(false)}
+            >
+              ×
+            </button>
+            <div id="phone-popup-title" className={styles.phonePopupTitle}>전화 상담</div>
+            <a href="tel:010-5148-9433" className={styles.phonePopupNumber}>
+              010-5148-9433
+            </a>
+            <p className={styles.phonePopupDesc}>월~금 09-17시 / 주말, 국·공휴일 휴무</p>
+          </div>
+        </div>
+      )}
 
     </div>
   )

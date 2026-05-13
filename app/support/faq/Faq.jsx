@@ -135,6 +135,7 @@ const faqJsonLd = {
 
 export default function FaqPage() {
   const [open, setOpen] = useState(null)
+  const [isPhoneOpen, setIsPhoneOpen] = useState(false)
 
   return (
     <div className={styles.wrap}>
@@ -199,9 +200,47 @@ export default function FaqPage() {
             >
               카카오톡으로 문의하기 →
             </a>
+
+            <button
+              type="button"
+              className={styles.ctaBtnGhost}
+              onClick={() => setIsPhoneOpen(true)}
+            >
+              전화로 문의하기 →
+            </button>
           </div>
         </div>
       </section>
+
+      {isPhoneOpen && (
+        <div
+          className={styles.phonePopupOverlay}
+          role="presentation"
+          onClick={() => setIsPhoneOpen(false)}
+        >
+          <div
+            className={styles.phonePopup}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="phone-popup-title"
+            onClick={e => e.stopPropagation()}
+          >
+            <button
+              type="button"
+              className={styles.phonePopupClose}
+              aria-label="전화 문의 연락처 닫기"
+              onClick={() => setIsPhoneOpen(false)}
+            >
+              ×
+            </button>
+            <div id="phone-popup-title" className={styles.phonePopupTitle}>전화 문의</div>
+            <a href="tel:010-5148-9433" className={styles.phonePopupNumber}>
+              010-5148-9433
+            </a>
+            <p className={styles.phonePopupDesc}>월~금 09-17시 / 주말, 국·공휴일 휴무</p>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

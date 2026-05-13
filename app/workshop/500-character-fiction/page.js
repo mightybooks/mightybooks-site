@@ -7,6 +7,8 @@ export const metadata = {
 }
 
 const WORKSHOP_STORE_URL = 'https://smartstore.naver.com/shop15th/products/13500003861'
+const KAKAO_URL = 'https://open.kakao.com/me/mightybooks'
+const PHONE_NUMBER = '010-5148-9433'
 
 const targets = [
   '긴 원고를 쓰기 전, 내 이야기를 짧고 설득력 있게 정리해보고 싶은 분',
@@ -192,12 +194,10 @@ export default function WorkshopPage() {
           <span className={styles.tag}>Payment Process</span>
           <h2 className={styles.sectionTitle}>신청 및 결제 방법</h2>
           <p>
-            500자 글쓰기 워크숍은 스마트스토어 상품 페이지에서 신청하실 수 있습니다.
-            상세페이지에서 일정, 진행 방식, 참여 조건을 확인한 뒤 연락처를 정확히 기입하고 결제해 주세요.
+            500자 글쓰기 워크숍은 사전 상담 확인을 끝내신 후, 스마트스토어 상품 페이지에서 신청하실 수 있습니다.            
           </p>
           <p>
-            결제 확인 후 마이티북스에서 순차적으로 연락드립니다.
-            이후 참여 안내, 준비 사항, 진행 일정을 개별 안내합니다.
+            결제 확인 후 마이티북스에서 순차적으로 안내 연락을 드립니다.            
           </p>
         </div>
         <div className={styles.introImg}>
@@ -211,15 +211,26 @@ export default function WorkshopPage() {
             긴 원고를 쓰기 전, 500자로 먼저 설득하세요
           </h2>
           <p className={styles.heroSub}>
-            스마트스토어 상세페이지에서 워크숍 내용을 확인하고 결제하시면,
+            사전 상담을 완료하신 분들은 스마트스토어에서 결제하시면,
             결제 확인 후 마이티북스에서 참여 안내를 드립니다.
           </p>
           <div className={styles.ctaBtns}>
+            <a href={`tel:${PHONE_NUMBER}`} className={styles.ctaBtn}>
+              전화로 확인 상담하기 →
+            </a>
+            <a
+              href={KAKAO_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.ctaBtnGhost}
+            >
+              카카오톡으로 확인 상담하기 →
+            </a>
             <a
               href={WORKSHOP_STORE_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className={styles.ctaBtn}
+              className={styles.ctaBtnGhost}
             >
               스마트스토어에서 워크숍 결제 →
             </a>

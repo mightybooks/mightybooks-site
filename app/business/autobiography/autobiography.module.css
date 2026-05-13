@@ -232,8 +232,56 @@
   color: rgba(255,255,255,.7);
   font-size: 14px; font-weight: 700; letter-spacing: 2px;
   border: 1px solid rgba(255,255,255,.2); transition: all .3s;
+  cursor: pointer;
 }
 .ctaBtnGhost:hover { border-color: #fff; color: #fff; }
+.phonePopupOverlay {
+  position: fixed; inset: 0; z-index: 1000;
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px;
+  background: rgba(0,0,0,.72);
+}
+.phonePopup {
+  position: relative;
+  width: min(100%, 360px);
+  padding: 34px 28px 30px;
+  background: var(--black2);
+  border: 1px solid rgba(255,255,255,.14);
+  border-top: 3px solid var(--red);
+  text-align: center;
+  box-shadow: 0 24px 80px rgba(0,0,0,.45);
+}
+.phonePopupClose {
+  position: absolute; top: 10px; right: 12px;
+  width: 34px; height: 34px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: transparent;
+  border: 0;
+  color: rgba(255,255,255,.65);
+  font-size: 28px; line-height: 1;
+  cursor: pointer;
+}
+.phonePopupClose:hover { color: #fff; }
+.phonePopupTitle {
+  font-size: 14px; font-weight: 800; letter-spacing: 3px;
+  color: var(--red);
+  margin-bottom: 14px;
+}
+.phonePopupNumber {
+  display: inline-flex;
+  color: #fff;
+  font-family: 'Bebas Neue', cursive;
+  font-size: 40px;
+  letter-spacing: 2px;
+  line-height: 1;
+}
+.phonePopupDesc {
+  margin-top: 16px;
+  color: rgba(255,255,255,.55);
+  font-size: 13px;
+  line-height: 1.6;
+  word-break: keep-all;
+}
 
 /* ANIMATIONS */
 @keyframes slideUp {
@@ -258,6 +306,7 @@
   .oneclickFeature { align-items: flex-start; }
   .photoIconWrap img { width: 100%; max-width: 100%; height: auto; }
   .ctaBtn, .ctaBtnGhost { width: 100%; justify-content: center; }
+  .phonePopupNumber { font-size: 34px; }
 }
 
 .seoLine {
