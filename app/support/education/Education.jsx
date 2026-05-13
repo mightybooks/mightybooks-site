@@ -7,6 +7,7 @@ export const metadata = {
 }
 
 const EDUCATION_APPLY_URL = 'https://open.kakao.com/me/mightybooks'
+const EDUCATION_PHONE_NUMBER = '010-5148-9433'
 
 const steps = [
   { num: '01', icon: '🧭', label: '과정 선택' },
@@ -202,9 +203,19 @@ export default function EducationPage() {
             수강 목적과 현재 준비 상태에 따라 적합한 과정을 선택해 주세요.
             세부 일정과 신청 방식은 과정별 안내에 따라 개별 확인됩니다.
           </p>
-          <a href={EDUCATION_APPLY_URL} className={styles.introBtn}>
-            교육 문의하기 →
-          </a>
+          <div className={styles.introBtns}>
+            <a href={`tel:${EDUCATION_PHONE_NUMBER}`} className={styles.introBtn}>
+              전화로 교육문의하기 →
+            </a>
+            <a
+              href={EDUCATION_APPLY_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.introBtnGhost}
+            >
+              카톡으로 교육문의하기 →
+            </a>
+          </div>
         </div>
         <div className={styles.introImg}>
           <img src="/image/home/edu006.jpg" alt="마이티북스 실전 교육 문의" />

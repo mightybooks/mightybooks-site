@@ -145,7 +145,6 @@ export default function Home() {
               '연락처',
               <a>010-5148-9433</a>
                           ],
-            ['상담시간', '월~금 09-17시 / 주말, 국·공휴일 휴무'],
             [
               '이메일',
               <a key="email-contact" href="mailto:novelstudylab@naver.com">

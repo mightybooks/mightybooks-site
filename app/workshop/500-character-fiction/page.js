@@ -1,4 +1,5 @@
 import styles from './500-character-fiction.module.css'
+import PhoneConsultButton from './PhoneConsultButton'
 
 export const metadata = {
   title: '500자 글쓰기 워크숍 | 마이티북스',
@@ -8,7 +9,6 @@ export const metadata = {
 
 const WORKSHOP_STORE_URL = 'https://smartstore.naver.com/shop15th/products/13500003861'
 const KAKAO_URL = 'https://open.kakao.com/me/mightybooks'
-const PHONE_NUMBER = '010-5148-9433'
 
 const targets = [
   '긴 원고를 쓰기 전, 내 이야기를 짧고 설득력 있게 정리해보고 싶은 분',
@@ -215,9 +215,7 @@ export default function WorkshopPage() {
             결제 확인 후 마이티북스에서 참여 안내를 드립니다.
           </p>
           <div className={styles.ctaBtns}>
-            <a href={`tel:${PHONE_NUMBER}`} className={styles.ctaBtn}>
-              전화로 확인 상담하기 →
-            </a>
+            <PhoneConsultButton />
             <a
               href={KAKAO_URL}
               target="_blank"
