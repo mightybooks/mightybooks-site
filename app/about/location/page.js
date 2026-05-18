@@ -4,6 +4,9 @@ export const metadata = {
   title: '마이티북스 오시는 길 | 대구 동구 출판사 방문 상담 안내',
   description:
     '대구 동구에 위치한 마이티북스 오시는 길 안내. 출판 상담과 교육 상담은 사전 문의 및 예약 후 방문 가능합니다.',
+  alternates: {
+    canonical: '/about/location',
+  },
 }
 
 const KAKAO_URL = 'https://open.kakao.com/me/mightybooks'

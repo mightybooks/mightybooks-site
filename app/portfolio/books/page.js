@@ -3,6 +3,9 @@ import styles from './books.module.css'
 export const metadata = {
   title: '기획 출간 도서 및 자비출판 사례 | 마이티북스 출판 포트폴리오',
   description: '마이티북스의 기획출판 및 자비출판 도서 목록. 실제 출간 사례를 통해 책 제작 과정과 결과를 확인할 수 있습니다.',
+  alternates: {
+    canonical: '/portfolio/books',
+  },
 }
 
 const books = [  

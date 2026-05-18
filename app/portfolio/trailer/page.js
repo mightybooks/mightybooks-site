@@ -3,6 +3,9 @@ import styles from './trailer.module.css'
 export const metadata = {
   title: '북트레일러 영상 | 마이티북스 출간 도서 소개',
   description: '마이티북스 출간 도서의 북트레일러 영상 모음 페이지',
+  alternates: {
+    canonical: '/portfolio/trailer',
+  },
 }
 
 const trailers = [

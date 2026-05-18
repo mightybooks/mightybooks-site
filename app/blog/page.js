@@ -8,6 +8,9 @@ export const metadata = {
   title: '출판 블로그 | 책 출간 · 원고 준비 실무 정보 | 마이티북스',
   description:
     '책 출간 방법, 원고 준비, 출판 상담, 제작 과정, ISBN과 유통 등 실제 출간을 준비하는 분들을 위한 출판 실무 정보를 제공합니다.',
+  alternates: {
+    canonical: '/blog',
+  },
 }
 
 const firstValue = (value) => Array.isArray(value) ? value[0] : value ?? ''

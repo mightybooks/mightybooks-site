@@ -4,6 +4,9 @@ export const metadata = {
   title: '출판 가이드 | 책 출간 전 확인해야 할 기준 | 마이티북스',
   description:
     '책 출간을 처음 고민하는 분을 위한 출판 가이드. 출판 상담 전 확인해야 할 원고 상태, 출간 목적, 제작 방식, 비용, 유통 기준을 정리했습니다.',
+  alternates: {
+    canonical: '/support/guide',
+  },
 }
 
 const guideJsonLd = {

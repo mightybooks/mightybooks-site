@@ -7,11 +7,14 @@ export const metadata = {
   metadataBase: new URL('https://xn--hz2b41ezwf0zf9tq.com'),
   title: '마이티북스 | Mighty Books',
   description: '작가와 독자를 잇는 출판 브랜드 마이티북스',
+  alternates: {
+    canonical: 'https://xn--hz2b41ezwf0zf9tq.com',
+  },
 
   openGraph: {
     title: '마이티북스 | Mighty Books',
     description: '당신의 인생도 한 권의 책이 될 수 있습니다',
-    url: 'https://xn--hz2b41ezwf0zf9tq.com/',
+    url: 'https://xn--hz2b41ezwf0zf9tq.com',
     siteName: '마이티북스',
     images: [
       {

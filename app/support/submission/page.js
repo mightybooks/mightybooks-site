@@ -4,6 +4,9 @@ export const metadata = {
   title: '원고 접수 안내 | 마이티북스',
   description:
     '마이티북스 원고 접수 안내. 사전 협의 없는 원고 투고는 검토하지 않으며, 기획 출간 가능성 검토는 유료 원고 검토를 통해 진행합니다.',
+  alternates: {
+    canonical: '/support/submission',
+  },
 }
 
 export default function SubmissionPage() {

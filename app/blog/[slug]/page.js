@@ -54,9 +54,13 @@ export async function generateMetadata({ params }) {
     description:
       post.excerpt ||
       '마이티북스 블로그 글입니다.',
+    alternates: {
+      canonical: `/blog/${encodeURIComponent(slug)}`,
+    },
     openGraph: {
       title: post.title,
       description: post.excerpt || '마이티북스 블로그 글입니다.',
+      url: `/blog/${encodeURIComponent(slug)}`,
       images: post.cover_image ? [post.cover_image] : [],
       type: 'article',
     },

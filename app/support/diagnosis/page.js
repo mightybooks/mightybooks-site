@@ -4,6 +4,9 @@ export const metadata = {
   title: '검토 및 유료상담 | 마이티북스',
   description:
     '마이티북스 유료 원고 검토 및 출판 상담 안내. 당신의 원고가 출판사가 선택할 만큼의 가능성을 가지고 있는지 현실적으로 점검합니다.',
+  alternates: {
+    canonical: '/support/diagnosis',
+  },
 }
 
 const SMARTSTORE_URL = 'https://smartstore.naver.com/shop15th/products/13464496645'

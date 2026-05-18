@@ -5,6 +5,9 @@ export const metadata = {
   title: '500자 글쓰기 워크숍 | 마이티북스',
   description:
     '500자 글쓰기는 AI 시대의 텍스트 숏폼입니다. 마이티북스 500자 글쓰기 워크숍은 자기 서사를 압축하고 요약하고 설득하는 8주 글쓰기 과정입니다.',
+  alternates: {
+    canonical: '/workshop/500-character-fiction',
+  },
 }
 
 const WORKSHOP_STORE_URL = 'https://smartstore.naver.com/shop15th/products/13500003861'

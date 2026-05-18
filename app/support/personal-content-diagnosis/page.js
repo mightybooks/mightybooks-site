@@ -6,6 +6,9 @@ export const metadata = {
   title: '퍼스널 콘텐츠 진단 | 마이티북스',
   description:
     '마이티북스 퍼스널 콘텐츠 진단. 1:1 인터뷰로 개인의 경험과 경력을 정리해 콘텐츠, 브랜딩, 전자책, 출판 가능성을 진단하는 유료 서비스입니다.',
+  alternates: {
+    canonical: '/support/personal-content-diagnosis',
+  },
 }
 
 const targets = [

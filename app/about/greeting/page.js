@@ -4,6 +4,9 @@ export const metadata = {
   title: '마이티북스 인사말 | 책 출간 상담과 출판 제작을 함께하는 출판사',
   description:
     '마이티북스 대표 문수림의 인사말. 원고의 목적과 방향을 먼저 확인하고, 책다운 책으로 완성하기 위한 출판 상담과 제작 과정을 안내합니다.',
+  alternates: {
+    canonical: '/about/greeting',
+  },
 }
 
 export default function GreetingPage() {
