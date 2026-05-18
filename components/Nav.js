@@ -8,6 +8,7 @@ const navItems = [
     label: '출판상담',
     children: [
       { label: '검토 및 유료상담', href: '/support/diagnosis' },
+      { label: '퍼스널 콘텐츠 진단', href: '/support/personal-content-diagnosis' },
       { label: '원고 접수 안내', href: '/support/submission' },
       { label: 'FAQ', href: '/support/faq' },
     ]
