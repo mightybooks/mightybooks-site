@@ -209,6 +209,7 @@
   padding: 14px 36px;
   background: var(--red); color: #fff;
   font-size: 14px; font-weight: 700; letter-spacing: 2px;
+  border: 0; cursor: pointer;
   clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 50%, calc(100% - 12px) 100%, 0 100%);
   transition: background .3s;
 }

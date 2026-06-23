@@ -1,38 +1,74 @@
 'use client'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
+import {
+  BookOpenText,
+  HeartHandshake,
+  PenLine,
+  Users,
+} from 'lucide-react'
+import ServiceContactCta from '../components/ServiceContactCta'
 import styles from './poetry.module.css'
 
 const services = [
   {
-    icon: '✏️',
-    title: '맞춤형 제작',
-    desc: '원하는 제작 시기와 수량, 디자인을 제작 비용에 맞추어 작업 진행해 드립니다. 전문가들이 작업하는 만큼 신속, 정확한 결과물을 받아보실 수 있습니다.',
-    highlight: '신속 · 정확 · 맞춤',
+    icon: '01',
+    title: '작품 배열과 원고 정리',
+    desc: '흩어진 시와 글을 확인하고, 작품의 순서와 흐름이 자연스럽게 이어지도록 정리합니다.',
+    highlight: 'Manuscript',
   },
   {
-    icon: '🃏',
-    title: '교구 제작',
-    desc: '일반 단행본 서적이 아닌 이미지 카드형 교구, 소량의 인쇄물 등도 제작 지원이 가능합니다.',
-    highlight: '카드형 교구 · 소량 인쇄물',
+    icon: '02',
+    title: '호흡을 살리는 편집',
+    desc: '행갈이, 여백, 제목과 본문의 간격, 장 구성을 살펴 한 권의 책다운 리듬을 만듭니다.',
+    highlight: 'Editing',
   },
   {
-    icon: '📦',
-    title: '소량 제작',
-    desc: '급변하는 시대에 따라 학원의 형태도 소규모 그룹 또는 온라인 강의 수강을 위해 서적을 개인이 직접 구매하는 형태로 변화하고 있습니다. 마이티북스는 이런 변화에 맞추어 소량 5권부터 제작을 진행해 드리고 있습니다.',
-    highlight: '최소 5권부터 제작 가능',
+    icon: '03',
+    title: '디자인·인쇄·유통 상담',
+    desc: '내지 편집, 표지 구성, 소량 인쇄, ISBN과 서점 유통 여부를 제작 목적에 맞게 안내합니다.',
+    highlight: 'Production',
   },
 ]
 
 const targets = [
-  { icon: '👤', label: '개인' },
-  { icon: '🏛️', label: '기관 · 단체' },
-  { icon: '🤝', label: '동호회' },
-  { icon: '🏫', label: '학교 · 관공서' },
+  { icon: PenLine, label: '개인 시집·작품집 제작' },
+  { icon: Users, label: '동호회·문학회 문집' },
+  { icon: HeartHandshake, label: '가족 문집·추모 문집' },
+  { icon: BookOpenText, label: '수필집·창작 글 모음' },
 ]
+
+const scope = [
+  '원고 정리',
+  '기본 윤문',
+  '작품 배열',
+  '내지 편집',
+  '표지 구성',
+  'ISBN/유통 상담',
+  '1권부터 소량 제작',
+]
+
+const processSteps = [
+  '문의',
+  '원고 확인',
+  '제작 방향 상담',
+  '견적',
+  '편집/디자인',
+  '교정 확인',
+  '인쇄/출간',
+]
+
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: '홈', item: 'https://xn--hz2b41ezwf0zf9tq.com/' },
+    { '@type': 'ListItem', position: 2, name: '출판서비스', item: 'https://xn--hz2b41ezwf0zf9tq.com/business/poetry' },
+    { '@type': 'ListItem', position: 3, name: '시집·문집 제작', item: 'https://xn--hz2b41ezwf0zf9tq.com/business/poetry' },
+  ],
+}
 
 export default function PoetryPage() {
   const revealRefs = useRef([])
-  const [isPhoneOpen, setIsPhoneOpen] = useState(false)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -49,35 +85,76 @@ export default function PoetryPage() {
 
   return (
     <div className={styles.wrap}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
 
-      {/* HERO */}
       <section className={styles.hero}>
         <div className={styles.heroBg} />
         <div className={styles.heroOverlay} />
         <div className={styles.heroContent}>
-          <span className={styles.tag}>Business</span>
-          <h1 className={styles.heroTitle}>시집 · 문집<br /><em>학원교재</em></h1>
+          <span className={styles.tag}>Poetry Book / Anthology</span>
+          <h1 className={styles.heroTitle}>시와 글을<br /><em>한 권의 책으로</em></h1>
           <div className={styles.heroLine} />
           <p className={styles.heroCopy}>
-            소량 5권부터 제작 가능.<br />
-            주어지는 제작비, 그 이상의 결과를 보여드립니다.
+            원고를 단순히 페이지에 얹지 않고,<br />
+            작품의 호흡과 여백, 배열을 고려해 한 권의 책으로 정리합니다.
           </p>
           <p className={styles.seoLine}>
-            마이티북스는 시집, 문집, 학원교재 등 다양한 형태의 도서를
-            소량 맞춤 제작까지 전문적으로 지원하는 출판사입니다.
+            개인 시집, 문집, 작품집, 수필집을 목적에 맞게 편집·디자인·인쇄합니다.
           </p>
         </div>
-        <div className={styles.heroFloat}>5권~</div>
+        <div className={styles.heroFloat}>poetry</div>
       </section>
 
-      {/* 3 SERVICES */}
-      <section className={styles.servicesSection} ref={ref(0)} id="textbook">
+      <section className={styles.collectSection} ref={ref(0)}>
+        <div className={styles.collectInner}>
+          <div className={styles.collectLeft}>
+            <span className={styles.tag}>Who We Help</span>
+            <h2 className={styles.sectionTitle}>
+              이런 분께<br />
+              <em>필요합니다</em>
+            </h2>
+            <div className={styles.sectionLine} />
+            <p className={styles.sectionDesc}>
+              시집과 문집은 단순한 원고 묶음이 아닙니다. 작품의 순서, 여백, 호흡,
+              표지와 내지의 조화를 고려해 한 권의 책으로 정리합니다. 원고만 있다면
+              한 권부터 제작할 수 있고, 필요에 따라 소량 제작 또는 서점 유통이 가능한 형태도 상담합니다.
+            </p>
+          </div>
+          <div className={styles.collectRight}>
+            <div className={styles.targetLabel}>제작 대상</div>
+            <div className={styles.targetGrid}>
+              {targets.map((t, i) => {
+                const Icon = t.icon
+
+                return (
+                  <div
+                    key={t.label}
+                    className={styles.targetCard}
+                    ref={ref(i + 1)}
+                    style={{ transitionDelay: `${i * 0.1}s` }}
+                  >
+                    <div className={styles.targetIcon}>
+                      <Icon size={30} strokeWidth={1.8} aria-hidden="true" />
+                    </div>
+                    <div className={styles.targetName}>{t.label}</div>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className={styles.servicesSection} ref={ref(5)}>
         <div className={styles.servicesGrid}>
           {services.map((s, i) => (
             <div
-              key={i}
+              key={s.title}
               className={styles.serviceCard}
-              ref={ref(i + 1)}
+              ref={ref(i + 6)}
               style={{ transitionDelay: `${i * 0.15}s` }}
             >
               <div className={styles.serviceIconWrap}>
@@ -91,140 +168,58 @@ export default function PoetryPage() {
         </div>
       </section>
 
-      {/* 소장용 시집 */}
-      <section className={styles.collectSection} ref={ref(4)} id="poetry">
-        <div className={styles.collectInner}>
-          <div className={styles.collectLeft}>
-            <span className={styles.tag}>Collection Book</span>
-            <h2 className={styles.sectionTitle}>
-              소장용 시집<br />
-              <em>문집 제작</em>
-            </h2>
-            <div className={styles.sectionLine} />
-            <p className={styles.sectionDesc}>
-              판매하거나 유통하지 않는 소장용 도서라도
-              <strong> 미려한 디자인은 필수</strong>입니다.<br /><br />
-              아마추어들의 편집과는 격이 다른 디자인과 퀄리티,
-              그리고 합리적인 가격까지.<br /><br />
-              마이티북스는 모두가 기쁜 마음으로 함께 공유하고
-              소장하는 도서를 만들어 드립니다.
-            </p>
-            <p className={styles.seoLine}>
-              판매 목적이 아닌 소장용 도서나 교육용 교재 제작에 적합한 서비스입니다.
-            </p>
-          </div>
-          <div className={styles.collectRight}>
-            <div className={styles.targetLabel}>제작 대상</div>
-            <div className={styles.targetGrid}>
-              {targets.map((t, i) => (
-                <div
-                  key={i}
-                  className={styles.targetCard}
-                  ref={ref(i + 5)}
-                  style={{ transitionDelay: `${i * 0.1}s` }}
-                >
-                  <div className={styles.targetIcon}>{t.icon}</div>
-                  <div className={styles.targetName}>{t.label}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 맞춤 견적 */}
       <section className={styles.quoteSection} ref={ref(9)}>
         <div className={styles.quoteBg} />
         <div className={styles.quoteOverlay} />
         <div className={styles.quoteInner}>
-          <span className={styles.tag}>Custom Quote</span>
+          <span className={styles.tag}>Scope</span>
           <h2 className={styles.quoteTitle}>
-            주어지는 제작비,<br />
-            <em>그 이상의 결과</em>를 보여드립니다
+            제공 범위와 진행 절차를<br />
+            <em>분명하게 안내합니다</em>
           </h2>
           <div className={styles.quoteLine} />
           <p className={styles.quoteDesc}>
-            관공서나 학교 등은 예산이 충분히 허락되지 않아
-            제작 자체가 어려운 경우들이 많습니다.<br /><br />
-            마이티북스는 의뢰인들의 사정을 고려하여
-            주어지는 제작비, 그 이상의 결과를 보여드리려고 노력하고 있습니다.
+            원고 정리, 기본 윤문, 작품 배열, 내지 편집, 표지 구성, ISBN/유통 상담,
+            소량 인쇄 상담까지 필요한 범위를 제작 목적에 맞게 조정합니다.
           </p>
           <div className={styles.quoteStats}>
-            <div className={styles.quoteStat}>
-              <div className={styles.quoteStatNum}>5권~</div>
-              <div className={styles.quoteStatLabel}>최소 제작 수량</div>
-            </div>
-            <div className={styles.quoteStatDivider} />
-            <div className={styles.quoteStat}>
-              <div className={styles.quoteStatNum}>100%</div>
-              <div className={styles.quoteStatLabel}>맞춤 견적</div>
-            </div>
-            <div className={styles.quoteStatDivider} />
-            <div className={styles.quoteStat}>
-              <div className={styles.quoteStatNum}>전문가</div>
-              <div className={styles.quoteStatLabel}>직접 작업</div>
-            </div>
+            {scope.slice(0, 3).map((item, i) => (
+              <div key={item} className={styles.quoteStat}>
+                <div className={styles.quoteStatNum}>{String(i + 1).padStart(2, '0')}</div>
+                <div className={styles.quoteStatLabel}>{item}</div>
+              </div>
+            ))}
           </div>
+          <p className={styles.quoteDesc}>
+            {scope.slice(3).join(' · ')}
+          </p>
+          <div className={styles.quoteStats}>
+            {processSteps.slice(0, 4).map((item, i) => (
+              <div key={item} className={styles.quoteStat}>
+                <div className={styles.quoteStatNum}>{String(i + 1).padStart(2, '0')}</div>
+                <div className={styles.quoteStatLabel}>{item}</div>
+              </div>
+            ))}
+          </div>
+          <p className={styles.quoteDesc}>
+            이후 절차: {processSteps.slice(4).join(' → ')}
+          </p>
+          <p className={styles.quoteDesc}>
+            기본 제작비는 100만 원부터 시작합니다. 최종 견적은 원고 분량, 인쇄 부수,
+            컬러 여부, 이미지 수, 제본 방식에 따라 달라질 수 있습니다.
+          </p>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className={styles.cta} ref={ref(10)}>
+      <section className={styles.cta} ref={ref(11)}>
         <div className={styles.ctaInner}>
           <h2 className={styles.ctaTitle}>
-            견적 문의는<br />
-            <em>언제든 환영합니다</em>
+            시집·문집 제작을<br />
+            <em>문의해 주세요</em>
           </h2>
-          <div style={{display:'flex', gap:'16px', flexWrap:'wrap', justifyContent:'center'}}>
-            <a href="mailto:novelstudylab@naver.com" className={styles.ctaBtn}>이메일 문의 →</a>
-            <a href="https://open.kakao.com/me/mightybooks"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.ctaBtnGhost}
-            >
-              카카오 상담 →
-            </a>
-            <button
-              type="button"
-              className={styles.ctaBtnGhost}
-              onClick={() => setIsPhoneOpen(true)}
-            >
-              전화 상담 →
-            </button>
-          </div>
+          <ServiceContactCta styles={styles} />
         </div>
       </section>
-
-      {isPhoneOpen && (
-        <div
-          className={styles.phonePopupOverlay}
-          role="presentation"
-          onClick={() => setIsPhoneOpen(false)}
-        >
-          <div
-            className={styles.phonePopup}
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="phone-popup-title"
-            onClick={e => e.stopPropagation()}
-          >
-            <button
-              type="button"
-              className={styles.phonePopupClose}
-              aria-label="전화 상담 연락처 닫기"
-              onClick={() => setIsPhoneOpen(false)}
-            >
-              ×
-            </button>
-            <div id="phone-popup-title" className={styles.phonePopupTitle}>전화 상담</div>
-            <a href="tel:010-5148-9433" className={styles.phonePopupNumber}>
-              010-5148-9433
-            </a>
-            <p className={styles.phonePopupDesc}>월~금 09-17시 / 주말, 국·공휴일 휴무</p>
-          </div>
-        </div>
-      )}
-
     </div>
   )
 }

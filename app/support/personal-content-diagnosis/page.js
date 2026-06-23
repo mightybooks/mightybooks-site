@@ -185,9 +185,9 @@ export default function PersonalContentDiagnosisPage() {
           <div className={styles.line} />
         </div>
         <div className={styles.compareGrid}>
-          <Link href="/support/diagnosis" className={styles.compareItem}>
+          <Link href="/support/paid-consultation" className={styles.compareItem}>
             <strong>원고가 이미 있다면</strong>
-            <span>검토 및 유료상담</span>
+            <span>기획출간 유료상담</span>
           </Link>
           <div className={styles.compareItemActive}>
             <strong>아직 원고는 없지만 내 경험을 콘텐츠로 만들고 싶다면</strong>
@@ -203,7 +203,7 @@ export default function PersonalContentDiagnosisPage() {
           </Link>
         </div>
         <div className={styles.relatedLinks}>
-          <Link href="/support/diagnosis">검토 및 유료상담 →</Link>
+          <Link href="/support/paid-consultation">기획출간 유료상담 →</Link>
           <Link href="/support/submission">원고 접수 안내 →</Link>
           <Link href="/workshop/500-character-fiction">500자 글쓰기 워크숍 →</Link>
         </div>

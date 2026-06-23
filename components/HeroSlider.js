@@ -5,35 +5,43 @@ import styles from './HeroSlider.module.css'
 const slides = [
   {
     bg: '/image/home/slide004.avif',
-    label: 'Paid Manuscript Review / 유료 원고 검토',
-    title: '선택받을 원고인지\n먼저\n점검합니다',
-    sub: '당신의 원고가 10,000 : 1의 경쟁을 뚫고\n기획 출간될 가능성이 있는지 검토합니다.',
-    btn: '유료 원고 검토 보기',
+    label: 'Life Story Publishing',
+    title: '삶의 기록을\n한 권의 책으로 만듭니다',
+    sub: '자서전, 시집, 문집, 기념 도서를 기획부터 편집, 디자인, 제작까지 함께합니다.\n대구 본사 방문상담 가능 · 전국 비대면 상담 가능',
+    btn: '출판상담 받기',
     btnHref: '/support/diagnosis',
   },
   {
     bg: '/image/home/slide003.avif',
-    label: '500 Writing Workshop / 500자 글쓰기',
-    title: 'AI 시대,\n500자로 먼저\n설득합니다',
-    sub: '자기 경험과 원고, 브랜드를\n감각적으로 빠르게 읽히는 텍스트 숏폼으로 정리합니다.',
-    btn: '워크숍 보기',
-    btnHref: '/workshop/500-character-fiction'
+    label: 'Autobiography / Memoir',
+    title: '삶의 흐름을 정리해\n책으로 남깁니다',
+    sub: '부모님 자서전, 회고록, 퇴임기념집, 가족에게 남기는 책을 상담합니다.',
+    btn: '자서전·기념 도서 제작',
+    btnHref: '/business/autobiography',
   },
   {
     bg: '/image/home/slide001.avif',
-    label: 'Purpose-based Book Production / 목적형 도서 제작',
-    title: '목적이 분명한 책은\n무료상담으로\n시작합니다',
-    sub: '자서전, 개인 에세이, 시집, 문집, 교재처럼\n제작 목적이 뚜렷한 도서를 상담합니다.',
-    btn: '목적형 도서 상담',
-    btnHref: '/business/autobiography'
+    label: 'Poetry / Anthology',
+    title: '시와 글을 모아\n책의 형태로 정리합니다',
+    sub: '개인 시집, 동호회 문집, 가족 문집, 기념 문집 제작을 안내합니다.',
+    btn: '시집·문집 제작',
+    btnHref: '/business/poetry',
   },
   {
-    bg: '/image/home/slide002.jpg',
-    label: 'Portfolio / 출간 사례',
-    title: '마이티북스가\n만들어온 책들을\n확인합니다',
-    sub: '출간 도서와 제작 사례를 통해\n책의 방향과 완성 방식을 살펴볼 수 있습니다.',
-    btn: '출간 사례 보기',
-    btnHref: '/portfolio/books'
+    bg: '/image/home/hero007.avif',
+    label: 'Digital Publishing',
+    title: '전자책을 넘어\n저자의 자산으로 만듭니다',
+    sub: 'PDF와 EPUB 제작을 넘어, 강의·상담·브랜딩에 오래 활용할 수 있는 출판 자산으로 정리합니다.',
+    btn: '전자책 제작',
+    btnHref: '/business/epub',
+  },
+  {
+    bg: '/image/home/edu005.avif',
+    label: 'Institution / Company Booklet',
+    title: '기업과 관공서 자료를\n읽기 쉬운 소책자로 정리합니다',
+    sub: '기관 자료집, 교육자료, 행사 소책자, 프로젝트 보고서를 목적에 맞게 편집·디자인·인쇄합니다.',
+    btn: '기관ㆍ기업 소책자 제작',
+    btnHref: '/business/booklet',
   },
 ]
 
@@ -60,7 +68,7 @@ export default function HeroSlider() {
     <section className={styles.hero}>
       {slides.map((sl, i) => (
         <div
-          key={i}
+          key={sl.title}
           className={`${styles.slide} ${i === cur ? styles.active : ''}`}
           style={{ backgroundImage: `url(${sl.bg})` }}
         />
@@ -69,21 +77,21 @@ export default function HeroSlider() {
       <div className={styles.content} key={animKey}>
         <div className={styles.label}>{s.label}</div>
         <h1 className={styles.title}>
-          {s.title.split('\n').map((line, i) => (
-            <span key={i}>{line}<br /></span>
+          {s.title.split('\n').map((line) => (
+            <span key={line}>{line}<br /></span>
           ))}
         </h1>
         <p className={styles.sub}>
-          {s.sub.split('\n').map((line, i) => (
-            <span key={i}>{line}<br /></span>
+          {s.sub.split('\n').map((line) => (
+            <span key={line}>{line}<br /></span>
           ))}
         </p>
-        <a href={s.btnHref} className={styles.btn} target={s.btnHref.startsWith('http') ? '_blank' : '_self'} rel="noopener noreferrer"> {s.btn} →</a>
+        <a href={s.btnHref} className={styles.btn}>{s.btn} →</a>
       </div>
       <div className={styles.dots}>
-        {slides.map((_, i) => (
+        {slides.map((slide, i) => (
           <button
-            key={i}
+            key={slide.label}
             className={`${styles.dot} ${i === cur ? styles.dotActive : ''}`}
             onClick={() => goSlide(i)}
             aria-label={`슬라이드 ${i + 1}`}

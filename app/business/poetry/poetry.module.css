@@ -11,6 +11,9 @@
   background-size: cover; background-position: center;
   animation: zoomOut 10s ease forwards;
 }
+.bookletHeroBg {
+  background-image: url('/image/home/edu005.avif');
+}
 @keyframes zoomOut {
   from { transform: scale(1.08); }
   to { transform: scale(1); }
@@ -62,6 +65,7 @@
 /* REVEAL */
 .servicesSection, .serviceCard,
 .collectSection, .targetCard,
+.portfolioSection,
 .quoteSection, .cta {
   opacity: 0; transform: translateY(40px);
   transition: opacity .7s ease, transform .7s ease;
@@ -134,8 +138,30 @@
   transition: border-color .3s, opacity .7s ease, transform .7s ease !important;
 }
 .targetCard:hover { border-bottom-color: var(--red); }
-.targetIcon { font-size: 36px; margin-bottom: 10px; }
+.targetIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--red);
+  margin-bottom: 14px;
+}
 .targetName { font-size: 14px; font-weight: 700; }
+
+.sectionHeader { text-align: center; margin-bottom: 48px; }
+
+.portfolioSection {
+  padding: 100px 80px;
+  background: var(--black);
+}
+.portfolioImage {
+  display: block;
+  width: min(100%, 1120px);
+  max-height: 760px;
+  margin: 0 auto;
+  object-fit: contain;
+  border: 1px solid rgba(255,255,255,.12);
+  background: var(--black2);
+}
 
 /* QUOTE */
 .quoteSection {
@@ -202,6 +228,7 @@
   display: inline-flex; align-items: center;
   padding: 14px 36px; background: var(--red); color: #fff;
   font-size: 14px; font-weight: 700; letter-spacing: 2px;
+  border: 0; cursor: pointer;
   clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 50%, calc(100% - 12px) 100%, 0 100%);
   transition: background .3s;
 }
@@ -277,7 +304,7 @@
 }
 @media (max-width: 768px) {
   .heroContent { padding: 0 24px; }
-  .servicesSection, .collectSection, .quoteSection, .cta { padding: 80px 20px; }
+  .servicesSection, .collectSection, .portfolioSection, .quoteSection, .cta { padding: 80px 20px; }
   .targetGrid { grid-template-columns: 1fr; }
   .quoteStats { flex-direction: column; }
   .quoteStatDivider { width: 60px; height: 1px; }

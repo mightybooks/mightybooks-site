@@ -7,34 +7,33 @@ const navItems = [
   {
     label: '출판상담',
     children: [
-      { label: '검토 및 유료상담', href: '/support/diagnosis' },
-      { label: '퍼스널 콘텐츠 진단', href: '/support/personal-content-diagnosis' },
       { label: '원고 접수 안내', href: '/support/submission' },
+      { label: '기획출간 유료상담', href: '/support/paid-consultation' },
       { label: 'FAQ', href: '/support/faq' },
-    ]
+    ],
   },
   {
     label: '출판서비스',
     children: [
-      { label: '자서전·기념 도서', href: '/business/autobiography' },
-      { label: '시집·문집', href: '/business/poetry#poetry' },
-      { label: '학원 교재·교구', href: '/business/poetry#textbook' },
+      { label: '자서전, 기념 도서', href: '/business/autobiography' },
+      { label: '시집, 문집', href: '/business/poetry' },
+      { label: '기관ㆍ기업 소책자', href: '/business/booklet' },
       { label: '전자책', href: '/business/epub' },
-    ]
+    ],
   },
   {
     label: '워크숍',
     children: [
       { label: '500자 글쓰기 워크숍', href: '/workshop/500-character-fiction' },
-      { label: '심화 교육', href: '/support/education' },
-    ]
+      { label: '출판 교육', href: '/support/education' },
+    ],
   },
   {
     label: '포트폴리오',
     children: [
       { label: '출간 도서', href: '/portfolio/books' },
       { label: '북트레일러', href: '/portfolio/trailer' },
-    ]
+    ],
   },
   { label: '블로그', href: '/blog' },
 ]
@@ -70,7 +69,7 @@ export default function Nav() {
   return (
     <nav className={`${styles.nav} ${scrolled ? styles.scrolled : ''}`} ref={navRef}>
       <Link href="/" className={styles.logo} onClick={closeMenus}>
-        <div className={styles.logoIcon}>⚡</div>
+        <div className={styles.logoIcon}>M</div>
         <span className={styles.logoText}><em>마이티</em>북스</span>
       </Link>
       <ul className={styles.links}>
@@ -83,7 +82,7 @@ export default function Nav() {
               >
                 {item.label}
                 <span className={styles.caret}>
-                  {openMenu === item.label ? '▲' : '▼'}
+                  {openMenu === item.label ? '−' : '+'}
                 </span>
               </button>
               {openMenu === item.label && (

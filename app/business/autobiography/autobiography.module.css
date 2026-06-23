@@ -204,6 +204,189 @@
   font-size: 12px; letter-spacing: 1px;
 }
 
+.priceSection {
+  padding: 100px 80px;
+  background: var(--black);
+}
+.priceGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  max-width: 1180px;
+  margin: 48px auto 0;
+}
+.priceCard {
+  background: var(--black2);
+  border-bottom: 3px solid rgba(232,0,30,.45);
+  padding: 34px 26px;
+  min-height: 190px;
+}
+.priceCard h3 {
+  font-size: 20px;
+  font-weight: 900;
+  margin-bottom: 12px;
+  word-break: keep-all;
+}
+.price {
+  font-family: 'Oswald', sans-serif;
+  color: var(--red);
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+.priceCard p {
+  color: rgba(255,255,255,.68);
+  font-size: 14px;
+  line-height: 1.8;
+  word-break: keep-all;
+  margin: 0;
+}
+.priceNote {
+  max-width: 900px;
+  margin: 30px auto 0;
+  color: rgba(255,255,255,.62);
+  font-size: 14px;
+  line-height: 1.9;
+  text-align: center;
+  word-break: keep-all;
+}
+
+.finderSection {
+  padding: 100px 80px;
+  background: var(--black2);
+}
+.finderLead {
+  max-width: 820px;
+  margin: 24px auto 0;
+  color: rgba(255,255,255,.66);
+  font-size: 15px;
+  line-height: 1.9;
+  text-align: center;
+  word-break: keep-all;
+}
+.finderCard {
+  max-width: 940px;
+  margin: 0 auto;
+  padding: 44px;
+  background: var(--black3);
+  border: 1px solid rgba(255,255,255,.08);
+  border-top: 3px solid var(--red);
+}
+.finderTop {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  align-items: flex-start;
+  margin-bottom: 28px;
+}
+.finderEyebrow {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--red);
+  font-family: 'Oswald', sans-serif;
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+.finderQuestion,
+.finderResultTitle {
+  font-size: clamp(24px, 3vw, 36px);
+  line-height: 1.35;
+  font-weight: 900;
+  word-break: keep-all;
+}
+.finderProgress {
+  flex: 0 0 auto;
+  min-width: 74px;
+  padding: 10px 14px;
+  border: 1px solid rgba(255,255,255,.12);
+  color: rgba(255,255,255,.72);
+  font-family: 'Oswald', sans-serif;
+  text-align: center;
+}
+.finderOptions {
+  display: grid;
+  gap: 12px;
+}
+.finderOption {
+  width: 100%;
+  padding: 18px 20px;
+  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(255,255,255,.1);
+  color: rgba(255,255,255,.8);
+  font-size: 15px;
+  line-height: 1.6;
+  text-align: left;
+  word-break: keep-all;
+  cursor: pointer;
+  transition: border-color .2s, background .2s, color .2s, transform .2s;
+}
+.finderOption:hover,
+.finderOption:focus-visible {
+  border-color: rgba(232,0,30,.7);
+  color: #fff;
+  outline: none;
+}
+.finderOption:hover {
+  transform: translateY(-2px);
+}
+.finderOptionSelected {
+  border-color: var(--red);
+  background: rgba(232,0,30,.14);
+  color: #fff;
+}
+.finderPrice {
+  margin: 14px 0 22px;
+  color: var(--red);
+  font-family: 'Oswald', sans-serif;
+  font-size: 34px;
+  font-weight: 700;
+}
+.finderText {
+  color: rgba(255,255,255,.74);
+  font-size: 15px;
+  line-height: 1.9;
+  word-break: keep-all;
+}
+.finderReasonBox {
+  margin-top: 26px;
+  padding: 24px;
+  background: rgba(255,255,255,.035);
+  border: 1px solid rgba(255,255,255,.08);
+}
+.finderReasonBox h4 {
+  margin-bottom: 14px;
+  font-size: 15px;
+  font-weight: 900;
+}
+.finderReasonBox ul {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding-left: 18px;
+}
+.finderReasonBox li {
+  color: rgba(255,255,255,.66);
+  font-size: 13px;
+  line-height: 1.7;
+  word-break: keep-all;
+}
+.finderActions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 28px;
+}
+.ctaBtn:focus-visible,
+.ctaBtnGhost:focus-visible {
+  outline: 2px solid rgba(232,0,30,.9);
+  outline-offset: 3px;
+}
+.ctaBtnGhost:disabled {
+  opacity: .35;
+  cursor: not-allowed;
+}
+
 /* CTA */
 .cta {
   padding: 120px 80px;
@@ -222,6 +405,7 @@
   display: inline-flex; align-items: center;
   padding: 14px 36px; background: var(--red); color: #fff;
   font-size: 14px; font-weight: 700; letter-spacing: 2px;
+  border: 0; cursor: pointer;
   clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 50%, calc(100% - 12px) 100%, 0 100%);
   transition: background .3s;
 }
@@ -293,13 +477,23 @@
 @media (max-width: 1024px) {
   .oneclickInner, .photoInner { grid-template-columns: 1fr; }
   .targetGrid { grid-template-columns: repeat(2, 1fr); }
+  .priceGrid { grid-template-columns: repeat(2, 1fr); }
   .processSteps { flex-wrap: wrap; }
   .heroFloat { display: none; }
 }
 @media (max-width: 768px) {
   .heroContent { padding: 0 24px; }
-  .oneclick, .targetSection, .processSection, .photoSection, .cta { padding: 80px 20px; }
+  .oneclick, .targetSection, .processSection, .photoSection, .priceSection, .finderSection, .cta { padding: 80px 20px; }
   .targetGrid { grid-template-columns: 1fr; }
+  .priceGrid { grid-template-columns: 1fr; }
+  .priceCard { min-height: 0; }
+  .priceNote { text-align: left; }
+  .finderLead { text-align: left; }
+  .finderCard { padding: 28px 20px; }
+  .finderTop { flex-direction: column; }
+  .finderProgress { width: 100%; }
+  .finderOption { padding: 16px; }
+  .finderActions { flex-direction: column; }
   .processSteps { flex-direction: column; gap: 28px; }
   .processStep { width: 100%; padding: 0; }
   .processArrow { display: none; }

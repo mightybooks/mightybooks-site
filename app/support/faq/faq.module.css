@@ -17,7 +17,7 @@
   max-height: 0; overflow: hidden; transition: max-height .35s ease, padding .35s;
   padding: 0;
 }
-.open .answer { max-height: 200px; padding-bottom: 20px; }
+.open .answer { max-height: 360px; padding-bottom: 20px; }
 .answer p { font-size: 14px; color: rgba(255,255,255,.65); line-height: 1.7; padding-left: 4px; }
 @media (max-width: 768px) { .wrap { padding: 100px 20px 60px; } }
 
@@ -35,6 +35,7 @@
   display: inline-flex; align-items: center;
   padding: 14px 36px; background: var(--red); color: #fff;
   font-size: 14px; font-weight: 700; letter-spacing: 2px;
+  border: 0; cursor: pointer;
   clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 50%, calc(100% - 12px) 100%, 0 100%);
   transition: background .3s;
 }

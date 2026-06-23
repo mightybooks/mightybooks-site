@@ -50,9 +50,9 @@ export default function StatsBar() {
         </div>
       </div>
       <div className={styles.right}>
-        <Link href="/#contact" className={styles.btn}>오시는길</Link>
-        <Link href="/#contact" className={`${styles.btn} ${styles.btnActive}`}>온라인문의</Link>
-        <Link href="/#portfolio" className={styles.btn}>포트폴리오</Link>
+        <Link href="/about/location" className={styles.btn}>오시는길</Link>
+        <Link href="/support/diagnosis" className={`${styles.btn} ${styles.btnActive}`}>온라인문의</Link>
+        <Link href="/portfolio/books" className={styles.btn}>포트폴리오</Link>
       </div>
     </div>
   )
