@@ -21,7 +21,7 @@ export default function AdminLogin() {
     setLoading(true); setErr('')
     const { error } = await supabase.auth.signInWithPassword({ email, password: pw })
     if (error) { setErr('이메일 또는 비밀번호가 틀렸습니다.'); setLoading(false) }
-    else router.push('/admin/posts')
+    else router.push('/admin/dashboard')
   }
 
   return (

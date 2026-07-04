@@ -1,4 +1,5 @@
 'use client'
+/* eslint-disable react/no-unescaped-entities */
 import { useEffect, useRef } from 'react'
 import styles from './self-publishing.module.css'
 
@@ -64,13 +65,6 @@ const plans = [
     icon: '💎',
   },
 ]
-
-const tierColors = {
-  basic: 'rgba(255,255,255,.15)',
-  standard: '#c0392b',
-  premium: '#c8a84b',
-  vip: 'linear-gradient(135deg, #c8a84b, #e8001e)',
-}
 
 const tierLabels = {
   basic: 'BASIC',

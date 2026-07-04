@@ -39,6 +39,232 @@
 .adminLogo em { color: var(--red); font-style: normal; }
 .adminBody { padding: 40px; }
 .adminTitle { font-size: 22px; font-weight: 700; margin-bottom: 28px; }
+.adminDescription {
+  margin: -16px 0 28px;
+  color: rgba(255,255,255,.62);
+  font-size: 14px;
+  line-height: 1.7;
+}
+.backLink {
+  display: inline-block;
+  margin-bottom: 18px;
+  color: rgba(255,255,255,.6);
+  font-size: 13px;
+  transition: color .2s;
+}
+.backLink:hover { color: #fff; }
+.dashboardGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  max-width: 760px;
+}
+.adminCard {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 128px;
+  padding: 24px;
+  background: var(--black2);
+  border: 1px solid rgba(255,255,255,.08);
+  color: #fff;
+  transition: border .2s, background .2s;
+}
+.adminCard:hover {
+  background: var(--black3);
+  border-color: rgba(232,0,30,.45);
+}
+.adminCard strong { font-size: 18px; }
+.adminCard span {
+  color: rgba(255,255,255,.58);
+  font-size: 13px;
+  line-height: 1.6;
+}
+.emptyPanel {
+  max-width: 760px;
+  padding: 28px;
+  background: var(--black2);
+  border: 1px solid rgba(255,255,255,.08);
+}
+.emptyPanel .adminDescription { margin: 0 0 14px; }
+.adminTitleRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+.adminTitleRow .adminTitle { margin-bottom: 10px; }
+.adminTitleRow .adminDescription { margin: 0; }
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 28px 0 16px;
+}
+.sectionHeader h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+}
+.consultationForm,
+.filterPanel,
+.topPanel,
+.metricCard {
+  background: var(--black2);
+  border: 1px solid rgba(255,255,255,.08);
+}
+.consultationForm {
+  max-width: 1180px;
+  padding: 24px;
+  margin-bottom: 28px;
+}
+.formGrid,
+.filterGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 14px 16px;
+}
+.formGrid label,
+.filterGrid label,
+.fullField {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  color: var(--gray);
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.fullField { margin-top: 16px; }
+.inlineCheckField span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 42px;
+  color: rgba(255,255,255,.75);
+  font-size: 13px;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.inlineCheckField input { accent-color: var(--red); }
+.input:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+}
+.tagBox {
+  margin-top: 18px;
+  padding: 16px;
+  background: var(--black3);
+  border: 1px solid rgba(255,255,255,.08);
+}
+.fieldTitle {
+  margin-bottom: 12px;
+  color: var(--gray);
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.tagGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 8px 12px;
+}
+.checkLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255,255,255,.75);
+  font-size: 13px;
+  line-height: 1.4;
+}
+.checkLabel input { accent-color: var(--red); }
+.formActions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+.filterPanel {
+  padding: 22px;
+  margin-bottom: 26px;
+}
+.filterPanel .sectionHeader { margin-top: 0; }
+.metricGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+  margin-bottom: 26px;
+}
+.metricCard {
+  min-height: 96px;
+  padding: 18px;
+}
+.metricCard span {
+  display: block;
+  margin-bottom: 12px;
+  color: var(--gray);
+  font-size: 12px;
+}
+.metricCard strong {
+  font-size: 22px;
+  font-weight: 800;
+}
+.topGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 14px;
+  margin-bottom: 28px;
+}
+.topPanel {
+  padding: 18px;
+}
+.topPanel h3 {
+  margin: 0 0 14px;
+  font-size: 14px;
+}
+.topPanel ol {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  margin: 0;
+  padding-left: 18px;
+}
+.topPanel li {
+  color: rgba(255,255,255,.78);
+  font-size: 13px;
+}
+.topPanel li span {
+  display: inline-block;
+  max-width: calc(100% - 60px);
+}
+.topPanel li strong {
+  float: right;
+  color: #fff;
+  font-size: 12px;
+}
+.topPanel p {
+  margin: 0;
+  color: var(--gray);
+  font-size: 13px;
+}
+.resultCount {
+  color: var(--gray);
+  font-size: 13px;
+}
+.tableScroll {
+  width: 100%;
+  overflow-x: auto;
+}
+.summaryCell {
+  min-width: 240px;
+  max-width: 360px;
+  line-height: 1.5;
+}
+.rowActions {
+  display: flex;
+  gap: 8px;
+}
 
 .btnRed {
   padding: 9px 20px; background: var(--red); color: #fff;

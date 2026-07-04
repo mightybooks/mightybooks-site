@@ -15,19 +15,24 @@ export default function AdminPosts() {
   const [loading, setLoading] = useState(true)
   const router = useRouter()
 
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => {
-      if (!data.session) router.push('/admin')
-    })
-    fetchPosts()
-  }, [])
-
   const fetchPosts = async () => {
     const { data } = await supabase
       .from('posts').select('*').order('created_at', { ascending: false })
     setPosts(data ?? [])
     setLoading(false)
   }
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data }) => {
+      if (!data.session) router.push('/admin')
+    })
+    supabase
+      .from('posts').select('*').order('created_at', { ascending: false })
+      .then(({ data }) => {
+        setPosts(data ?? [])
+        setLoading(false)
+      })
+  }, [router])
 
   const togglePublish = async (id, current) => {
     await supabase.from('posts').update({ published: !current }).eq('id', id)
@@ -55,6 +60,7 @@ export default function AdminPosts() {
         </div>
       </div>
       <div className={styles.adminBody}>
+        <Link href="/admin/dashboard" className={styles.backLink}>← 관리자 메뉴로 돌아가기</Link>
         <h2 className={styles.adminTitle}>블로그 글 관리</h2>
         {loading ? <p>불러오는 중...</p> : (
           <table className={styles.table}>
