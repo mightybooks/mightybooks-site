@@ -1,6 +1,6 @@
 'use client'
 import { useMemo, useState } from 'react'
-import { PhoneConsultModal } from '../components/ServiceContactCta'
+import { EMAIL_ADDRESS, KAKAO_URL, PhoneConsultModal } from '../components/ServiceContactCta'
 import styles from './autobiography.module.css'
 
 const planInfo = {
@@ -200,15 +200,26 @@ export default function AutobiographyPlanFinder() {
         </div>
 
         <p className={styles.finderText} style={{ marginTop: '24px' }}>
-          이 결과는 입력하신 단편적인 정보를 바탕으로 한 상담 전 예상 플랜입니다. 상담을 통해 원고 상태,
-          제작 목적, 예산, 인쇄 부수, 사진 자료, 인터뷰 필요 여부를 더 자세히 알려주시면 그에 맞춰 제작 방향과
-          견적을 조정해드릴 수 있습니다.
+          이 결과는 확정 견적이 아니라 상담 전 참고용입니다. 상담을 통해 원고 상태, 제작 목적, 예산,
+          인쇄 부수, 사진 자료, 인터뷰 필요 여부를 더 자세히 알려주시면 그에 맞춰 제작 방향과 견적을 조정해드릴 수 있습니다.
         </p>
 
         <div className={styles.finderActions}>
-          <button type="button" className={styles.ctaBtn} onClick={() => setIsPhoneOpen(true)}>
-            세부 견적 확인 및 상담하기
+          <a
+            href={KAKAO_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.ctaBtn}
+            aria-label="카카오톡으로 자서전 추천 플랜 상담하기"
+          >
+            카톡으로 상담하기
+          </a>
+          <button type="button" className={styles.ctaBtnGhost} onClick={() => setIsPhoneOpen(true)}>
+            전화 상담하기
           </button>
+          <a href={`mailto:${EMAIL_ADDRESS}`} className={styles.ctaBtnGhost}>
+            이메일 문의하기
+          </a>
           <button type="button" className={styles.ctaBtnGhost} onClick={reset}>
             다시 선택하기
           </button>

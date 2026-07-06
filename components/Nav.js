@@ -33,6 +33,7 @@ const navItems = [
     children: [
       { label: '출간 도서', href: '/portfolio/books' },
       { label: '북트레일러', href: '/portfolio/trailer' },
+      { label: '리뷰후기', href: '/portfolio/reviews' },
     ],
   },
   { label: '블로그', href: '/blog' },
