@@ -173,3 +173,55 @@
 .seoIntro {
   margin: 30px 0;
 }
+
+.referenceSection {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 0 80px 120px;
+}
+
+.referenceTitle {
+  margin-bottom: 18px;
+  font-size: clamp(24px, 3vw, 36px);
+  font-weight: 900;
+}
+
+.referenceSection p {
+  color: rgba(255,255,255,.66);
+  font-size: 15px;
+  line-height: 1.9;
+  word-break: keep-all;
+}
+
+.referenceLinks {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  margin-top: 28px;
+}
+
+.referenceLinks a {
+  display: block;
+  padding: 22px 20px;
+  border-top: 2px solid rgba(255,255,255,.06);
+  background: var(--black2);
+  color: rgba(255,255,255,.72);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.referenceLinks a:hover {
+  border-top-color: var(--red);
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .referenceSection {
+    padding: 0 20px 80px;
+  }
+
+  .referenceLinks {
+    grid-template-columns: 1fr;
+  }
+}

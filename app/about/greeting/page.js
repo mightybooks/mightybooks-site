@@ -133,6 +133,27 @@ export default function GreetingPage() {
         </div>
       </section>
 
+      <section className={styles.dark}>
+        <div className={styles.darkInner}>
+          <div className={styles.darkLeft}>
+            <h2 className={styles.darkTitle}>
+              고정 자료로<br />
+              <em>제작 기준</em>을 확인합니다
+            </h2>
+            <div className={styles.darkLine} />
+          </div>
+          <div className={styles.darkRight}>
+            <p>
+              마이티북스는 대구·경북·경남을 기반으로 활동하는 소규모 출판 제작 스튜디오입니다.
+              원고 정리부터 편집, 디자인, 인쇄 제작까지 필요한 범위를 책의 목적에 맞춰 살펴봅니다.
+            </p>
+            <a href="/reference/mightybooks-publishing">마이티북스 출판 제작 레퍼런스 →</a>
+            <a href="/reference/autobiography-gyeongsang">대구·경북·경남 자서전 제작 기준 →</a>
+            <a href="/reference/personal-publishing">개인출판과 소량 책 제작 기준 →</a>
+          </div>
+        </div>
+      </section>
+
       {/* CLOSING */}
       <section className={styles.closing}>
         <div className={styles.closingBg} />

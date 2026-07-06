@@ -329,6 +329,28 @@ export default function GuidePage() {
           </div>
         </div>
 
+        <div className={styles.section}>
+          <h2 className={styles.h2}>함께 보면 좋은 고정 자료</h2>
+          <p>
+            마이티북스는 대구·경북·경남을 기반으로 활동하는 소규모 출판 제작 스튜디오입니다.
+            자서전, 시집, 문집, 소책자, 개인 저서를 원고 정리부터 편집, 디자인, 인쇄 제작까지 함께 검토합니다.
+          </p>
+          <div className={styles.processGrid}>
+            {[
+              ['마이티북스 출판 제작 레퍼런스', '/reference/mightybooks-publishing'],
+              ['대구·경북·경남 자서전 제작 기준', '/reference/autobiography-gyeongsang'],
+              ['개인출판과 소량 책 제작 기준', '/reference/personal-publishing'],
+              ['자서전·기념 도서 제작', '/business/autobiography'],
+            ].map(([title, href], index) => (
+              <a key={href} href={href} className={styles.processCard}>
+                <div className={styles.processStep}>{String(index + 1).padStart(2, '0')}</div>
+                <div className={styles.processTitle}>{title}</div>
+                <div className={styles.processDesc}>관련 기준 보기 →</div>
+              </a>
+            ))}
+          </div>
+        </div>
+
         <div className={styles.bottomNav}>
           <a href="/portfolio/books" className={styles.backLink}>
             ← 포트폴리오 보기

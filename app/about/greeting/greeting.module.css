@@ -151,6 +151,15 @@
   font-size: 16px; color: rgba(255,255,255,.7); line-height: 1.8;
 }
 .darkRight strong { color: #fff; font-weight: 700; }
+.darkRight a {
+  display: block;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  color: rgba(255,255,255,.72);
+  font-size: 14px;
+  font-weight: 700;
+}
+.darkRight a:hover { color: #fff; }
 
 /* CLOSING */
 .closing {

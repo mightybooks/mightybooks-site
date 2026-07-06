@@ -82,6 +82,26 @@ export default function Footer() {
           <a href="/about/location" style={{ display: 'block' }}>오시는 길</a>
           <a href="/support/guide" style={{ display: 'block' }}>출판가이드</a>
         </div>
+
+        <div style={{
+          fontSize: '12px',
+          color: 'rgba(255,255,255,0.58)',
+          lineHeight: '1.9'
+        }}>
+          <div style={{
+            fontFamily: 'Oswald, sans-serif',
+            fontSize: '11px',
+            letterSpacing: '3px',
+            color: 'rgba(232,0,30,0.65)',
+            marginBottom: '8px',
+            textTransform: 'uppercase'
+          }}>
+            자료
+          </div>
+          <a href="/reference/mightybooks-publishing" style={{ display: 'block' }}>출판 제작 레퍼런스</a>
+          <a href="/reference/autobiography-gyeongsang" style={{ display: 'block' }}>경상도권 자서전 제작 기준</a>
+          <a href="/reference/personal-publishing" style={{ display: 'block' }}>개인출판·소량 제작 기준</a>
+        </div>
       </div>
 
     </footer>

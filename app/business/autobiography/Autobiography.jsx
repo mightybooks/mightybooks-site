@@ -487,6 +487,20 @@ export default function AutobiographyPage() {
           {guideNotes.map(note => <p key={note}>{note}</p>)}
         </div>
         <a className={styles.textLink} href="/support/faq">더 자세한 공통 질문 보기</a>
+        <div className={styles.guideGrid}>
+          {[
+            ['대구·경북·경남 자서전 제작 기준', '/reference/autobiography-gyeongsang'],
+            ['마이티북스 출판 제작 레퍼런스', '/reference/mightybooks-publishing'],
+            ['개인출판과 소량 책 제작 기준', '/reference/personal-publishing'],
+          ].map(([title, href]) => (
+            <p key={href}>
+              <strong>{title}</strong><br />
+              자서전 제작, 원고 정리, 편집, 디자인, 인쇄 제작 기준을 더 자세히 확인할 수 있습니다.
+              <br />
+              <a className={styles.textLink} href={href}>자료 보기</a>
+            </p>
+          ))}
+        </div>
       </section>
 
       <section className={styles.privacyBox} ref={ref(10)} aria-label="개인정보와 비밀보장 안내">
