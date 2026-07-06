@@ -101,7 +101,7 @@ const pricePlans = [
     writing: '윤문, 기본 교정, 내지 편집',
     design: '기본 표지와 내지 디자인',
     print: '인쇄비 별도 산정',
-    binding: '소량 무선 제본에 적합',
+    binding: '10권 미만 소량, 무선 또는 양장',
     check: '원고 분량, 사진 수, 희망 부수',
   },
   {
@@ -113,7 +113,7 @@ const pricePlans = [
     writing: '목차 구성, 원고 정리, 문장 다듬기',
     design: '사진 일부 포함 편집 가능',
     print: '인쇄비 별도 산정',
-    binding: '무선 또는 소량 양장 상담',
+    binding: '무선 또는 양장, 선물포장',
     check: '녹취 분량, 사진 작업량, 가족 확인 절차',
   },
   {
@@ -266,7 +266,7 @@ export default function AutobiographyPage() {
           </div>
           <div className={styles.heroVisual}>
             {/* TODO: 실제 자서전 원고, 사진, 제작 도서 이미지로 교체하기 쉽게 유지합니다. */}
-            <div className={styles.heroVisualLabel}>실제 대면 인터뷰 모습</div>
+            <div className={styles.heroVisualLabel}>출판사 대표가 직접 인터뷰 진행</div>
             <Image
               src="/image/home/here009.jpg"
               alt="책 제작 상담을 상징하는 마이티북스 도서 이미지"
@@ -332,7 +332,7 @@ export default function AutobiographyPage() {
           <div className={styles.imagePanel}>
             {/* TODO: 실제 편집·디자인 작업 사진으로 교체 예정입니다. */}
             <Image
-              src="/image/home/aatt01.jpg"
+              src="/image/home/main0051.png"
               alt="출판 제작 과정에서 활용할 책과 원고 이미지"
               width={620}
               height={420}
