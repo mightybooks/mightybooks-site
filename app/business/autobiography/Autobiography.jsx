@@ -11,26 +11,26 @@ import AutobiographyPlanFinder from './AutobiographyPlanFinder'
 import styles from './autobiography.module.css'
 
 const heroBadges = [
-  '원고 없어도 상담 가능',
+  '원고 없는 자서전 제작 가능',
   '대표 직접 상담',
-  '대구·경북· 대면 상담',
+  '대구 자서전 제작 상담',
   '전국 전화·화상·채팅 상담',
 ]
 
 const fitCases = [
-  '부모님의 삶을 책으로 남기고 싶은 경우',
-  '칠순·팔순·퇴임 기념 선물을 준비하는 경우',
-  '손글씨 노트, 녹음, 메모만 있는 경우',
-  '가족사와 오래된 사진을 정리하고 싶은 경우',
-  '완성된 원고를 제대로 된 책으로 만들고 싶은 경우',
-  '가족 소장용 또는 정식 출간용을 고민하는 경우',
+  '부모님의 생애사와 가족의 시간을 책으로 남기고 싶은 경우',
+  '칠순 기념 책, 팔순 기념 책처럼 오래 남는 선물을 준비하는 경우',
+  '부모님이 직접 글을 쓰지 못하시고 사진, 녹음, 메모만 있는 경우',
+  '가족 사진과 부모님 생애 장면을 가족 기념 서적으로 정리하고 싶은 경우',
+  '커플 기념 서적이나 결혼 기념 책처럼 두 사람의 이야기를 남기고 싶은 경우',
+  '가족 소장용 책 또는 정식 출간용 책을 고민하는 경우',
 ]
 
 const sourceMaterials = [
-  ['노트 손글씨 원고', '정리되지 않은 기록도 흐름을 잡아 원고화합니다.'],
-  ['휴대폰 녹음 파일', '구술 내용을 듣고 목차와 문장 구조를 함께 설계합니다.'],
-  ['가족 인터뷰 메모', '자녀나 지인이 기억하는 장면도 보충 자료가 됩니다.'],
-  ['오래된 사진과 앨범', '사진 선별과 기본 보정, 책 안 배치를 상담합니다.'],
+  ['노트 손글씨 원고', '정리되지 않은 기록도 묻고, 듣고, 흐름을 잡아 원고화합니다.'],
+  ['휴대폰 녹음 파일', '구술 내용을 듣고 목차와 책의 문장 구조를 함께 설계합니다.'],
+  ['가족 인터뷰 메모', '자녀와 가족이 기억하는 장면도 부모님 생애사 제작의 보충 자료가 됩니다.'],
+  ['오래된 사진과 앨범', '부모님 생애 장면과 가족 사진을 선별해 책 안 배치를 상담합니다.'],
   ['카카오톡 메모', '짧게 남겨둔 문장도 생애 연표와 함께 정리할 수 있습니다.'],
   ['수필, 일기, 강연 원고', '기존 글을 책의 목적에 맞게 편집합니다.'],
   ['출생·결혼·창업·은퇴 연표', '사건의 순서를 잡아 회고록의 뼈대를 만듭니다.'],
@@ -61,12 +61,16 @@ const processSteps = [
 const bookTypes = [
   '자서전',
   '회고록',
-  '부모님 생애 기록',
-  '가족사 기록집',
-  '칠순·팔순 기념 도서',
+  '부모님 생애사 제작',
+  '부모님 자서전',
+  '칠순 기념 책',
+  '팔순 기념 책',
+  '가족 기념 서적',
+  '커플 기념 서적',
+  '결혼 기념 책',
   '퇴임·은퇴 기념 도서',
   '기업/대표자 브랜딩 도서',
-  '가족 소장용 비공개 책',
+  '가족 소장용 책',
   'ISBN 등록 정식 출간 도서',
 ]
 
@@ -143,8 +147,9 @@ const pricePlans = [
 ]
 
 const checklist = [
-  '제작 목적: 부모님 선물, 퇴임 기념, 가족 소장용, 정식 출간 등',
-  '원고 유무: 완성 원고, 손글씨, 녹음, 메모, 사진 자료 등',
+  '제작 목적: 부모님 생애사, 칠순·팔순 기념 선물, 가족 기념 서적, 커플 기념 서적 등',
+  '원고 유무: 완성 원고, 손글씨, 녹음, 메모, 사진 자료, 가족의 기억 등',
+  '인터뷰 가능 여부: 부모님 직접 인터뷰, 가족 보충 인터뷰, 전화·화상·대면 방식 등',
   '예상 부수: 10부, 30부, 50부, 100부 등',
   '희망 제본: 무선, 양장, 아직 미정',
   '희망 일정과 대략적인 예산 범위',
@@ -152,12 +157,13 @@ const checklist = [
 ]
 
 const guideNotes = [
-  '원고가 없어도 상담 가능합니다.',
-  '손글씨 노트나 녹음 파일만 있어도 시작할 수 있습니다.',
+  '원고가 없어도 상담 가능합니다. 마이티북스가 묻고, 듣고, 정리합니다.',
+  '부모님이 직접 글을 쓰지 못하셔도 인터뷰, 사진, 메모, 가족의 기억으로 시작할 수 있습니다.',
   '가족 소장용은 ISBN 없이 제작할 수 있습니다.',
+  '칠순·팔순 기념 책, 가족 기념 서적, 커플 기념 서적도 제작 가능합니다.',
   '정식 출간을 원하면 ISBN과 온라인서점 유통도 상담 가능합니다.',
   '대구·경북·경남은 대면 상담, 그 외 지역은 비대면 진행이 가능합니다.',
-  '민감한 가족사와 개인 자료는 제작 목적 외 사용하지 않습니다.',
+  '개인 자료와 가족의 기억은 제작 목적 외 사용하지 않습니다.',
 ]
 
 const breadcrumbJsonLd = {
@@ -246,17 +252,18 @@ export default function AutobiographyPage() {
         <div className={styles.heroInner}>
           <div className={styles.heroContent}>
             <span className={styles.tag}>Autobiography / Memoir</span>
-            <p className={styles.heroService}>자서전 · 회고록 · 부모님 생애 기록 제작</p>
+            <p className={styles.heroService}>자서전 · 부모님 생애사 · 가족 기념 서적 제작</p>
             <h1 className={styles.heroTitle}>
               원고가 <span>없어도</span><br />
               괜찮습니다.
             </h1>
             <div className={styles.heroLine} />
             <p className={styles.heroCopy}>
-              손글씨 노트, 녹음 파일, 사진 자료를 바탕으로 한 사람의 삶을 책의 형태로 정리합니다.
+              부모님의 생애, 가족의 시간, 두 사람의 이야기를 한 권의 책으로 남깁니다.
+              마이티북스가 묻고, 듣고, 정리해 책의 문장으로 만듭니다.
             </p>
             <p className={styles.heroSubcopy}>
-              자서전 · 회고록 · 부모님 생애 기록 · 퇴임 기념 도서 제작<br />
+              부모님 자서전 · 칠순 기념 책 · 팔순 기념 책 · 커플 기념 서적 제작<br />
               1:1 맞춤형 출판 제작소, 대구·경북·경남 오프라인 상담, 전국 온라인 상담 가능
             </p>
             <div className={styles.heroBadges} aria-label="자서전 제작 상담 특징">
@@ -279,7 +286,7 @@ export default function AutobiographyPage() {
               <span>원고 상태, 인터뷰 범위, 인쇄 사양에 따라 견적이 달라집니다.</span>
             </div>
             <p className={styles.heroVisualCaption}>
-              출판 제작 경험을 바탕으로 자서전·기념 도서 제작을 1:1로 진행합니다.
+              꽃과 현수막은 지나가지만, 한 권의 책은 가족에게 오래 남습니다.
             </p>
           </div>
         </div>
@@ -291,7 +298,7 @@ export default function AutobiographyPage() {
           <span className={styles.tag}>Good Fit</span>
           <h2 id="fit-heading" className={styles.sectionTitle}>이런 경우에 <em>적합합니다</em></h2>
           <p className={styles.sectionLead}>
-            자서전에도 다양한 형태가 있습니다. 부모님 생애 기록, 가족 기록집, 퇴임 기념 도서처럼 목적에 맞게 맞춤 제작해 드립니다.
+            자서전은 꼭 본인이 긴 원고를 써야만 시작되는 책이 아닙니다. 부모님 생애사 제작, 칠순·팔순 기념 책, 가족 소장용 책처럼 특별한 시점과 목적에 맞춰 제작할 수 있습니다.
           </p>
         </div>
         <div className={styles.cardGrid}>
@@ -312,7 +319,7 @@ export default function AutobiographyPage() {
             <div className={styles.sectionLine} />
             <p className={styles.sectionDesc}>
               자서전 제작이나 회고록 제작 문의에서 가장 많이 나오는 질문은 “원고가 없는데 가능한가요?”입니다.
-              마이티북스는 완성 원고뿐 아니라 흩어진 자료를 확인한 뒤 책의 구조를 함께 잡습니다.
+              마이티북스는 완성 원고뿐 아니라 인터뷰, 사진, 메모, 가족의 기억을 확인한 뒤 책의 구조를 함께 잡습니다.
             </p>
             <ContactButtons secondary="원고 없이 가능한지 물어보기" />
           </div>
@@ -344,7 +351,7 @@ export default function AutobiographyPage() {
             <div className={styles.sectionLine} />
             <p className={styles.sectionDesc}>
               단순히 글만 옮기는 방식이 아니라, 책의 목적과 독자를 먼저 정하고 원고 정리, 편집, 디자인, 인쇄 상담까지 연결합니다.
-              AI 자동 생성형 서비스처럼 보이기보다 사람이 직접 구조를 잡는 1:1 맞춤 제작을 지향합니다.
+              부모님이 직접 글을 쓰지 못하셔도 질문을 설계하고 이야기를 듣고 정리해, 가족이 읽기 좋은 책의 문장으로 다듬습니다.
             </p>
             <div className={styles.scopeList}>
               {workScope.map(item => <span key={item}>{item}</span>)}
@@ -355,14 +362,14 @@ export default function AutobiographyPage() {
 
       <section className={styles.localSection} ref={ref(3)} aria-labelledby="local-heading">
         <div className={styles.localInner}>
-          <span className={styles.tag}>Nationwide Serivece</span>
+          <span className={styles.tag}>Nationwide Service</span>
           <h2 id="local-heading" className={styles.sectionTitle}>지역 기반 · <em>전국 진행 가능</em></h2>
           <p>
             마이티북스는 대구에 기반을 둔 1:1 출판 제작소입니다. 대구를 비롯해 인근 경북·경남 지역은 대면 상담이 가능하고,
-            그 외 지역은 전화, 화상, 이메일, 카카오톡 자료 전달로 진행합니다.
+            그 외 지역은 전화, 화상, 이메일, 카카오톡 자료 전달로 원고 없는 자서전 제작과 인터뷰 기반 자서전 제작을 진행합니다.
           </p>
           <div className={styles.localKeywords}>
-            {['자서전 제작', '회고록 제작', '부모님 자서전', '퇴임 기념 도서', '가족사 책 제작', '손글씨 원고 책 만들기', '녹음 자서전 제작', '소량 자서전 제작'].map(keyword => (
+            {['대구 자서전 제작', '부모님 생애사 제작', '부모님 자서전', '칠순 기념 책', '팔순 기념 책', '가족 기념 서적', '커플 기념 서적', '결혼 기념 책', '가족 소장용 책', '원고 없는 자서전 제작', '인터뷰 기반 자서전 제작'].map(keyword => (
               <span key={keyword}>{keyword}</span>
             ))}
           </div>
@@ -396,7 +403,7 @@ export default function AutobiographyPage() {
           <span className={styles.tag}>Book Types</span>
           <h2 id="types-heading" className={styles.sectionTitle}>제작 형태는 <em>넓게 볼 수 있습니다</em></h2>
           <p className={styles.sectionLead}>
-            가족 소장용은 ISBN 없이도 제작할 수 있습니다. 정식 출간을 원하면 ISBN 등록과 온라인서점 유통 가능성도 함께 상담합니다.
+            부모님 생애사, 칠순·팔순 기념 책, 가족 기념 서적, 커플 기념 서적처럼 책을 만드는 이유는 다양합니다. 가족 소장용은 ISBN 없이도 제작할 수 있고, 정식 출간을 원하면 ISBN 등록과 온라인서점 유통 가능성도 함께 상담합니다.
           </p>
         </div>
         <div className={styles.typeGrid}>
@@ -468,7 +475,7 @@ export default function AutobiographyPage() {
             <h2 id="checklist-heading" className={styles.sectionTitle}>상담 전<br /><em>알려주시면 좋은 것</em></h2>
             <div className={styles.sectionLine} />
             <p className={styles.sectionDesc}>
-              카톡이나 전화 문의 전에 아래 내용을 간단히 알려주시면 제작 방식과 예상 범위를 더 빠르게 안내할 수 있습니다.
+              카톡이나 전화 문의 전에 누구의 이야기인지, 어떤 기념일에 맞추는지, 원고나 사진이 어느 정도 있는지 알려주시면 제작 방식과 예상 범위를 더 빠르게 안내할 수 있습니다.
             </p>
             <ContactButtons />
           </div>
