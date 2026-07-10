@@ -58,9 +58,9 @@ const subItems = [
     img: '/image/home/main005.png',
   },
   {
-    name: '출판 가이드',
-    desc: '책을 만들기 전 확인해야 할 기준을 정리했습니다.',
-    href: '/support/guide',
+    name: '리뷰 후기',
+    desc: '실제 도서 작업과정, 인터뷰 과정, 고객 후기를 확인할 수 있습니다.',
+    href: '/portfolio/reviews',
     img: '/image/home/hero006.avif',
   },
   {

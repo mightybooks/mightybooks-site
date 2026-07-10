@@ -125,7 +125,7 @@ export default function Nav() {
         <span />
       </button>
       <div className={styles.social}>
-        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">IG</a>
+        <a href="https://instagram.com/roseandfox_15th" target="_blank" rel="noopener noreferrer">IG</a>
         <a href="https://open.kakao.com/me/mightybooks" target="_blank" rel="noopener noreferrer">Ka</a>
       </div>
       <div
