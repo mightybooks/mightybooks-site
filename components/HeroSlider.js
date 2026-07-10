@@ -30,9 +30,9 @@ const slides = [
   {
     bg: '/image/home/hero007.avif',
     label: 'Digital Publishing',
-    title: '전자책을 넘어\n저자의 자산으로 만듭니다',
-    sub: 'PDF와 EPUB 제작을 넘어, 강의·상담·브랜딩에 오래 활용할 수 있는 출판 자산으로 정리합니다.',
-    btn: '전자책 제작',
+    title: 'EPUB·PDF·웹북으로\n읽히는 방식을 설계합니다',
+    sub: '전자책 서점, 직접 배포와 웹브라우저 열람까지 목적에 맞는 디지털 출판 형식을 안내합니다.',
+    btn: '전자책·웹북 제작',
     btnHref: '/business/epub',
   },
   {

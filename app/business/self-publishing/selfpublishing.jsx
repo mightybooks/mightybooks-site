@@ -1,230 +1,79 @@
 'use client'
-/* eslint-disable react/no-unescaped-entities */
-import { useEffect, useRef } from 'react'
+
+import Image from 'next/image'
+import { useEffect, useRef, useState } from 'react'
+import { EMAIL_ADDRESS, KAKAO_URL, PhoneConsultModal } from '../components/ServiceContactCta'
+import { categories, checklist, durationFactors, faqs, fitCases, interviewSteps, manuscriptWork, process, scopes, sourceContents, uses } from './professionalBookData'
 import styles from './self-publishing.module.css'
 
-const strengths = [
-  {
-    icon: '🎯',
-    title: '기획 총괄',
-    desc: '명확한 주제와 컨셉만 준비되어 있다면, 아이디어만으로도 출간할 수 있도록 마이티북스가 도와드립니다.',
-  },
-  {
-    icon: '⚡',
-    title: '스피드',
-    desc: '초고 완성 후 출판사와 계약을 했더라도 출간까지 몇 년이 걸리기도 합니다. 마이티북스에서는 컨설턴트의 1:1 대응으로 빠르게 출간할 수 있도록 집중합니다.',
-  },
-  {
-    icon: '💎',
-    title: '합리적인 권한과 인세 비율',
-    desc: '프리미엄 에디션은 저자가 투자한 비용으로 진행됨에 따라 재고의 모든 권한은 저자에게 귀속되며, 45%의 인세를 지불합니다.',
-  },
-]
+const badges = ['완성 원고 기반 제작', '자체 콘텐츠 인터뷰 제작', '평균 제작 기간 약 2개월', '필요한 출간 일정에 맞춤 진행', '편집·디자인·인쇄·출간 통합 지원', '전국 온라인 상담', '대구·경북·경남 오프라인 상담']
+const breadcrumbJsonLd = { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
+  { '@type': 'ListItem', position: 1, name: '홈', item: 'https://xn--hz2b41ezwf0zf9tq.com/' },
+  { '@type': 'ListItem', position: 2, name: '출판서비스', item: 'https://xn--hz2b41ezwf0zf9tq.com/business/self-publishing' },
+  { '@type': 'ListItem', position: 3, name: '전문서적·전문가 브랜딩 도서·실용서·교재 제작', item: 'https://xn--hz2b41ezwf0zf9tq.com/business/self-publishing' },
+] }
+const serviceJsonLd = { '@context': 'https://schema.org', '@type': 'Service', name: '전문서적·전문가 브랜딩 도서·실용서·교재 제작', provider: { '@type': 'Organization', name: '마이티북스', url: 'https://xn--hz2b41ezwf0zf9tq.com/' }, areaServed: '대한민국', url: 'https://xn--hz2b41ezwf0zf9tq.com/business/self-publishing', description: '전문 지식, 강의 자료와 현장 노하우를 목적과 독자에 맞는 전문서적, 실용서와 교재로 기획·제작합니다.' }
+const faqJsonLd = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map(([name, text]) => ({ '@type': 'Question', name, acceptedAnswer: { '@type': 'Answer', text } })) }
 
-const plans = [
-  {
-    name: '출간기획 피드백',
-    price: '55만원~',
-    desc: '출판사에 투고하기 전 제안서와 샘플 원고를 점검하여 수정 및 피드백을 해드립니다.',
-    tier: 'basic',
-    icon: '📋',
-  },
-  {
-    name: '리라이팅 플랜',
-    price: '250만원~',
-    desc: '완성한 초고의 완성도를 높이는 작업입니다. 출판사와 계약을 했으나 스스로 수정할 여력이 되지 않는 예비 작가에게 추천합니다.',
-    tier: 'basic',
-    icon: '✏️',
-  },
-  {
-    name: '베이직 플랜',
-    price: '660만원~',
-    desc: '효율성에 최적화된 플랜입니다. 빠른 제작 및 출간을 지원합니다.',
-    tier: 'standard',
-    icon: '📦',
-  },
-  {
-    name: '스탠다드 플랜',
-    price: '990만원~',
-    desc: '완성된 초고에 전문 에디터의 감각을 입혀, 가독성을 높인 작업물을 기대할 수 있습니다.',
-    tier: 'standard',
-    icon: '⭐',
-  },
-  {
-    name: '프리미엄 플랜',
-    price: '1,400만원~',
-    desc: '스탠다드 플랜에 온, 오프라인 이벤트 행사 지원이 추가된 플랜입니다.',
-    tier: 'premium',
-    icon: '👑',
-  },
-  {
-    name: '올인원 플랜',
-    price: '2,400만원~',
-    desc: '인터뷰를 통한 원고 작성(대필) 및 윤문 등 출판과 관련한 모든 공정을 지원합니다.',
-    tier: 'vip',
-    icon: '💎',
-  },
-]
-
-const tierLabels = {
-  basic: 'BASIC',
-  standard: 'STANDARD',
-  premium: 'PREMIUM',
-  vip: 'VIP',
+function ContactButtons() {
+  const [phoneOpen, setPhoneOpen] = useState(false)
+  return <><div className={styles.contactRow}>
+    <a href={KAKAO_URL} target="_blank" rel="noopener noreferrer" className={styles.ctaBtn}>오픈채팅 문의</a>
+    <button type="button" className={styles.ctaBtnGhost} onClick={() => setPhoneOpen(true)}>전화 문의</button>
+    <a href={`mailto:${EMAIL_ADDRESS}`} className={styles.ctaBtnGhost}>이메일 문의</a>
+  </div>{phoneOpen && <PhoneConsultModal styles={styles} onClose={() => setPhoneOpen(false)} />}</>
 }
+function SectionHeader({ eyebrow, title, children }) { return <div className={styles.sectionHeader}><span className={styles.tag}>{eyebrow}</span><h2 className={styles.sectionTitle}>{title}</h2>{children && <p className={styles.sectionLead}>{children}</p>}</div> }
+function CheckList({ items }) { return <ul className={styles.checkList}>{items.map(item => <li key={item}>{item}</li>)}</ul> }
+function ProcessGrid() { return <div className={styles.processGrid}>{process.map(([num,title,text]) => <article className={styles.processCard} key={num}><span>{num}</span><h3>{title}</h3><p>{text}</p></article>)}</div> }
+function FaqList() { return <div className={styles.faqList}>{faqs.map(([q,a]) => <details key={q}><summary>{q}</summary><p>{a}</p></details>)}</div> }
 
 export default function SelfPublishingPage() {
-  const revealRefs = useRef([])
+  const refs = useRef([])
+  useEffect(() => { const observer = new IntersectionObserver(entries => entries.forEach(entry => entry.isIntersecting && entry.target.classList.add(styles.visible)), { threshold: .08 }); refs.current.forEach(el => el && observer.observe(el)); return () => observer.disconnect() }, [])
+  const reveal = index => el => { refs.current[index] = el }
+  return <main className={styles.wrap}>
+    {[breadcrumbJsonLd, serviceJsonLd, faqJsonLd].map((data,index) => <script key={index} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }} />)}
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      entries => entries.forEach(e => {
-        if (e.isIntersecting) e.target.classList.add(styles.visible)
-      }),
-      { threshold: 0.12 }
-    )
-    revealRefs.current.forEach(el => { if (el) observer.observe(el) })
-    return () => observer.disconnect()
-  }, [])
+    <section className={styles.hero}>
+      <div className={styles.heroBg} /><div className={styles.heroOverlay} />
+      <div className={styles.heroInner}><div className={styles.heroContent}>
+        <span className={styles.tag}>Professional Book / Practical Guide / Textbook</span>
+        <p className={styles.heroService}>전문 분야 저서 · 전문가 브랜딩 도서 · 실용서 · 강의 교재</p>
+        <h1 className={styles.heroTitle}>전문성과 경험을<br /><span>읽히는 책으로</span><br />만듭니다.</h1>
+        <p className={styles.heroCopy}>전문 분야의 지식과 현장 경험, 강의 자료와 축적된 콘텐츠를 독자가 이해할 수 있는 한 권의 책으로 구성합니다.</p>
+        <p className={styles.heroSubcopy}>완성 원고가 있다면 편집과 디자인부터 진행하고, 원고가 없더라도 자체 콘텐츠가 있다면 인터뷰로 목차와 원고를 만들 수 있습니다.</p>
+        <div className={styles.badges}>{badges.map(item => <span key={item}>{item}</span>)}</div><ContactButtons />
+      </div><div className={styles.heroVisual}>
+        <div className={styles.indexSheet}><span>CONTENTS</span><b>01</b><p>KNOWLEDGE</p><b>02</b><p>EXPERIENCE</p><b>03</b><p>METHOD</p></div>
+        <Image src="/image/home/main0052.png" alt="전문 지식과 강의 자료를 책으로 구성하는 전문서적 제작" width={620} height={420} priority />
+        <div className={styles.quoteBox}><strong>원고가 없더라도 가능합니다</strong><span>인터뷰를 기반으로 시작할 수 있습니다.</span></div>
+      </div></div>
+    </section>
 
-  const ref = i => el => revealRefs.current[i] = el
+    <section className={styles.section} ref={reveal(0)}><SectionHeader eyebrow="Four Categories" title={<>어떤 전문 콘텐츠를 <em>책으로 만드나요?</em></>}>전문 분야 저서 출판, 전문가 브랜딩 도서, 실용서 출판과 강의·교육용 교재 제작을 목적에 맞게 설계합니다.</SectionHeader><div className={styles.categoryGrid}>{categories.map(([num,title,text,items]) => <article className={styles.categoryCard} key={num}><span>{num}</span><h3>{title}</h3><p>{text}</p><div>{items.map(item => <b key={item}>{item}</b>)}</div></article>)}</div></section>
 
-  return (
-    <div className={styles.wrap}>
+    <section className={styles.duration} ref={reveal(1)}><div><span className={styles.tag}>Average Timeline</span><h2 className={styles.sectionTitle}>평균 제작 기간은<br /><em>약 2개월입니다</em></h2><p>완성 원고를 기준으로 원고 검토, 교정, 편집, 표지·내지 디자인, 교정 확인과 인쇄까지 일반적으로 약 2개월이 필요합니다.</p><strong>평균 2개월을 기준으로 진행하되, 실제 필요한 출간 일정에 맞춰 제작 계획을 조정합니다.</strong></div><div><CheckList items={durationFactors} /><p className={styles.notice}>행사, 강의 개강일, 기관 납품일 등 필요한 시점이 있다면 상담 단계에서 알려 주세요. 촉박한 일정은 원고 상태와 범위를 확인한 뒤 가능 여부를 판단합니다.</p></div></section>
 
-      {/* HERO */}
-      <section className={styles.hero}>
-        <div className={styles.heroBg} />
-        <div className={styles.heroOverlay} />
-        <div className={styles.heroContent}>
-          <span className={styles.tag}>Business</span>
-          <h1 className={styles.heroTitle}>자비출판<br /><em>프리미엄 에디션</em></h1>
-          <div className={styles.heroLine} />
-          <p className={styles.heroCopy}>
-            아이디어만으로도 출간할 수 있습니다.<br />
-            재고의 모든 권한은 저자에게, 인세 45%.
-          </p>
-          <p className={styles.seoLine}>
-            마이티북스는 자비출판을 기반으로 저자 중심의 출판 서비스를 제공합니다.
-          </p>
-        </div>
-        <div className={styles.heroFloat}>45%</div>
-      </section>
+    <section className={styles.sectionAlt} ref={reveal(2)}><div className={styles.split}><div><span className={styles.tag}>Completed Manuscript</span><h2 className={styles.sectionTitle}>완성된 원고가 있다면<br /><em>제작에 집중합니다</em></h2><p className={styles.sectionDesc}>저자가 작성한 내용과 구성을 존중하면서 교정, 편집, 디자인과 출간을 진행합니다.</p><p className={styles.notice}>전문 용어와 사실관계, 법률·의학·기술적 정확성은 저자가 최종 확인해야 합니다.</p></div><CheckList items={manuscriptWork} /></div></section>
 
-      {/* 3 STRENGTHS */}
-      <section className={styles.strengthSection} ref={ref(0)}>
-        <div className={styles.strengthGrid}>
-          {strengths.map((s, i) => (
-            <div
-              key={i}
-              className={styles.strengthCard}
-              ref={ref(i + 1)}
-              style={{ transitionDelay: `${i * 0.15}s` }}
-            >
-              <div className={styles.strengthIcon}>{s.icon}</div>
-              <h3 className={styles.strengthTitle}>{s.title}</h3>
-              <div className={styles.strengthBar} />
-              <p className={styles.strengthDesc}>{s.desc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-        
-        <p className={styles.seoLine2}>
-          자비출판은 저자가 주도적으로 진행하는 출판 방식입니다.<br/>
-          마이티북스는 이를 프리미엄 제작 방식으로 제공합니다.
-        </p>
+    <section className={styles.section} ref={reveal(3)}><SectionHeader eyebrow="Interview Production" title={<>원고가 없어도 <em>자체 콘텐츠가 있다면</em><br />시작할 수 있습니다</>}>강의 자료, 업무 경험, 사례, 블로그 글, 영상, 연구 자료와 고유한 방법론을 인터뷰로 구조화합니다. 아무 자료 없이 주제를 임의로 만드는 대필 서비스는 아닙니다.</SectionHeader><div className={styles.split}><div><h3 className={styles.subTitle}>진행 가능한 자료</h3><div className={styles.chips}>{sourceContents.map(item => <span key={item}>{item}</span>)}</div></div><div><h3 className={styles.subTitle}>인터뷰 제작의 기본 흐름</h3><ol className={styles.numberList}>{interviewSteps.map(item => <li key={item}>{item}</li>)}</ol></div></div><div className={styles.compare}><p><strong>자서전 인터뷰</strong>삶과 기억을 중심으로 구성</p><p><strong>전문서적 인터뷰</strong>지식, 사례, 방법론과 실무 콘텐츠를 중심으로 구성</p></div><p className={styles.centerNote}>인터뷰 제작은 별도의 작업 범위와 비용이 발생할 수 있습니다.</p></section>
 
-      {/* HANDMADE */}
-      <section className={styles.handmadeSection} ref={ref(4)}>
-        <div className={styles.handmadeInner}>
-          <div className={styles.handmadeLeft}>
-            <span className={styles.tag}>Philosophy</span>
-            <h2 className={styles.sectionTitle}>
-              Handmade<br />
-              <em>책다운 책 만들기</em>
-            </h2>
-            <div className={styles.sectionLine} />
-          </div>
-          <div className={styles.handmadeRight}>
-            <p className={styles.handmadeText}>
-              마이티북스는 <strong>'책다운 책 만들기'</strong>에 집중합니다.<br />
-              이는 책을 단순한 인쇄물이 아닌 <strong>'작품'</strong>으로 바라보는
-              시선에서 비롯한 신념입니다.
-            </p>
-            <p className={styles.handmadeText}>
-              결국 도서 제작은 사람에 의해 완결됩니다.<br />
-              첨단의 AI 생성 기술이 등장했더라도 최종 판단은 전문가들이 내리며,
-              각 공정이 유기적으로 연결될 수 있도록
-              전문 편집자가 기획해야만 완성도 있는 결과물이 나오는 법입니다.
-            </p>
-            <div className={styles.handmadeQuote}>
-              마이티북스는 작품을 남긴다는 신념으로<br />
-              단계 별 플랜을 두어 최상의 결과를 만들기 위해 노력하고 있습니다.
-            </div>
-          </div>
-        </div>
-      </section>
+    <section className={styles.sectionAlt} ref={reveal(4)}><SectionHeader eyebrow="Purpose First" title={<>책을 어디에 활용할지부터 <em>설계합니다</em></>}>같은 원고라도 판매용 책, 강의 교재, 고객 배포용 책은 분량, 판형, 디자인과 인쇄 방식이 달라집니다.</SectionHeader><div className={styles.useGrid}>{uses.map((item,index) => <article key={item}><span>{String(index+1).padStart(2,'0')}</span><h3>{item}</h3></article>)}</div></section>
 
-      {/* PLANS */}
-      <section className={styles.plansSection} ref={ref(5)}>
-        <div className={styles.plansHeader}>
-          <span className={styles.tag}>Plans</span>
-          <h2 className={styles.sectionTitle}>출간 <em>플랜</em></h2>
-          <div className={styles.sectionLine} style={{margin: '16px auto 0'}} />
-          <p className={styles.plansNote}>
-            제작하려는 도서의 사이즈와 부수, 컬러, 유통 방식과 광고 형태 등에 따라<br />
-            세부 가격이 달라지니 충분한 상담 후 선택하시는 걸 권합니다.
-          </p>
-        </div>
-        <div className={styles.plansGrid}>
-          {plans.map((plan, i) => (
-            <div
-              key={i}
-              className={`${styles.planCard} ${styles[`tier_${plan.tier}`]}`}
-              ref={ref(i + 6)}
-              style={{ transitionDelay: `${i * 0.1}s` }}
-            >
-              <div className={styles.planTierBadge}>{tierLabels[plan.tier]}</div>
-              <div className={styles.planIcon}>{plan.icon}</div>
-              <h3 className={styles.planName}>{plan.name}</h3>
-              <div className={styles.planPrice}>{plan.price}</div>
-              <div className={styles.planDivider} />
-              <p className={styles.planDesc}>{plan.desc}</p>
-              
-              <a href="https://open.kakao.com/me/mightybooks"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.planBtn}
-              >
-                상담하기 →
-              </a>
-            </div>
-          ))}
-        </div>
-      </section>
+    <section className={styles.section} ref={reveal(5)}><SectionHeader eyebrow="Production Scope" title={<>필요한 범위만 <em>연결합니다</em></>}>기획부터 전문서적 출판, 소량 제작과 ISBN 서점 유통 상담까지 계약 범위에 맞춰 진행합니다.</SectionHeader><div className={styles.scopeGrid}>{scopes.map(([title,items],index) => <article key={title}><span>0{index+1}</span><h3>{title}</h3><CheckList items={items} /></article>)}</div><div className={styles.midCta}><ContactButtons /></div></section>
 
-      {/* CTA */}
-      <section className={styles.cta} ref={ref(12)}>
-        <div className={styles.ctaInner}>
-          <h2 className={styles.ctaTitle}>
-            당신의 책,<br />
-            <em>마이티북스와 함께 만들어 보세요</em>
-          </h2>
-          <div style={{display:'flex', gap:'16px', flexWrap:'wrap', justifyContent:'center'}}>
-            <a href="mailto:novelstudylab@naver.com" className={styles.ctaBtn}>이메일 문의 →</a>
-            <a href="https://open.kakao.com/me/mightybooks"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.ctaBtnGhost}
-            >
-              카카오 상담 →
-            </a>
-            <a href="/support/education" className={styles.ctaBtn}>글쓰기 교육 보기 →</a>
-          </div>
-        </div>
-      </section>
+    <section id="process" className={styles.sectionAlt} ref={reveal(6)}><SectionHeader eyebrow="Process" title={<>전문서적 제작 <em>9단계</em></>}>프로젝트의 목적과 자료부터 확인하고, 저자의 전문 내용 검토를 거쳐 디자인과 출간으로 이어갑니다.</SectionHeader><ProcessGrid /></section>
 
-    </div>
-  )
+    <section className={styles.section} ref={reveal(7)}><SectionHeader eyebrow="Good Fit" title={<>이런 분에게 <em>적합합니다</em></>} /><div className={styles.fitGrid}>{fitCases.map(item => <p key={item}>{item}</p>)}</div></section>
+
+    <section className={styles.sectionAlt} ref={reveal(12)} aria-labelledby="produced-books-heading"><div className={styles.split}><div><span className={styles.tag}>Produced Books</span><h2 id="produced-books-heading" className={styles.sectionTitle}>마이티북스가 제작한<br /><em>전문·실용 도서</em></h2><p className={styles.sectionDesc}>전문 지식, 교육 콘텐츠와 현장 경험을 책의 목적과 독자에 맞춰 서로 다른 표지와 본문 구성으로 제작합니다.</p></div><div className={styles.mapFrame}><Image src="/image/home/here008.png" alt="마이티북스가 제작한 전문서적 전문가 브랜딩 도서 실용서와 교재" width={1536} height={1024} /></div></div></section>
+
+    <section className={styles.localSection} ref={reveal(8)}><div><span className={styles.tag}>Daegu · Nationwide</span><h2 className={styles.sectionTitle}>대구에서 전국으로<br /><em>이어지는 출판 상담</em></h2><p>마이티북스는 대구를 기반으로 전문서적, 전문가 브랜딩 도서, 실용서와 강의 교재를 제작합니다. 대구·경북·경남은 오프라인 상담이 가능하며, 그 외 지역은 전화, 이메일, 카카오톡과 화상 상담으로 전국 비대면 진행합니다.</p></div><div className={styles.mapFrame}><Image src="/image/home/here009.png" alt="대구 마이티북스 본사에서 전국으로 이어지는 온오프라인 출판 상담 안내" width={1448} height={1086} /></div></section>
+
+    <section className={styles.sectionAlt} ref={reveal(9)}><div className={styles.split}><div><span className={styles.tag}>Before Consultation</span><h2 className={styles.sectionTitle}>상담 전에<br /><em>준비해 주세요</em></h2><p className={styles.sectionDesc}>미정인 항목은 그대로 알려 주셔도 됩니다. 자료와 목표가 구체적일수록 제작 범위, 맞춤 견적과 일정을 빠르게 안내할 수 있습니다.</p><ContactButtons /></div><CheckList items={checklist} /></div></section>
+
+    <section className={styles.section} ref={reveal(10)}><SectionHeader eyebrow="FAQ" title={<>자주 묻는 <em>질문</em></>} /><FaqList /></section>
+    <section className={styles.finalCta}><span className={styles.tag}>Build Your Authority, Clearly</span><h2>축적한 전문성과 콘텐츠를<br /><em>독자가 활용할 수 있는 책으로</em></h2><p>대구 전문서적 제작부터 경북 오프라인 상담, 전국 비대면 출판 상담까지 목적과 일정에 맞춰 안내합니다.</p><ContactButtons /></section>
+  </main>
 }

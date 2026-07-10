@@ -1,5 +1,6 @@
 'use client'
 import { useEffect, useRef } from 'react'
+import ServiceContactCta from '../components/ServiceContactCta'
 import styles from './planning.module.css'
 
 const successCases = [
@@ -173,10 +174,7 @@ export default function PlanningPage() {
           <p className={styles.seoLine2}>
             기획출판은 모든 원고가 진행되는 방식이 아니며, 내부 기준에 따라 선별됩니다.
           </p>
-          <div style={{display:'flex', gap:'16px', flexWrap:'wrap', justifyContent:'center'}}>
-            <a href="/support/submission" className={styles.ctaBtn}>원고 투고하기 →</a>
-            <a href="https://open.kakao.com/me/mightybooks" target="_blank" rel="noopener noreferrer" className={styles.ctaBtnGhost}>카카오 상담 →</a>
-          </div>
+          <ServiceContactCta styles={styles} />
         </div>
       </section>
 

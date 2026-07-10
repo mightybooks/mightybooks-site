@@ -55,23 +55,23 @@ export default function ServiceContactCta({ styles }) {
   return (
     <>
       <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', justifyContent: 'center' }}>
-        <button
-          type="button"
-          className={styles.ctaBtn}
-          onClick={() => setIsPhoneOpen(true)}
-        >
-          1:1 전화 상담
-        </button>
         <a
           href={KAKAO_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className={styles.ctaBtnGhost}
+          className={styles.ctaBtn}
         >
-          카톡 메신저 상담
+          오픈채팅 문의
         </a>
+        <button
+          type="button"
+          className={styles.ctaBtnGhost}
+          onClick={() => setIsPhoneOpen(true)}
+        >
+          전화 문의
+        </button>
         <a href={`mailto:${EMAIL_ADDRESS}`} className={styles.ctaBtnGhost}>
-          메일
+          이메일 문의
         </a>
       </div>
       {isPhoneOpen && (

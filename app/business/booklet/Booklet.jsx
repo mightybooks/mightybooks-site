@@ -1,233 +1,83 @@
 'use client'
-import { useEffect, useRef } from 'react'
-import {
-  Building2,
-  ClipboardList,
-  FileText,
-  Presentation,
-} from 'lucide-react'
-import ServiceContactCta from '../components/ServiceContactCta'
-import styles from '../poetry/poetry.module.css'
 
-const services = [
-  {
-    icon: '01',
-    title: '내용 구조 정리',
-    desc: '기관 자료, 교육자료, 보고서의 흐름을 읽는 사람이 이해하기 쉬운 책자 구조로 정리합니다.',
-    highlight: 'Structure',
-  },
-  {
-    icon: '02',
-    title: '표와 이미지 배치',
-    desc: '제목 체계, 표, 이미지, 정보 흐름을 다듬어 자료의 목적이 분명하게 보이도록 편집합니다.',
-    highlight: 'Editing',
-  },
-  {
-    icon: '03',
-    title: '판형·제본 방식 제안',
-    desc: '배포용, 보관용, 교육용 목적에 맞춰 판형, 컬러 여부, 제본 방식, 납품 방식을 상담합니다.',
-    highlight: 'Production',
-  },
+import Image from 'next/image'
+import { useState } from 'react'
+import { EMAIL_ADDRESS, KAKAO_URL, PhoneConsultModal } from '../components/ServiceContactCta'
+import styles from './booklet.module.css'
+
+const products = [
+  ['기관·기업 사례집', '사업 성과와 현장 사례를 읽기 쉬운 자료집으로 정리합니다.'],
+  ['사업 결과보고서', '사업 과정과 주요 결과를 표, 사진과 함께 체계적으로 구성합니다.'],
+  ['행사 자료집', '세미나, 포럼과 행사의 순서와 발표 자료를 한 권으로 묶습니다.'],
+  ['교육·안내 소책자', '교육 과정, 이용 방법과 사업 정보를 목적에 맞게 제작합니다.'],
+  ['기념 책자', '기관의 역사, 행사와 주요 기록을 기념 간행물로 구성합니다.'],
+  ['프로그램북', '공연, 전시와 행사 프로그램 정보를 보기 좋게 편집합니다.'],
+  ['백서·기록집', '사업의 배경, 과정과 성과를 보존할 기록물로 정리합니다.'],
+  ['협회·단체 간행물', '회원과 관계자에게 공유할 정기·비정기 간행물을 제작합니다.'],
 ]
-
-const targets = [
-  { icon: FileText, label: '기관·행사 자료집' },
-  { icon: Presentation, label: '교육 자료집·강의 교재' },
-  { icon: ClipboardList, label: '프로젝트 보고서' },
-  { icon: Building2, label: '단체 활동 기록집' },
+const basicScope = ['원고와 자료 확인', '목차 및 페이지 구성', '기본 오탈자·표기 교정', '표·사진·도표 배치', '표지 디자인', '내지 편집디자인', '인쇄 사양 상담', '인쇄와 납품']
+const extraScope = ['전체 기획', '현장 취재', '관계자 인터뷰', '원고 신규 작성', '대량의 원고 재구성', '복잡한 표와 도표 재작성', '대량 사진 보정', '일러스트 제작', '촬영·번역', '긴급 제작', '추가 수정']
+const conditions = ['최종 담당자 1인 지정', '원고와 이미지 자료 일괄 전달', '수정 의견 취합 후 전달', '계약 단계에서 수정 횟수 확정', '최종 승인 이후 추가 수정은 별도 비용', '인쇄 승인 이후 변경 시 일정과 비용 재협의', '행사일·납품일이 있다면 원고 마감일 준수', '기관 내부 결재 기간을 전체 일정에 포함', '긴급 제작은 원고 확인 후 가능 여부 판단']
+const process = [
+  ['01', '제작 문의', '책자의 종류, 목적, 예상 페이지, 부수, 납품일과 예산을 확인합니다.'],
+  ['02', '원고·자료 검토', '원고, 사진, 표, 로고와 참고 자료의 상태를 검토합니다.'],
+  ['03', '범위·견적 확정', '편집, 디자인, 인쇄, 납품과 별도 작업 범위를 확정합니다.'],
+  ['04', '편집·디자인', '원고를 정리하고 목적에 맞는 표지와 내지를 디자인합니다.'],
+  ['05', '교정·승인', '담당자가 PDF 교정본을 확인하고 취합한 수정 의견을 전달합니다.'],
+  ['06', '인쇄·납품', '최종 승인 후 인쇄하고 계약한 장소와 일정에 맞춰 납품합니다.'],
 ]
-
-const scope = [
-  '기관 자료집',
-  '기념 소책자',
-  '복지관·도서관 결과물',
-  '기업 내부 교육자료',
-  '프로젝트 보고서',
-  '포트폴리오 책자',
-  '강의 교재',
+const checklist = ['제작하려는 책자의 종류와 사용 목적', '원고 파일 형식과 분량 또는 예상 페이지', '사진·표·도표의 수량', '희망 제작 부수와 판형', '희망 납품일과 납품 지역', '예상 예산', '기획·취재·원고 작성 필요 여부', '참고 디자인 또는 기존 간행물']
+const faqs = [
+  ['완성된 원고가 있어야 하나요?', '기본적으로 정리된 원고와 자료를 바탕으로 제작합니다. 기획, 취재, 인터뷰와 원고 작성이 필요하면 별도 범위와 비용을 협의합니다.'],
+  ['납품 일정이 정해져 있어도 제작할 수 있나요?', '원고 상태, 페이지 수, 수정 일정과 인쇄 사양을 확인한 뒤 가능 여부를 안내합니다. 행사일이나 납품일은 문의 단계에서 먼저 알려 주세요.'],
+  ['수정은 몇 번까지 가능한가요?', '수정 횟수는 계약 단계에서 확정합니다. 기관 내부 의견은 담당자가 취합해 전달하며, 확정 횟수를 초과하면 별도 비용이 발생할 수 있습니다.'],
+  ['사진과 표가 많아도 가능한가요?', '가능합니다. 다만 사진 보정, 복잡한 도표 재작성과 대량의 표 편집은 작업량에 따라 별도 견적이 발생할 수 있습니다.'],
+  ['인쇄와 납품까지 맡길 수 있나요?', '가능합니다. 페이지 수, 부수, 용지, 제본, 후가공과 납품지를 확인한 뒤 비용을 안내합니다.'],
+  ['예산에 맞춰 제작할 수 있나요?', '예산 범위에서 판형, 페이지, 용지, 제본과 부수를 조정할 수 있습니다. 필요한 작업량과 맞지 않으면 진행 가능한 범위를 별도로 안내합니다.'],
 ]
+const breadcrumbJsonLd = { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
+  { '@type': 'ListItem', position: 1, name: '홈', item: 'https://xn--hz2b41ezwf0zf9tq.com/' },
+  { '@type': 'ListItem', position: 2, name: '출판서비스', item: 'https://xn--hz2b41ezwf0zf9tq.com/business/booklet' },
+  { '@type': 'ListItem', position: 3, name: '기관·기업 소책자 제작', item: 'https://xn--hz2b41ezwf0zf9tq.com/business/booklet' },
+] }
+const faqJsonLd = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map(([name,text]) => ({ '@type': 'Question', name, acceptedAnswer: { '@type': 'Answer', text } })) }
 
-const processSteps = [
-  '문의',
-  '자료 상태 확인',
-  '구조 정리',
-  '견적',
-  '편집/디자인',
-  '교정 확인',
-  '인쇄/납품',
-]
-
-const breadcrumbJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    { '@type': 'ListItem', position: 1, name: '홈', item: 'https://xn--hz2b41ezwf0zf9tq.com/' },
-    { '@type': 'ListItem', position: 2, name: '출판서비스', item: 'https://xn--hz2b41ezwf0zf9tq.com/business/booklet' },
-    { '@type': 'ListItem', position: 3, name: '기관ㆍ기업 소책자', item: 'https://xn--hz2b41ezwf0zf9tq.com/business/booklet' },
-  ],
+function ContactButtons() {
+  const [phoneOpen, setPhoneOpen] = useState(false)
+  return <><div className={styles.contactRow}>
+    <a href={KAKAO_URL} target="_blank" rel="noopener noreferrer" className={styles.ctaBtn}>오픈채팅 문의</a>
+    <button type="button" className={styles.ctaBtnGhost} onClick={() => setPhoneOpen(true)}>전화 문의</button>
+    <a href={`mailto:${EMAIL_ADDRESS}`} className={styles.ctaBtnGhost}>이메일 문의</a>
+  </div>{phoneOpen && <PhoneConsultModal styles={styles} onClose={() => setPhoneOpen(false)} />}</>
 }
+function SectionHeader({ eyebrow, title, children }) { return <div className={styles.sectionHeader}><span>{eyebrow}</span><h2>{title}</h2>{children && <p>{children}</p>}</div> }
+function ItemList({ items }) { return <ul className={styles.itemList}>{items.map(item => <li key={item}>{item}</li>)}</ul> }
+function FaqList() { return <div className={styles.faqList}>{faqs.map(([q,a]) => <details key={q}><summary>{q}</summary><p>{a}</p></details>)}</div> }
 
 export default function BookletPage() {
-  const revealRefs = useRef([])
+  return <main className={styles.wrap}>
+    {[breadcrumbJsonLd, faqJsonLd].map((data,index) => <script key={index} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }} />)}
+    <section className={styles.hero}><div className={styles.heroBg} /><div className={styles.heroOverlay} /><div className={styles.heroInner}>
+      <span className={styles.eyebrow}>Booklet / Report / Publication</span><p className={styles.heroService}>기관 · 기업 · 단체 소책자 제작</p>
+      <h1>기관과 단체의 기록을<br /><em>목적에 맞는 책자로</em> 만듭니다.</h1>
+      <p className={styles.heroLead}>사례집, 자료집, 기념 책자, 교육 소책자와 행사 간행물을 원고 정리부터 편집디자인, 인쇄와 납품까지 제작합니다.</p>
+      <p className={styles.heroDesc}>기관이 보유한 원고와 자료를 기준으로 작업하며, 기획·취재·인터뷰·원고 작성이 필요한 경우 별도로 협의합니다.</p>
+      <div className={styles.badges}>{['기관·기업·단체 간행물', '완성 원고·자료 기반 제작', '편집디자인·인쇄·납품', '일정과 예산에 따른 맞춤 견적'].map(item => <span key={item}>{item}</span>)}</div><ContactButtons />
+    </div></section>
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      entries => entries.forEach(e => {
-        if (e.isIntersecting) e.target.classList.add(styles.visible)
-      }),
-      { threshold: 0.15 }
-    )
-    revealRefs.current.forEach(el => { if (el) observer.observe(el) })
-    return () => observer.disconnect()
-  }, [])
+    <section className={styles.section}><SectionHeader eyebrow="What We Make" title={<>제작 가능한 <em>기관 간행물</em></>}>기업 사례집 제작, 사업 자료집 제작, 교육 소책자 제작과 기념 책자 제작 등 목적에 맞는 책자를 안내합니다.</SectionHeader><div className={styles.productGrid}>{products.map(([title,text]) => <article key={title}><h3>{title}</h3><p>{text}</p></article>)}</div></section>
 
-  const ref = i => el => revealRefs.current[i] = el
+    <section className={styles.sectionAlt}><div className={styles.twoColumn}><div><span className={styles.eyebrow}>Production Scope</span><h2 className={styles.sectionTitle}>기본 제작 범위와<br /><em>별도 작업을 구분합니다</em></h2><p className={styles.sectionDesc}>기관이 정리한 원고와 자료를 받아 기업 책자 디자인, 인쇄와 납품까지 진행하는 것이 기본입니다.</p></div><div className={styles.scopeGrid}><article><h3>기본 제작 범위</h3><ItemList items={basicScope} /></article><article className={styles.extraCard}><h3>별도 협의 작업</h3><ItemList items={extraScope} /></article></div></div></section>
 
-  return (
-    <div className={styles.wrap}>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
-      />
+    <section className={styles.conditions}><div><span className={styles.eyebrow}>Working Conditions</span><h2 className={styles.sectionTitle}>원활한 제작을 위해<br /><em>필요한 조건</em></h2><p>기관·기업 제작은 여러 부서가 참여할 수 있습니다. 일정 지연과 수정 누락을 줄이기 위해 최종 담당자를 한 명으로 지정하고 내부 의견을 취합해 전달해 주세요.</p></div><ItemList items={conditions} /></section>
 
-      <section className={styles.hero}>
-        <div className={`${styles.heroBg} ${styles.bookletHeroBg}`} />
-        <div className={styles.heroOverlay} />
-        <div className={styles.heroContent}>
-          <span className={styles.tag}>Institution / Company Booklet</span>
-          <h1 className={styles.heroTitle}>기관ㆍ기업<br /><em>소책자 제작</em></h1>
-          <div className={styles.heroLine} />
-          <p className={styles.heroCopy}>
-            자료를 단순히 인쇄하지 않고,<br />
-            읽는 사람이 이해하기 쉬운 책자 구조로 정리합니다.
-          </p>
-          <p className={styles.seoLine}>
-            기관, 단체, 기업, 도서관, 복지관, 교육기관, 프로젝트 운영자를 위한 편집·디자인·인쇄 서비스입니다.
-          </p>
-        </div>
-        <div className={styles.heroFloat}>booklet</div>
-      </section>
+    <section className={styles.section}><SectionHeader eyebrow="Process" title={<>간결한 <em>6단계 제작 과정</em></>} /><div className={styles.processGrid}>{process.map(([num,title,text]) => <article key={num}><span>{num}</span><h3>{title}</h3><p>{text}</p></article>)}</div></section>
 
-      <section className={styles.collectSection} ref={ref(0)}>
-        <div className={styles.collectInner}>
-          <div className={styles.collectLeft}>
-            <span className={styles.tag}>What We Make</span>
-            <h2 className={styles.sectionTitle}>
-              목적에 맞는<br />
-              <em>자료집으로 정리합니다</em>
-            </h2>
-            <div className={styles.sectionLine} />
-            <p className={styles.sectionDesc}>
-              기관·기업 소책자는 단순한 인쇄물이 아닙니다. 읽는 사람이 내용을 이해하기 쉽도록
-              자료의 순서, 제목 체계, 표와 이미지, 정보 흐름이 정리되어야 합니다.
-            </p>
-            <p className={styles.sectionDesc}>
-              마이티북스는 다양한 기관 자료 제작 경험과 포트폴리오를 보유하고 있습니다.
-              자료집, 교육자료, 행사 소책자, 활동 기록집 등 목적에 맞는 책자 제작 경험을 바탕으로 내용을 정리하고 편집합니다.
-            </p>
-          </div>
-          <div className={styles.collectRight}>
-            <div className={styles.targetLabel}>제작 대상</div>
-            <div className={styles.targetGrid}>
-              {targets.map((t, i) => {
-                const Icon = t.icon
+    <section className={styles.portfolio}><div><span className={styles.eyebrow}>Production Portfolio</span><h2 className={styles.sectionTitle}>기존 제작 경험을<br /><em>목적에 맞게 적용합니다</em></h2><p>자료집, 교육자료와 행사 소책자 등 실제 제작 경험을 바탕으로 정보 구조와 인쇄 사양을 상담합니다.</p></div><Image src="/image/home/smallbook.png" alt="기관 기업 소책자와 자료집 제작 사례" width={1800} height={1000} /></section>
 
-                return (
-                  <div
-                    key={t.label}
-                    className={styles.targetCard}
-                    ref={ref(i + 1)}
-                    style={{ transitionDelay: `${i * 0.1}s` }}
-                  >
-                    <div className={styles.targetIcon}>
-                      <Icon size={30} strokeWidth={1.8} aria-hidden="true" />
-                    </div>
-                    <div className={styles.targetName}>{t.label}</div>
-                  </div>
-                )
-              })}
-            </div>
-          </div>
-        </div>
-      </section>
+    <section className={styles.sectionAlt}><div className={styles.twoColumn}><div><span className={styles.eyebrow}>Before Inquiry</span><h2 className={styles.sectionTitle}>견적 문의 전에<br /><em>알려 주세요</em></h2><p className={styles.sectionDesc}>원고 분량, 예상 페이지 수, 인쇄 부수, 납품일과 예산을 알려 주시면 진행 가능 여부와 견적을 안내합니다.</p><ContactButtons /></div><ItemList items={checklist} /></div></section>
 
-      <section className={styles.servicesSection} ref={ref(5)}>
-        <div className={styles.servicesGrid}>
-          {services.map((s, i) => (
-            <div
-              key={s.title}
-              className={styles.serviceCard}
-              ref={ref(i + 6)}
-              style={{ transitionDelay: `${i * 0.15}s` }}
-            >
-              <div className={styles.serviceIconWrap}>
-                <span className={styles.serviceIcon}>{s.icon}</span>
-              </div>
-              <div className={styles.serviceHighlight}>{s.highlight}</div>
-              <h3 className={styles.serviceTitle}>{s.title}</h3>
-              <p className={styles.serviceDesc}>{s.desc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className={styles.portfolioSection} ref={ref(9)}>
-        <div className={styles.sectionHeader}>
-          <span className={styles.tag}>Portfolio</span>
-          <h2 className={styles.sectionTitle}>기관 자료 제작<br /><em>포트폴리오</em></h2>
-          <div className={styles.sectionLine} style={{ margin: '16px auto 0' }} />
-          <p className={styles.sectionDesc} style={{ maxWidth: '760px', margin: '24px auto 0', textAlign: 'center' }}>
-            자료집, 교육자료, 행사 소책자 등 다양한 목적의 책자 제작이 가능합니다.
-          </p>
-        </div>
-        <img
-          src="/image/home/smallbook.png"
-          alt="기관 자료 제작 포트폴리오"
-          className={styles.portfolioImage}
-        />
-      </section>
-
-      <section className={styles.quoteSection} ref={ref(10)}>
-        <div className={styles.quoteBg} />
-        <div className={styles.quoteOverlay} />
-        <div className={styles.quoteInner}>
-          <span className={styles.tag}>Scope</span>
-          <h2 className={styles.quoteTitle}>
-            배포용과 보관용에 맞춰<br />
-            <em>제작 방식을 제안합니다</em>
-          </h2>
-          <div className={styles.quoteLine} />
-          <p className={styles.quoteDesc}>
-            {scope.join(' · ')} 등 목적에 맞는 책자를 제작할 수 있습니다.
-            자료 상태에 따라 편집 난이도가 크게 달라질 수 있으므로, 최종 견적은 상담 후 확정됩니다.
-          </p>
-          <div className={styles.quoteStats}>
-            {processSteps.slice(0, 4).map((item, i) => (
-              <div key={item} className={styles.quoteStat}>
-                <div className={styles.quoteStatNum}>{String(i + 1).padStart(2, '0')}</div>
-                <div className={styles.quoteStatLabel}>{item}</div>
-              </div>
-            ))}
-          </div>
-          <p className={styles.quoteDesc}>
-            이후 절차: {processSteps.slice(4).join(' → ')}
-          </p>
-          <p className={styles.quoteDesc}>
-            기관ㆍ기업 소책자는 자료 상태, 분량, 편집 범위, 디자인 난이도, 인쇄 부수와 납품 방식에 따라
-            견적이 달라집니다. 상담을 통해 제작 목적과 예산을 확인한 뒤 진행 방향을 안내드립니다.
-          </p>
-        </div>
-      </section>
-
-      <section className={styles.cta} ref={ref(12)}>
-        <div className={styles.ctaInner}>
-          <h2 className={styles.ctaTitle}>
-            기관 자료를<br />
-            <em>책자 형태로 정리하고 싶다면</em>
-          </h2>
-          <ServiceContactCta styles={styles} />
-        </div>
-      </section>
-    </div>
-  )
+    <section className={styles.section}><SectionHeader eyebrow="FAQ" title={<>자주 묻는 <em>질문</em></>} /><FaqList /></section>
+    <section className={styles.finalCta}><h2>제작 범위와 예산을<br /><em>먼저 확인합니다</em></h2><p>원고 분량, 페이지 수, 인쇄 부수, 납품일과 예산을 알려 주시면 작업 범위와 진행 가능 여부를 안내합니다.</p><ContactButtons /></section>
+  </main>
 }

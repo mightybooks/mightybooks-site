@@ -359,7 +359,7 @@ export default function GuidePage() {
 
         <div className={styles.bottomNav}>
           <a href="/business/self-publishing" className={styles.backLink}>
-            ← 출판 제작 안내
+            ← 전문서적·실용서·교재 제작 안내
           </a>
         </div>
 

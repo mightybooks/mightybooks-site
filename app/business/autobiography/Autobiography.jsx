@@ -10,10 +10,9 @@ import {
 import AutobiographyPlanFinder from './AutobiographyPlanFinder'
 import styles from './autobiography.module.css'
 
-const heroBadges = [
-  '원고 없는 자서전 제작 가능',
-  '대표 직접 상담',
-  '대구 자서전 제작 상담',
+const heroBadges = [  
+  '대표 1:1 직접 상담',
+  '대구·경북·경남 대면 상담',
   '전국 전화·화상·채팅 상담',
 ]
 
@@ -176,7 +175,7 @@ const breadcrumbJsonLd = {
   ],
 }
 
-function ContactButtons({ secondary = '전화 상담하기' }) {
+function ContactButtons() {
   const [isPhoneOpen, setIsPhoneOpen] = useState(false)
 
   return (
@@ -187,24 +186,24 @@ function ContactButtons({ secondary = '전화 상담하기' }) {
           target="_blank"
           rel="noopener noreferrer"
           className={styles.ctaBtn}
-          aria-label="카카오톡으로 자서전 제작 상담하기"
+          aria-label="오픈채팅으로 문의하기"
         >
-          카톡으로 자서전 상담하기
+          오픈채팅 문의
         </a>
         <button
           type="button"
           className={styles.ctaBtnGhost}
           onClick={() => setIsPhoneOpen(true)}
-          aria-label="마이티북스 전화 상담 연락처 확인하기"
+          aria-label="전화로 문의하기"
         >
-          {secondary}
+          전화 문의
         </button>
         <a
           href={`mailto:${EMAIL_ADDRESS}`}
           className={styles.ctaBtnGhost}
-          aria-label="이메일로 자서전 제작 문의하기"
+          aria-label="이메일로 문의하기"
         >
-          이메일 문의하기
+          이메일 문의
         </a>
       </div>
       {isPhoneOpen && (
@@ -259,8 +258,8 @@ export default function AutobiographyPage() {
             </h1>
             <div className={styles.heroLine} />
             <p className={styles.heroCopy}>
-              부모님의 생애, 가족의 시간, 두 사람의 이야기를 한 권의 책으로 남깁니다.
-              마이티북스가 묻고, 듣고, 정리해 책의 문장으로 만듭니다.
+              부모님의 생애와 가족의 시간을 인터뷰로 기록해 한 권의 책으로 만듭니다.
+              마이티북스가 묻고, 듣고, 정리해 책의 문장으로 완성합니다.
             </p>
             <p className={styles.heroSubcopy}>
               부모님 자서전 · 칠순 기념 책 · 팔순 기념 책 · 커플 기념 서적 제작<br />
@@ -269,20 +268,20 @@ export default function AutobiographyPage() {
             <div className={styles.heroBadges} aria-label="자서전 제작 상담 특징">
               {heroBadges.map(badge => <span key={badge}>{badge}</span>)}
             </div>
-            <ContactButtons secondary="제작 방식 먼저 알아보기" />
+            <ContactButtons />
           </div>
           <div className={styles.heroVisual}>
             {/* TODO: 실제 자서전 원고, 사진, 제작 도서 이미지로 교체하기 쉽게 유지합니다. */}
-            <div className={styles.heroVisualLabel}>전국 온·오프라인 상담지원</div>
+            <div className={styles.heroVisualLabel}>원고 없이 인터뷰로도 진행 가능</div>
             <Image
-              src="/image/home/here001.png"
+              src="/image/home/here003.jpg"
               alt="책 제작 상담을 상징하는 마이티북스 도서 이미지"
               width={420}
               height={420}
               priority
             />
             <div className={styles.heroVisualNote}>
-              <strong>100만 원대부터 상담 가능</strong>
+              <strong>자서전 제작비 100만 원부터</strong>
               <span>원고 상태, 인터뷰 범위, 인쇄 사양에 따라 견적이 달라집니다.</span>
             </div>
             <p className={styles.heroVisualCaption}>
@@ -321,7 +320,7 @@ export default function AutobiographyPage() {
               자서전 제작이나 회고록 제작 문의에서 가장 많이 나오는 질문은 “원고가 없는데 가능한가요?”입니다.
               마이티북스는 완성 원고뿐 아니라 인터뷰, 사진, 메모, 가족의 기억을 확인한 뒤 책의 구조를 함께 잡습니다.
             </p>
-            <ContactButtons secondary="원고 없이 가능한지 물어보기" />
+            <ContactButtons />
           </div>
           <div className={styles.materialGrid}>
             {sourceMaterials.map(([title, text]) => (
@@ -394,14 +393,14 @@ export default function AutobiographyPage() {
           ))}
         </div>
         <div className={styles.midCta}>
-          <ContactButtons secondary="본사 방문 상담 문의하기" />
+          <ContactButtons />
         </div>
       </section>
 
       <section className={styles.sectionAlt} ref={ref(5)} aria-labelledby="types-heading">
         <div className={styles.sectionHeader}>
           <span className={styles.tag}>Book Types</span>
-          <h2 id="types-heading" className={styles.sectionTitle}>제작 형태는 <em>넓게 볼 수 있습니다</em></h2>
+          <h2 id="types-heading" className={styles.sectionTitle}><em>다양한</em> 제작 형태</h2>
           <p className={styles.sectionLead}>
             부모님 생애사, 칠순·팔순 기념 책, 가족 기념 서적, 커플 기념 서적처럼 책을 만드는 이유는 다양합니다. 가족 소장용은 ISBN 없이도 제작할 수 있고, 정식 출간을 원하면 ISBN 등록과 온라인서점 유통 가능성도 함께 상담합니다.
           </p>
@@ -464,7 +463,7 @@ export default function AutobiographyPage() {
           고급 양장 제작, 브랜딩 목적 구성, 다수 인쇄처럼 확인해야 할 범위가 넓을 때 적용될 수 있습니다.
         </p>
         <div className={styles.midCta}>
-          <ContactButtons secondary="예상 견적 상담하기" />
+          <ContactButtons />
         </div>
       </section>
 

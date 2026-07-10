@@ -212,13 +212,13 @@ export default function AutobiographyPlanFinder() {
             className={styles.ctaBtn}
             aria-label="카카오톡으로 자서전 추천 플랜 상담하기"
           >
-            카톡으로 상담하기
+            오픈채팅 문의
           </a>
           <button type="button" className={styles.ctaBtnGhost} onClick={() => setIsPhoneOpen(true)}>
-            전화 상담하기
+            전화 문의
           </button>
           <a href={`mailto:${EMAIL_ADDRESS}`} className={styles.ctaBtnGhost}>
-            이메일 문의하기
+            이메일 문의
           </a>
           <button type="button" className={styles.ctaBtnGhost} onClick={reset}>
             다시 선택하기

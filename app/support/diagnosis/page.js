@@ -41,10 +41,10 @@ const consultationPaths = [
   },
   {
     num: '04',
-    title: '전자책',
-    desc: 'PDF·EPUB 제작을 넘어 저자의 경험과 전문성을 오래 활용할 수 있는 출판 자산으로 정리합니다.',
+    title: '전자책·웹북',
+    desc: '원고의 목적과 이용 환경에 맞춰 EPUB, PDF 또는 브라우저에서 읽는 반응형 웹북으로 제작합니다.',
     href: '/business/epub',
-    link: '전자책 제작 상담 →',
+    link: '전자책·웹북 제작 상담 →',
   },
   {
     num: '05',

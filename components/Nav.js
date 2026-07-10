@@ -16,9 +16,10 @@ const navItems = [
     label: '출판서비스',
     children: [
       { label: '자서전, 기념 도서', href: '/business/autobiography' },
-      { label: '시집, 문집', href: '/business/poetry' },
+      { label: '시집, 문집, 에세이', href: '/business/poetry' },
+      { label: '전문서적, 실용서적', href: '/business/self-publishing' },
       { label: '기관ㆍ기업 소책자', href: '/business/booklet' },
-      { label: '전자책', href: '/business/epub' },
+      { label: '전자책, 웹북', href: '/business/epub' },
     ],
   },
   {

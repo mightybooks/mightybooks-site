@@ -238,6 +238,25 @@
   transition: all .3s;
 }
 .ctaBtnGhost:hover { border-color: #fff; color: #fff; }
+.phonePopupOverlay {
+  position: fixed; inset: 0; z-index: 1000;
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px; background: rgba(0,0,0,.72);
+}
+.phonePopup {
+  position: relative; width: min(100%, 360px);
+  padding: 34px 28px 30px; background: var(--black2);
+  border: 1px solid rgba(255,255,255,.14); border-top: 3px solid var(--red);
+  text-align: center;
+}
+.phonePopupClose {
+  position: absolute; top: 10px; right: 12px;
+  width: 34px; height: 34px; border: 0; background: transparent;
+  color: rgba(255,255,255,.7); font-size: 28px; cursor: pointer;
+}
+.phonePopupTitle { margin-bottom: 14px; color: var(--red); font-size: 14px; font-weight: 800; letter-spacing: 3px; }
+.phonePopupNumber { display: inline-flex; font-family: 'Bebas Neue', cursive; font-size: 40px; }
+.phonePopupDesc { margin-top: 16px; color: rgba(255,255,255,.55); font-size: 13px; }
 
 /* ANIMATIONS */
 @keyframes slideUp {

@@ -1,16 +1,16 @@
 import EpubPage from './Epub'
 
 export const metadata = {
-  title: '전자책 제작 | PDF·EPUB 출판 자산 제작 - 마이티북스',
+  title: '전자책·웹북 제작 | EPUB·PDF 전자책 제작 | 마이티북스',
   description:
-    '단순 파일 변환이 아니라 저자의 경험과 전문성을 장기적으로 활용 가능한 전자책 출판 자산으로 정리합니다. PDF, EPUB 제작 상담을 진행합니다.',
+    '원고의 목적과 이용 방식에 맞춰 EPUB, PDF, 웹북으로 제작합니다. 전자책 서점 유통용 EPUB, 교재·자료집용 PDF, 모바일·PC에서 바로 읽는 반응형 웹북 제작을 지원합니다.',
   alternates: {
     canonical: '/business/epub',
   },
   openGraph: {
-    title: '전자책 제작 | PDF·EPUB 출판 자산 제작 - 마이티북스',
+    title: '전자책·웹북 제작 | EPUB·PDF 전자책 제작 | 마이티북스',
     description:
-      '저자의 경험과 전문성을 강의, 상담, 사업, 브랜딩에 활용 가능한 전자책으로 정리합니다.',
+      'EPUB, PDF와 반응형 웹북의 차이를 확인하고 목적에 맞는 디지털 출판 방식을 상담합니다.',
     url: '/business/epub',
     type: 'website',
   },
