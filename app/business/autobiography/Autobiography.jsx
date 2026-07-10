@@ -273,9 +273,9 @@ export default function AutobiographyPage() {
           </div>
           <div className={styles.heroVisual}>
             {/* TODO: 실제 자서전 원고, 사진, 제작 도서 이미지로 교체하기 쉽게 유지합니다. */}
-            <div className={styles.heroVisualLabel}>출판사 대표가 직접 인터뷰 진행</div>
+            <div className={styles.heroVisualLabel}>전국 온·오프라인 상담지원</div>
             <Image
-              src="/image/home/here009.jpg"
+              src="/image/home/here001.png"
               alt="책 제작 상담을 상징하는 마이티북스 도서 이미지"
               width={420}
               height={420}
