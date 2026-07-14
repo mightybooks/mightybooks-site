@@ -8,6 +8,8 @@ import {
   PhoneConsultModal,
 } from '../components/ServiceContactCta'
 import AutobiographyPlanFinder from './AutobiographyPlanFinder'
+import BookPreviewTrigger from '../components/book-preview/BookPreviewTrigger'
+import { autobiographyPreview } from '../components/book-preview/bookPreviews'
 import styles from './autobiography.module.css'
 
 const heroBadges = [  
@@ -97,7 +99,7 @@ const galleryItems = [
 const pricePlans = [
   {
     name: '라이트 플랜',
-    price: '100만 원부터',
+    price: '120만 원부터',
     target: '완성 원고가 있는 가족 소장용·기념 도서',
     manuscript: '완성 원고 또는 짧은 원고 보유',
     interview: '기본 상담 중심',
@@ -109,7 +111,7 @@ const pricePlans = [
   },
   {
     name: '스탠다드 플랜',
-    price: '200만 원부터',
+    price: '220만 원부터',
     target: '메모·녹음·부분 원고를 책으로 정리하려는 경우',
     manuscript: '부분 원고, 녹취, 메모 자료',
     interview: '필요 시 전화·화상 상담',
@@ -175,7 +177,7 @@ const breadcrumbJsonLd = {
   ],
 }
 
-function ContactButtons() {
+function ContactButtons({ primaryLabel = '오픈채팅 문의' }) {
   const [isPhoneOpen, setIsPhoneOpen] = useState(false)
 
   return (
@@ -186,9 +188,9 @@ function ContactButtons() {
           target="_blank"
           rel="noopener noreferrer"
           className={styles.ctaBtn}
-          aria-label="오픈채팅으로 문의하기"
+          aria-label={`${primaryLabel} - 카카오톡 오픈채팅`}
         >
-          오픈채팅 문의
+          {primaryLabel}
         </a>
         <button
           type="button"
@@ -281,7 +283,7 @@ export default function AutobiographyPage() {
               priority
             />
             <div className={styles.heroVisualNote}>
-              <strong>자서전 제작비 100만 원부터</strong>
+              <strong>자서전 제작비 120만 원부터</strong>
               <span>원고 상태, 인터뷰 범위, 인쇄 사양에 따라 견적이 달라집니다.</span>
             </div>
             <p className={styles.heroVisualCaption}>
@@ -517,6 +519,10 @@ export default function AutobiographyPage() {
         </p>
       </section>
 
+      <section className={styles.sectionAlt} ref={ref(12)} aria-label="실제 제작 자서전 내지 미리보기">
+        <BookPreviewTrigger book={autobiographyPreview} />
+      </section>
+
       <section className={styles.finderSection} ref={ref(11)} aria-labelledby="finder-heading">
         <div className={styles.sectionHeader}>
           <span className={styles.tag}>Plan Finder</span>
@@ -527,6 +533,13 @@ export default function AutobiographyPage() {
           </p>
         </div>
         <AutobiographyPlanFinder />
+      </section>
+
+      <section className={styles.finalCta} aria-labelledby="final-cta-heading">
+        <span className={styles.tag}>Start Your Story</span>
+        <h2 id="final-cta-heading">기억을 책으로 남기는 일을<br /><em>시작해 보세요</em></h2>
+        <p>원고가 없어도 괜찮습니다. 현재 준비된 자료와 원하는 제작 방향을 확인한 뒤, 적합한 진행 방법부터 함께 정리합니다.</p>
+        <ContactButtons primaryLabel="자서전 제작 문의하기" />
       </section>
     </div>
   )

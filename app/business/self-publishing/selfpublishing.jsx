@@ -3,6 +3,8 @@
 import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
 import { EMAIL_ADDRESS, KAKAO_URL, PhoneConsultModal } from '../components/ServiceContactCta'
+import BookPreviewTrigger from '../components/book-preview/BookPreviewTrigger'
+import { selfPublishingPreview } from '../components/book-preview/bookPreviews'
 import { categories, checklist, durationFactors, faqs, fitCases, interviewSteps, manuscriptWork, process, scopes, sourceContents, uses } from './professionalBookData'
 import styles from './self-publishing.module.css'
 
@@ -74,6 +76,7 @@ export default function SelfPublishingPage() {
     <section className={styles.sectionAlt} ref={reveal(9)}><div className={styles.split}><div><span className={styles.tag}>Before Consultation</span><h2 className={styles.sectionTitle}>상담 전에<br /><em>준비해 주세요</em></h2><p className={styles.sectionDesc}>미정인 항목은 그대로 알려 주셔도 됩니다. 자료와 목표가 구체적일수록 제작 범위, 맞춤 견적과 일정을 빠르게 안내할 수 있습니다.</p><ContactButtons /></div><CheckList items={checklist} /></div></section>
 
     <section className={styles.section} ref={reveal(10)}><SectionHeader eyebrow="FAQ" title={<>자주 묻는 <em>질문</em></>} /><FaqList /></section>
-    <section className={styles.finalCta}><span className={styles.tag}>Build Your Authority, Clearly</span><h2>축적한 전문성과 콘텐츠를<br /><em>독자가 활용할 수 있는 책으로</em></h2><p>대구 전문서적 제작부터 경북 오프라인 상담, 전국 비대면 출판 상담까지 목적과 일정에 맞춰 안내합니다.</p><ContactButtons /></section>
+    <section className={styles.sectionAlt} ref={reveal(11)} aria-label="실제 제작 전문·실용 도서 내지 미리보기"><BookPreviewTrigger book={selfPublishingPreview} /></section>
+    <section className={styles.finalCta}><span className={styles.tag}>Build Your Authority, Clearly</span><h2>축적한 전문성과 콘텐츠를<br /><em>독자가 활용할 수 있는 책으로</em></h2><p>전문서적 제작, 대구 경북 경남 오프라인 상담, 전국 비대면 출판 상담까지 목적과 일정에 맞춰 안내합니다.</p><ContactButtons /></section>
   </main>
 }

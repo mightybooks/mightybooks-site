@@ -3,6 +3,8 @@
 import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
 import { EMAIL_ADDRESS, KAKAO_URL, PhoneConsultModal } from '../components/ServiceContactCta'
+import BookPreviewTrigger from '../components/book-preview/BookPreviewTrigger'
+import { poetryPreview } from '../components/book-preview/bookPreviews'
 import styles from './poetry.module.css'
 
 const badges = ['완성 원고 기반 제작', '한 권부터 소량 인쇄 가능', '에세이·산문 윤문 선택 가능', '맞춤형 표지·내지 디자인', 'ISBN·서점 유통 지원']
@@ -98,7 +100,7 @@ export default function PoetryPage() {
 
     <section id="plans" className={styles.planSection} ref={reveal(5)}><Header tag="Production Plans" title={<>세 가지 <em>제작 플랜</em></>} desc="가격은 부가세 포함이며, 원고와 제작 사양을 검토한 뒤 최종 견적을 확정합니다." /><div className={styles.planGrid}>{plans.map((plan, i) => <article className={`${styles.planCard} ${i === 1 ? styles.featured : ''}`} key={plan.name}>{i === 1 && <span className={styles.recommend}>DESIGN FOCUS</span>}<h3>{plan.name}</h3><div className={styles.price}>{plan.price}</div><strong className={styles.criteria}>{plan.criteria}</strong><p>{plan.intro}</p><h4>포함 항목</h4><List items={plan.included} /><h4>{plan.extra.length ? '별도 협의 항목' : '유의 사항'}</h4>{plan.extra.length ? <List items={plan.extra} /> : <List items={['서점 입점과 판매량을 보장하지 않습니다.', '보도자료 배포가 기사 게재를 보장하지 않습니다.', '유통 등록 조건은 각 유통사 정책에 따라 달라집니다.', '오프라인 서점 진열은 기본 범위가 아닙니다.', '별도 광고비는 사전 협의합니다.']} />}<p className={styles.fit}>{plan.fit}</p></article>)}</div><div className={styles.centerCta}><ContactButtons /></div></section>
 
-    <section className={styles.gallerySection} ref={reveal(6)}><Header tag="Publishing Experience" title={<>제작 도서와 <em>출판 경험</em></>} desc="현재 페이지의 실제 제작 도서 이미지를 바탕으로 표지와 내지의 다양한 방향을 상담합니다." /><div className={styles.gallery}><Image src="/image/home/here0061.png" alt="마이티북스 제작 도서 표지 사례" width={520} height={390} /><Image src="/image/home/here007.png" alt="마이티북스 시집과 에세이 제작 사례" width={520} height={390} /></div></section>
+    <section className={styles.gallerySection} ref={reveal(6)}><Header tag="Publishing Experience" title={<>제작 도서와 <em>출판 경험</em></>} desc="현재 페이지의 실제 제작 도서 이미지를 바탕으로 표지와 내지의 다양한 방향을 상담합니다." /><div className={styles.gallery}><Image src="/image/home/here007.png" alt="마이티북스 제작 도서 표지 사례" width={520} height={390} /><Image src="/image/home/here0071.png" alt="마이티북스 시집과 에세이 제작 사례" width={520} height={390} /></div></section>
 
     <section className={styles.section} ref={reveal(7)}><Header tag="Process" title={<>책이 완성되는 <em>8단계</em></>} desc="원고 검토부터 디자인, 교정, 인쇄와 출간까지 각 단계의 승인 범위를 분명히 안내합니다." /><div className={styles.processGrid}>{process.map(([num, title, desc]) => <article className={styles.processCard} key={num}><span>{num}</span><h3>{title}</h3><p>{desc}</p></article>)}</div></section>
 
@@ -108,7 +110,9 @@ export default function PoetryPage() {
 
     <section className={styles.section} ref={reveal(10)}><Header tag="FAQ" title={<>자주 묻는 <em>질문</em></>} /><div className={styles.faq}>{faqs.map(([question, answer]) => <details key={question}><summary>{question}</summary><p>{answer}</p></details>)}</div></section>
 
-    <section className={styles.finalCta}><span className={styles.tag}>Start Your Book</span><h2 className={styles.ctaTitle}>써온 글을 이제<br /><em>한 권의 책으로 만나보세요</em></h2><p>대구 시집 제작부터 전국 소량 책 제작, ISBN 서점 유통까지 원고와 목적에 맞춰 상담합니다.</p><ContactButtons /></section>
+    <section className={styles.sectionAlt} ref={reveal(11)} aria-label="실제 제작 시집 내지 미리보기"><BookPreviewTrigger book={poetryPreview} /></section>
+
+    <section className={styles.finalCta}><span className={styles.tag}>Start Your Book</span><h2 className={styles.ctaTitle}>써온 글을 이제<br /><em>한 권의 책으로 만나보세요</em></h2><p>시집 제작, 전국 소량 책 제작, ISBN 서점 유통까지 원고와 목적에 맞춰 상담합니다.</p><ContactButtons /></section>
   </main>
 }
 

@@ -1,0 +1,95 @@
+.webbookCase {
+  padding: 95px 80px;
+  background:
+    linear-gradient(135deg, rgba(232, 0, 30, 0.08), transparent 55%),
+    var(--black2);
+}
+
+.webbookCaseInner {
+  width: min(100%, 1080px);
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1.05fr 0.75fr;
+  gap: 70px;
+  align-items: center;
+}
+
+.webbookCaseCopy h3 {
+  margin-top: 22px;
+  font-size: clamp(21px, 2.3vw, 29px);
+  line-height: 1.45;
+  word-break: keep-all;
+}
+
+.webbookCaseCopy p {
+  margin: 17px 0 27px;
+  color: rgba(255, 255, 255, 0.64);
+  font-size: 14px;
+  line-height: 1.8;
+  word-break: keep-all;
+}
+
+.webbookBanner {
+  display: block;
+  padding: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.035);
+  color: rgba(255, 255, 255, 0.72);
+  text-align: center;
+  text-decoration: none;
+  transition: 0.25s;
+}
+
+.webbookBanner:hover {
+  border-color: rgba(232, 0, 30, 0.55);
+  background: rgba(232, 0, 30, 0.06);
+  transform: translateY(-4px);
+}
+
+.webbookBanner:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 4px;
+}
+
+.webbookBanner img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 560px;
+  object-fit: contain;
+}
+
+.webbookBanner span {
+  display: block;
+  margin-top: 14px;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+@media (max-width: 1050px) {
+  .webbookCaseInner {
+    max-width: 720px;
+    grid-template-columns: 1fr;
+  }
+
+  .webbookBanner {
+    width: min(100%, 430px);
+    margin: auto;
+  }
+}
+
+@media (max-width: 720px) {
+  .webbookCase {
+    padding: 72px 20px;
+  }
+
+  .webbookCaseInner {
+    gap: 32px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .webbookBanner {
+    transition: none;
+  }
+}

@@ -1,7 +1,9 @@
 'use client'
 
+import Image from 'next/image'
 import { useState } from 'react'
 import { EMAIL_ADDRESS, KAKAO_URL, PhoneConsultModal } from '../components/ServiceContactCta'
+import caseStyles from './epubCase.module.css'
 import styles from './epub.module.css'
 
 const formats = [
@@ -61,6 +63,7 @@ export default function EpubPage(){return <main className={styles.wrap}>
 
   <section className={styles.sectionAlt}><Header eyebrow="Process" title={<>전자책·웹북 제작 <em>7단계</em></>}/><div className={styles.processGrid}>{process.map(([n,t,d])=><article key={n}><span>{n}</span><h3>{t}</h3><p>{d}</p></article>)}</div></section>
   <section className={styles.section}><div className={styles.split}><div><span className={styles.eyebrow}>Before Inquiry</span><h2 className={styles.sectionTitle}>상담 전에<br/><em>알려 주세요</em></h2><p>원고 파일, 분량, 원하는 제작 형식과 이용 방식을 알려 주시면 적합한 제작 범위와 견적을 안내합니다.</p><ContactButtons/></div><List items={checklist}/></div></section>
+  <section className={caseStyles.webbookCase} aria-labelledby="webbook-case-heading"><div className={caseStyles.webbookCaseInner}><div className={caseStyles.webbookCaseCopy}><span className={styles.eyebrow}>Publishing Case</span><h2 id="webbook-case-heading" className={styles.sectionTitle}>실제 웹북 <em>제작 사례</em></h2><h3>마이티북스가 직접 제작·운영하는 전자문예지, 수림지</h3><p>수림지는 원고 편집과 전자책 제작을 넘어 웹 열람 구조와 독립적인 배포 환경까지 직접 구축해 운영하는 전자문예지입니다. 실제 열람 화면에서 모바일 대응과 작품별 구성 방식을 확인할 수 있습니다.</p><a href="https://surimstudio.com/edition/surimji/issue-0" target="_blank" rel="noopener noreferrer" className={styles.ctaBtn}>수림지 실제 화면 보기</a></div><a href="https://surimstudio.com/edition/surimji/issue-0" target="_blank" rel="noopener noreferrer" className={caseStyles.webbookBanner} aria-label="수림지 실제 웹북 화면 새 탭에서 보기"><Image src="/image/home/surimji_cover3d.png" alt="마이티북스가 제작·운영하는 전자문예지 수림지" width={1080} height={1448} sizes="(max-width: 720px) 90vw, 430px"/><span>이미지를 클릭해 수림지를 확인해 보세요</span></a></div></section>
   <section className={styles.sectionAlt}><Header eyebrow="FAQ" title={<>자주 묻는 <em>질문</em></>}/><div className={styles.faq}>{faqs.map(([q,a])=><details key={q}><summary>{q}</summary><p>{a}</p></details>)}</div></section>
   <section className={styles.finalCta}><h2>어떤 전자책 형식이 적합한지부터<br/><em>확인합니다</em></h2><p>원고의 종류, 독자의 이용 환경, 판매와 배포 방식에 맞는 EPUB, PDF 또는 웹북 제작 방식을 안내합니다.</p><ContactButtons/></section>
 </main>}
