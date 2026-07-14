@@ -118,6 +118,22 @@ const reviews = [
     size: 'tall',
     alt: '도서 출간 이후 꾸준히 강연 활동을 이어가는 문수림 저자',
   },
+  {
+    id: 'lee-gyeongtae-fifty-restaurant-sold-out',
+    src: '/image/review/15review.webp',
+    title: '『오십에 식당』 초판 발행 2주 만에 완판',
+    description: '100세 시대, 식당 창업으로 제2의 인생을 꾸려라! 이경태 저자의 『오십에 식당』이 초판 발행 2주 만에 완판되었습니다.',
+    size: 'small',
+    alt: '초판 발행 2주 만에 완판된 이경태 저자의 오십에 식당',
+  },
+  {
+    id: 'park-teacher-little-teachers-yes24-top20',
+    src: '/image/review/16review.webp',
+    title: '『나의 작은 스승들』 예스24 TOP20 3주 연속 갱신',
+    description: '어린이집 보육교사의 감성 에세이, 박쌤의 『나의 작은 스승들』이 출간 후 예스24 감성·가족 에세이 TOP20을 3주 연속 갱신했습니다.',
+    size: 'wide',
+    alt: '예스24 감성 가족 에세이 TOP20을 3주 연속 갱신한 나의 작은 스승들',
+  },
 ]
 
 function shuffleItems(items) {
