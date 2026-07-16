@@ -36,6 +36,7 @@ const routes = [
   ['/tools', 0.58],
   ['/tools/memoir-schedule', 0.68],
   ['/tools/book-page-calculator', 0.68],
+  ['/partner', 0.62],
 ]
 
 export default function sitemap() {

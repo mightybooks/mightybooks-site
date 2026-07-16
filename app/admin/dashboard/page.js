@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@supabase/supabase-js'
 import Link from 'next/link'
+import { verifyAdminSession } from '@/lib/admin-client'
 import styles from '../admin.module.css'
 
 const supabase = createClient(
@@ -21,6 +22,11 @@ const menus = [
     description: '자서전, 자비출간, 시집, 에세이 제작 문의와 상담 흐름을 기록하고 분석합니다.',
     href: '/admin/consultations',
   },
+  {
+    title: '파트너 신청 관리',
+    description: '사업자 파트너 신청을 검토하고 승인 상태와 파트너 코드를 관리합니다.',
+    href: '/admin/partners',
+  },
 ]
 
 export default function AdminDashboard() {
@@ -28,8 +34,9 @@ export default function AdminDashboard() {
   const router = useRouter()
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => {
-      if (!data.session) {
+    verifyAdminSession(supabase).then(async isAdmin => {
+      if (!isAdmin) {
+        await supabase.auth.signOut()
         router.push('/admin')
         return
       }

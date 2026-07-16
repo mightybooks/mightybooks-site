@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation'
 import { createClient } from '@supabase/supabase-js'
 import Link from 'next/link'
 import styles from '../admin.module.css'
+import { verifyAdminSession } from '@/lib/admin-client'
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -248,8 +249,9 @@ export default function AdminConsultations() {
   }, [])
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => {
-      if (!data.session) {
+    verifyAdminSession(supabase).then(async isAdmin => {
+      if (!isAdmin) {
+        await supabase.auth.signOut()
         router.push('/admin')
         return
       }

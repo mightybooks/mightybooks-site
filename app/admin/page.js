@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@supabase/supabase-js'
 import styles from './admin.module.css'
+import { verifyAdminSession } from '@/lib/admin-client'
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -20,8 +21,15 @@ export default function AdminLogin() {
     e.preventDefault()
     setLoading(true); setErr('')
     const { error } = await supabase.auth.signInWithPassword({ email, password: pw })
-    if (error) { setErr('이메일 또는 비밀번호가 틀렸습니다.'); setLoading(false) }
-    else router.push('/admin/dashboard')
+    if (error) { setErr('이메일 또는 비밀번호가 틀렸습니다.'); setLoading(false); return }
+    const isAdmin = await verifyAdminSession(supabase)
+    if (!isAdmin) {
+      await supabase.auth.signOut()
+      setErr('관리자 권한이 없는 계정입니다.')
+      setLoading(false)
+      return
+    }
+    router.push('/admin/dashboard')
   }
 
   return (

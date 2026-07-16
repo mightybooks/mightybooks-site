@@ -5,6 +5,7 @@ import { createClient } from '@supabase/supabase-js'
 import Link from 'next/link'
 import styles from '../admin.module.css'
 import { BLOG_CATEGORY_LABELS, BLOG_CATEGORY_OPTIONS } from '@/lib/blog-categories'
+import { verifyAdminSession } from '@/lib/admin-client'
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -25,8 +26,11 @@ export default function AdminPosts() {
   }
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => {
-      if (!data.session) router.push('/admin')
+    verifyAdminSession(supabase).then(async isAdmin => {
+      if (!isAdmin) {
+        await supabase.auth.signOut()
+        router.push('/admin')
+      }
     })
     supabase
       .from('posts').select('*').order('created_at', { ascending: false })

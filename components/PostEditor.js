@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation'
 import { createClient } from '@supabase/supabase-js'
 import styles from '@/app/admin/admin.module.css'
 import { BLOG_CATEGORY_OPTIONS, isBlogCategory } from '@/lib/blog-categories'
+import { verifyAdminSession } from '@/lib/admin-client'
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -64,8 +65,11 @@ export default function PostEditor({ postId }) {
   const [preview, setPreview] = useState('')
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => {
-      if (!data.session) router.push('/admin')
+    verifyAdminSession(supabase).then(async isAdmin => {
+      if (!isAdmin) {
+        await supabase.auth.signOut()
+        router.push('/admin')
+      }
     })
 
     if (!isNew) {
