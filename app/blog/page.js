@@ -1,5 +1,6 @@
 import { createClient } from '@supabase/supabase-js'
 import BlogPage from './BlogList'
+import { COMMERCIAL_BLOG_CATEGORIES } from '@/lib/blog-categories'
 
 export const revalidate = 0
 export const dynamic = 'force-dynamic'
@@ -58,6 +59,7 @@ export default async function Page({ searchParams }) {
   const { data } = await supabase
     .from('posts')
     .select('id, title, slug, excerpt, content, cover_image, created_at, category, tags, published, scheduled_at')
+    .in('category', COMMERCIAL_BLOG_CATEGORIES)
     .eq('published', true)
     .order('created_at', { ascending: false })
 

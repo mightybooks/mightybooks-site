@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "blog:500-fiction:dry-run": "node --env-file=.env.local scripts/migrate-five-hundred-fiction.js dry-run",
+    "blog:500-fiction:apply": "node --env-file=.env.local scripts/migrate-five-hundred-fiction.js apply",
+    "blog:500-fiction:rollback": "node --env-file=.env.local scripts/migrate-five-hundred-fiction.js rollback"
   },
   "dependencies": {
     "@supabase/ssr": "^0.10.0",

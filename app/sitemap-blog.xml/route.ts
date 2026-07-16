@@ -66,6 +66,7 @@ export async function GET() {
 
   const urls = [
     renderUrl(`${BASE_URL}/blog`, blogLastMod),
+    renderUrl(`${BASE_URL}/blog/500-fiction`, blogLastMod),
     ...publicPosts.map((post) =>
       renderUrl(
         `${BASE_URL}/blog/${encodeURIComponent(post.slug)}`,

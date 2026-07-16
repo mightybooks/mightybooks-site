@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation'
 import { createClient } from '@supabase/supabase-js'
 import Link from 'next/link'
 import styles from '../admin.module.css'
+import { BLOG_CATEGORY_LABELS, BLOG_CATEGORY_OPTIONS } from '@/lib/blog-categories'
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -13,6 +14,7 @@ const supabase = createClient(
 export default function AdminPosts() {
   const [posts, setPosts] = useState([])
   const [loading, setLoading] = useState(true)
+  const [category, setCategory] = useState('all')
   const router = useRouter()
 
   const fetchPosts = async () => {
@@ -62,6 +64,12 @@ export default function AdminPosts() {
       <div className={styles.adminBody}>
         <Link href="/admin/dashboard" className={styles.backLink}>← 관리자 메뉴로 돌아가기</Link>
         <h2 className={styles.adminTitle}>블로그 글 관리</h2>
+        <select className={styles.input} value={category} onChange={event => setCategory(event.target.value)}>
+          <option value="all">전체 카테고리</option>
+          {BLOG_CATEGORY_OPTIONS.map(option => (
+            <option key={option.value} value={option.value}>{option.label}</option>
+          ))}
+        </select>
         {loading ? <p>불러오는 중...</p> : (
           <table className={styles.table}>
             <thead>
@@ -70,9 +78,9 @@ export default function AdminPosts() {
               </tr>
             </thead>
             <tbody>
-              {posts.map(p => (
+              {posts.filter(p => category === 'all' || p.category === category).map(p => (
                 <tr key={p.id}>
-                  <td>{p.title}</td>
+                  <td>{p.title}<br /><small>{BLOG_CATEGORY_LABELS[p.category] ?? p.category}</small></td>
                   <td style={{ color: 'var(--gray)', fontSize: '12px' }}>{p.slug}</td>
                   <td>
                     <button

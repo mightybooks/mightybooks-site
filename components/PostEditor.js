@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@supabase/supabase-js'
 import styles from '@/app/admin/admin.module.css'
+import { BLOG_CATEGORY_OPTIONS, isBlogCategory } from '@/lib/blog-categories'
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -140,6 +141,12 @@ export default function PostEditor({ postId }) {
     setSaving(true)
     setMsg('')
 
+    if (!isBlogCategory(form.category)) {
+      setMsg('유효하지 않은 카테고리입니다.')
+      setSaving(false)
+      return
+    }
+
     const payload = {
       ...form,
       tags: cleanTags(form.tags),
@@ -184,8 +191,9 @@ export default function PostEditor({ postId }) {
             onChange={e => set('category', e.target.value)}
             style={{ cursor: 'pointer' }}
           >
-            <option value="business">출판 비즈니스</option>
-            <option value="books">출간 도서</option>
+            {BLOG_CATEGORY_OPTIONS.map(option => (
+              <option key={option.value} value={option.value}>{option.label}</option>
+            ))}
           </select>
 
           <label className={styles.label}>제목</label>

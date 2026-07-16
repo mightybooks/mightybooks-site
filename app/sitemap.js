@@ -26,6 +26,7 @@ const routes = [
   ['/portfolio/reviews', 0.54],
   ['/portfolio/trailer', 0.5],
   ['/workshop/500-character-fiction', 0.52],
+  ['/blog/500-fiction', 0.66],
   ['/support/education', 0.5],
   ['/support/personal-content-diagnosis', 0.5],
 ]

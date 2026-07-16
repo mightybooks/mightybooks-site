@@ -12,6 +12,9 @@ export async function GET(request) {
   }
 
   revalidatePath(path)
+  revalidatePath('/')
+  revalidatePath('/blog/500-fiction')
+  revalidatePath('/sitemap-blog.xml')
   revalidatePath('/blog/[slug]', 'page')
   return NextResponse.json({ revalidated: true, path })
 }
