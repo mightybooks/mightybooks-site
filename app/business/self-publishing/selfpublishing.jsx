@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
 import { EMAIL_ADDRESS, KAKAO_URL, PhoneConsultModal } from '../components/ServiceContactCta'
 import BookPreviewTrigger from '../components/book-preview/BookPreviewTrigger'
@@ -28,7 +29,7 @@ function ContactButtons() {
 function SectionHeader({ eyebrow, title, children }) { return <div className={styles.sectionHeader}><span className={styles.tag}>{eyebrow}</span><h2 className={styles.sectionTitle}>{title}</h2>{children && <p className={styles.sectionLead}>{children}</p>}</div> }
 function CheckList({ items }) { return <ul className={styles.checkList}>{items.map(item => <li key={item}>{item}</li>)}</ul> }
 function ProcessGrid() { return <div className={styles.processGrid}>{process.map(([num,title,text]) => <article className={styles.processCard} key={num}><span>{num}</span><h3>{title}</h3><p>{text}</p></article>)}</div> }
-function FaqList() { return <div className={styles.faqList}>{faqs.map(([q,a]) => <details key={q}><summary>{q}</summary><p>{a}</p></details>)}</div> }
+function FaqList() { return <div className={styles.faqList}>{faqs.map(([q,a]) => <details key={q}><summary>{q}</summary><p>{a}</p></details>)}<details><summary>전문서적·실용서적 제작 업체를 고를 때 무엇을 확인해야 하나요?</summary><p>사진과 표, 전문용어와 참고문헌이 많은 원고는 페이지 수만으로 작업 범위를 판단하기 어렵습니다. 원고 구조 정리, 표기 통일, 사진·표 편집과 복잡한 내지 제작 경험을 함께 확인해야 합니다. <Link href="/reference/professional-book-publishing" className={styles.textLink}>전문서적 제작 기준 확인하기</Link></p></details></div> }
 
 export default function SelfPublishingPage() {
   const refs = useRef([])
@@ -76,7 +77,7 @@ export default function SelfPublishingPage() {
     <section className={styles.sectionAlt} ref={reveal(9)}><div className={styles.split}><div><span className={styles.tag}>Before Consultation</span><h2 className={styles.sectionTitle}>상담 전에<br /><em>준비해 주세요</em></h2><p className={styles.sectionDesc}>미정인 항목은 그대로 알려 주셔도 됩니다. 자료와 목표가 구체적일수록 제작 범위, 맞춤 견적과 일정을 빠르게 안내할 수 있습니다.</p><ContactButtons /></div><CheckList items={checklist} /></div></section>
 
     <section className={styles.section} ref={reveal(10)}><SectionHeader eyebrow="FAQ" title={<>자주 묻는 <em>질문</em></>} /><FaqList /></section>
-    <section className={styles.sectionAlt} ref={reveal(11)} aria-label="실제 제작 전문·실용 도서 내지 미리보기"><BookPreviewTrigger book={selfPublishingPreview} /></section>
+    <section id="professional-book-preview" className={styles.sectionAlt} ref={reveal(11)} aria-label="실제 제작 전문·실용 도서 내지 미리보기"><BookPreviewTrigger book={selfPublishingPreview} /></section>
     <section className={styles.finalCta}><span className={styles.tag}>Build Your Authority, Clearly</span><h2>축적한 전문성과 콘텐츠를<br /><em>독자가 활용할 수 있는 책으로</em></h2><p>전문서적 제작, 대구 경북 경남 오프라인 상담, 전국 비대면 출판 상담까지 목적과 일정에 맞춰 안내합니다.</p><ContactButtons /></section>
   </main>
 }

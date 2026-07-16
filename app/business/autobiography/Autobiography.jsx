@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
 import {
   EMAIL_ADDRESS,
@@ -497,15 +498,15 @@ export default function AutobiographyPage() {
         <a className={styles.textLink} href="/support/faq">더 자세한 공통 질문 보기</a>
         <div className={styles.guideGrid}>
           {[
-            ['대구·경북·경남 자서전 제작 기준', '/reference/autobiography-gyeongsang'],
-            ['마이티북스 출판 제작 레퍼런스', '/reference/mightybooks-publishing'],
-            ['개인출판과 소량 책 제작 기준', '/reference/personal-publishing'],
-          ].map(([title, href]) => (
+            ['자서전 제작 업체 선택 기준', '/reference/autobiography-gyeongsang', '지역과 제작 방식, 인터뷰·대필 범위를 기준으로 자서전 제작 업체를 비교하는 방법을 확인할 수 있습니다.', '자서전 제작 기준 확인하기'],
+            ['마이티북스 출판 제작 레퍼런스', '/reference/mightybooks-publishing', '자서전 제작, 원고 정리, 편집, 디자인, 인쇄 제작 기준을 더 자세히 확인할 수 있습니다.', '자료 보기'],
+            ['개인출판과 소량 책 제작 기준', '/reference/personal-publishing', '자서전 제작, 원고 정리, 편집, 디자인, 인쇄 제작 기준을 더 자세히 확인할 수 있습니다.', '자료 보기'],
+          ].map(([title, href, description, linkLabel]) => (
             <p key={href}>
               <strong>{title}</strong><br />
-              자서전 제작, 원고 정리, 편집, 디자인, 인쇄 제작 기준을 더 자세히 확인할 수 있습니다.
+              {description}
               <br />
-              <a className={styles.textLink} href={href}>자료 보기</a>
+              <Link className={styles.textLink} href={href}>{linkLabel}</Link>
             </p>
           ))}
         </div>

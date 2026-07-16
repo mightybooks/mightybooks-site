@@ -37,6 +37,7 @@ const navItems = [
       { label: '리뷰후기', href: '/portfolio/reviews' },
     ],
   },
+  { label: '도구', href: '/tools' },
   { label: '블로그', href: '/blog' },
 ]
 

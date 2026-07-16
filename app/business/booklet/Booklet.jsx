@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import Link from 'next/link'
 import { useState } from 'react'
 import BookPreviewTrigger from '../components/book-preview/BookPreviewTrigger'
 import { companyBookletPreview } from '../components/book-preview/bookPreviews'
@@ -54,7 +55,7 @@ function ContactButtons() {
 }
 function SectionHeader({ eyebrow, title, children }) { return <div className={styles.sectionHeader}><span>{eyebrow}</span><h2>{title}</h2>{children && <p>{children}</p>}</div> }
 function ItemList({ items }) { return <ul className={styles.itemList}>{items.map(item => <li key={item}>{item}</li>)}</ul> }
-function FaqList() { return <div className={styles.faqList}>{faqs.map(([q,a]) => <details key={q}><summary>{q}</summary><p>{a}</p></details>)}</div> }
+function FaqList() { return <div className={styles.faqList}>{faqs.map(([q,a]) => <details key={q}><summary>{q}</summary><p>{a}</p></details>)}<details><summary>기관·기업 소책자 제작 업체를 선택할 때 무엇을 확인해야 하나요?</summary><p>기관·기업 소책자는 디자인뿐 아니라 원고 취합, 수정 의견 관리, 내부 승인, 인쇄와 최종 납품 일정을 함께 확인해야 합니다. 여러 부서의 자료를 하나의 책자로 정리해야 한다면 편집과 디자인을 함께 진행할 수 있는 제작사를 비교하는 것이 좋습니다. <Link href="/reference/institutional-booklet-production" className={styles.textLink}>기관·기업 소책자 제작 기준 보기</Link></p></details></div> }
 
 export default function BookletPage() {
   return <main className={styles.wrap}>
@@ -87,7 +88,7 @@ export default function BookletPage() {
     <section className={styles.sectionAlt}><div className={styles.twoColumn}><div><span className={styles.eyebrow}>Before Inquiry</span><h2 className={styles.sectionTitle}>견적 문의 전에<br /><em>알려 주세요</em></h2><p className={styles.sectionDesc}>원고 분량, 예상 페이지 수, 인쇄 부수, 납품일과 예산을 알려 주시면 진행 가능 여부와 견적을 안내합니다.</p><ContactButtons /></div><ItemList items={checklist} /></div></section>
 
     <section className={styles.section}><SectionHeader eyebrow="FAQ" title={<>자주 묻는 <em>질문</em></>} /><FaqList /></section>
-    <section className={styles.sectionAlt} aria-label="실제 제작 소책자 내지 미리보기"><BookPreviewTrigger book={companyBookletPreview} /></section>
+    <section id="booklet-preview" className={styles.sectionAlt} aria-label="실제 제작 소책자 내지 미리보기"><BookPreviewTrigger book={companyBookletPreview} /></section>
     <section className={styles.finalCta}><h2>제작 범위와 예산을<br /><em>먼저 확인합니다</em></h2><p>원고 분량, 페이지 수, 인쇄 부수, 납품일과 예산을 알려 주시면 작업 범위와 진행 가능 여부를 안내합니다.</p><ContactButtons /></section>
   </main>
 }

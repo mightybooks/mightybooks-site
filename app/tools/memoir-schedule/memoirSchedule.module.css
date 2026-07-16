@@ -1,0 +1,71 @@
+.ctaBtn,
+.ctaBtnGhost {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  padding: 13px 22px;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.ctaBtn {
+  border: 0;
+  background: var(--red);
+  color: #fff;
+}
+
+.ctaBtnGhost {
+  border: 1px solid rgba(255, 255, 255, .28);
+  background: transparent;
+  color: #fff;
+}
+
+.phonePopupOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(0, 0, 0, .72);
+}
+
+.phonePopup {
+  position: relative;
+  width: min(100%, 360px);
+  padding: 34px 28px 30px;
+  border: 1px solid rgba(255, 255, 255, .14);
+  border-top: 3px solid var(--red);
+  background: var(--black2);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, .45);
+  text-align: center;
+}
+
+.phonePopupClose {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  display: inline-flex;
+  width: 34px;
+  height: 34px;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  background: transparent;
+  color: rgba(255, 255, 255, .65);
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.phonePopupClose:hover { color: #fff; }
+.phonePopupTitle { margin-bottom: 14px; color: var(--red); font-size: 14px; font-weight: 800; letter-spacing: 3px; }
+.phonePopupNumber { display: inline-flex; color: #fff; font: 40px/1 'Bebas Neue', cursive; letter-spacing: 2px; }
+.phonePopupDesc { margin-top: 16px; color: rgba(255, 255, 255, .55); font-size: 13px; line-height: 1.6; word-break: keep-all; }
+
+@media (max-width: 640px) {
+  .phonePopupNumber { font-size: 34px; }
+}

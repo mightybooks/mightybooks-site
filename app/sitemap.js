@@ -5,6 +5,10 @@ const routes = [
   ['/reference/mightybooks-publishing', 0.82],
   ['/reference/autobiography-gyeongsang', 0.8],
   ['/reference/personal-publishing', 0.78],
+  ['/reference/poetry-publishing-daegu', 0.8],
+  ['/reference/professional-book-publishing', 0.8],
+  ['/reference/institutional-booklet-production', 0.8],
+  ['/reference/ebook-webbook-guide', 0.8],
   ['/support/guide', 0.76],
   ['/support/autobiography-guide', 0.68],
   ['/support/poetry-book-guide', 0.62],
@@ -29,6 +33,8 @@ const routes = [
   ['/blog/500-fiction', 0.66],
   ['/support/education', 0.5],
   ['/support/personal-content-diagnosis', 0.5],
+  ['/tools', 0.58],
+  ['/tools/memoir-schedule', 0.68],
 ]
 
 export default function sitemap() {

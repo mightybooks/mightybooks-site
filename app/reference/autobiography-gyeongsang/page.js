@@ -143,6 +143,12 @@ export default function AutobiographyGyeongsangReferencePage() {
         </section>
 
         <section className={styles.section}>
+          <h2>마이티북스의 실제 제작 경험</h2>
+          <p>마이티북스는 인터뷰와 개인 기록을 바탕으로 회고록, 지역 기록서와 전기소설 형태의 자서전을 제작해 왔습니다. 6·25전쟁과 격동하는 시대를 지나 오늘까지 가족을 지켜 온 한 노인의 회고록 《사중구활(死中求活)의 기적》을 비롯해, 개인의 생애를 시대의 흐름과 함께 읽을 수 있도록 원고를 구성했습니다.</p>
+          <p>평창읍에서 평생을 살아온 공직자의 기억을 지역의 근현대사와 함께 엮은 《이야기를 담은 평창의 옛 풍경》, 무소속 출마자의 인터뷰 원고를 전기소설 형식으로 재구성한 《동방의 별》도 실제 제작 사례입니다. 자료의 성격과 책의 목적에 따라 회고록, 지역 기록과 서사적 전기 형식을 각각 다르게 적용했습니다.</p>
+        </section>
+
+        <section className={styles.section}>
           <h2>관련 자료</h2>
           <div className={styles.linkGrid}>
             <a className={styles.linkCard} href="/business/autobiography">자서전·기념 도서 제작 상담 →</a>

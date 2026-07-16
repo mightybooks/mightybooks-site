@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
 import { EMAIL_ADDRESS, KAKAO_URL, PhoneConsultModal } from '../components/ServiceContactCta'
 import BookPreviewTrigger from '../components/book-preview/BookPreviewTrigger'
@@ -108,9 +109,9 @@ export default function PoetryPage() {
 
     <section className={styles.sectionAlt} ref={reveal(9)}><div className={styles.split}><div><span className={styles.tag}>Before Consultation</span><h2 className={styles.sectionTitle}>상담 전에<br /><em>준비해 주세요</em></h2><p className={styles.sectionDesc}>아직 정하지 못한 항목은 ‘미정’으로 알려 주셔도 됩니다. 원고와 참고 자료가 구체적일수록 제작 범위와 견적을 빠르게 확인할 수 있습니다.</p><ContactButtons /></div><List items={checklist} /></div></section>
 
-    <section className={styles.section} ref={reveal(10)}><Header tag="FAQ" title={<>자주 묻는 <em>질문</em></>} /><div className={styles.faq}>{faqs.map(([question, answer]) => <details key={question}><summary>{question}</summary><p>{answer}</p></details>)}</div></section>
+    <section className={styles.section} ref={reveal(10)}><Header tag="FAQ" title={<>자주 묻는 <em>질문</em></>} /><div className={styles.faq}>{faqs.map(([question, answer]) => <details key={question}><summary>{question}</summary><p>{answer}</p></details>)}<details><summary>시집 제작 업체는 어떤 기준으로 선택해야 하나요?</summary><p>인쇄용 파일이 완성돼 있다면 인쇄소가 적합할 수 있습니다. 원고 편집과 작품 배열, 표지·내지 디자인, ISBN과 인쇄까지 필요하다면 해당 범위를 함께 진행할 수 있는 출판 제작사를 비교해야 합니다. <Link href="/reference/poetry-publishing-daegu" className={styles.textLink}>대구 시집 제작 기준 보기</Link></p></details></div></section>
 
-    <section className={styles.sectionAlt} ref={reveal(11)} aria-label="실제 제작 시집 내지 미리보기"><BookPreviewTrigger book={poetryPreview} /></section>
+    <section id="poetry-preview" className={styles.sectionAlt} ref={reveal(11)} aria-label="실제 제작 시집 내지 미리보기"><BookPreviewTrigger book={poetryPreview} /></section>
 
     <section className={styles.finalCta}><span className={styles.tag}>Start Your Book</span><h2 className={styles.ctaTitle}>써온 글을 이제<br /><em>한 권의 책으로 만나보세요</em></h2><p>시집 제작, 전국 소량 책 제작, ISBN 서점 유통까지 원고와 목적에 맞춰 상담합니다.</p><ContactButtons /></section>
   </main>
