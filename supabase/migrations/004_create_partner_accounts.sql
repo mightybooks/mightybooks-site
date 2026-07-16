@@ -164,7 +164,24 @@ begin
   end if;
 end $$;
 
--- After running this migration, register each existing administrator once:
--- insert into public.admin_users (user_id)
--- select id from auth.users where email = 'YOUR_EXISTING_ADMIN_EMAIL'
--- on conflict (user_id) do nothing;
+-- Register the existing administrator.
+do $$
+declare
+  target_admin_id uuid;
+begin
+  select id
+    into target_admin_id
+  from auth.users
+  where lower(email) = lower('novelstudylab@naver.com')
+  limit 1;
+
+  if target_admin_id is null then
+    raise exception
+      '관리자 등록 실패: auth.users에서 novelstudylab@naver.com 계정을 찾을 수 없습니다.';
+  end if;
+
+  insert into public.admin_users (user_id)
+  values (target_admin_id)
+  on conflict (user_id) do nothing;
+end
+$$;

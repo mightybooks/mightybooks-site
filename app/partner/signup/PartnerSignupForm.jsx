@@ -10,7 +10,62 @@ const initialForm={businessName:'',contactName:'',email:'',password:'',phone:'',
 export default function PartnerSignupForm(){
   const [form,setForm]=useState(initialForm);const [loading,setLoading]=useState(false);const [error,setError]=useState('');const [success,setSuccess]=useState(false);const router=useRouter()
   const set=(key,value)=>setForm(current=>({...current,[key]:value}))
-  const submit=async(event)=>{event.preventDefault();if(!form.agreed)return;if(!form.websiteUrl.trim()&&!form.snsUrl.trim()){setError('업체 홈페이지 또는 주로 활동하는 SNS 주소를 하나 이상 입력해 주세요.');return}setLoading(true);setError('');const {data,error:signUpError}=await supabase.auth.signUp({email:form.email,password:form.password,options:{data:{account_type:'partner',business_name:form.businessName,contact_name:form.contactName,phone:form.phone,business_type:form.businessType,region:form.region,website_url:form.websiteUrl,sns_url:form.snsUrl,introduction_plan:form.introductionPlan,has_offline_store:form.hasOfflineStore,can_display_cards:form.canDisplayCards,can_display_banner:form.canDisplayBanner}}});setLoading(false);if(signUpError){setError(signUpError.message.includes('registered')?'이미 가입된 이메일입니다.':'가입을 처리하지 못했습니다. 입력 내용을 확인해 주세요.');return}if(data.session){router.push('/partner/pending');router.refresh();return}setSuccess(true)}
+  const submit=async(event)=>{
+    event.preventDefault()
+    if(!form.agreed)return
+    if(!form.websiteUrl.trim()&&!form.snsUrl.trim()){
+      setError('업체 홈페이지 또는 주로 활동하는 SNS 주소를 하나 이상 입력해 주세요.')
+      return
+    }
+
+    setLoading(true)
+    setError('')
+
+    try {
+      const {data,error:signUpError}=await supabase.auth.signUp({
+        email:form.email,
+        password:form.password,
+        options:{data:{
+          account_type:'partner',
+          business_name:form.businessName,
+          contact_name:form.contactName,
+          phone:form.phone,
+          business_type:form.businessType,
+          region:form.region,
+          website_url:form.websiteUrl,
+          sns_url:form.snsUrl,
+          introduction_plan:form.introductionPlan,
+          has_offline_store:form.hasOfflineStore,
+          can_display_cards:form.canDisplayCards,
+          can_display_banner:form.canDisplayBanner,
+        }},
+      })
+
+      if(signUpError){
+        console.error('[Partner signup] Supabase signUp failed', {
+          message: signUpError.message,
+          status: signUpError.status,
+          code: signUpError.code,
+        })
+        setError(signUpError.message.toLowerCase().includes('registered')
+          ? '이미 가입된 이메일입니다.'
+          : '가입을 처리하지 못했습니다. 잠시 후 다시 시도해 주세요.')
+        return
+      }
+
+      if(data.session){
+        router.push('/partner/pending')
+        router.refresh()
+        return
+      }
+      setSuccess(true)
+    } catch (signupRequestError) {
+      console.error('[Partner signup] Unexpected signup request failure', signupRequestError)
+      setError('가입 요청 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.')
+    } finally {
+      setLoading(false)
+    }
+  }
   if(success)return <main className={styles.authWrap}><div className={styles.statusCard}><span className={styles.statusBadge}>이메일 확인 필요</span><h1>파트너 신청 계정을 확인해 주세요.</h1><p>가입 이메일로 전송된 확인 링크를 누른 뒤 로그인해 주세요. 로그인 후 사업자등록증 사본과 온라인 활동 주소 제출 방법을 다시 안내합니다.</p><div className={styles.actions}><Link href="/partner/login" className={styles.primary}>파트너 로그인</Link><Link href="/partner" className={styles.secondary}>안내 페이지로</Link></div></div></main>
   return <main className={styles.authWrap}><div className={styles.authBox}><span className={styles.eyebrow}>Partner Application</span><h1>사업자 파트너 회원가입</h1><p className={styles.authIntro}>일반 소비자용 회원가입이 아닙니다. 실제 사업을 운영하며 마이티북스 파트너십 심사를 신청하는 업체만 가입해 주세요.</p><form onSubmit={submit} className={styles.formGrid}>
     <div className={styles.field}><label>업체명</label><input className={styles.input} value={form.businessName} onChange={e=>set('businessName',e.target.value)} required/></div><div className={styles.field}><label>담당자명</label><input className={styles.input} value={form.contactName} onChange={e=>set('contactName',e.target.value)} required/></div>
