@@ -1,0 +1,28 @@
+.resendBox {
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, .09);
+}
+
+.resendButton {
+  width: 100%;
+  min-height: 46px;
+  padding: 11px 18px;
+  border: 1px solid rgba(255, 255, 255, .24);
+  background: transparent;
+  color: rgba(255, 255, 255, .82);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.resendButton:hover:not(:disabled) {
+  border-color: #fff;
+  color: #fff;
+}
+
+.resendButton:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}

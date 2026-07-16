@@ -25,7 +25,9 @@ export default function PartnerSignupForm(){
       const {data,error:signUpError}=await supabase.auth.signUp({
         email:form.email,
         password:form.password,
-        options:{data:{
+        options:{
+          emailRedirectTo:`${window.location.origin}/partner/pending`,
+          data:{
           account_type:'partner',
           business_name:form.businessName,
           contact_name:form.contactName,
@@ -38,7 +40,8 @@ export default function PartnerSignupForm(){
           has_offline_store:form.hasOfflineStore,
           can_display_cards:form.canDisplayCards,
           can_display_banner:form.canDisplayBanner,
-        }},
+          },
+        },
       })
 
       if(signUpError){
