@@ -35,6 +35,7 @@ const routes = [
   ['/support/personal-content-diagnosis', 0.5],
   ['/tools', 0.58],
   ['/tools/memoir-schedule', 0.68],
+  ['/tools/book-page-calculator', 0.68],
 ]
 
 export default function sitemap() {

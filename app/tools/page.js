@@ -12,6 +12,10 @@ const tools = [{
   title: '칠순·팔순 기념책 제작 일정 계산기',
   description: '행사 날짜와 희망 수령 시점을 기준으로 권장 제작 시작일과 인터뷰·원고·디자인·인쇄 일정을 계산합니다.',
   href: '/tools/memoir-schedule',
+}, {
+  title: '원고 글자 수로 예상 책 페이지 계산하기',
+  description: '공백 포함 글자 수와 원고 구성 방식을 입력하면 일반적인 단행본 편집 기준의 예상 페이지 범위를 확인할 수 있습니다.',
+  href: '/tools/book-page-calculator',
 }]
 
 export default function ToolsPage() {
