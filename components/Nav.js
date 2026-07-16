@@ -1,14 +1,17 @@
 'use client'
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import styles from './Nav.module.css'
 
 const navItems = [
   {
-    label: '출판상담',
+    label: '출판상담과 교육',
     children: [
       { label: '원고 접수 안내', href: '/support/submission' },
       { label: '기획출간 유료상담', href: '/support/paid-consultation' },
+      { label: '500자 글쓰기 워크숍', href: '/workshop/500-character-fiction' },
+      { label: '출판 교육', href: '/support/education' },
       { label: 'FAQ', href: '/support/faq' },
     ],
   },
@@ -23,13 +26,6 @@ const navItems = [
     ],
   },
   {
-    label: '워크숍',
-    children: [
-      { label: '500자 글쓰기 워크숍', href: '/workshop/500-character-fiction' },
-      { label: '출판 교육', href: '/support/education' },
-    ],
-  },
-  {
     label: '포트폴리오',
     children: [
       { label: '출간 도서', href: '/portfolio/books' },
@@ -39,6 +35,7 @@ const navItems = [
   },
   { label: '도구', href: '/tools' },
   { label: '블로그', href: '/blog' },
+  { label: '제휴', href: '/partner' },
 ]
 
 export default function Nav() {
@@ -46,6 +43,12 @@ export default function Nav() {
   const [openMenu, setOpenMenu] = useState(null)
   const [mobileOpen, setMobileOpen] = useState(false)
   const navRef = useRef(null)
+  const pathname = usePathname()
+
+  const isPathActive = href => pathname === href || pathname.startsWith(`${href}/`)
+  const isItemActive = item => item.children
+    ? item.children.some(child => isPathActive(child.href))
+    : isPathActive(item.href)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50)
@@ -80,7 +83,8 @@ export default function Nav() {
           item.children ? (
             <li key={item.label} className={styles.dropWrap}>
               <button
-                className={`${styles.dropTrigger} ${openMenu === item.label ? styles.dropTriggerActive : ''}`}
+                className={`${styles.dropTrigger} ${(openMenu === item.label || isItemActive(item)) ? styles.dropTriggerActive : ''}`}
+                aria-current={isItemActive(item) ? 'page' : undefined}
                 onClick={() => setOpenMenu(openMenu === item.label ? null : item.label)}
               >
                 {item.label}
@@ -94,7 +98,8 @@ export default function Nav() {
                     <Link
                       key={child.href}
                       href={child.href}
-                      className={styles.dropItem}
+                      className={`${styles.dropItem} ${isPathActive(child.href) ? styles.dropItemActive : ''}`}
+                      aria-current={isPathActive(child.href) ? 'page' : undefined}
                       onClick={closeMenus}
                     >
                       {child.label}
@@ -105,7 +110,7 @@ export default function Nav() {
             </li>
           ) : (
             <li key={item.label}>
-              <Link href={item.href} className={styles.link} onClick={closeMenus}>{item.label}</Link>
+              <Link href={item.href} className={`${styles.link} ${isItemActive(item) ? styles.linkActive : ''}`} aria-current={isItemActive(item) ? 'page' : undefined} onClick={closeMenus}>{item.label}</Link>
             </li>
           )
         )}
@@ -137,13 +142,14 @@ export default function Nav() {
           <div key={item.label} className={styles.mobileGroup}>
             {item.children ? (
               <>
-                <div className={styles.mobileGroupLabel}>{item.label}</div>
+                <div className={`${styles.mobileGroupLabel} ${isItemActive(item) ? styles.mobileGroupLabelActive : ''}`}>{item.label}</div>
                 <div className={styles.mobileChildren}>
                   {item.children.map(child => (
                     <Link
                       key={child.href}
                       href={child.href}
-                      className={styles.mobileItem}
+                      className={`${styles.mobileItem} ${isPathActive(child.href) ? styles.mobileItemActive : ''}`}
+                      aria-current={isPathActive(child.href) ? 'page' : undefined}
                       onClick={closeMenus}
                     >
                       {child.label}
@@ -152,7 +158,7 @@ export default function Nav() {
                 </div>
               </>
             ) : (
-              <Link href={item.href} className={styles.mobileTopLink} onClick={closeMenus}>
+              <Link href={item.href} className={`${styles.mobileTopLink} ${isItemActive(item) ? styles.mobileTopLinkActive : ''}`} aria-current={isItemActive(item) ? 'page' : undefined} onClick={closeMenus}>
                 {item.label}
               </Link>
             )}

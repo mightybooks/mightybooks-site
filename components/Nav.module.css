@@ -77,8 +77,8 @@
   width: 0; height: 2px; background: var(--red);
   transition: width .3s;
 }
-.link:hover { color: #fff; }
-.link:hover::after { width: 100%; }
+.link:hover, .linkActive { color: #fff; }
+.link:hover::after, .linkActive::after { width: 100%; }
 
 .dropWrap {
   position: relative;
@@ -114,7 +114,7 @@
   transition: all .2s; white-space: nowrap;
 }
 .dropItem:last-child { border-bottom: none; }
-.dropItem:hover { color: #fff; background: rgba(232,0,30,0.1); padding-left: 26px; }
+.dropItem:hover, .dropItemActive { color: #fff; background: rgba(232,0,30,0.1); padding-left: 26px; }
 
 @media (max-width: 1100px) {
   .links { gap: 14px; }
@@ -154,6 +154,7 @@
     letter-spacing: 1px;
     margin-bottom: 10px;
   }
+  .mobileGroupLabelActive, .mobileTopLinkActive { color: var(--red); }
   .mobileTopLink { margin-bottom: 0; }
   .mobileChildren {
     display: grid;
@@ -169,6 +170,7 @@
     border-left: 2px solid rgba(232,0,30,0.4);
     word-break: keep-all;
   }
+  .mobileItemActive { color: #fff; border-left-color: var(--red); }
   .logoText { font-size: 18px; letter-spacing: 1px; }
 }
 
