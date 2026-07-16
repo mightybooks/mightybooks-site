@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react'
 import Link from 'next/link'
-import { PhoneConsultModal } from '@/app/business/components/ServiceContactCta'
+import { KAKAO_URL, PhoneConsultModal } from '@/app/business/components/ServiceContactCta'
 import {
   CHAPTER_PAGE_OPTIONS,
   IMAGE_OPTIONS,
@@ -114,7 +114,7 @@ export default function BookPageCalculator() {
     }
   }
 
-  const [serviceHref, serviceLabel] = serviceLinks[manuscriptType] || ['/business/self-publishing', '자비출판 제작 방식 보기']
+  const serviceLink = serviceLinks[manuscriptType]
 
   return (
     <>
@@ -205,7 +205,9 @@ export default function BookPageCalculator() {
           <div className={styles.notice}><strong>같은 글자 수라도 장과 작품의 구분, 여백, 이미지 배치, 글자 크기와 편집 방식에 따라 최종 페이지는 크게 달라질 수 있습니다.</strong>이 계산 결과는 마이티북스의 실제 편집 사례를 바탕으로 한 제작 전 예상 범위이며, 최종 제작 사양이나 견적을 확정하는 값은 아닙니다. 최종 인쇄 페이지는 제본과 인쇄 사양에 따라 4쪽 단위로 조정될 수 있습니다.</div>
           <div className={styles.ctaRow}>
             <button type="button" className={styles.button} onClick={() => setIsPhoneOpen(true)}>내 원고로 제작 상담하기</button>
-            <Link href={serviceHref} className={styles.buttonGhost}>{serviceLabel}</Link>
+            {serviceLink
+              ? <Link href={serviceLink[0]} className={styles.buttonGhost}>{serviceLink[1]}</Link>
+              : <a href={KAKAO_URL} target="_blank" rel="noopener noreferrer" className={styles.buttonGhost}>오픈톡 문의</a>}
           </div>
         </div>
       </section>}

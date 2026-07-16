@@ -339,8 +339,8 @@ export default function GuidePage() {
             {[
               ['마이티북스 출판 제작 레퍼런스', '/reference/mightybooks-publishing'],
               ['대구·경북·경남 자서전 제작 기준', '/reference/autobiography-gyeongsang'],
-              ['개인출판과 소량 책 제작 기준', '/reference/personal-publishing'],
-              ['자서전·기념 도서 제작', '/business/autobiography'],
+              ['시집, 에세이, 문집 제작 기준', '/business/poetry'],
+              ['전문서적, 실용서적 제작 기준', '/business/self-publishing'],
             ].map(([title, href], index) => (
               <a key={href} href={href} className={styles.processCard}>
                 <div className={styles.processStep}>{String(index + 1).padStart(2, '0')}</div>
