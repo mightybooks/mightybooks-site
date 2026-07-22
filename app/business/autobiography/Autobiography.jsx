@@ -520,7 +520,7 @@ export default function AutobiographyPage() {
         </p>
       </section>
 
-      <section className={styles.sectionAlt} ref={ref(12)} aria-label="실제 제작 자서전 내지 미리보기">
+      <section id="book-preview" className={styles.sectionAlt} ref={ref(12)} aria-label="실제 제작 자서전 내지 미리보기">
         <BookPreviewTrigger book={autobiographyPreview} />
       </section>
 

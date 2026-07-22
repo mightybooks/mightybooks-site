@@ -6,16 +6,6 @@ import styles from './Nav.module.css'
 
 const navItems = [
   {
-    label: '출판상담과 교육',
-    children: [
-      { label: '원고 접수 안내', href: '/support/submission' },
-      { label: '기획출간 유료상담', href: '/support/paid-consultation' },
-      { label: '500자 글쓰기 워크숍', href: '/workshop/500-character-fiction' },
-      { label: '출판 교육', href: '/support/education' },
-      { label: 'FAQ', href: '/support/faq' },
-    ],
-  },
-  {
     label: '출판서비스',
     children: [
       { label: '자서전, 기념 도서', href: '/business/autobiography' },
@@ -23,6 +13,16 @@ const navItems = [
       { label: '전문서적, 실용서적', href: '/business/self-publishing' },
       { label: '기관ㆍ기업 소책자', href: '/business/booklet' },
       { label: '전자책, 웹북', href: '/business/epub' },
+    ],
+  },
+  {
+    label: '출판상담과 교육',
+    children: [
+      { label: '원고 접수 안내', href: '/support/submission' },
+      { label: '기획출간 유료상담', href: '/support/paid-consultation' },
+      { label: '500자 글쓰기 워크숍', href: '/workshop/500-character-fiction' },
+      { label: '출판 교육', href: '/support/education' },
+      { label: 'FAQ', href: '/support/faq' },
     ],
   },
   {

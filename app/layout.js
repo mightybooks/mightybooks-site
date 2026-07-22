@@ -49,6 +49,7 @@ const organizationJsonLd = {
       logo: 'https://xn--hz2b41ezwf0zf9tq.com/logo.png',
       telephone: '010-5148-9433',
       email: 'novelstudylab@naver.com',
+      description: '대구를 기반으로 자서전, 시집, 전문서, 기관 소책자와 전자책의 기획·편집·디자인·인쇄를 진행하는 출판 제작업체',
     },
     {
       '@type': 'ProfessionalService',
@@ -65,8 +66,8 @@ const organizationJsonLd = {
         addressRegion: '대구',
         addressCountry: 'KR',
       },
-      areaServed: ['대구', '경북'],
-      serviceType: ['자서전 제작', '회고록 제작', '시집 제작', '문집 제작', '출판 상담'],
+      areaServed: ['대구', '경북', '경남', '대한민국'],
+      serviceType: ['자서전 제작', '회고록 제작', '시집 제작', '문집 제작', '전문서 출판', '실용서 출판', '기관·기업 소책자 제작', '전자책·웹북 제작', '출판 편집·디자인·인쇄'],
     },
   ],
 }

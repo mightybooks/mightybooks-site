@@ -21,6 +21,34 @@
 }
 .moreLink:hover { gap: 14px; }
 
+.intro { background: var(--black2); padding: 100px 80px; text-align: center; }
+.introLead { margin: 28px auto 12px; font-size: clamp(20px, 2.4vw, 30px); font-weight: 700; word-break: keep-all; }
+.introText { max-width: 920px; margin: 0 auto; color: var(--gray); font-size: 15px; line-height: 1.9; word-break: keep-all; }
+.method, .process { background: var(--black); padding: 100px 80px; }
+.methodGrid { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: .8fr 1.2fr; gap: 70px; align-items: start; }
+.methodLead { font-family: 'Oswald', 'Noto Sans KR', sans-serif; font-size: clamp(28px, 4vw, 52px); font-weight: 700; line-height: 1.25; border-left: 4px solid var(--red); padding-left: 24px; }
+.methodIntro { max-width: 760px; margin: 22px auto 0; color: var(--gray); font-size: 15px; line-height: 1.8; word-break: keep-all; }
+.methodCopy { margin: 24px 0 0 28px; color: var(--gray); font-size: 14px; line-height: 1.8; word-break: keep-all; }
+.methodList { list-style: none; margin: 0; padding: 0; }
+.methodList li { padding: 17px 0 17px 26px; border-bottom: 1px solid rgba(255,255,255,.1); color: rgba(255,255,255,.75); line-height: 1.65; position: relative; }
+.methodList li::before { content: '—'; position: absolute; left: 0; color: var(--red); }
+.cardLink { display: block; margin-top: 13px; color: #fff; font-size: 11px; font-weight: 700; letter-spacing: 1px; }
+.process { background: var(--black2); }
+.processGrid { list-style: none; max-width: 1280px; margin: 0 auto; padding: 0; display: grid; grid-template-columns: repeat(5,1fr); gap: 2px; }
+.processItem { min-height: 220px; padding: 28px 24px; background: var(--black3); border-top: 3px solid rgba(255,255,255,.1); }
+.processItem > span { font-family: 'Oswald', sans-serif; color: var(--red); font-size: 12px; letter-spacing: 2px; }
+.processItem h3 { margin: 38px 0 12px; font-size: 17px; }
+.processItem p { color: var(--gray); font-size: 13px; line-height: 1.65; }
+.primaryButton { display: inline-flex; margin-top: 28px; padding: 15px 22px; background: var(--red); color: #fff; font-size: 13px; font-weight: 700; }
+.previewLink { display: inline-block; margin-top: 12px; color: #fff; font-size: 11px; font-weight: 700; }
+.previewCardButton { width: 100%; padding: 0; border: 0; background: transparent; color: inherit; font: inherit; text-align: left; }
+.previewCardButton:focus-visible { outline: 2px solid #fff; outline-offset: 5px; }
+.staticBookCard { cursor: default; }
+.staticBookCard:hover .bookImg { border-color: transparent; }
+.staticBookCard:hover .bookImg img { transform: none; }
+.inquiry { background: var(--black); padding: 100px 80px; text-align: center; }
+.inquiry .contactSub { max-width: 680px; margin: 18px auto 0; line-height: 1.8; word-break: keep-all; }
+
 /* MOVIE */
 .movie { background: var(--black); padding: 100px 0; }
 .videoWrap { max-width: 960px; margin: 0 auto; padding: 0 40px; position: relative; }
@@ -54,9 +82,8 @@
   color: rgba(255,255,255,.04); letter-spacing: -2px;
 }
 .bookGrid {
-  display: grid; grid-template-columns: repeat(6, 260px);
+  display: grid; grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 20px; padding: 0 80px;
-  overflow-x: auto;
 }
 .bookCard { cursor: pointer; }
 .bookImg {
@@ -100,8 +127,8 @@
   position: absolute; bottom: 0; left: 0; right: 0; padding: 26px;
 }
 .bizIcon { font-size: 26px; display: block; margin-bottom: 8px; }
-.bizName { font-size: 17px; font-weight: 700; }
-.bizDesc { font-size: 12px; color: rgba(255,255,255,.6); margin-top: 4px; }
+.bizName { font-size: 17px; font-weight: 700; margin: 0; }
+.bizDesc { font-size: 12px; line-height: 1.6; color: rgba(255,255,255,.7); margin-top: 7px; }
 .bizArrow {
   position: absolute; top: 20px; right: 20px;
   width: 34px; height: 34px; border: 1px solid rgba(255,255,255,.2);
@@ -124,6 +151,7 @@
   font-family: 'Bebas Neue', cursive; font-size: 60px;
   letter-spacing: 2px; line-height: 1; margin-bottom: 12px;
 }
+.contactTitle em { color: var(--red); font-style: normal; }
 .contactEmail {
   font-family: 'Oswald', sans-serif;
   font-size: clamp(18px, 2.5vw, 28px); color: var(--red); letter-spacing: 1px;
@@ -203,10 +231,22 @@
   .bizGrid { grid-template-columns: repeat(2,1fr); padding: 0 20px; }
   .contact { grid-template-columns: 1fr; padding: 80px 20px; }
   .portfolioHeader, .bizHeader { padding: 0 20px; }
-  .bookGrid { padding: 0 20px; }
+  .bookGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 0 20px; }
+  .intro, .method, .process, .inquiry { padding-left: 20px; padding-right: 20px; }
+  .methodGrid { grid-template-columns: 1fr; gap: 45px; }
+  .processGrid { grid-template-columns: repeat(2,1fr); }
 }
 @media (max-width: 768px) {
   .portfolioBig { display: none; }
-  .bookGrid { grid-template-columns: repeat(2,260px); }
+  .bookGrid { grid-template-columns: 1fr; }
   .phonePopupNumber { font-size: 34px; }
+  .intro { padding-top: 75px; padding-bottom: 75px; }
+  .bizHeader { align-items: flex-start; flex-direction: column; gap: 22px; }
+  .bizGrid { grid-template-columns: 1fr; }
+  .bizCard { height: 300px; }
+  .methodLead { font-size: 30px; }
+  .processGrid { grid-template-columns: 1fr; }
+  .processItem { min-height: 0; }
+  .processItem h3 { margin-top: 22px; }
+  .contactTitle { font-size: 40px; }
 }

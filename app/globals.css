@@ -17,6 +17,12 @@ body {
   color: var(--white);
   overflow-x: hidden;
 }
+h1,
+h2,
+h3 {
+  font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif !important;
+  font-weight: 800 !important;
+}
 a { color: inherit; text-decoration: none; }
 ::-webkit-scrollbar { width: 3px; }
 ::-webkit-scrollbar-track { background: var(--black); }

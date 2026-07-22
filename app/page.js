@@ -1,175 +1,94 @@
 import HeroSlider from '@/components/HeroSlider'
-import StatsBar from '@/components/StatsBar'
 import ContactPhoneButton from '@/components/ContactPhoneButton'
+import HomeProductionCases from './HomeProductionCases'
 import styles from './page.module.css'
 import Link from 'next/link'
 
 export const metadata = {
-  title: '마이티북스 | 대구 자서전·시집·문집 제작 출판사',
+  title: '마이티북스｜대구 출판사·자서전·시집·전문서 제작',
   description:
-    '대구 동구에 위치한 마이티북스는 자서전, 회고록, 시집, 문집 제작과 출판 상담을 진행하는 출판사입니다. 원고 정리, 편집, 디자인, 인쇄, 출간 상담을 함께합니다.',
-  alternates: {
-    canonical: '/',
-  },
+    '마이티북스는 대구를 기반으로 자서전, 회고록, 시집, 문집, 전문서, 실용서, 기관 소책자, 전자책·웹북의 기획·편집·디자인·인쇄 제작을 진행합니다.',
+  alternates: { canonical: '/' },
   openGraph: {
-    title: '마이티북스 | 대구 자서전·시집·문집 제작 출판사',
+    title: '마이티북스｜대구 출판사·자서전·시집·전문서 제작',
     description:
-      '대구 동구에 위치한 마이티북스는 자서전, 회고록, 시집, 문집 제작과 출판 상담을 진행하는 출판사입니다.',
+      '대구에서 전국까지 자서전, 시집, 전문서, 기관 소책자와 전자책의 기획·편집·디자인·제작을 진행합니다.',
     url: '/',
     type: 'website',
   },
 }
 
-const books = [
-  { num: '01', title: '500자소설', author: '문수림 지음', genre: 'Fiction / Short Story', img: '/image/home/port001.jpg' },
-  { num: '02', title: '토실토실 토끼를 안았습니다', author: '시안 지음', genre: 'Essay', img: '/image/home/port002.jpg' },
-  { num: '03', title: '나의 작은 스승들', author: '박쌤 지음', genre: 'Education / Essay', img: '/image/home/port003.jpg' },
-  { num: '04', title: '장르불문 관통하는 글쓰기', author: '문수림 지음', genre: 'Writing', img: '/image/home/port004.jpg' },
-  { num: '05', title: '내가 묻고, 산이 답하다', author: '정성교 지음', genre: 'Essay / Nature', img: '/image/home/port005.jpg' },
-  { num: '06', title: '말의 비밀', author: '이재연 지음', genre: 'Self-help', img: '/image/home/port006.jpg' },
+const services = [
+  { name: '자서전·회고록·기념도서', desc: '개인의 생애 기록부터 부모님 자서전, 기업·단체의 기념도서까지 인터뷰와 원고 정리부터 제작합니다.', href: '/business/autobiography', img: '/image/home/main002.avif' },
+  { name: '시집·문집·에세이', desc: '개인 시집, 동인 문집, 수필집 등 원고의 성격과 분량에 맞춰 편집과 디자인을 진행합니다.', href: '/business/poetry', img: '/image/home/main003.jpg' },
+  { name: '전문서·실용서·개인 출판', desc: '전문 지식, 교육 자료, 연구 성과와 실무 경험을 정식 단행본으로 제작합니다.', href: '/business/self-publishing', img: '/image/home/main001.avif' },
+  { name: '기관·기업 소책자', desc: '기관 보고서, 사업 기록, 교육자료, 홍보책자와 성과집의 편집·디자인·인쇄를 진행합니다.', href: '/business/booklet', img: '/image/home/main005.png' },
+  { name: '전자책·웹북', desc: '종이책 원고를 전자책이나 웹에서 읽을 수 있는 디지털 콘텐츠로 제작합니다.', href: '/business/epub', img: '/image/home/surimji_cover3d.png' },
 ]
 
-const ctaItems = [
-  {
-    name: '출판상담 받기',
-    desc: '원고 상태, 출간 목적, 제작 방식, 비용 구조를 먼저 점검합니다.',
-    img: '/image/home/main001.avif',
-    href: '/support/diagnosis',
-  },
-  {
-    name: '자서전·기념 도서 제작',
-    desc: '부모님 자서전, 회고록, 퇴임기념집, 가족에게 남기는 책을 만듭니다.',
-    img: '/image/home/main002.avif',
-    href: '/business/autobiography',
-  },
-  {
-    name: '시집·문집 제작',
-    desc: '개인 시집, 동호회 문집, 가족 문집, 추모 문집 제작을 상담합니다.',
-    img: '/image/home/main003.jpg',
-    href: '/business/poetry',
-  },
-]
-
-const subItems = [
-  {
-    name: '출간 도서 보기',
-    desc: '마이티북스가 만든 책과 포트폴리오를 확인합니다.',
-    href: '/portfolio/books',
-    img: '/image/home/main005.png',
-  },
-  {
-    name: '리뷰 후기',
-    desc: '실제 도서 작업과정, 인터뷰 과정, 고객 후기를 확인할 수 있습니다.',
-    href: '/portfolio/reviews',
-    img: '/image/home/hero006.avif',
-  },
-  {
-    name: '블로그',
-    desc: '출판, 글쓰기, 책 제작 관련 글을 읽어볼 수 있습니다.',
-    href: '/blog',
-    img: '/image/home/hero004.avif',
-  },
+const process = [
+  ['01', '상담 및 원고 확인', '원고 분량과 상태, 제작 목적, 희망 일정을 확인합니다.'],
+  ['02', '제작 범위와 견적 확정', '필요한 편집·디자인·인쇄 공정을 정하고 견적을 안내합니다.'],
+  ['03', '원고 편집 및 디자인', '윤문, 교정, 내지 편집, 표지 디자인 등 합의된 작업을 진행합니다.'],
+  ['04', '교정·수정', '시안을 확인하며 오탈자와 디자인 수정 사항을 반영합니다.'],
+  ['05', '인쇄 및 납품, 유통', '최종 확인 후 인쇄하거나 전자책 파일을 제작해 결과물을 전달하고, 판매 유통을 체크해 드립니다.'],
 ]
 
 const homeBreadcrumbJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    {
-      '@type': 'ListItem',
-      position: 1,
-      name: '홈',
-      item: 'https://xn--hz2b41ezwf0zf9tq.com/',
-    },
-  ],
+  '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+  itemListElement: [{ '@type': 'ListItem', position: 1, name: '홈', item: 'https://xn--hz2b41ezwf0zf9tq.com/' }],
 }
 
 export default function Home() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(homeBreadcrumbJsonLd) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(homeBreadcrumbJsonLd) }} />
       <HeroSlider />
-      <StatsBar />
 
-      <section className={styles.business} id="business">
+      <section className={styles.intro} aria-labelledby="intro-title">
+        <span className={styles.tag}>Mighty Books · Daegu</span>
+        <h2 id="intro-title" className={styles.bigTitle}>마이티북스가 <em>하는 일</em></h2>
+        <p className={styles.introLead}>마이티북스는 대구를 기반으로 운영되는 출판사이자 출판 제작업체입니다.</p>
+        <p className={styles.introText}>자서전·회고록, 시집·문집, 전문서·실용서, 기관·기업 소책자의 기획과 원고 편집, 윤문, 교정, 표지 디자인, 내지 디자인, 인쇄 제작까지 진행합니다. 대구·경북·경남 지역은 방문 상담이 가능하며, 그 외 지역은 전국 비대면으로 출판 제작을 진행합니다.</p>
+      </section>
+
+      <section className={styles.business} id="business" aria-labelledby="services-title">
         <div className={styles.bizHeader}>
-          <div>
-            <span className={styles.tag}>Publishing Service</span>
-            <h2 className={styles.bigTitle} style={{ textAlign: 'left' }}>
-              어떤 기록을 <em>책으로 만들까요</em>
-            </h2>
-            <p className={styles.contactSub}>
-              자서전, 시집, 문집, 기념 도서를 기획부터 편집, 디자인, 제작까지 함께합니다.
-            </p>
-          </div>
-          <a href="/support/diagnosis" className={styles.moreLink}>상담 안내 →</a>
+          <div><span className={styles.tag}>Publishing Service</span><h2 id="services-title" className={styles.bigTitle}>주요 <em>출판서비스</em></h2></div>
+          <Link href="/support/diagnosis" className={styles.moreLink}>제작 상담 →</Link>
         </div>
         <div className={styles.bizGrid}>
-          {ctaItems.map((item) => (
+          {services.map(item => (
             <Link key={item.href} href={item.href} className={styles.bizCard} style={{ backgroundImage: `url(${item.img})` }}>
-              <div className={styles.bizOverlay} />
-              <div className={styles.bizContent}>
-                <div className={styles.bizName}>{item.name}</div>
-                <div className={styles.bizDesc}>{item.desc}</div>
-              </div>
-              <div className={styles.bizArrow}>→</div>
+              <div className={styles.bizOverlay} /><div className={styles.bizContent}><h3 className={styles.bizName}>{item.name}</h3><p className={styles.bizDesc}>{item.desc}</p><span className={styles.cardLink}>제작 안내 보기</span></div><span className={styles.bizArrow}>→</span>
             </Link>
           ))}
         </div>
       </section>
 
-      <section className={styles.business} aria-labelledby="support-links">
-        <div className={styles.bizHeader}>
-          <div>
-            <span className={styles.tag}>Reference</span>
-            <h2 id="support-links" className={styles.bigTitle} style={{ textAlign: 'left' }}>
-              도서·포트폴리오·블로그
-            </h2>
-          </div>
-        </div>
-        <div className={styles.bizGrid}>
-          {subItems.map((item) => (
-            <Link key={item.href} href={item.href} className={styles.bizCard} style={{ backgroundImage: `url(${item.img})` }}>
-              <div className={styles.bizOverlay} />
-              <div className={styles.bizContent}>
-                <div className={styles.bizName}>{item.name}</div>
-                <div className={styles.bizDesc}>{item.desc}</div>
-              </div>
-              <div className={styles.bizArrow}>→</div>
-            </Link>
-          ))}
+      <section className={styles.method} aria-labelledby="method-title">
+        <div className={styles.sectionHeader}><span className={styles.tag}>How We Work</span><h2 id="method-title" className={styles.bigTitle}>원고와 상황에 맞춰 <em>필요한 공정만 선택합니다</em></h2><p className={styles.methodIntro}>처음부터 끝까지 맡길 수도 있고, 편집·디자인·인쇄 가운데 필요한 단계만 의뢰할 수도 있습니다.</p></div>
+        <div className={styles.methodGrid}>
+          <div><div className={styles.methodLead}>정해진 패키지를<br />일괄 적용하지 않습니다</div><p className={styles.methodCopy}>원고가 완성되어 있다면 디자인과 인쇄만, 원고 정리가 필요하다면 윤문과 교정부터 진행할 수 있습니다. 의뢰 목적과 직접 처리할 수 있는 범위를 먼저 확인해 실제로 필요한 작업을 정합니다.</p></div>
+          <ul className={styles.methodList}>
+            <li>원고의 완성도와 의뢰인이 직접 처리할 수 있는 범위를 먼저 확인합니다.</li>
+            <li>기획, 원고 정리, 윤문, 교정, 표지 디자인, 내지 디자인, 인쇄 중 필요한 공정만 선택할 수 있습니다.</li>
+            <li>일괄 제작도 가능하지만 모든 원고에 동일한 패키지를 적용하지 않습니다.</li>
+            <li>개인 저자는 부족한 단계만, 출판사·기관·기업은 자체 출판사명과 ISBN을 유지하며 제작 실무만 의뢰할 수 있습니다.</li>
+            <li>소량 제작, 정식 출판, 기존 원고 재편집 등 목적에 따라 범위를 다르게 구성합니다.</li>
+            <li>대구·경북·경남 방문 상담 또는 전국 비대면 협의로 수정 사항을 세부적으로 반영합니다.</li>
+          </ul>
         </div>
       </section>
 
-      <section className={styles.portfolio} id="portfolio">
-        <div className={styles.portfolioHeader}>
-          <div className={styles.portfolioLeft}>
-            <div className={styles.portfolioBig}>PORT<br />FOLIO</div>
-            <div>
-              <span className={styles.tag}>출간 도서</span>
-              <h2 className={styles.bigTitle} style={{ textAlign: 'left' }}>OUR <em>BOOKS</em></h2>
-            </div>
-          </div>
-          <a href="/portfolio/books" className={styles.moreLink}>MORE →</a>
-        </div>
-        <div className={styles.bookGrid}>
-          {books.map((b) => (
-            <div key={b.num} className={styles.bookCard}>
-              <div className={styles.bookImg}>
-                <img src={b.img} alt={b.title} />
-                <span className={styles.bookNum}>출간도서 {b.num}</span>
-              </div>
-              <div className={styles.bookInfo}>
-                <div className={styles.bookGenre}>{b.genre}</div>
-                <div className={styles.bookTitle}>{b.title}</div>
-                <div className={styles.bookAuthor}>{b.author}</div>
-              </div>
-            </div>
-          ))}
-        </div>
+      <section className={styles.portfolio} id="portfolio" aria-labelledby="cases-title">
+        <div className={styles.portfolioHeader}><div className={styles.portfolioLeft}><div className={styles.portfolioBig}>WORK<br />CASE</div><div><span className={styles.tag}>Reference</span><h2 id="cases-title" className={styles.bigTitle}>실제 <em>제작 사례</em></h2></div></div><Link href="/portfolio/books" className={styles.moreLink}>출간 도서 전체 보기 →</Link></div>
+        <HomeProductionCases />
+      </section>
+
+      <section className={styles.process} aria-labelledby="process-title">
+        <div className={styles.sectionHeader}><span className={styles.tag}>Production Process</span><h2 id="process-title" className={styles.bigTitle}>상담부터 납품, 유통까지 <em>제작 진행 과정</em></h2></div>
+        <ol className={styles.processGrid}>{process.map(([num, title, desc]) => <li key={num} className={styles.processItem}><span>{num}</span><h3>{title}</h3><p>{desc}</p></li>)}</ol>
       </section>
 
       <section className={styles.movie} id="about">
@@ -192,10 +111,14 @@ export default function Home() {
         </div>
       </section>
 
-      <section className={styles.contact} id="contact">
+      <section className={styles.inquiry} id="contact" aria-labelledby="contact-title">
+        <span className={styles.contactBrand}>Publishing Inquiry</span><h2 id="contact-title" className={styles.contactTitle}>제작할 책이 있다면<br /><em>원고 상태부터 확인해 드립니다</em></h2><p className={styles.contactSub}>자서전·시집·전문서·소책자 제작을 상담해 보세요. 원고 분량과 제작 목적을 알려주시면 필요한 공정을 안내합니다.</p><Link href="/support/diagnosis" className={styles.primaryButton}>출판 제작 문의하기 →</Link>
+      </section>
+
+      <section className={styles.contact} aria-labelledby="company-contact-title">
         <div className={styles.contactLeft}>
           <span className={styles.contactBrand}>Mighty Books</span>
-          <h2 className={styles.contactTitle}>Contact<br />US</h2>
+          <h2 id="company-contact-title" className={styles.contactTitle}><em>Contact<br />US</em></h2>
           <div className={styles.contactEmail}>novelstudylab@naver.com</div>
           <p className={styles.contactSub}>
             대구 본사 방문상담 가능 · 전국 비대면 상담 가능<br />
@@ -210,10 +133,10 @@ export default function Home() {
             ['연락처', <ContactPhoneButton key="phone-contact" styles={styles} />],
             ['이메일', <a key="email-contact" href="mailto:novelstudylab@naver.com">메일 보내기 →</a>],
             ['카카오톡', <a key="kakao-contact" href="https://open.kakao.com/me/mightybooks" target="_blank" rel="noopener noreferrer">문의하기 →</a>],
-          ].map(([k, v]) => (
-            <div key={k} className={styles.contactRow}>
-              <div className={styles.contactKey}>{k}</div>
-              <div className={styles.contactVal}>{v}</div>
+          ].map(([key, value]) => (
+            <div key={key} className={styles.contactRow}>
+              <div className={styles.contactKey}>{key}</div>
+              <div className={styles.contactVal}>{value}</div>
             </div>
           ))}
         </div>
