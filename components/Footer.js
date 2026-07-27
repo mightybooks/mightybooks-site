@@ -80,6 +80,7 @@ export default function Footer() {
           <a href="/about/greeting" style={{ display: 'block' }}>출판사 소개</a>
           <a href="/about/brand" style={{ display: 'block' }}>브랜드 소개</a>
           <a href="/about/location" style={{ display: 'block' }}>오시는 길</a>
+          <a href="/partner" style={{ display: 'block' }}>제휴 안내</a>
           <a href="/support/guide" style={{ display: 'block' }}>출판가이드</a>
           <a href="/tools" style={{ display: 'block' }}>도구</a>
         </div>

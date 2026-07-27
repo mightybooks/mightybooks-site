@@ -16,15 +16,17 @@ const navItems = [
     ],
   },
   {
-    label: '출판상담과 교육',
+    label: '상담과 교육',
     children: [
       { label: '원고 접수 안내', href: '/support/submission' },
       { label: '기획출간 유료상담', href: '/support/paid-consultation' },
       { label: '500자 글쓰기 워크숍', href: '/workshop/500-character-fiction' },
       { label: '출판 교육', href: '/support/education' },
+      { label: '출판 도구', href: '/tools' },
       { label: 'FAQ', href: '/support/faq' },
     ],
   },
+  { label: '온라인 서가', href: '/library' },
   {
     label: '포트폴리오',
     children: [
@@ -33,9 +35,7 @@ const navItems = [
       { label: '리뷰후기', href: '/portfolio/reviews' },
     ],
   },
-  { label: '도구', href: '/tools' },
   { label: '블로그', href: '/blog' },
-  { label: '제휴', href: '/partner' },
 ]
 
 export default function Nav() {
@@ -67,6 +67,18 @@ export default function Nav() {
     return () => document.removeEventListener('click', handler)
   }, [])
 
+  useEffect(() => {
+    const handleEscape = (event) => {
+      if (event.key === 'Escape') {
+        setOpenMenu(null)
+        setMobileOpen(false)
+      }
+    }
+
+    document.addEventListener('keydown', handleEscape)
+    return () => document.removeEventListener('keydown', handleEscape)
+  }, [])
+
   const closeMenus = () => {
     setOpenMenu(null)
     setMobileOpen(false)
@@ -85,6 +97,8 @@ export default function Nav() {
               <button
                 className={`${styles.dropTrigger} ${(openMenu === item.label || isItemActive(item)) ? styles.dropTriggerActive : ''}`}
                 aria-current={isItemActive(item) ? 'page' : undefined}
+                aria-expanded={openMenu === item.label}
+                aria-haspopup="true"
                 onClick={() => setOpenMenu(openMenu === item.label ? null : item.label)}
               >
                 {item.label}
