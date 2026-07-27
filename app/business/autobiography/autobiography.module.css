@@ -237,9 +237,11 @@
 
 .section,
 .sectionAlt,
+.formatSection,
 .localSection,
 .gallerySection,
 .priceSection,
+.businessSection,
 .finderSection,
 .privacyBox {
   opacity: 0;
@@ -254,6 +256,7 @@
 
 .section,
 .sectionAlt,
+.formatSection,
 .gallerySection,
 .priceSection,
 .finderSection {
@@ -265,6 +268,7 @@
 }
 
 .sectionAlt,
+.formatSection,
 .finderSection {
   background: var(--black2);
 }
@@ -467,7 +471,8 @@
 .ctaBtn:focus-visible,
 .ctaBtnGhost:focus-visible,
 .finderOption:focus-visible,
-.textLink:focus-visible {
+.textLink:focus-visible,
+.libraryLink:focus-visible {
   outline: 2px solid rgba(232, 0, 30, .95);
   outline-offset: 3px;
 }
@@ -584,6 +589,93 @@
   font-size: 18px;
 }
 
+.formatGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  width: min(100%, 1120px);
+  margin: 0 auto;
+}
+
+.formatCard {
+  padding: 34px;
+  background: var(--black3);
+  border: 1px solid rgba(255, 255, 255, .08);
+  border-top: 3px solid rgba(232, 0, 30, .72);
+}
+
+.formatNumber {
+  display: block;
+  margin-bottom: 18px;
+  color: var(--red);
+  font-family: 'Bebas Neue', cursive;
+  font-size: 36px;
+  line-height: 1;
+}
+
+.formatCard h3 {
+  margin-bottom: 14px;
+  font-size: 24px;
+}
+
+.formatCard p {
+  color: rgba(255, 255, 255, .64);
+  font-size: 14px;
+  line-height: 1.85;
+  word-break: keep-all;
+}
+
+.formatList {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin: 24px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.formatList li {
+  position: relative;
+  padding: 12px 12px 12px 28px;
+  background: rgba(255, 255, 255, .035);
+  color: rgba(255, 255, 255, .78);
+  font-size: 13px;
+  line-height: 1.5;
+  word-break: keep-all;
+}
+
+.formatList li::before {
+  content: '';
+  position: absolute;
+  top: 19px;
+  left: 13px;
+  width: 6px;
+  height: 6px;
+  background: var(--red);
+}
+
+.libraryLink {
+  display: flex;
+  width: fit-content;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  margin: 32px auto 0;
+  padding: 13px 26px;
+  border: 1px solid rgba(255, 255, 255, .28);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 800;
+  text-decoration: none;
+  transition: border-color .25s ease, background .25s ease, transform .25s ease;
+}
+
+.libraryLink:hover {
+  border-color: var(--red);
+  background: rgba(232, 0, 30, .12);
+  transform: translateY(-2px);
+}
+
 .priceGrid {
   width: min(100%, 1240px);
   margin: 0 auto;
@@ -638,6 +730,52 @@
   word-break: keep-all;
 }
 
+.webbookCondition {
+  display: grid;
+  gap: 6px;
+  margin-top: 18px;
+  padding: 14px;
+  border-left: 3px solid var(--red);
+  background: rgba(232, 0, 30, .08);
+}
+
+.webbookCondition strong {
+  color: rgba(255, 255, 255, .86);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.maintenanceNote {
+  width: min(100%, 960px);
+  margin: 30px auto 0;
+  padding: 26px 30px;
+  border: 1px solid rgba(255, 255, 255, .1);
+  border-left: 4px solid var(--red);
+  background: rgba(255, 255, 255, .035);
+  text-align: center;
+}
+
+.maintenanceNote strong {
+  display: block;
+  margin-bottom: 7px;
+  font-size: 17px;
+}
+
+.maintenanceNote p {
+  margin: 0;
+  color: rgba(255, 255, 255, .78);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.maintenanceNote span {
+  display: block;
+  margin-top: 9px;
+  color: rgba(255, 255, 255, .5);
+  font-size: 12px;
+  line-height: 1.7;
+}
+
 .priceNote {
   width: min(100%, 900px);
   margin: 30px auto 0;
@@ -645,6 +783,79 @@
   font-size: 14px;
   line-height: 1.9;
   text-align: center;
+  word-break: keep-all;
+}
+
+.businessSection {
+  display: grid;
+  grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+  gap: 70px;
+  align-items: center;
+  padding: 110px max(80px, calc((100vw - 1240px) / 2));
+  border-top: 1px solid rgba(255, 255, 255, .08);
+  border-bottom: 1px solid rgba(255, 255, 255, .08);
+  background:
+    linear-gradient(120deg, rgba(232, 0, 30, .12), transparent 45%),
+    var(--black);
+}
+
+.businessIntro > p {
+  max-width: 560px;
+  margin-top: 18px;
+  color: rgba(255, 255, 255, .65);
+  font-size: 15px;
+  line-height: 1.85;
+  word-break: keep-all;
+}
+
+.businessIntro > h3 {
+  margin-top: 30px;
+  font-size: 22px;
+}
+
+.businessPrice {
+  margin-top: 8px;
+  color: var(--red);
+  font-family: 'Oswald', sans-serif;
+  font-size: 36px;
+  font-weight: 800;
+}
+
+.businessDetails {
+  padding: 34px;
+  border: 1px solid rgba(255, 255, 255, .1);
+  border-top: 3px solid var(--red);
+  background: var(--black3);
+}
+
+.businessDetails > h3 {
+  margin-bottom: 18px;
+  font-size: 22px;
+}
+
+.businessDetails dl {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 24px;
+}
+
+.businessDetails dl div {
+  padding: 13px 0;
+  border-top: 1px solid rgba(255, 255, 255, .08);
+}
+
+.businessDetails dt {
+  margin-bottom: 5px;
+  color: rgba(255, 255, 255, .9);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.businessDetails dd {
+  margin: 0;
+  color: rgba(255, 255, 255, .58);
+  font-size: 13px;
+  line-height: 1.65;
   word-break: keep-all;
 }
 
@@ -927,8 +1138,14 @@
 
 @media (max-width: 1120px) {
   .heroInner,
-  .split {
+  .split,
+  .businessSection {
     grid-template-columns: 1fr;
+  }
+
+  .businessSection {
+    gap: 40px;
+    padding: 96px 80px;
   }
 
   .heroVisual {
@@ -1024,9 +1241,11 @@
 
   .section,
   .sectionAlt,
+  .formatSection,
   .localSection,
   .gallerySection,
   .priceSection,
+  .businessSection,
   .finderSection,
   .finalCta {
     padding: 78px 20px;
@@ -1058,8 +1277,24 @@
   .typeGrid,
   .guideGrid,
   .galleryGrid,
+  .formatGrid,
   .priceGrid {
     grid-template-columns: 1fr;
+  }
+
+  .formatCard,
+  .businessDetails {
+    padding: 26px 22px;
+  }
+
+  .formatList,
+  .businessDetails dl {
+    grid-template-columns: 1fr;
+  }
+
+  .maintenanceNote {
+    padding: 22px 20px;
+    text-align: left;
   }
 
   .split {

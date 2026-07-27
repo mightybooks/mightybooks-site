@@ -4,32 +4,39 @@ import { EMAIL_ADDRESS, KAKAO_URL, PhoneConsultModal } from '../components/Servi
 import styles from './autobiography.module.css'
 
 const planInfo = {
+  webbook: {
+    name: '웹북 플랜',
+    price: '예상 55만 원~',
+    title: '웹북 플랜이 적합해 보입니다.',
+    body: '완성 PDF 또는 편집이 완료된 원고가 있고, 종이책을 인쇄하지 않고 저자 전용 온라인 서가와 고화질 플립북으로 제작하려는 경우에 적합한 플랜입니다.',
+    note: '완성 PDF 보유 기준은 55만 원부터이며, 표지·내지 디자인이 필요한 경우 66만 원부터 적용됩니다. 원고 정리와 집필 범위가 필요한 경우에는 상위 플랜이 적용될 수 있습니다.',
+  },
   light: {
     name: '라이트 플랜',
     price: '예상 120만 원~',
     title: '라이트 플랜이 적합해 보입니다.',
-    body: '이미 준비된 원고가 있고, 가족 소장용이나 기념 선물용으로 소량 제작을 원하시는 경우에 적합한 플랜입니다. 기본 윤문, 내지 편집, 사진 20장 이내의 기본 배치를 포함해 짧은 생애 기록이나 기념 도서 형태로 제작할 수 있습니다.',
+    body: '이미 준비된 원고가 있고, 가족 소장용이나 기념 선물용으로 소량 제작을 원하시는 경우에 적합한 플랜입니다. 기본 윤문과 내지 편집으로 종이책을 제작하며, 저자 전용 온라인 서가와 고화질 플립북도 함께 제공합니다.',
     note: '최종 견적은 원고 분량, 사진 수, 인쇄 부수와 제본 방식에 따라 달라질 수 있습니다.',
   },
   standard: {
     name: '스탠다드 플랜',
     price: '예상 220만 원~',
     title: '스탠다드 플랜이 적합해 보입니다.',
-    body: '원고, 녹취, 메모를 바탕으로 일반적인 자서전이나 회고록을 제작하려는 경우에 적합한 플랜입니다. 생애 흐름에 맞춰 목차를 구성하고, 문장을 정리해 가족·지인 배포용 도서로 완성할 수 있습니다.',
+    body: '원고, 녹취, 메모를 바탕으로 일반적인 자서전이나 회고록을 제작하려는 경우에 적합한 플랜입니다. 생애 흐름에 맞춰 목차와 문장을 정리하고, 종이책과 공유 가능한 온라인 서가·플립북으로 완성합니다.',
     note: '녹취 정리, 원고 보완, 사진 추가 작업, 인쇄 부수에 따라 최종 견적이 달라질 수 있습니다.',
   },
   premium: {
     name: '프리미엄 플랜',
     price: '예상 660만 원~',
     title: '프리미엄 플랜이 적합해 보입니다.',
-    body: '완성 원고가 없거나, 인터뷰를 통해 생애 흐름을 재구성해야 하는 경우에 적합한 플랜입니다. 여러 자료와 기억을 정리해 본격적인 자서전, 회고록, 가족 기록집으로 구성할 수 있습니다.',
+    body: '완성 원고가 없거나, 인터뷰를 통해 생애 흐름을 재구성해야 하는 경우에 적합한 플랜입니다. 여러 자료와 기억을 본격적인 자서전으로 구성하고, 종이책과 저자 전용 온라인 서가·고화질 플립북으로 완성합니다.',
     note: '인터뷰 횟수, 가족·지인 보충 인터뷰, 사진과 자료 정리 범위, 출장 여부에 따라 최종 견적이 달라질 수 있습니다.',
   },
   business: {
     name: '비즈니스 플랜',
     price: '예상 1,800만 원~',
     title: '비즈니스 플랜이 적합해 보입니다.',
-    body: '사업가, 전문직, 단체장, 정치인, 기관장 등 외부 공개와 브랜딩 목적의 자서전·회고록 제작에 적합한 플랜입니다. 개인의 이력과 사건을 단순 정리가 아니라 서사와 메시지를 갖춘 책의 구조로 설계합니다.',
+    body: '사업가, 전문직, 단체장, 정치인, 기관장 등 외부 공개와 브랜딩 목적의 자서전·회고록 제작에 적합한 플랜입니다. 개인의 이력과 사건을 서사와 메시지를 갖춘 책으로 설계하고, 전용 온라인 서가와 웹북도 함께 구성합니다.',
     note: '심화 인터뷰, 자료 검토, 사건 구조화, 전기소설형 구성, 외부 공개와 유통 범위에 따라 최종 견적이 달라질 수 있습니다.',
   },
 }
@@ -37,21 +44,21 @@ const planInfo = {
 const questions = [
   {
     id: 'quantity',
-    title: '몇 권을 제작하고 싶으십니까?',
+    title: '어떤 형태와 규모로 제작하고 싶으십니까?',
     options: [
-      { label: '5권 기본 소량 제작', score: { light: 2 }, flags: [] },
-      { label: '20권 미만', score: { light: 1, standard: 1 }, flags: [] },
-      { label: '100권 이상', score: { standard: 1, premium: 1 }, flags: ['print100'] },
-      { label: '300권 이상', score: { premium: 1, business: 1 }, flags: ['print300'] },
-      { label: '500권 이상', score: { premium: 1, business: 1 }, flags: ['print300'] },
+      { label: '종이책 없이 웹북으로만 제작하고 싶습니다.', score: { webbook: 4 }, flags: ['webbookOnly'] },
+      { label: '5권 정도의 기본 소량 종이책을 제작하고 싶습니다.', score: { light: 2 }, flags: [] },
+      { label: '20권 미만의 종이책을 제작하고 싶습니다.', score: { light: 1, standard: 1 }, flags: [] },
+      { label: '100권 이상의 종이책을 제작하고 싶습니다.', score: { standard: 1, premium: 1 }, flags: ['print100'] },
+      { label: '300권 이상의 종이책이나 공식 출간을 고려합니다.', score: { premium: 1, business: 1 }, flags: ['print300'] },
     ],
   },
   {
     id: 'manuscript',
     title: '작성된 원고가 있습니까?',
     options: [
-      { label: '예, 거의 완성된 원고가 있습니다.', score: { light: 2, standard: 1 }, flags: [] },
-      { label: '일부 원고, 메모, 녹취 자료가 있습니다.', score: { standard: 2, premium: 1 }, flags: [] },
+      { label: '예, 거의 완성된 원고가 있습니다.', score: { webbook: 2, light: 2, standard: 1 }, flags: ['readyManuscript'] },
+      { label: '일부 원고, 메모, 녹취 자료가 있습니다.', score: { webbook: 1, standard: 2, premium: 1 }, flags: [] },
       { label: '아직 원고는 없지만 기록하고 싶은 이야기가 있습니다.', score: { premium: 2 }, flags: [] },
       { label: '사업, 경력, 활동 이력을 브랜딩 목적의 책으로 만들고 싶습니다.', score: { business: 3 }, flags: ['businessIntent'] },
     ],
@@ -103,6 +110,7 @@ const questions = [
 ]
 
 const flagMessages = {
+  webbookOnly: '종이책 없이 웹북으로만 제작할 수 있습니다. 다만 완성 PDF가 없는 경우에는 원고 정리, 표지·내지 디자인과 인터뷰 범위에 따라 스탠다드 또는 프리미엄 제작비가 적용될 수 있습니다.',
   print100: '100권 이상 제작은 인쇄 부수와 제본 사양에 따라 제작비 차이가 커집니다. 추천 플랜과 별도로 인쇄 견적 확인이 필요합니다.',
   print300: '300권 이상 제작은 인쇄 방식, 종이, 제본, 납품 방식에 따라 별도 견적이 필요합니다. 상담 시 부수와 납품 일정을 함께 확인합니다.',
   longManuscript: '8만 자를 초과하는 원고는 기본 제작 범위를 넘어설 수 있으므로 별도 견적이 적용될 수 있습니다.',
@@ -112,10 +120,10 @@ const flagMessages = {
   extraInterview: '가족·지인 보충 인터뷰는 인터뷰 횟수와 정리 범위에 따라 별도 견적이 필요할 수 있습니다.',
 }
 
-const priority = ['business', 'premium', 'standard', 'light']
+const priority = ['business', 'premium', 'standard', 'light', 'webbook']
 
 function getResult(answers) {
-  const scores = { light: 0, standard: 0, premium: 0, business: 0 }
+  const scores = { webbook: 0, light: 0, standard: 0, premium: 0, business: 0 }
   const flags = new Set()
   const reasons = []
 
@@ -130,6 +138,10 @@ function getResult(answers) {
 
   if (!flags.has('businessIntent')) {
     scores.business = Math.min(scores.business, scores.premium - 1)
+  }
+
+  if (flags.has('webbookOnly') && flags.has('readyManuscript')) {
+    scores.webbook += 3
   }
 
   const plan = priority.reduce((best, key) => {

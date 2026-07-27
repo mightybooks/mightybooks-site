@@ -46,6 +46,7 @@ const workScope = [
   '문장 다듬기',
   '사진 선별 및 기본 보정',
   '표지·내지 디자인',
+  '저자 전용 온라인 서가·웹북 제작',
   '인쇄 사양 상담',
   'ISBN 및 온라인서점 유통 여부 상담',
 ]
@@ -57,7 +58,7 @@ const processSteps = [
   ['04', '목차·원고 편집', '자료를 책의 구조로 묶고 문장을 읽기 좋게 다듬습니다.'],
   ['05', '표지·내지 디자인', '목적과 독자에 맞춰 표지, 본문, 사진 배치를 설계합니다.'],
   ['06', '교정 확인', '의뢰인과 가족이 확인할 수 있도록 교정본을 안내합니다.'],
-  ['07', '인쇄·제본·출간', '가족 소장용 제작 또는 ISBN 등록과 유통 상담으로 마무리합니다.'],
+  ['07', '웹북 공개 또는 인쇄·제본', '선택한 제작 방식에 따라 온라인 서가와 고화질 플립북을 공개하거나, 종이책 인쇄·제본 및 ISBN 출간 상담으로 마무리합니다.'],
 ]
 
 const bookTypes = [
@@ -97,7 +98,20 @@ const galleryItems = [
   },
 ]
 
-const pricePlans = [
+const personalPlans = [
+  {
+    name: '웹북 플랜',
+    price: '55만 원부터',
+    target: '종이책 없이 온라인 서가와 고화질 플립북으로 제작',
+    manuscript: '완성 PDF 또는 편집이 완료된 원고',
+    interview: '기본 상담 중심',
+    writing: '완성 PDF의 웹용 최적화, 원고 편집이 필요한 경우 별도 산정',
+    design: '저자 프로필·도서 소개 페이지 구성, 표지·내지 제작은 추가 견적',
+    printedBook: '종이책 인쇄 미포함',
+    webbook: '저자 전용 온라인 서가, 고화질 플립북, 공유 링크와 QR, 첫해 이용 포함',
+    check: '페이지 수, PDF 상태, 공개 범위, 디자인 필요 여부',
+    condition: ['완성 PDF 보유 기준 55만 원부터', '표지·내지 디자인이 필요한 경우 66만 원부터'],
+  },
   {
     name: '라이트 플랜',
     price: '120만 원부터',
@@ -106,8 +120,8 @@ const pricePlans = [
     interview: '기본 상담 중심',
     writing: '윤문, 기본 교정, 내지 편집',
     design: '기본 표지와 내지 디자인',
-    print: '인쇄비 별도 산정',
-    binding: '10권 미만 소량, 무선 또는 양장',
+    printedBook: '소량 종이책 제작, 인쇄비 별도 산정',
+    webbook: '저자 전용 온라인 서가와 고화질 플립북, 첫해 이용 포함',
     check: '원고 분량, 사진 수, 희망 부수',
   },
   {
@@ -117,9 +131,9 @@ const pricePlans = [
     manuscript: '부분 원고, 녹취, 메모 자료',
     interview: '필요 시 전화·화상 상담',
     writing: '목차 구성, 원고 정리, 문장 다듬기',
-    design: '사진 일부 포함 편집 가능',
-    print: '인쇄비 별도 산정',
-    binding: '무선 또는 양장, 선물포장',
+    design: '사진 일부 포함 표지·내지 편집',
+    printedBook: '무선 또는 양장 종이책, 인쇄비 별도 산정',
+    webbook: '저자 전용 온라인 서가와 고화질 플립북, 첫해 이용 포함',
     check: '녹취 분량, 사진 작업량, 가족 확인 절차',
   },
   {
@@ -130,29 +144,32 @@ const pricePlans = [
     interview: '인터뷰 기반 구성',
     writing: '생애 흐름 설계, 집필 보조, 편집 범위 확대',
     design: '표지·내지 맞춤 구성',
-    print: '사양과 부수에 따라 별도 산정',
-    binding: '양장, 무선, 선물용 제작 상담',
+    printedBook: '양장·무선 등 목적에 맞는 종이책 제작, 인쇄비 별도',
+    webbook: '저자 전용 온라인 서가와 고화질 플립북, 첫해 이용 포함',
     check: '인터뷰 횟수, 가족 보충 인터뷰, 자료 정리 범위',
   },
-  {
-    name: '비즈니스 플랜',
-    price: '1,800만 원부터',
-    target: '대표자·전문직·기관장 브랜딩 목적의 회고록',
-    manuscript: '이력 자료, 강연 원고, 활동 기록',
-    interview: '심화 인터뷰와 자료 검토',
-    writing: '메시지 구조화, 장기 서사 설계, 편집 범위 확대',
-    design: '브랜딩 목적 표지·내지 구성',
-    print: '대량 인쇄 및 유통 별도 상담',
-    binding: '고급 양장 또는 공식 출간 사양',
-    check: '공개 범위, ISBN, 온라인서점 유통, 납품 일정',
-  },
 ]
+
+const businessPlan = {
+  name: '비즈니스 플랜',
+  price: '1,800만 원부터',
+  target: '대표자·전문직·기관장 브랜딩 목적의 회고록',
+  manuscript: '이력 자료, 강연 원고, 활동 기록',
+  interview: '심화 인터뷰와 자료 검토',
+  writing: '메시지 구조화, 장기 서사 설계, 편집 범위 확대',
+  design: '브랜딩 목적의 표지·내지 맞춤 구성',
+  printedBook: '고급 양장 또는 공식 출간 사양, 인쇄·유통 별도 상담',
+  webbook: '전용 온라인 서가와 고화질 웹북 포함',
+  check: '공개 범위, ISBN, 온라인서점 유통, 납품 일정',
+}
 
 const checklist = [
   '제작 목적: 부모님 생애사, 칠순·팔순 기념 선물, 가족 기념 서적, 커플 기념 서적 등',
   '원고 유무: 완성 원고, 손글씨, 녹음, 메모, 사진 자료, 가족의 기억 등',
   '인터뷰 가능 여부: 부모님 직접 인터뷰, 가족 보충 인터뷰, 전화·화상·대면 방식 등',
-  '예상 부수: 10부, 30부, 50부, 100부 등',
+  '희망 결과물: 웹북만 제작, 종이책과 웹북 함께 제작, 아직 미정',
+  '공개 범위: 전체 공개, 가족·지인용 프라이빗 링크, 아직 미정',
+  '예상 부수: 웹북만 제작 또는 종이책 10부, 30부, 50부, 100부 등',
   '희망 제본: 무선, 양장, 아직 미정',
   '희망 일정과 대략적인 예산 범위',
   '대구·경북·경남 대면 상담 가능 여부',
@@ -161,6 +178,8 @@ const checklist = [
 const guideNotes = [
   '원고가 없어도 상담 가능합니다. 마이티북스가 묻고, 듣고, 정리합니다.',
   '부모님이 직접 글을 쓰지 못하셔도 인터뷰, 사진, 메모, 가족의 기억으로 시작할 수 있습니다.',
+  '종이책을 인쇄하지 않고 저자 전용 온라인 서가와 고화질 플립북으로만 제작할 수 있습니다.',
+  '종이책 제작 플랜에는 저자 전용 온라인 서가와 웹북의 첫해 이용이 포함됩니다.',
   '가족 소장용은 ISBN 없이 제작할 수 있습니다.',
   '칠순·팔순 기념 책, 가족 기념 서적, 커플 기념 서적도 제작 가능합니다.',
   '정식 출간을 원하면 ISBN과 온라인서점 유통도 상담 가능합니다.',
@@ -262,7 +281,7 @@ export default function AutobiographyPage() {
             <div className={styles.heroLine} />
             <p className={styles.heroCopy}>
               부모님의 생애와 가족의 시간을 인터뷰로 기록해 한 권의 책으로 만듭니다.
-              마이티북스가 묻고, 듣고, 정리해 책의 문장으로 완성합니다.
+              마이티북스가 묻고, 듣고, 정리해 종이책 또는 공유 가능한 웹북으로 완성합니다.
             </p>
             <p className={styles.heroSubcopy}>
               부모님 자서전 · 칠순 기념 책 · 팔순 기념 책 · 커플 기념 서적 제작<br />
@@ -284,8 +303,8 @@ export default function AutobiographyPage() {
               priority
             />
             <div className={styles.heroVisualNote}>
-              <strong>자서전 제작비 120만 원부터</strong>
-              <span>원고 상태, 인터뷰 범위, 인쇄 사양에 따라 견적이 달라집니다.</span>
+              <strong>웹북 55만 원부터 · 종이책 120만 원부터</strong>
+              <span>완성 PDF 또는 원고 상태, 디자인 범위, 인터뷰와 인쇄 여부에 따라 견적이 달라집니다.</span>
             </div>
             <p className={styles.heroVisualCaption}>
               꽃과 현수막은 지나가지만, 한 권의 책은 가족에게 오래 남습니다.
@@ -362,7 +381,43 @@ export default function AutobiographyPage() {
         </div>
       </section>
 
-      <section className={styles.localSection} ref={ref(3)} aria-labelledby="local-heading">
+      <section className={styles.formatSection} ref={ref(3)} aria-labelledby="format-heading">
+        <div className={styles.sectionHeader}>
+          <span className={styles.tag}>Webbook / Printed Book</span>
+          <h2 id="format-heading" className={styles.sectionTitle}>책은 종이로도,<br /><em>웹북으로도 남길 수 있습니다</em></h2>
+          <p className={styles.sectionLead}>
+            자서전과 기념도서는 종이책으로 제작할 수도 있고, 종이책을 인쇄하지 않고 온라인 서가와 고화질 플립북으로만 제작할 수도 있습니다.
+            종이책 제작 플랜에는 저자 전용 온라인 서가와 웹북이 함께 지원되며, 가족과 지인에게 링크나 QR로 공유할 수 있습니다.
+          </p>
+        </div>
+        <div className={styles.formatGrid}>
+          <article className={styles.formatCard}>
+            <span className={styles.formatNumber}>01</span>
+            <h3>웹북으로만 제작</h3>
+            <p>
+              종이책을 인쇄하지 않고 저자 프로필, 도서 소개 페이지, 고화질 플립북과 공유 링크로 구성된 웹북을 제작합니다.
+              완성 PDF가 있으면 웹용으로 최적화하고, 원고만 있는 경우에는 필요한 표지·내지 디자인 범위를 상담합니다.
+            </p>
+            <ul className={styles.formatList}>
+              {['저자 프로필 페이지', '도서 소개 페이지', '고화질 플립북', '공개 또는 프라이빗 링크', '공유용 QR', '첫해 온라인 서가 이용'].map(item => <li key={item}>{item}</li>)}
+            </ul>
+          </article>
+          <article className={styles.formatCard}>
+            <span className={styles.formatNumber}>02</span>
+            <h3>종이책과 함께 제작</h3>
+            <p>
+              라이트·스탠다드·프리미엄 플랜으로 종이책을 제작하면 저자 전용 온라인 서가와 고화질 플립북도 함께 제공합니다.
+              가족 소장용 자서전, 퇴임 기념도서, 칠순·팔순 기념책을 종이책으로 전달하고 온라인 링크로도 공유할 수 있습니다.
+            </p>
+            <ul className={styles.formatList}>
+              {['종이책 제작', '표지·내지 디자인', '저자 전용 온라인 서가', '고화질 플립북', '공개 또는 프라이빗 공유', '첫해 온라인 서가 이용'].map(item => <li key={item}>{item}</li>)}
+            </ul>
+          </article>
+        </div>
+        <Link className={styles.libraryLink} href="/library">온라인 서가 샘플 보기</Link>
+      </section>
+
+      <section className={styles.localSection} ref={ref(4)} aria-labelledby="local-heading">
         <div className={styles.localInner}>
           <span className={styles.tag}>Nationwide Service</span>
           <h2 id="local-heading" className={styles.sectionTitle}>지역 기반 · <em>전국 진행 가능</em></h2>
@@ -378,7 +433,7 @@ export default function AutobiographyPage() {
         </div>
       </section>
 
-      <section className={styles.section} ref={ref(4)} aria-labelledby="process-heading">
+      <section className={styles.section} ref={ref(5)} aria-labelledby="process-heading">
         <div className={styles.sectionHeader}>
           <span className={styles.tag}>Process</span>
           <h2 id="process-heading" className={styles.sectionTitle}>제작 <em>과정</em></h2>
@@ -400,7 +455,7 @@ export default function AutobiographyPage() {
         </div>
       </section>
 
-      <section className={styles.sectionAlt} ref={ref(5)} aria-labelledby="types-heading">
+      <section className={styles.sectionAlt} ref={ref(6)} aria-labelledby="types-heading">
         <div className={styles.sectionHeader}>
           <span className={styles.tag}>Book Types</span>
           <h2 id="types-heading" className={styles.sectionTitle}><em>다양한</em> 제작 형태</h2>
@@ -413,7 +468,7 @@ export default function AutobiographyPage() {
         </div>
       </section>
 
-      <section className={styles.gallerySection} ref={ref(6)} aria-labelledby="gallery-heading">
+      <section className={styles.gallerySection} ref={ref(7)} aria-labelledby="gallery-heading">
         <div className={styles.sectionHeader}>
           <span className={styles.tag}>Portfolio Mood</span>
           <h2 id="gallery-heading" className={styles.sectionTitle}>제작 도서와 <em>출판 경험</em></h2>
@@ -435,42 +490,77 @@ export default function AutobiographyPage() {
         </div>
       </section>
 
-      <section className={styles.priceSection} ref={ref(7)} aria-labelledby="price-heading">
+      <section className={styles.priceSection} ref={ref(8)} aria-labelledby="price-heading">
         <div className={styles.sectionHeader}>
           <span className={styles.tag}>Starting Price</span>
-          <h2 id="price-heading" className={styles.sectionTitle}>가격은 <em>플랜 별 기준</em>에 따라 상세 금액이 달라집니다</h2>
+          <h2 id="price-heading" className={styles.sectionTitle}>원고 상태와 제작 방식에 맞는<br /><em>플랜을 선택할 수 있습니다</em></h2>
           <p className={styles.sectionLead}>
-            아래 금액은 상담 전 참고용입니다. 인쇄비, 제본 사양, 사진 작업, 인터뷰 횟수, 집필 범위, 부수에 따라 최종 견적은 달라질 수 있습니다.
+            종이책 없이 웹북으로만 제작하거나, 원고 정리와 인터뷰 범위에 따라 종이책 제작 플랜을 선택할 수 있습니다.
+            아래 금액은 상담 전 참고용이며, 원고 분량, 사진 작업, 디자인 범위, 인터뷰 횟수, 인쇄 사양과 부수에 따라 최종 견적이 달라질 수 있습니다.
           </p>
         </div>
         <div className={styles.priceGrid}>
-          {pricePlans.map(plan => (
+          {personalPlans.map(plan => (
             <article key={plan.name} className={styles.priceCard}>
               <h3>{plan.name}</h3>
               <div className={styles.price}>{plan.price}</div>
               <p>{plan.target}</p>
+              {plan.condition && (
+                <div className={styles.webbookCondition}>
+                  {plan.condition.map(item => <strong key={item}>{item}</strong>)}
+                </div>
+              )}
               <dl>
                 <div><dt>원고 상태</dt><dd>{plan.manuscript}</dd></div>
                 <div><dt>인터뷰</dt><dd>{plan.interview}</dd></div>
                 <div><dt>편집/집필</dt><dd>{plan.writing}</dd></div>
                 <div><dt>디자인</dt><dd>{plan.design}</dd></div>
-                <div><dt>인쇄비</dt><dd>{plan.print}</dd></div>
-                <div><dt>제본</dt><dd>{plan.binding}</dd></div>
+                <div><dt>종이책</dt><dd>{plan.printedBook}</dd></div>
+                <div><dt>웹북·온라인 서가</dt><dd>{plan.webbook}</dd></div>
                 <div><dt>상담 확인</dt><dd>{plan.check}</dd></div>
               </dl>
             </article>
           ))}
         </div>
+        <aside className={styles.maintenanceNote}>
+          <strong>온라인 서가와 웹북은 첫해 이용료가 포함됩니다.</strong>
+          <p>계속 유지할 경우 2년 차부터 연 132,000원의 이용료가 적용됩니다.</p>
+          <span>온라인 서가 유지, 도서 페이지와 이미지 보관, 플립북 서비스, 공유 링크 유지와 기본 시스템 관리가 포함됩니다.</span>
+        </aside>
         <p className={styles.priceNote}>
-          고가 플랜은 장기 인터뷰, 가족·지인 보충 인터뷰, 대량 사진 정리, 생애 연표 구성, 전문 집필 범위 확대,
-          고급 양장 제작, 브랜딩 목적 구성, 다수 인쇄처럼 확인해야 할 범위가 넓을 때 적용될 수 있습니다.
+          웹북 플랜은 완성 PDF 또는 편집 완료 원고를 기준으로 하며, 표지·내지 제작과 원고 편집이 필요한 경우 작업 범위에 따라 금액이 달라집니다.
+          종이책 플랜은 인쇄 부수와 제본 사양을 별도로 확인하며, 사진 정리, 추가 인터뷰, 장기 집필과 고급 제작이 필요한 경우 별도 범위가 적용될 수 있습니다.
         </p>
         <div className={styles.midCta}>
           <ContactButtons />
         </div>
       </section>
 
-      <section className={styles.sectionAlt} ref={ref(8)} aria-labelledby="checklist-heading">
+      <section className={styles.businessSection} ref={ref(9)} aria-labelledby="business-heading">
+        <div className={styles.businessIntro}>
+          <span className={styles.tag}>Business Publishing</span>
+          <h2 id="business-heading" className={styles.sectionTitle}>대표자와 기관을 위한<br /><em>비즈니스 출판</em></h2>
+          <p>{businessPlan.target}</p>
+          <h3>{businessPlan.name}</h3>
+          <div className={styles.businessPrice}>{businessPlan.price}</div>
+          <p>대표자·전문직·기관장의 경험과 철학을 브랜드 자산으로 설계하는 회고록·전문서 출판입니다.</p>
+          <ContactButtons primaryLabel="비즈니스 출판 상담" />
+        </div>
+        <div className={styles.businessDetails}>
+          <h3>세부 제공 범위</h3>
+          <dl>
+            <div><dt>원고 상태</dt><dd>{businessPlan.manuscript}</dd></div>
+            <div><dt>심층 인터뷰</dt><dd>{businessPlan.interview}</dd></div>
+            <div><dt>서사 설계</dt><dd>{businessPlan.writing}</dd></div>
+            <div><dt>브랜딩 디자인</dt><dd>{businessPlan.design}</dd></div>
+            <div><dt>종이책</dt><dd>{businessPlan.printedBook}</dd></div>
+            <div><dt>전용 온라인 서가와 웹북</dt><dd>{businessPlan.webbook}</dd></div>
+            <div><dt>상담 확인</dt><dd>{businessPlan.check}</dd></div>
+          </dl>
+        </div>
+      </section>
+
+      <section className={styles.sectionAlt} ref={ref(10)} aria-labelledby="checklist-heading">
         <div className={styles.split}>
           <div>
             <span className={styles.tag}>Before Contact</span>
@@ -487,7 +577,7 @@ export default function AutobiographyPage() {
         </div>
       </section>
 
-      <section className={styles.section} ref={ref(9)} aria-labelledby="guide-heading">
+      <section className={styles.section} ref={ref(11)} aria-labelledby="guide-heading">
         <div className={styles.sectionHeader}>
           <span className={styles.tag}>Quick Guide</span>
           <h2 id="guide-heading" className={styles.sectionTitle}>많이 문의하시는 <em>핵심 안내</em></h2>
@@ -512,7 +602,7 @@ export default function AutobiographyPage() {
         </div>
       </section>
 
-      <section className={styles.privacyBox} ref={ref(10)} aria-label="개인정보와 비밀보장 안내">
+      <section className={styles.privacyBox} ref={ref(12)} aria-label="개인정보와 비밀보장 안내">
         <h2>개인 자료는 제작 목적 안에서만 다룹니다</h2>
         <p>
           상담 내용과 전달받은 원고, 사진, 녹취 자료는 제작 목적 외 사용하지 않습니다.
@@ -520,11 +610,11 @@ export default function AutobiographyPage() {
         </p>
       </section>
 
-      <section id="book-preview" className={styles.sectionAlt} ref={ref(12)} aria-label="실제 제작 자서전 내지 미리보기">
+      <section id="book-preview" className={styles.sectionAlt} ref={ref(13)} aria-label="실제 제작 자서전 내지 미리보기">
         <BookPreviewTrigger book={autobiographyPreview} />
       </section>
 
-      <section className={styles.finderSection} ref={ref(11)} aria-labelledby="finder-heading">
+      <section className={styles.finderSection} ref={ref(14)} aria-labelledby="finder-heading">
         <div className={styles.sectionHeader}>
           <span className={styles.tag}>Plan Finder</span>
           <h2 id="finder-heading" className={styles.sectionTitle}>내게 맞는<br /><em>플랜 찾기</em></h2>
