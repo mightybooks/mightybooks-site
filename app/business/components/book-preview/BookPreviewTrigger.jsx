@@ -1,15 +1,10 @@
 'use client'
 
-import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import { BookOpen, ChevronLeft, ChevronRight } from 'lucide-react'
 import { useRef, useState } from 'react'
+import BookPreviewModalRouter from './BookPreviewModalRouter'
 import styles from './bookPreview.module.css'
-
-const BookPreviewModal = dynamic(() => import('./BookPreviewModal'), {
-  ssr: false,
-  loading: () => <div className={styles.loadingOverlay} aria-label="도서 미리보기를 불러오는 중" />,
-})
 
 export default function BookPreviewTrigger({ book }) {
   const [isOpen, setIsOpen] = useState(false)
@@ -34,15 +29,15 @@ export default function BookPreviewTrigger({ book }) {
         type="button"
         className={styles.coverButton}
         onClick={() => setIsOpen(true)}
-        aria-label={`${book.title} 열기`}
+        aria-label={`${book.displayTitle || book.title} 내지 미리보기`}
         aria-haspopup="dialog"
       >
         <span className={styles.coverGlow} aria-hidden="true" />
         <Image
           src={book.cover}
           alt={book.coverAlt || '마이티북스 실제 제작 도서 3D 표지'}
-          width={1000}
-          height={1000}
+          width={book.coverWidth || 1000}
+          height={book.coverHeight || 1000}
           sizes="(max-width: 768px) 78vw, 380px"
           className={styles.coverImage}
         />
@@ -57,7 +52,7 @@ export default function BookPreviewTrigger({ book }) {
         </span>
       </button>
 
-      {isOpen && <BookPreviewModal book={book} onClose={closePreview} />}
+      {isOpen && <BookPreviewModalRouter book={book} onClose={closePreview} />}
     </div>
   )
 }

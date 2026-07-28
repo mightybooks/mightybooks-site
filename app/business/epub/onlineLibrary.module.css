@@ -1,0 +1,121 @@
+.intro {
+  width: min(100%, 980px);
+  margin: 0 auto 42px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.intro p {
+  padding: 22px;
+  border: 1px solid rgba(255,255,255,.08);
+  background: rgba(255,255,255,.03);
+  color: rgba(255,255,255,.66);
+  font-size: 14px;
+  line-height: 1.8;
+  word-break: keep-all;
+}
+
+.roleGrid {
+  width: min(100%, 1240px);
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 13px;
+}
+
+.roleCard,
+.detailCard {
+  min-width: 0;
+  padding: 27px;
+  border: 1px solid rgba(255,255,255,.09);
+  background: var(--black3);
+}
+
+.roleCard {
+  border-top: 3px solid rgba(232,0,30,.63);
+}
+
+.roleCard:last-child {
+  border-color: rgba(232,0,30,.45);
+  background:
+    linear-gradient(135deg,rgba(232,0,30,.09),transparent 52%),
+    var(--black3);
+}
+
+.roleCard > span,
+.detailCard > span {
+  display: block;
+  color: var(--red);
+  font: 10px 'Oswald',sans-serif;
+  letter-spacing: 2px;
+}
+
+.roleCard h3,
+.detailCard h3 {
+  margin-top: 10px;
+  font-size: 23px;
+}
+
+.roleCard > p {
+  margin-top: 10px;
+  color: rgba(255,255,255,.62);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.detailGrid {
+  width: min(100%, 1080px);
+  margin: 42px auto 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 13px;
+}
+
+.emphasis {
+  width: min(100%, 930px);
+  margin: 28px auto 0;
+  padding: 20px 22px;
+  border-left: 3px solid var(--red);
+  background: rgba(232,0,30,.07);
+  color: rgba(255,255,255,.84);
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.75;
+  text-align: center;
+  word-break: keep-all;
+}
+
+@media (max-width: 1050px) {
+  .roleGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .intro,
+  .roleGrid,
+  .detailGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .intro {
+    margin-bottom: 32px;
+  }
+
+  .intro p,
+  .roleCard,
+  .detailCard {
+    padding: 22px;
+  }
+
+  .detailGrid {
+    margin-top: 32px;
+  }
+
+  .emphasis {
+    padding: 18px;
+    font-size: 14px;
+    text-align: left;
+  }
+}

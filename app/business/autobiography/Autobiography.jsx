@@ -8,6 +8,10 @@ import {
   KAKAO_URL,
   PhoneConsultModal,
 } from '../components/ServiceContactCta'
+import {
+  ONLINE_LIBRARY_INCLUDED,
+  ONLINE_LIBRARY_PRICING,
+} from '../components/onlineLibraryPricing'
 import AutobiographyPlanFinder from './AutobiographyPlanFinder'
 import BookPreviewTrigger from '../components/book-preview/BookPreviewTrigger'
 import { autobiographyPreview } from '../components/book-preview/bookPreviews'
@@ -101,16 +105,19 @@ const galleryItems = [
 const personalPlans = [
   {
     name: '웹북 플랜',
-    price: '55만 원부터',
+    price: ONLINE_LIBRARY_PRICING.initialPrice,
     target: '종이책 없이 온라인 서가와 고화질 플립북으로 제작',
     manuscript: '완성 PDF 또는 편집이 완료된 원고',
     interview: '기본 상담 중심',
     writing: '완성 PDF의 웹용 최적화, 원고 편집이 필요한 경우 별도 산정',
     design: '저자 프로필·도서 소개 페이지 구성, 표지·내지 제작은 추가 견적',
     printedBook: '종이책 인쇄 미포함',
-    webbook: '저자 전용 온라인 서가, 고화질 플립북, 공유 링크와 QR, 첫해 이용 포함',
+    webbook: '저자 전용 온라인 서가 최초 구축, 고화질 플립북, 기본 도서 등록, 공유 링크와 QR, 첫해 이용 포함',
     check: '페이지 수, PDF 상태, 공개 범위, 디자인 필요 여부',
-    condition: ['완성 PDF 보유 기준 55만 원부터', '표지·내지 디자인이 필요한 경우 66만 원부터'],
+    condition: [
+      `완성 PDF 보유 기준 ${ONLINE_LIBRARY_PRICING.initialPrice} · ${ONLINE_LIBRARY_PRICING.vatLabel}`,
+      '표지·내지 디자인이 필요한 경우 범위에 따라 추가 견적',
+    ],
   },
   {
     name: '라이트 플랜',
@@ -303,7 +310,7 @@ export default function AutobiographyPage() {
               priority
             />
             <div className={styles.heroVisualNote}>
-              <strong>웹북 55만 원부터 · 종이책 120만 원부터</strong>
+              <strong>온라인 서가 구축 {ONLINE_LIBRARY_PRICING.initialPrice} · 종이책 120만 원부터</strong>
               <span>완성 PDF 또는 원고 상태, 디자인 범위, 인터뷰와 인쇄 여부에 따라 견적이 달라집니다.</span>
             </div>
             <p className={styles.heroVisualCaption}>
@@ -399,7 +406,7 @@ export default function AutobiographyPage() {
               완성 PDF가 있으면 웹용으로 최적화하고, 원고만 있는 경우에는 필요한 표지·내지 디자인 범위를 상담합니다.
             </p>
             <ul className={styles.formatList}>
-              {['저자 프로필 페이지', '도서 소개 페이지', '고화질 플립북', '공개 또는 프라이빗 링크', '공유용 QR', '첫해 온라인 서가 이용'].map(item => <li key={item}>{item}</li>)}
+              {[...ONLINE_LIBRARY_INCLUDED, '공개 또는 프라이빗 링크', '공유용 QR'].map(item => <li key={item}>{item}</li>)}
             </ul>
           </article>
           <article className={styles.formatCard}>
@@ -523,8 +530,8 @@ export default function AutobiographyPage() {
           ))}
         </div>
         <aside className={styles.maintenanceNote}>
-          <strong>온라인 서가와 웹북은 첫해 이용료가 포함됩니다.</strong>
-          <p>계속 유지할 경우 2년 차부터 연 132,000원의 이용료가 적용됩니다.</p>
+          <strong>온라인 서가와 웹북은 {ONLINE_LIBRARY_PRICING.firstYearLabel} · {ONLINE_LIBRARY_PRICING.vatLabel}</strong>
+          <p>계속 유지할 경우 2년 차부터 {ONLINE_LIBRARY_PRICING.annualFee}의 이용료가 적용됩니다. 부가세 포함 금액입니다.</p>
           <span>온라인 서가 유지, 도서 페이지와 이미지 보관, 플립북 서비스, 공유 링크 유지와 기본 시스템 관리가 포함됩니다.</span>
         </aside>
         <p className={styles.priceNote}>

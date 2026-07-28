@@ -6,6 +6,10 @@ import { useEffect, useRef, useState } from 'react'
 import { EMAIL_ADDRESS, KAKAO_URL, PhoneConsultModal } from '../components/ServiceContactCta'
 import BookPreviewTrigger from '../components/book-preview/BookPreviewTrigger'
 import { poetryPreview } from '../components/book-preview/bookPreviews'
+import {
+  ONLINE_LIBRARY_INCLUDED,
+  ONLINE_LIBRARY_PRICING,
+} from '../components/onlineLibraryPricing'
 import styles from './poetry.module.css'
 
 const badges = ['완성 원고 기반 제작', '한 권부터 소량 인쇄 가능', '에세이·산문 윤문 선택 가능', '맞춤형 표지·내지 디자인', 'ISBN·서점 유통 지원']
@@ -15,6 +19,12 @@ const proofreading = ['오탈자 확인', '맞춤법과 띄어쓰기 확인', '�
 const polishing = ['어색한 문장 정리', '반복 표현 정리', '문단 흐름 개선', '문체와 서술 시점 통일', '글 전체의 가독성 개선']
 const smallPrint = ['개인 소장용 1권 제작', '가족·지인 증정용 소량 제작', '행사·전시용 소량 제작', '문학회 회원 배포용 제작', '온라인 판매용 제작', '서점 유통용 정식 출간']
 const designs = ['정갈하고 전통적인 시집 디자인', '사진을 활용한 감성적인 표지', '일러스트레이션 중심의 표지', '캘리그래피를 활용한 디자인', '여백과 타이포그래피를 강조한 독립출판물 스타일', '특수지, 별색, 박, 형압 등 후가공 디자인', '판형과 제본 방식을 달리한 실험적인 책']
+const onlinePoetryFeatures = [
+  ...ONLINE_LIBRARY_INCLUDED,
+  '시의 배열과 여백, 편집 흐름을 유지한 온라인 감상',
+  '별도의 파일 전달 없이 링크 하나로 독자에게 공유',
+  '종이책 출간 이후에도 작품을 지속적으로 소개할 수 있는 공간',
+]
 
 const plans = [
   { name: '베이직', price: '120만 원부터', criteria: '한 권부터 소량 제작 가능', intro: '완성된 원고를 가장 기본적인 출판 사양으로 제작하는 플랜입니다.', fit: '완성된 원고를 기본 사양의 책으로 제작하고 싶은 개인 저자에게 적합합니다.', included: ['완성 원고 확인', '기본 오탈자 및 표기 교정', '목차와 작품 순서 반영', '기본 내지 편집디자인', '기본 표지 디자인', '총 3회의 교정 및 수정', '인쇄용 최종 파일 제작', '출간 및 인쇄 제작 진행'], extra: ['에세이·산문 윤문', '사진·삽화 보정', '복잡한 도표나 특수 편집', '특수 용지 및 후가공', '추가 수정', 'ISBN 발급 및 서점 유통'] },
@@ -99,7 +109,7 @@ export default function PoetryPage() {
 
     <section className={styles.sectionAlt} ref={reveal(4)}><div className={styles.split}><div className={styles.imagePanel}><Image src="/image/home/here005.png" alt="맞춤형 표지와 내지 디자인 제작 사례" width={620} height={420} /></div><div><span className={styles.tag}>Custom Design</span><h2 className={styles.sectionTitle}>책마다 다른<br /><em>표정이 필요합니다</em></h2><p className={styles.sectionDesc}>작품과 취향에 따라 독립출판 디자인처럼 개성 있는 표지와 내지를 맞춤 제작합니다.</p><List items={designs} /><p className={styles.note}>디자인 난이도, 외부 디자이너 참여, 후가공 방식에 따라 추가 비용이 발생할 수 있습니다.</p></div></div></section>
 
-    <section id="plans" className={styles.planSection} ref={reveal(5)}><Header tag="Production Plans" title={<>세 가지 <em>제작 플랜</em></>} desc="가격은 부가세 포함이며, 원고와 제작 사양을 검토한 뒤 최종 견적을 확정합니다." /><div className={styles.planGrid}>{plans.map((plan, i) => <article className={`${styles.planCard} ${i === 1 ? styles.featured : ''}`} key={plan.name}>{i === 1 && <span className={styles.recommend}>DESIGN FOCUS</span>}<h3>{plan.name}</h3><div className={styles.price}>{plan.price}</div><strong className={styles.criteria}>{plan.criteria}</strong><p>{plan.intro}</p><h4>포함 항목</h4><List items={plan.included} /><h4>{plan.extra.length ? '별도 협의 항목' : '유의 사항'}</h4>{plan.extra.length ? <List items={plan.extra} /> : <List items={['서점 입점과 판매량을 보장하지 않습니다.', '보도자료 배포가 기사 게재를 보장하지 않습니다.', '유통 등록 조건은 각 유통사 정책에 따라 달라집니다.', '오프라인 서점 진열은 기본 범위가 아닙니다.', '별도 광고비는 사전 협의합니다.']} />}<p className={styles.fit}>{plan.fit}</p></article>)}</div><div className={styles.centerCta}><ContactButtons /></div></section>
+    <section id="plans" className={styles.planSection} ref={reveal(5)}><Header tag="Production Plans" title={<>세 가지 <em>제작 플랜</em></>} desc="가격은 부가세 포함이며, 원고와 제작 사양을 검토한 뒤 최종 견적을 확정합니다." /><div className={styles.planGrid}>{plans.map((plan, i) => <article className={`${styles.planCard} ${i === 1 ? styles.featured : ''}`} key={plan.name}>{i === 1 && <span className={styles.recommend}>DESIGN FOCUS</span>}<h3>{plan.name}</h3><div className={styles.price}>{plan.price}</div><strong className={styles.criteria}>{plan.criteria}</strong><p>{plan.intro}</p><h4>포함 항목</h4><List items={plan.included} /><h4>{plan.extra.length ? '별도 협의 항목' : '유의 사항'}</h4>{plan.extra.length ? <List items={plan.extra} /> : <List items={['서점 입점과 판매량을 보장하지 않습니다.', '보도자료 배포가 기사 게재를 보장하지 않습니다.', '유통 등록 조건은 각 유통사 정책에 따라 달라집니다.', '오프라인 서점 진열은 기본 범위가 아닙니다.', '별도 광고비는 사전 협의합니다.']} />}<p className={styles.fit}>{plan.fit}</p></article>)}</div><article className={`${styles.planCard} ${styles.webbookPlan}`}><span className={styles.recommend}>ONLINE POETRY</span><h3>온라인에서도 작품의 호흡을 이어가는 시집</h3><div className={styles.price}>{ONLINE_LIBRARY_PRICING.initialPrice}</div><strong className={styles.criteria}>종이책 없이 온라인 서가와 고품질 플립북으로 제작</strong><p>종이책으로 완성한 시집을 고품질 플립북으로 제작하여 온라인에서도 실제 책장을 넘기듯 감상할 수 있습니다. 시의 배열과 여백, 장면 전환과 편집 흐름을 유지하면서 독자에게 작품을 보다 편리하게 전달할 수 있습니다.</p><div className={styles.webbookCondition}><strong>완성 PDF 보유 기준 {ONLINE_LIBRARY_PRICING.initialPrice} · {ONLINE_LIBRARY_PRICING.vatLabel}</strong><strong>표지·내지 디자인이 필요한 경우 범위에 따라 추가 견적</strong></div><h4>포함 항목</h4><List items={onlinePoetryFeatures} /><div className={styles.maintenanceNote}><strong>온라인 서가와 웹북은 {ONLINE_LIBRARY_PRICING.firstYearLabel} · {ONLINE_LIBRARY_PRICING.vatLabel}</strong><p>계속 유지할 경우 2년 차부터 {ONLINE_LIBRARY_PRICING.annualFee}의 이용료가 적용됩니다. 부가세 포함 금액입니다.</p></div><p className={styles.fit}>단순한 PDF 업로드가 아니라, 종이책의 편집과 감상 경험을 온라인에서도 이어가는 저자 개인의 온라인 시집입니다.</p></article><div className={styles.centerCta}><ContactButtons /></div></section>
 
     <section className={styles.gallerySection} ref={reveal(6)}><Header tag="Publishing Experience" title={<>제작 도서와 <em>출판 경험</em></>} desc="현재 페이지의 실제 제작 도서 이미지를 바탕으로 표지와 내지의 다양한 방향을 상담합니다." /><div className={styles.gallery}><Image src="/image/home/here007.png" alt="마이티북스 제작 도서 표지 사례" width={520} height={390} /><Image src="/image/home/here0071.png" alt="마이티북스 시집과 에세이 제작 사례" width={520} height={390} /></div></section>
 

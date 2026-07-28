@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { EMAIL_ADDRESS, KAKAO_URL, PhoneConsultModal } from '../components/ServiceContactCta'
 import caseStyles from './epubCase.module.css'
+import libraryStyles from './onlineLibrary.module.css'
 import styles from './epub.module.css'
 
 const formats = [
@@ -17,6 +18,40 @@ const recommendations = [
   ['PDF가 적합한 경우', ['인쇄책 디자인 유지', '표·도표·사진과 고정 레이아웃 중시', '교재·워크북·자료집 직접 배포', '인쇄용 도서와 전자 자료 병행']],
   ['웹북이 적합한 경우', ['다운로드 없이 브라우저에서 열람', '모바일·PC 반응형 화면', '영상·음원·링크 제공', '지속적인 내용 업데이트', '회원 전용 콘텐츠로 확장', '독립 디지털 출판 운영']],
 ]
+const digitalPublishingRoles = [
+  {
+    name: 'PDF',
+    label: 'FIXED FILE',
+    summary: '편집된 지면과 글꼴, 이미지 배치를 고정하여 보존하는 파일입니다.',
+    features: ['인쇄용 파일, 교정용 파일과 자료 배포에 적합', '파일을 직접 전달하거나 내려받는 방식', '다양한 화면에 맞춰 본문이 자동 재배치되지는 않음'],
+  },
+  {
+    name: 'EPUB',
+    label: 'REFLOWABLE FILE',
+    summary: '전자책 유통과 기기별 독서에 적합한 표준 전자책 파일입니다.',
+    features: ['화면 크기에 맞춰 본문을 자동 재배치', '전자책 서점과 외부 유통에 적합', '글자 크기 조절과 검색 가능', '복잡한 고정 페이지 디자인 유지에는 한계'],
+  },
+  {
+    name: '고품질 플립북',
+    label: 'PAGE READING',
+    summary: '종이책의 페이지와 편집 흐름을 유지하는 온라인 열람 방식입니다.',
+    features: ['내지 디자인과 페이지 흐름 유지', '실제 책장을 넘기듯 웹에서 열람', '시집·자서전·작품집·이미지 중심 책에 적합', '파일 다운로드 없이 링크로 공유'],
+  },
+  {
+    name: '사이트 전용 웹북',
+    label: 'RESPONSIVE READING',
+    summary: '책의 본문과 콘텐츠를 웹 환경에 맞게 다시 구성하는 열람 방식입니다.',
+    features: ['모바일과 PC에 맞춘 반응형 독서 화면', '이미지·영상·링크·부가 자료와 결합', '일반 전자책보다 높은 확장성과 수정 가능성', '목차와 화면 이동을 웹 흐름에 맞게 설계'],
+  },
+  {
+    name: '온라인 서가',
+    label: 'PUBLISHING SPACE',
+    summary: '저자, 여러 도서, 열람 콘텐츠와 구매 경로를 한곳에 축적하는 웹 기반 출간 공간입니다.',
+    features: ['저자 소개와 여러 출간 도서를 한 공간에 정리', '플립북·웹북·도서 소개와 구매 경로 연결', '출간 이력과 저자의 활동을 지속적으로 축적', '하나의 링크로 공유하는 온라인 포트폴리오'],
+  },
+]
+const onlineLibraryFeatures = ['저자 프로필과 활동 분야 소개', '출간 도서 표지와 상세 정보 제공', '플립북 또는 웹북 바로 읽기', '종이책과 전자책 구매 링크 연결', '여러 권의 출간 도서를 한 공간에 축적', '새로운 도서가 출간될 때 기존 서가에 추가', '독자·기관·학교·고객에게 하나의 주소로 공유', '모바일과 PC에서 이용 가능한 반응형 환경']
+const onlineLibraryAudiences = ['여러 권의 작품을 지속적으로 출간하는 개인 저자', '시집·자서전·에세이·작품집을 직접 보여주려는 창작자', '강의·연구·컨설팅 활동과 저서를 연결하려는 전문가', '교재·자료집·교육 콘텐츠를 온라인으로 제공하는 강사', '기관 간행물과 발행 자료를 체계적으로 정리하려는 단체', '종이책 판매 이후에도 독자 접점을 유지하려는 출판 프로젝트']
 const basicWebbook = ['공개형 웹페이지', '반응형 독서 화면', '표지 또는 시작 화면', '목차와 장·절 본문', '이전·다음 이동', '이미지와 캡션', '영상·음원·외부 링크 삽입', '기존 홈페이지 경로 게시', '기본 검색엔진 공개 설정', '모바일·태블릿·PC 대응']
 const extendedWebbook = ['회원가입과 로그인', '구매자 인증과 결제 연동', '회원·구매자 전용 열람', '회차별·장별 공개 설정', '관리자 콘텐츠 등록 화면', '열람 권한과 이용 기록', '구독·진행률·검색', '북마크·메모·댓글', '다국어 기능', '별도 도메인과 독립 사이트', '콘텐츠 관리 시스템']
 const sourceMaterials = ['한글·워드 원고', '인디자인 편집 파일', '인쇄용 PDF', '기존 종이책', '이미지와 사진 자료', '표와 도표', '기존 홈페이지 콘텐츠', '블로그나 연재 원고']
@@ -53,6 +88,8 @@ export default function EpubPage(){return <main className={styles.wrap}>
   <section className={styles.hero}><div className={styles.heroBg}/><div className={styles.heroOverlay}/><div className={styles.heroInner}><span className={styles.eyebrow}>Ebook / PDF / Web Book</span><p className={styles.heroService}>전자책 · 웹북 제작</p><h1>책을 파일로만 만들지 않고<br/><em>읽히는 방식까지 설계합니다.</em></h1><p className={styles.heroLead}>출간 목적과 독자의 이용 환경에 따라 EPUB 전자책, PDF 전자책, 웹브라우저에서 바로 읽는 웹북으로 제작합니다.</p><p className={styles.heroDesc}>전자책 서점 유통, 강의·교육 자료 배포, 독립 웹 출판과 회원 전용 콘텐츠 확장까지 목적에 맞는 제작 방식을 안내합니다.</p><div className={styles.badges}>{['EPUB 전자책 제작','PDF 전자책 제작','반응형 웹북 제작','전자책 유통용 파일','이미지·영상·링크 지원','회원·구매자 전용 열람 확장 상담'].map(x=><span key={x}>{x}</span>)}</div><ContactButtons/></div></section>
 
   <section id="formats" className={styles.section}><Header eyebrow="Three Formats" title={<>EPUB · PDF · 웹북을 <em>비교해 보세요</em></>}>원고의 목적과 이용 방식에 맞춰 EPUB, PDF, 웹북으로 제작합니다.</Header><div className={styles.formatGrid}>{formats.map(format=><article key={format.name}><span>{format.label}</span><h3>{format.name}</h3><p className={styles.summary}>{format.summary}</p><h4>주요 특징</h4><List items={format.features}/><h4>적합한 콘텐츠</h4><p>{format.fit}</p><div className={styles.caution}><strong>유의 사항</strong>{format.caution}</div>{format.name==='웹북'&&<p className={styles.webbookDefinition}>웹북은 책 내용을 웹페이지에 그대로 옮기는 작업이 아니라, 브라우저에서 편리하게 읽도록 목차, 본문 구조, 화면 흐름과 접근 방식을 설계하는 디지털 출판물입니다.</p>}</article>)}</div></section>
+
+  <section className={styles.sectionAlt} aria-label="전자책과 온라인 서가의 역할"><Header eyebrow="Author Library" title={<>전자책 한 권을 넘어,<br/><em>저자의 온라인 서가로</em></>}>전자책은 파일을 제작하는 것으로 끝나지 않습니다. 독자가 책과 저자의 다른 출간물과 활동을 찾는 흐름까지 설계하면 지속 가능한 온라인 출간 공간으로 확장할 수 있습니다.</Header><div className={libraryStyles.intro}><p>온라인 서가는 저자 소개와 출간 도서, 플립북 또는 웹북 열람, 구매 링크와 관련 활동을 한 공간에 정리하는 웹 기반 서재입니다. PDF나 EPUB처럼 새로운 파일 형식을 뜻하지 않습니다.</p><p>여러 권을 출간한 경우에도 각각의 도서를 흩어 두지 않고 하나의 서가에 축적할 수 있습니다. 목적에 따라 고품질 플립북, 사이트 전용 웹북과 외부 유통용 EPUB을 함께 연결할 수 있습니다.</p></div><div className={libraryStyles.roleGrid}>{digitalPublishingRoles.map(role=><article className={libraryStyles.roleCard} key={role.name}><span>{role.label}</span><h3>{role.name}</h3><p>{role.summary}</p><List items={role.features}/></article>)}</div><div className={libraryStyles.detailGrid}><article className={libraryStyles.detailCard}><span>CORE FEATURES</span><h3>온라인 서가 핵심 기능</h3><List items={onlineLibraryFeatures}/></article><article className={libraryStyles.detailCard}><span>BEST FOR</span><h3>이런 출간 활동에 적합합니다</h3><List items={onlineLibraryAudiences}/></article></div><p className={libraryStyles.emphasis}>전자책 제작이 한 권의 파일을 만드는 일이라면, 온라인 서가는 저자와 출간물을 지속적으로 축적하고 독자에게 연결하는 공간을 만드는 일입니다.</p></section>
 
   <section className={styles.sectionAlt}><Header eyebrow="Format Guide" title={<>어떤 형식으로 <em>제작해야 할까요?</em></>}/><div className={styles.recommendGrid}>{recommendations.map(([title,items])=><article key={title}><h3>{title}</h3><List items={items}/></article>)}</div><p className={styles.centerNote}>하나의 책을 여러 형식으로 함께 제작할 수 있습니다. 각 형식은 구조와 편집 방식이 달라 단순 변환이 아닌 별도 작업이 필요할 수 있습니다.</p></section>
 

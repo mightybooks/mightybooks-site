@@ -98,3 +98,41 @@
   .card, .planCard { padding: 25px 20px; } .local { text-align: left; } .priceNote { width: 100%; } .faq summary { padding: 19px; } .faq p { padding: 0 19px 19px; }
 }
 @media (prefers-reduced-motion: reduce) { .heroBg, .heroContent { animation: none; } .section, .sectionAlt, .planSection, .gallerySection, .highlight, .local { opacity: 1; transform: none; } }
+
+.webbookPlan {
+  width: min(100%, 880px);
+  margin: 18px auto 0;
+  border-color: rgba(232,0,30,.55);
+  background:
+    linear-gradient(135deg,rgba(232,0,30,.1),transparent 48%),
+    var(--black3);
+}
+.webbookCondition {
+  display: grid;
+  gap: 6px;
+  margin-top: 18px;
+  padding: 14px;
+  border: 1px solid rgba(232,0,30,.2);
+  background: rgba(232,0,30,.07);
+}
+.webbookCondition strong {
+  color: rgba(255,255,255,.86);
+  font-size: 12px;
+  line-height: 1.55;
+}
+.maintenanceNote {
+  margin-top: 22px;
+  padding: 16px 18px;
+  border-left: 3px solid var(--red);
+  background: rgba(255,255,255,.04);
+}
+.maintenanceNote > strong {
+  display: block;
+  margin-bottom: 6px;
+  color: #fff;
+  font-size: 14px;
+}
+.maintenanceNote p {
+  margin: 0;
+  font-size: 13px;
+}

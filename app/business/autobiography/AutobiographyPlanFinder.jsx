@@ -1,15 +1,16 @@
 'use client'
 import { useMemo, useState } from 'react'
 import { EMAIL_ADDRESS, KAKAO_URL, PhoneConsultModal } from '../components/ServiceContactCta'
+import { ONLINE_LIBRARY_PRICING } from '../components/onlineLibraryPricing'
 import styles from './autobiography.module.css'
 
 const planInfo = {
   webbook: {
     name: '웹북 플랜',
-    price: '예상 55만 원~',
+    price: `예상 ${ONLINE_LIBRARY_PRICING.initialPrice}`,
     title: '웹북 플랜이 적합해 보입니다.',
     body: '완성 PDF 또는 편집이 완료된 원고가 있고, 종이책을 인쇄하지 않고 저자 전용 온라인 서가와 고화질 플립북으로 제작하려는 경우에 적합한 플랜입니다.',
-    note: '완성 PDF 보유 기준은 55만 원부터이며, 표지·내지 디자인이 필요한 경우 66만 원부터 적용됩니다. 원고 정리와 집필 범위가 필요한 경우에는 상위 플랜이 적용될 수 있습니다.',
+    note: `완성 PDF 보유 기준은 ${ONLINE_LIBRARY_PRICING.initialPrice}이며 ${ONLINE_LIBRARY_PRICING.firstYearLabel} · ${ONLINE_LIBRARY_PRICING.vatLabel}입니다. 표지·내지 디자인, 원고 정리와 집필이 필요한 경우에는 범위에 따라 추가 견적 또는 상위 플랜이 적용될 수 있습니다.`,
   },
   light: {
     name: '라이트 플랜',
