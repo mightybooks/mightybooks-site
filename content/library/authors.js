@@ -82,6 +82,20 @@ export const libraryAuthors = [
     bookSlugs: ['my-heart-said-look-longer'],
     published: true,
   },
+  {
+    slug: 'sian',
+    displayName: '시안',
+    penName: null,
+    occupation: '세이브더버니즈 대표',
+    profileImage: '/library/authors/sian/profile.png',
+    shortBio: '13살 때 생애 처음으로 토끼를 만난 후 n년차 토끼 집사.',
+    bio: [
+      '13살 때 생애 처음으로 토끼를 만난 후 n년차 토끼 집사.',
+      '현재는 유기토끼 지원 커뮤니티인 ‘세이브더버니즈’를 운영 중이다.',
+    ],
+    bookSlugs: ['i-held-a-chubby-rabbit'],
+    published: true,
+  },
 ]
 
 export const publishedAuthors = libraryAuthors.filter((author) => author.published)
