@@ -210,6 +210,14 @@ function normalizeRecord(record) {
   }
 }
 
+async function fetchConsultationRecords() {
+  return supabase
+    .from('consultation_logs')
+    .select('*')
+    .order('consulted_at', { ascending: false })
+    .order('created_at', { ascending: false })
+}
+
 export default function AdminConsultations() {
   const [records, setRecords] = useState([])
   const [loading, setLoading] = useState(true)
@@ -222,14 +230,7 @@ export default function AdminConsultations() {
   const [error, setError] = useState('')
   const router = useRouter()
 
-  const loadRecords = useCallback(async () => {
-    setLoading(true)
-    const { data, error: fetchError } = await supabase
-      .from('consultation_logs')
-      .select('*')
-      .order('consulted_at', { ascending: false })
-      .order('created_at', { ascending: false })
-
+  const applyRecordsResult = useCallback(({ data, error: fetchError }) => {
     if (fetchError) {
       setError(fetchError.message)
       setRecords([])
@@ -241,9 +242,29 @@ export default function AdminConsultations() {
     setLoading(false)
   }, [])
 
+  const loadRecords = useCallback(async () => {
+    setLoading(true)
+    const result = await fetchConsultationRecords()
+    applyRecordsResult(result)
+  }, [applyRecordsResult])
+
   useEffect(() => {
-    loadRecords()
-  }, [loadRecords])
+    let cancelled = false
+
+    async function initializeRecords() {
+      const result = await fetchConsultationRecords()
+
+      if (!cancelled) {
+        applyRecordsResult(result)
+      }
+    }
+
+    initializeRecords()
+
+    return () => {
+      cancelled = true
+    }
+  }, [applyRecordsResult])
 
   const filteredRecords = useMemo(() => {
     const range = getDateRange(filters.period, filters.startDate, filters.endDate)

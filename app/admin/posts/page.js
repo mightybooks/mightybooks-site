@@ -1,10 +1,17 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
 import Link from 'next/link'
 import styles from '../admin.module.css'
 import { BLOG_CATEGORY_LABELS, BLOG_CATEGORY_OPTIONS } from '@/lib/blog-categories'
+
+async function fetchPostRows() {
+  return supabase
+    .from('posts')
+    .select('*')
+    .order('created_at', { ascending: false })
+}
 
 export default function AdminPosts() {
   const [posts, setPosts] = useState([])
@@ -12,16 +19,34 @@ export default function AdminPosts() {
   const [category, setCategory] = useState('all')
   const router = useRouter()
 
-  const fetchPosts = async () => {
-    const { data } = await supabase
-      .from('posts').select('*').order('created_at', { ascending: false })
+  const applyPostsResult = useCallback(({ data }) => {
     setPosts(data ?? [])
     setLoading(false)
-  }
+  }, [])
+
+  const fetchPosts = useCallback(async () => {
+    setLoading(true)
+    const result = await fetchPostRows()
+    applyPostsResult(result)
+  }, [applyPostsResult])
 
   useEffect(() => {
-    fetchPosts()
-  }, [])
+    let cancelled = false
+
+    async function initializePosts() {
+      const result = await fetchPostRows()
+
+      if (!cancelled) {
+        applyPostsResult(result)
+      }
+    }
+
+    initializePosts()
+
+    return () => {
+      cancelled = true
+    }
+  }, [applyPostsResult])
 
   const togglePublish = async (id, current) => {
     await supabase.from('posts').update({ published: !current }).eq('id', id)
