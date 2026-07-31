@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { supabase } from '@/lib/supabase'
 import styles from './Nav.module.css'
 
 const navItems = [
@@ -42,6 +43,7 @@ export default function Nav() {
   const [scrolled, setScrolled] = useState(false)
   const [openMenu, setOpenMenu] = useState(null)
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [signedIn, setSignedIn] = useState(null)
   const navRef = useRef(null)
   const pathname = usePathname()
 
@@ -49,6 +51,35 @@ export default function Nav() {
   const isItemActive = item => item.children
     ? item.children.some(child => isPathActive(child.href))
     : isPathActive(item.href)
+
+  useEffect(() => {
+    let ignore = false
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (!ignore) {
+        setSignedIn(Boolean(session))
+      }
+    })
+
+    async function loadSession() {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession()
+
+      if (!ignore) {
+        setSignedIn(Boolean(session))
+      }
+    }
+
+    loadSession()
+
+    return () => {
+      ignore = true
+      subscription.unsubscribe()
+    }
+  }, [])
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50)
@@ -144,9 +175,25 @@ export default function Nav() {
         <span />
         <span />
       </button>
-      <div className={styles.social}>
-        <a href="https://instagram.com/roseandfox_15th" target="_blank" rel="noopener noreferrer">IG</a>
-        <a href="https://open.kakao.com/me/mightybooks" target="_blank" rel="noopener noreferrer">Ka</a>
+      <div
+        className={`${styles.accountArea} ${signedIn === null ? styles.accountAreaPending : ''}`}
+        aria-busy={signedIn === null}
+      >
+        {signedIn === true && (
+          <Link href="/account" className={styles.accountPrimary} onClick={closeMenus}>
+            내 계정
+          </Link>
+        )}
+        {signedIn === false && (
+          <>
+            <Link href="/account/login" className={styles.accountLink} onClick={closeMenus}>
+              로그인
+            </Link>
+            <Link href="/account/signup" className={styles.accountPrimary} onClick={closeMenus}>
+              회원가입
+            </Link>
+          </>
+        )}
       </div>
       <div
         id="mobile-nav"
@@ -178,6 +225,27 @@ export default function Nav() {
             )}
           </div>
         ))}
+        <div
+          className={`${styles.mobileAccount} ${signedIn === null ? styles.mobileAccountPending : ''}`}
+          aria-busy={signedIn === null}
+        >
+          <span className={styles.mobileAccountLabel}>계정</span>
+          {signedIn === true && (
+            <Link href="/account" className={styles.mobileAccountPrimary} onClick={closeMenus}>
+              내 계정
+            </Link>
+          )}
+          {signedIn === false && (
+            <div className={styles.mobileAccountLinks}>
+              <Link href="/account/login" className={styles.mobileAccountLink} onClick={closeMenus}>
+                로그인
+              </Link>
+              <Link href="/account/signup" className={styles.mobileAccountPrimary} onClick={closeMenus}>
+                회원가입
+              </Link>
+            </div>
+          )}
+        </div>
       </div>
     </nav>
   )

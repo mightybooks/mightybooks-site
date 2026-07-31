@@ -8,5 +8,6 @@ export const config = {
   matcher: [
     '/partner/:path*',
     '/admin/:path*',
+    '/account/:path*',
   ],
 }

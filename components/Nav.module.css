@@ -31,17 +31,32 @@
   list-style: none;
 }
 
-.social { display: flex; gap: 10px; }
-.social a {
-  width: 32px; height: 32px;
-  border: 1px solid rgba(255,255,255,0.15);
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 11px; font-weight: 700; letter-spacing: 0;
-  color: rgba(255,255,255,0.5);
-  transition: all .2s;
+.accountArea {
+  min-width: 150px;
+  min-height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
 }
-.social a:hover { border-color: var(--red); color: var(--red); }
+.accountAreaPending { visibility: hidden; }
+.accountLink,
+.accountPrimary {
+  min-height: 34px;
+  padding: 8px 11px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255,255,255,.14);
+  color: rgba(255,255,255,.68);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .4px;
+  transition: border-color .2s, color .2s, background .2s;
+}
+.accountLink:hover { border-color: rgba(255,255,255,.4); color: #fff; }
+.accountPrimary { border-color: var(--red); background: var(--red); color: #fff; }
+.accountPrimary:hover { border-color: var(--red-dark); background: var(--red-dark); }
 
 .mobileToggle {
   display: none;
@@ -65,6 +80,8 @@
 .mobilePanel {
   display: none;
 }
+
+.mobileAccount { display: none; }
 
 .link {
   font-size: 13px; font-weight: 500; letter-spacing: 1px;
@@ -124,7 +141,7 @@
 @media (max-width: 768px) {
   .nav { padding: 0 16px; }
   .links { display: none; }
-  .social { display: none; }
+  .accountArea { display: none; }
   .mobileToggle { display: flex; }
 
   .mobilePanel {
@@ -171,6 +188,35 @@
     word-break: keep-all;
   }
   .mobileItemActive { color: #fff; border-left-color: var(--red); }
+  .mobileAccount {
+    min-height: 82px;
+    padding: 20px 0 4px;
+    display: block;
+    border-top: 1px solid rgba(255,255,255,.12);
+  }
+  .mobileAccountPending { visibility: hidden; }
+  .mobileAccountLabel {
+    display: block;
+    margin-bottom: 12px;
+    color: rgba(255,255,255,.38);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 2px;
+  }
+  .mobileAccountLinks { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .mobileAccountLink,
+  .mobileAccountPrimary {
+    min-height: 44px;
+    padding: 11px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255,255,255,.2);
+    color: rgba(255,255,255,.78);
+    font-size: 13px;
+    font-weight: 800;
+  }
+  .mobileAccountPrimary { border-color: var(--red); background: var(--red); color: #fff; }
   .logoText { font-size: 18px; letter-spacing: 1px; }
 }
 

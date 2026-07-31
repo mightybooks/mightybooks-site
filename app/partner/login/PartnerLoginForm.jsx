@@ -15,6 +15,7 @@ export default function PartnerLoginForm(){
   const [resendMessage,setResendMessage]=useState('')
   const [resendError,setResendError]=useState('')
   const [cooldown,setCooldown]=useState(0)
+  const [missingProfile,setMissingProfile]=useState(false)
   const router=useRouter()
 
   useEffect(()=>{
@@ -27,6 +28,7 @@ export default function PartnerLoginForm(){
     event.preventDefault()
     setLoading(true)
     setError('')
+    setMissingProfile(false)
 
     try {
       const { data, error: loginError } =
@@ -60,8 +62,8 @@ export default function PartnerLoginForm(){
       }
 
       if (!profile) {
-        await supabase.auth.signOut()
-        setError('파트너 신청 프로필이 없는 계정입니다.')
+        setMissingProfile(true)
+        setError('아직 파트너 신청 이력이 없는 계정입니다. 로그인한 상태에서 파트너십 신청을 진행해 주세요.')
         return
       }
 
@@ -97,7 +99,7 @@ export default function PartnerLoginForm(){
       const {error:resendAuthError}=await supabase.auth.resend({
         type:'signup',
         email:normalizedEmail,
-        options:{emailRedirectTo:`${window.location.origin}/partner/pending`},
+        options:{emailRedirectTo:`${window.location.origin}/auth/callback?next=/partner/pending`},
       })
       if(resendAuthError){
         console.error('[Partner login] Confirmation resend failed',{
@@ -121,5 +123,5 @@ export default function PartnerLoginForm(){
   }
 
   return <main className={styles.authWrap}><div className={styles.authBox}><span className={styles.eyebrow}>Partner Login</span><h1>파트너 로그인</h1><p className={styles.authIntro}>승인 여부와 파트너 코드를 확인하는 사업자 파트너 전용 로그인입니다.</p>
-  <form onSubmit={submit}><div className={styles.field}><label>이메일</label><input className={styles.input} type="email" value={email} onChange={e=>setEmail(e.target.value)} required/></div><div className={styles.field} style={{marginTop:'16px'}}><label>비밀번호</label><input className={styles.input} type="password" value={password} onChange={e=>setPassword(e.target.value)} required/></div>{error&&<div className={styles.error} role="alert">{error}</div>}<button className={styles.submit} disabled={loading} style={{marginTop:'20px'}}>{loading?'로그인 중…':'로그인'}</button></form><div className={loginStyles.resendBox}><button type="button" className={loginStyles.resendButton} onClick={resendConfirmation} disabled={resending||cooldown>0}>{resending?'전송 중…':cooldown>0?`다시 보내기 (${cooldown}초)`:'이메일 인증 메일 다시 보내기'}</button>{resendMessage&&<div className={styles.success} role="status">{resendMessage}</div>}{resendError&&<div className={styles.error} role="alert">{resendError}</div>}</div><p className={styles.authFooter}>파트너 계정이 없나요? <Link href="/partner/signup" className={styles.textLink}>파트너십 신청하기</Link></p></div></main>
+  <form onSubmit={submit}><div className={styles.field}><label>이메일</label><input className={styles.input} type="email" value={email} onChange={e=>setEmail(e.target.value)} required/></div><div className={styles.field} style={{marginTop:'16px'}}><label>비밀번호</label><input className={styles.input} type="password" value={password} onChange={e=>setPassword(e.target.value)} required/></div>{error&&<div className={styles.error} role="alert">{error}</div>}{missingProfile&&<Link href="/partner/signup" className={styles.primary}>파트너십 신청하기</Link>}<button className={styles.submit} disabled={loading} style={{marginTop:'20px'}}>{loading?'로그인 중…':'로그인'}</button></form><div className={loginStyles.resendBox}><button type="button" className={loginStyles.resendButton} onClick={resendConfirmation} disabled={resending||cooldown>0}>{resending?'전송 중…':cooldown>0?`다시 보내기 (${cooldown}초)`:'이메일 인증 메일 다시 보내기'}</button>{resendMessage&&<div className={styles.success} role="status">{resendMessage}</div>}{resendError&&<div className={styles.error} role="alert">{resendError}</div>}</div><p className={styles.authFooter}>파트너 계정이 없나요? <Link href="/partner/signup" className={styles.textLink}>파트너십 신청하기</Link></p></div></main>
 }

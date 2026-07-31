@@ -1,0 +1,231 @@
+.authPage,
+.accountPage {
+  min-height: 100vh;
+  padding: 140px 24px 80px;
+  background:
+    radial-gradient(circle at 50% 10%, rgba(232, 0, 30, .08), transparent 32%),
+    var(--black);
+}
+
+.authBox,
+.accountBox {
+  width: 100%;
+  max-width: 440px;
+  margin: 0 auto;
+  padding: 44px;
+  background: var(--black2);
+  border: 1px solid rgba(255, 255, 255, .08);
+}
+
+.eyebrow {
+  display: block;
+  margin-bottom: 12px;
+  color: var(--red);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+}
+
+.title {
+  margin-bottom: 10px;
+  font-size: 28px;
+  line-height: 1.25;
+}
+
+.intro {
+  margin-bottom: 30px;
+  color: rgba(255, 255, 255, .55);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.field {
+  display: block;
+  margin-bottom: 16px;
+}
+
+.field span {
+  display: block;
+  margin-bottom: 8px;
+  color: rgba(255, 255, 255, .72);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.input {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 14px;
+  border: 1px solid rgba(255, 255, 255, .12);
+  border-radius: 0;
+  outline: none;
+  background: var(--black3);
+  color: #fff;
+  font: inherit;
+  font-size: 14px;
+}
+
+.input:focus {
+  border-color: var(--red);
+}
+
+.submit,
+.logout {
+  width: 100%;
+  min-height: 48px;
+  border: 0;
+  background: var(--red);
+  color: #fff;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: background .2s ease;
+}
+
+.submit:hover:not(:disabled),
+.logout:hover:not(:disabled) {
+  background: var(--red-dark);
+}
+
+.submit:disabled,
+.logout:disabled {
+  cursor: not-allowed;
+  opacity: .55;
+}
+
+.error,
+.success {
+  margin: 18px 0;
+  padding: 12px 14px;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.error {
+  border-left: 2px solid var(--red);
+  background: rgba(232, 0, 30, .08);
+  color: #ff9eaa;
+}
+
+.success {
+  border-left: 2px solid #61c878;
+  background: rgba(97, 200, 120, .08);
+  color: #a8dfb4;
+}
+
+.footerText {
+  margin-top: 24px;
+  color: rgba(255, 255, 255, .5);
+  font-size: 13px;
+  text-align: center;
+}
+
+.textLink {
+  color: #fff;
+  font-weight: 700;
+}
+
+.textLink:hover {
+  color: var(--red);
+}
+
+.accountBox {
+  max-width: 560px;
+}
+
+.details {
+  margin: 30px 0;
+  border-top: 1px solid rgba(255, 255, 255, .08);
+}
+
+.detailRow {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 20px;
+  padding: 18px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, .08);
+}
+
+.detailRow dt {
+  color: rgba(255, 255, 255, .48);
+  font-size: 12px;
+}
+
+.detailRow dd {
+  overflow-wrap: anywhere;
+  color: #fff;
+  font-size: 14px;
+}
+
+.status {
+  color: #ff7d8d;
+  font-weight: 800;
+}
+
+.accountActions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  align-items: end;
+}
+
+.secondaryAction,
+.logout {
+  min-height: 48px;
+}
+
+.secondaryAction {
+  width: 100%;
+  padding: 12px 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, .24);
+  color: rgba(255, 255, 255, .84);
+  font-size: 14px;
+  font-weight: 800;
+  transition: border-color .2s ease, color .2s ease, background .2s ease;
+}
+
+.secondaryAction:hover {
+  border-color: rgba(255, 255, 255, .55);
+  background: rgba(255, 255, 255, .04);
+  color: #fff;
+}
+
+.logoutAction {
+  min-width: 0;
+}
+
+.logoutAction .error {
+  margin-top: 0;
+}
+
+@media (max-width: 600px) {
+  .authPage,
+  .accountPage {
+    padding: 110px 16px 56px;
+  }
+
+  .authBox,
+  .accountBox {
+    padding: 30px 22px;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  .detailRow {
+    grid-template-columns: 1fr;
+    gap: 7px;
+  }
+}
+
+@media (max-width: 420px) {
+  .accountActions {
+    grid-template-columns: 1fr;
+  }
+}
