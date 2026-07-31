@@ -1,15 +1,8 @@
 'use client'
-import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { createClient } from '@supabase/supabase-js'
+import { supabase } from '@/lib/supabase'
 import Link from 'next/link'
-import { verifyAdminSession } from '@/lib/admin-client'
 import styles from '../admin.module.css'
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-)
 
 const menus = [
   {
@@ -30,20 +23,7 @@ const menus = [
 ]
 
 export default function AdminDashboard() {
-  const [checking, setChecking] = useState(true)
   const router = useRouter()
-
-  useEffect(() => {
-    verifyAdminSession(supabase).then(async isAdmin => {
-      if (!isAdmin) {
-        await supabase.auth.signOut()
-        router.push('/admin')
-        return
-      }
-
-      setChecking(false)
-    })
-  }, [router])
 
   const logout = async () => {
     await supabase.auth.signOut()
@@ -59,16 +39,14 @@ export default function AdminDashboard() {
       <div className={styles.adminBody}>
         <h2 className={styles.adminTitle}>관리자 페이지</h2>
         <p className={styles.adminDescription}>관리할 항목을 선택하세요.</p>
-        {checking ? <p>확인 중...</p> : (
-          <div className={styles.dashboardGrid}>
-            {menus.map(menu => (
-              <Link key={menu.href} href={menu.href} className={styles.adminCard}>
-                <strong>{menu.title}</strong>
-                <span>{menu.description}</span>
-              </Link>
-            ))}
-          </div>
-        )}
+        <div className={styles.dashboardGrid}>
+          {menus.map(menu => (
+            <Link key={menu.href} href={menu.href} className={styles.adminCard}>
+              <strong>{menu.title}</strong>
+              <span>{menu.description}</span>
+            </Link>
+          ))}
+        </div>
       </div>
     </div>
   )

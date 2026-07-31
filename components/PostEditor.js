@@ -1,15 +1,9 @@
 'use client'
 import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
-import { createClient } from '@supabase/supabase-js'
+import { supabase } from '@/lib/supabase'
 import styles from '@/app/admin/admin.module.css'
 import { BLOG_CATEGORY_OPTIONS, isBlogCategory } from '@/lib/blog-categories'
-import { verifyAdminSession } from '@/lib/admin-client'
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-)
 
 const KST_OFFSET_MINUTES = 9 * 60
 
@@ -65,13 +59,6 @@ export default function PostEditor({ postId }) {
   const [preview, setPreview] = useState('')
 
   useEffect(() => {
-    verifyAdminSession(supabase).then(async isAdmin => {
-      if (!isAdmin) {
-        await supabase.auth.signOut()
-        router.push('/admin')
-      }
-    })
-
     if (!isNew) {
       supabase.from('posts').select('*').eq('id', postId).single().then(({ data }) => {
         if (data) {

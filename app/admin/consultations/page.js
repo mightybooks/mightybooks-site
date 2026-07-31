@@ -1,15 +1,9 @@
 'use client'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { createClient } from '@supabase/supabase-js'
+import { supabase } from '@/lib/supabase'
 import Link from 'next/link'
 import styles from '../admin.module.css'
-import { verifyAdminSession } from '@/lib/admin-client'
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-)
 
 const SOURCES = ['오픈톡', '블로그', '네이버 검색', '웹사이트', '기존 고객 소개', '지인 소개', '인스타/스레드', '방문상담', '전화', '기타']
 const INQUIRY_TYPES = ['자서전', '자비출간', '시집', '에세이', '소책자', 'ISBN/서점유통', '편집/디자인', '기타']
@@ -217,7 +211,6 @@ function normalizeRecord(record) {
 }
 
 export default function AdminConsultations() {
-  const [checking, setChecking] = useState(true)
   const [records, setRecords] = useState([])
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
@@ -249,17 +242,8 @@ export default function AdminConsultations() {
   }, [])
 
   useEffect(() => {
-    verifyAdminSession(supabase).then(async isAdmin => {
-      if (!isAdmin) {
-        await supabase.auth.signOut()
-        router.push('/admin')
-        return
-      }
-
-      setChecking(false)
-      loadRecords()
-    })
-  }, [loadRecords, router])
+    loadRecords()
+  }, [loadRecords])
 
   const filteredRecords = useMemo(() => {
     const range = getDateRange(filters.period, filters.startDate, filters.endDate)
@@ -423,13 +407,11 @@ export default function AdminConsultations() {
           <button type="button" className={styles.btnRed} onClick={startCreate}>+ 상담기록 추가</button>
         </div>
 
-        {checking ? <p>확인 중...</p> : (
-          <>
-            {error && <div className={styles.err}>{error}</div>}
-            {message && <div className={styles.msg}>{message}</div>}
+        {error && <div className={styles.err}>{error}</div>}
+        {message && <div className={styles.msg}>{message}</div>}
 
-            {formOpen && (
-              <form className={styles.consultationForm} onSubmit={saveRecord}>
+        {formOpen && (
+          <form className={styles.consultationForm} onSubmit={saveRecord}>
                 <div className={styles.sectionHeader}>
                   <h3>{editingId ? '상담기록 수정' : '상담기록 신규 입력'}</h3>
                   <button type="button" className={styles.btnGhost} onClick={resetForm}>닫기</button>
@@ -481,10 +463,10 @@ export default function AdminConsultations() {
                   <button type="submit" className={styles.btnRed} disabled={saving}>{saving ? '저장 중...' : editingId ? '수정 저장' : '상담기록 저장'}</button>
                   <button type="button" className={styles.btnGhost} onClick={resetForm}>취소</button>
                 </div>
-              </form>
-            )}
+          </form>
+        )}
 
-            <div className={styles.filterPanel}>
+        <div className={styles.filterPanel}>
               <div className={styles.sectionHeader}>
                 <h3>기간/조건 필터</h3>
                 <button type="button" className={styles.btnSmall} onClick={() => setFilters(EMPTY_FILTERS)}>필터 초기화</button>
@@ -502,9 +484,9 @@ export default function AdminConsultations() {
                 <SelectField label="제작 적합도" value={filters.fitLevel} options={FIT_LEVELS} onChange={value => updateFilter('fitLevel', value)} includeEmpty />
                 <SelectField label="유료상담 여부" value={filters.consultationFeePaid} options={[['true', '유료상담'], ['false', '미결제']]} onChange={value => updateFilter('consultationFeePaid', value)} includeEmpty />
               </div>
-            </div>
+        </div>
 
-            <div className={styles.metricGrid}>
+        <div className={styles.metricGrid}>
               <Metric label="총 문의" value={`${summary.total}건`} />
               <Metric label="견적 제시" value={`${summary.quoted}건`} />
               <Metric label="수주 성공" value={`${summary.won}건`} />
@@ -521,18 +503,18 @@ export default function AdminConsultations() {
               <Metric label="보류/판단 중" value={`${summary.decisionPending}건`} />
               <Metric label="유료상담" value={`${summary.paidConsultations}건`} />
               <Metric label="A급 리드" value={`${summary.aLeads}건`} />
-            </div>
+        </div>
 
-            <div className={styles.topGrid}>
-              {topPanels.map(([title, items]) => <TopList key={title} title={title} items={items} />)}
-            </div>
+        <div className={styles.topGrid}>
+          {topPanels.map(([title, items]) => <TopList key={title} title={title} items={items} />)}
+        </div>
 
-            <div className={styles.sectionHeader}>
-              <h3>상담 목록</h3>
-              <span className={styles.resultCount}>{filteredRecords.length}건</span>
-            </div>
-            {loading ? <p>불러오는 중...</p> : (
-              <div className={styles.tableScroll}>
+        <div className={styles.sectionHeader}>
+          <h3>상담 목록</h3>
+          <span className={styles.resultCount}>{filteredRecords.length}건</span>
+        </div>
+        {loading ? <p>불러오는 중...</p> : (
+          <div className={styles.tableScroll}>
                 <table className={styles.table}>
                   <thead>
                     <tr>
@@ -558,9 +540,7 @@ export default function AdminConsultations() {
                     {!filteredRecords.length && <tr><td colSpan="11">조건에 맞는 상담기록이 없습니다.</td></tr>}
                   </tbody>
                 </table>
-              </div>
-            )}
-          </>
+          </div>
         )}
       </div>
     </div>

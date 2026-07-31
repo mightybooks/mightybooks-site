@@ -4,19 +4,10 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { createClient } from '@supabase/supabase-js'
-import { verifyAdminSession } from '@/lib/admin-client'
+import { supabase } from '@/lib/supabase'
 import styles from '../admin.module.css'
 import partnerStyles from './partners.module.css'
 
-const supabaseUrl = (process.env.NEXT_PUBLIC_SUPABASE_URL ?? '').trim()
-const supabaseAnonKey = (process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? '').trim()
-
-if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error('[Admin Supabase client] NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY are required')
-}
-
-const supabase = createClient(supabaseUrl, supabaseAnonKey)
 const statusLabels = { pending: '승인 대기', on_hold: '승인 보류', approved: '승인 업체', suspended: '제휴 중지' }
 
 function Modal({ title, children, onClose, actions }) {
@@ -94,13 +85,7 @@ export default function PartnerAdminManager({ mode }) {
   }
 
   useEffect(() => {
-    verifyAdminSession(supabase).then(ok => {
-      if (!ok) {
-        supabase.auth.signOut().then(() => router.replace('/admin'))
-        return
-      }
-      load()
-    })
+    load()
   }, [])
 
   const updateLocal = (id, key, value) => setPartners(current => current.map(item => item.id === id ? { ...item, [key]: value } : item))

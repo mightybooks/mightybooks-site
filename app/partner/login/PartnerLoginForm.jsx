@@ -23,16 +23,67 @@ export default function PartnerLoginForm(){
     return()=>window.clearInterval(timer)
   },[cooldown])
 
-  const submit=async(e)=>{
-    e.preventDefault()
+  const submit = async (event) => {
+    event.preventDefault()
     setLoading(true)
     setError('')
-    const {data,error:loginError}=await supabase.auth.signInWithPassword({email,password})
-    if(loginError){setLoading(false);setError('이메일 또는 비밀번호를 확인해 주세요.');return}
-    const {data:profile}=await supabase.from('partner_profiles').select('status').eq('user_id',data.user.id).maybeSingle()
-    if(!profile){await supabase.auth.signOut();setLoading(false);setError('파트너 신청 프로필이 없는 계정입니다.');return}
-    router.push(profile.status==='approved'?'/partner/dashboard':'/partner/pending')
-    router.refresh()
+
+    try {
+      const { data, error: loginError } =
+        await supabase.auth.signInWithPassword({
+          email: email.trim(),
+          password,
+        })
+
+      if (loginError || !data.user) {
+        setError('이메일 또는 비밀번호를 확인해 주세요.')
+        return
+      }
+
+      const { data: profile, error: profileError } = await supabase
+        .from('partner_profiles')
+        .select('status')
+        .eq('user_id', data.user.id)
+        .maybeSingle()
+
+      if (profileError) {
+        console.error('[Partner login] Profile lookup failed', {
+          code: profileError.code,
+          message: profileError.message,
+        })
+
+        await supabase.auth.signOut()
+        setError(
+          '파트너 정보를 확인하지 못했습니다. 잠시 후 다시 시도해 주세요.'
+        )
+        return
+      }
+
+      if (!profile) {
+        await supabase.auth.signOut()
+        setError('파트너 신청 프로필이 없는 계정입니다.')
+        return
+      }
+
+      router.push(
+        profile.status === 'approved'
+          ? '/partner/dashboard'
+          : '/partner/pending'
+      )
+      router.refresh()
+    } catch (unexpectedError) {
+      console.error('[Partner login] Unexpected login failure', {
+        name:
+          unexpectedError instanceof Error
+            ? unexpectedError.name
+            : 'UnknownError',
+      })
+
+      await supabase.auth.signOut()
+      setError('로그인 처리 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   const resendConfirmation=async()=>{
@@ -69,5 +120,6 @@ export default function PartnerLoginForm(){
     }
   }
 
-  return <main className={styles.authWrap}><div className={styles.authBox}><span className={styles.eyebrow}>Partner Login</span><h1>파트너 로그인</h1><p className={styles.authIntro}>승인 여부와 파트너 코드를 확인하는 사업자 파트너 전용 로그인입니다.</p><form onSubmit={submit}><div className={styles.field}><label>이메일</label><input className={styles.input} type="email" value={email} onChange={e=>setEmail(e.target.value)} required/></div><div className={styles.field} style={{marginTop:'16px'}}><label>비밀번호</label><input className={styles.input} type="password" value={password} onChange={e=>setPassword(e.target.value)} required/></div>{error&&<div className={styles.error} role="alert">{error}</div>}<button className={styles.submit} disabled={loading} style={{marginTop:'20px'}}>{loading?'로그인 중…':'로그인'}</button></form><div className={loginStyles.resendBox}><button type="button" className={loginStyles.resendButton} onClick={resendConfirmation} disabled={resending||cooldown>0}>{resending?'전송 중…':cooldown>0?`다시 보내기 (${cooldown}초)`:'이메일 인증 메일 다시 보내기'}</button>{resendMessage&&<div className={styles.success} role="status">{resendMessage}</div>}{resendError&&<div className={styles.error} role="alert">{resendError}</div>}</div><p className={styles.authFooter}>파트너 계정이 없나요? <Link href="/partner/signup" className={styles.textLink}>파트너십 신청하기</Link></p></div></main>
+  return <main className={styles.authWrap}><div className={styles.authBox}><span className={styles.eyebrow}>Partner Login</span><h1>파트너 로그인</h1><p className={styles.authIntro}>승인 여부와 파트너 코드를 확인하는 사업자 파트너 전용 로그인입니다.</p>
+  <form onSubmit={submit}><div className={styles.field}><label>이메일</label><input className={styles.input} type="email" value={email} onChange={e=>setEmail(e.target.value)} required/></div><div className={styles.field} style={{marginTop:'16px'}}><label>비밀번호</label><input className={styles.input} type="password" value={password} onChange={e=>setPassword(e.target.value)} required/></div>{error&&<div className={styles.error} role="alert">{error}</div>}<button className={styles.submit} disabled={loading} style={{marginTop:'20px'}}>{loading?'로그인 중…':'로그인'}</button></form><div className={loginStyles.resendBox}><button type="button" className={loginStyles.resendButton} onClick={resendConfirmation} disabled={resending||cooldown>0}>{resending?'전송 중…':cooldown>0?`다시 보내기 (${cooldown}초)`:'이메일 인증 메일 다시 보내기'}</button>{resendMessage&&<div className={styles.success} role="status">{resendMessage}</div>}{resendError&&<div className={styles.error} role="alert">{resendError}</div>}</div><p className={styles.authFooter}>파트너 계정이 없나요? <Link href="/partner/signup" className={styles.textLink}>파트너십 신청하기</Link></p></div></main>
 }
