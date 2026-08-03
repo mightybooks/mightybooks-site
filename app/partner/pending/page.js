@@ -38,7 +38,7 @@ export default async function PartnerPendingPage() {
   }
 
   if (!profile) {
-    redirect('/partner/login')
+    redirect('/partner/signup')
   }
 
   if (profile.status === 'approved') {

@@ -4,9 +4,10 @@ import { supabaseAdmin } from '@/lib/supabase-admin'
 import { requireAdmin } from '@/lib/server-auth'
 
 const STATUSES = ['pending', 'on_hold', 'approved', 'rejected', 'suspended']
-const VIEWS = ['review', 'approved']
+const VIEWS = ['review', 'approved', 'rejected']
 const REVIEW_STATUSES = ['pending', 'on_hold']
 const APPROVED_STATUSES = ['approved', 'suspended']
+const REJECTED_STATUSES = ['rejected']
 const CODE_ALPHABET = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'
 const UUID_PATTERN =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
@@ -236,7 +237,9 @@ export async function GET(request) {
   const visibleStatuses =
     view === 'approved'
       ? APPROVED_STATUSES
-      : REVIEW_STATUSES
+      : view === 'rejected'
+        ? REJECTED_STATUSES
+        : REVIEW_STATUSES
 
   const { data, error } = await supabaseAdmin
     .from('partner_profiles')

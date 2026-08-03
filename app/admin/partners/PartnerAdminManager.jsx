@@ -8,7 +8,7 @@ import { supabase } from '@/lib/supabase'
 import styles from '../admin.module.css'
 import partnerStyles from './partners.module.css'
 
-const statusLabels = { pending: '승인 대기', on_hold: '승인 보류', approved: '승인 업체', suspended: '제휴 중지' }
+const statusLabels = { pending: '승인 대기', on_hold: '승인 보류', approved: '승인 업체', rejected: '승인 거절', suspended: '제휴 중지' }
 
 function Modal({ title, children, onClose, actions }) {
   useEffect(() => {
@@ -44,10 +44,16 @@ function PartnerDetails({ partner }) {
 }
 
 export default function PartnerAdminManager({ mode }) {
+  const isReviewView = mode === 'review'
   const isApprovedView = mode === 'approved'
-  const visibleStatuses = isApprovedView ? ['approved', 'suspended'] : ['pending', 'on_hold']
+  const isRejectedView = mode === 'rejected'
+  const visibleStatuses = isApprovedView
+    ? ['approved', 'suspended']
+    : isRejectedView
+      ? ['rejected']
+      : ['pending', 'on_hold']
   const [partners, setPartners] = useState([])
-  const [counts, setCounts] = useState({ pending: 0, on_hold: 0, approved: 0, suspended: 0 })
+  const [counts, setCounts] = useState({ pending: 0, on_hold: 0, approved: 0, rejected: 0, suspended: 0 })
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
   const [savingId, setSavingId] = useState(null)
@@ -154,23 +160,25 @@ export default function PartnerAdminManager({ mode }) {
     <div className={styles.adminBody}>
       <Link href="/admin/dashboard" className={styles.backLink}>← 관리자 메뉴로 돌아가기</Link>
       <nav className={partnerStyles.tabs} aria-label="파트너 관리 메뉴">
-        <Link href="/admin/partners" className={!isApprovedView ? partnerStyles.activeTab : ''}>신규 승인 관리 <span>{counts.pending + counts.on_hold}</span></Link>
+        <Link href="/admin/partners" className={isReviewView ? partnerStyles.activeTab : ''}>신규 승인 관리 <span>{counts.pending + counts.on_hold}</span></Link>
         <Link href="/admin/partners/approved" className={isApprovedView ? partnerStyles.activeTab : ''}>승인 업체 관리 <span>{counts.approved + counts.suspended}</span></Link>
+        <Link href="/admin/partners/rejected" className={isRejectedView ? partnerStyles.activeTab : ''}>승인 거절 내역 <span>{counts.rejected}</span></Link>
       </nav>
-      <div className={styles.adminTitleRow}><div><h1 className={styles.adminTitle}>{isApprovedView ? '승인 업체 관리' : '신규 파트너 승인 관리'}</h1><p className={styles.adminDescription}>{isApprovedView ? `승인 업체 ${counts.approved}건 · 제휴 중지 ${counts.suspended}건` : `승인 대기 ${counts.pending}건 · 승인 보류 ${counts.on_hold}건`}</p></div></div>
+      <div className={styles.adminTitleRow}><div><h1 className={styles.adminTitle}>{isApprovedView ? '승인 업체 관리' : isRejectedView ? '승인 거절 내역' : '신규 파트너 승인 관리'}</h1><p className={styles.adminDescription}>{isApprovedView ? `승인 업체 ${counts.approved}건 · 제휴 중지 ${counts.suspended}건` : isRejectedView ? `승인 거절 ${counts.rejected}건` : `승인 대기 ${counts.pending}건 · 승인 보류 ${counts.on_hold}건`}</p></div></div>
       {error && <div className={partnerStyles.error}>{error}</div>}
-      {loading ? <p>불러오는 중...</p> : partners.length === 0 ? <div className={styles.emptyPanel}><p>{isApprovedView ? '승인 또는 제휴 중지된 업체가 없습니다.' : '현재 심사할 파트너 신청이 없습니다.'}</p></div> : <div className={partnerStyles.list}>{partners.map(partner => <article className={partnerStyles.card} key={partner.id}>
+      {loading ? <p>불러오는 중...</p> : partners.length === 0 ? <div className={styles.emptyPanel}><p>{isApprovedView ? '승인 또는 제휴 중지된 업체가 없습니다.' : isRejectedView ? '승인 거절된 파트너 신청이 없습니다.' : '현재 심사할 파트너 신청이 없습니다.'}</p></div> : <div className={partnerStyles.list}>{partners.map(partner => <article className={partnerStyles.card} key={partner.id}>
         <div className={partnerStyles.heading}><div><span>{statusLabels[partner.status]}</span><h2>{partner.business_name}</h2><p>신청일 {new Date(partner.created_at).toLocaleString('ko-KR')}</p>{isApprovedView && partner.approved_at && <p>승인일 {new Date(partner.approved_at).toLocaleString('ko-KR')}</p>}</div>{partner.partner_code && <strong>{partner.partner_code}</strong>}</div>
         <PartnerDetails partner={partner}/>
         {isApprovedView && <div className={partnerStyles.notes}><label>관리자 조율 메모<textarea value={partner.internal_memo || ''} onChange={event => updateLocal(partner.id, 'internal_memo', event.target.value)}/></label></div>}
-        <div className={partnerStyles.actions}>{isApprovedView ? <>
+        {isRejectedView && <dl className={partnerStyles.details}><div className={partnerStyles.wide}><dt>승인 거절 사유</dt><dd>{partner.rejected_reason || '기록된 승인 거절 사유가 없습니다.'}</dd></div><div className={partnerStyles.wide}><dt>관리자 조율 메모</dt><dd>{partner.internal_memo || '기록된 관리자 조율 메모가 없습니다.'}</dd></div></dl>}
+        {!isRejectedView && <div className={partnerStyles.actions}>{isApprovedView ? <>
           <button disabled={savingId === partner.id} onClick={() => saveMemo(partner)} className={styles.btnGhost}>{savingId === partner.id ? '처리 중…' : '메모 저장'}</button>
           {partner.status === 'approved' ? <button disabled={savingId === partner.id} onClick={() => suspend(partner)} className={styles.btnGhost}>제휴 중지</button> : <button disabled={savingId === partner.id} onClick={() => resume(partner)} className={styles.btnRed}>제휴 재개</button>}
         </> : <>
           <button disabled={savingId === partner.id} onClick={() => approve(partner)} className={styles.btnRed}>{savingId === partner.id ? '처리 중…' : '승인'}</button>
           <button disabled={savingId === partner.id} onClick={() => { setRejectTarget(partner); setRejectReason(partner.rejected_reason || '') }} className={styles.btnGhost}>승인 거절</button>
           <button disabled={savingId === partner.id} onClick={() => hold(partner)} className={styles.btnGhost}>승인 보류</button>
-        </>}</div>
+        </>}</div>}
       </article>)}</div>}
     </div>
     {rejectTarget && <Modal title="승인 거절 사유" onClose={() => { if (!savingId) setRejectTarget(null) }} actions={<><button className={styles.btnGhost} disabled={Boolean(savingId)} onClick={() => setRejectTarget(null)}>취소</button><button className={styles.btnRed} disabled={Boolean(savingId) || !rejectReason.trim()} onClick={() => save(rejectTarget, 'rejected', rejectReason, { title: '승인 거절', message: name => `${name}의 파트너 신청을 거절했습니다. 해당 업체는 승인 대기 목록에서 제외되었습니다.` })}>{savingId ? '처리 중…' : '거절 처리'}</button></>}><label className={partnerStyles.rejectField}>거절 사유<textarea value={rejectReason} onChange={event => setRejectReason(event.target.value)} autoFocus/></label></Modal>}
