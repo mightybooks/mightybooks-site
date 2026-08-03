@@ -1,22 +1,21 @@
 'use client'
 import { useMemo, useState } from 'react'
 import { EMAIL_ADDRESS, KAKAO_URL, PhoneConsultModal } from '../components/ServiceContactCta'
-import { ONLINE_LIBRARY_PRICING } from '../components/onlineLibraryPricing'
 import styles from './autobiography.module.css'
 
 const planInfo = {
   webbook: {
     name: '웹북 플랜',
-    price: `예상 ${ONLINE_LIBRARY_PRICING.initialPrice}`,
+    price: '예상 110만 원부터',
     title: '웹북 플랜이 적합해 보입니다.',
-    body: '완성 PDF 또는 편집이 완료된 원고가 있고, 종이책을 인쇄하지 않고 저자 전용 온라인 서가와 고화질 플립북으로 제작하려는 경우에 적합한 플랜입니다.',
-    note: `완성 PDF 보유 기준은 ${ONLINE_LIBRARY_PRICING.initialPrice}이며 ${ONLINE_LIBRARY_PRICING.firstYearLabel} · ${ONLINE_LIBRARY_PRICING.vatLabel}입니다. 표지·내지 디자인, 원고 정리와 집필이 필요한 경우에는 범위에 따라 추가 견적 또는 상위 플랜이 적용될 수 있습니다.`,
+    body: '종이책을 인쇄하지 않고 가족끼리 확인할 수 있는 프라이빗 링크와 고화질 플립북으로 제작하려는 경우에 적합한 플랜입니다. 인터뷰 2회 기준으로 진행합니다.',
+    note: '최적화된 고품질 웹북 맞춤형 제작은 110만 원부터이며 첫해 이용료와 부가세가 포함됩니다. 표지·내지 디자인 강화 및 페이지 수 증가에 따라 추가 견적이 발생할 수 있습니다.',
   },
   light: {
     name: '라이트 플랜',
-    price: '예상 120만 원~',
+    price: '예상 150만 원부터',
     title: '라이트 플랜이 적합해 보입니다.',
-    body: '이미 준비된 원고가 있고, 가족 소장용이나 기념 선물용으로 소량 제작을 원하시는 경우에 적합한 플랜입니다. 기본 윤문과 내지 편집으로 종이책을 제작하며, 저자 전용 온라인 서가와 고화질 플립북도 함께 제공합니다.',
+    body: '이미 준비된 원고가 있고, 가족 소장용이나 기념 선물용으로 소량 제작을 원하시는 경우에 적합한 플랜입니다. 인터뷰 2회 기준으로 기본 윤문과 내지 편집을 진행하며, 프라이빗 링크와 고화질 플립북도 함께 제공합니다.',
     note: '최종 견적은 원고 분량, 사진 수, 인쇄 부수와 제본 방식에 따라 달라질 수 있습니다.',
   },
   standard: {
@@ -111,7 +110,7 @@ const questions = [
 ]
 
 const flagMessages = {
-  webbookOnly: '종이책 없이 웹북으로만 제작할 수 있습니다. 다만 완성 PDF가 없는 경우에는 원고 정리, 표지·내지 디자인과 인터뷰 범위에 따라 스탠다드 또는 프리미엄 제작비가 적용될 수 있습니다.',
+  webbookOnly: '종이책 없이 웹북으로만 제작할 수 있습니다. 원고 정리, 표지·내지 디자인과 인터뷰 범위가 늘어나는 경우에는 추가 견적 또는 상위 플랜이 적용될 수 있습니다.',
   print100: '100권 이상 제작은 인쇄 부수와 제본 사양에 따라 제작비 차이가 커집니다. 추천 플랜과 별도로 인쇄 견적 확인이 필요합니다.',
   print300: '300권 이상 제작은 인쇄 방식, 종이, 제본, 납품 방식에 따라 별도 견적이 필요합니다. 상담 시 부수와 납품 일정을 함께 확인합니다.',
   longManuscript: '8만 자를 초과하는 원고는 기본 제작 범위를 넘어설 수 있으므로 별도 견적이 적용될 수 있습니다.',

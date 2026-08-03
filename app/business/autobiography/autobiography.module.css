@@ -204,6 +204,8 @@
   margin-bottom: 8px;
   color: #f1dfc4;
   font-size: 18px;
+  line-height: 1.5;
+  word-break: keep-all;
 }
 
 .heroVisualNote span {

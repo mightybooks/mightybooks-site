@@ -8,14 +8,22 @@ import {
   KAKAO_URL,
   PhoneConsultModal,
 } from '../components/ServiceContactCta'
-import {
-  ONLINE_LIBRARY_INCLUDED,
-  ONLINE_LIBRARY_PRICING,
-} from '../components/onlineLibraryPricing'
 import AutobiographyPlanFinder from './AutobiographyPlanFinder'
 import BookPreviewTrigger from '../components/book-preview/BookPreviewTrigger'
 import { autobiographyPreview } from '../components/book-preview/bookPreviews'
 import styles from './autobiography.module.css'
+
+const AUTOBIOGRAPHY_WEBBOOK_PRICE = '110만 원부터'
+
+const PRIVATE_WEBBOOK_INCLUDED = [
+  '고품질 플립북 제작',
+  '저자 프로필 페이지 구성',
+  '도서 상세 페이지 구성',
+  '가족끼리 확인할 수 있는 프라이빗 링크',
+  '모바일·PC 반응형 열람 환경',
+  '기본 도서 등록',
+  '첫해 프라이빗 링크 이용',
+]
 
 const heroBadges = [  
   '대표 1:1 직접 상담',
@@ -50,7 +58,7 @@ const workScope = [
   '문장 다듬기',
   '사진 선별 및 기본 보정',
   '표지·내지 디자인',
-  '저자 전용 온라인 서가·웹북 제작',
+  '프라이빗 링크·웹북 제작',
   '인쇄 사양 상담',
   'ISBN 및 온라인서점 유통 여부 상담',
 ]
@@ -62,7 +70,7 @@ const processSteps = [
   ['04', '목차·원고 편집', '자료를 책의 구조로 묶고 문장을 읽기 좋게 다듬습니다.'],
   ['05', '표지·내지 디자인', '목적과 독자에 맞춰 표지, 본문, 사진 배치를 설계합니다.'],
   ['06', '교정 확인', '의뢰인과 가족이 확인할 수 있도록 교정본을 안내합니다.'],
-  ['07', '웹북 공개 또는 인쇄·제본', '선택한 제작 방식에 따라 온라인 서가와 고화질 플립북을 공개하거나, 종이책 인쇄·제본 및 ISBN 출간 상담으로 마무리합니다.'],
+  ['07', '웹북 공개 또는 인쇄·제본', '선택한 제작 방식에 따라 프라이빗 링크와 고화질 플립북을 공개하거나, 종이책 인쇄·제본 및 ISBN 출간 상담으로 마무리합니다.'],
 ]
 
 const bookTypes = [
@@ -105,30 +113,25 @@ const galleryItems = [
 const personalPlans = [
   {
     name: '웹북 플랜',
-    price: ONLINE_LIBRARY_PRICING.initialPrice,
-    target: '종이책 없이 온라인 서가와 고화질 플립북으로 제작',
-    manuscript: '완성 PDF 또는 편집이 완료된 원고',
-    interview: '기본 상담 중심',
-    writing: '완성 PDF의 웹용 최적화, 원고 편집이 필요한 경우 별도 산정',
-    design: '저자 프로필·도서 소개 페이지 구성, 표지·내지 제작은 추가 견적',
+    price: AUTOBIOGRAPHY_WEBBOOK_PRICE,
+    target: '최적화된 고품질 웹북 맞춤형 제작',
+    interview: '인터뷰 2회 기준',
+    writing: '원고 편집 및 웹북용 콘텐츠 최적화',
+    design: '표지·내지 디자인 강화 및 페이지 수 증가에 따라 추가 견적이 발생할 수 있습니다.',
     printedBook: '종이책 인쇄 미포함',
-    webbook: '저자 전용 온라인 서가 최초 구축, 고화질 플립북, 기본 도서 등록, 공유 링크와 QR, 첫해 이용 포함',
-    check: '페이지 수, PDF 상태, 공개 범위, 디자인 필요 여부',
-    condition: [
-      `완성 PDF 보유 기준 ${ONLINE_LIBRARY_PRICING.initialPrice} · ${ONLINE_LIBRARY_PRICING.vatLabel}`,
-      '표지·내지 디자인이 필요한 경우 범위에 따라 추가 견적',
-    ],
+    webbook: '가족끼리 확인할 수 있는 프라이빗 링크, 고화질 플립북, 기본 도서 등록, 공유 링크와 QR, 첫해 이용 포함',
+    check: '공개 범위, 프라이빗 링크 설정, 디자인 필요 여부',
   },
   {
     name: '라이트 플랜',
-    price: '120만 원부터',
+    price: '150만 원부터',
     target: '완성 원고가 있는 가족 소장용·기념 도서',
     manuscript: '완성 원고 또는 짧은 원고 보유',
-    interview: '기본 상담 중심',
+    interview: '인터뷰 2회 기준',
     writing: '윤문, 기본 교정, 내지 편집',
     design: '기본 표지와 내지 디자인',
     printedBook: '소량 종이책 제작, 인쇄비 별도 산정',
-    webbook: '저자 전용 온라인 서가와 고화질 플립북, 첫해 이용 포함',
+    webbook: '프라이빗 링크와 고화질 플립북, 첫해 이용 포함',
     check: '원고 분량, 사진 수, 희망 부수',
   },
   {
@@ -167,6 +170,8 @@ const businessPlan = {
   design: '브랜딩 목적의 표지·내지 맞춤 구성',
   printedBook: '고급 양장 또는 공식 출간 사양, 인쇄·유통 별도 상담',
   webbook: '전용 온라인 서가와 고화질 웹북 포함',
+  royalty: '도서 유통 시 인세 45% 지급',
+  libraryBenefit: '온라인 서가 첫해 무료 제공',
   check: '공개 범위, ISBN, 온라인서점 유통, 납품 일정',
 }
 
@@ -185,8 +190,8 @@ const checklist = [
 const guideNotes = [
   '원고가 없어도 상담 가능합니다. 마이티북스가 묻고, 듣고, 정리합니다.',
   '부모님이 직접 글을 쓰지 못하셔도 인터뷰, 사진, 메모, 가족의 기억으로 시작할 수 있습니다.',
-  '종이책을 인쇄하지 않고 저자 전용 온라인 서가와 고화질 플립북으로만 제작할 수 있습니다.',
-  '종이책 제작 플랜에는 저자 전용 온라인 서가와 웹북의 첫해 이용이 포함됩니다.',
+  '종이책을 인쇄하지 않고 가족끼리 확인할 수 있는 프라이빗 링크와 고화질 플립북으로만 제작할 수 있습니다.',
+  '라이트 플랜에는 프라이빗 링크와 웹북의 첫해 이용이 포함됩니다.',
   '가족 소장용은 ISBN 없이 제작할 수 있습니다.',
   '칠순·팔순 기념 책, 가족 기념 서적, 커플 기념 서적도 제작 가능합니다.',
   '정식 출간을 원하면 ISBN과 온라인서점 유통도 상담 가능합니다.',
@@ -310,8 +315,8 @@ export default function AutobiographyPage() {
               priority
             />
             <div className={styles.heroVisualNote}>
-              <strong>온라인 서가 구축 {ONLINE_LIBRARY_PRICING.initialPrice} · 종이책 120만 원부터</strong>
-              <span>완성 PDF 또는 원고 상태, 디자인 범위, 인터뷰와 인쇄 여부에 따라 견적이 달라집니다.</span>
+              <strong>프라이빗 링크 웹북 제작 {AUTOBIOGRAPHY_WEBBOOK_PRICE} · 종이책 150만 원부터</strong>
+              <span>원고 분량, 디자인 범위, 인터뷰와 인쇄 여부에 따라 견적이 달라집니다.</span>
             </div>
             <p className={styles.heroVisualCaption}>
               꽃과 현수막은 지나가지만, 한 권의 책은 가족에게 오래 남습니다.
@@ -393,8 +398,8 @@ export default function AutobiographyPage() {
           <span className={styles.tag}>Webbook / Printed Book</span>
           <h2 id="format-heading" className={styles.sectionTitle}>책은 종이로도,<br /><em>웹북으로도 남길 수 있습니다</em></h2>
           <p className={styles.sectionLead}>
-            자서전과 기념도서는 종이책으로 제작할 수도 있고, 종이책을 인쇄하지 않고 온라인 서가와 고화질 플립북으로만 제작할 수도 있습니다.
-            종이책 제작 플랜에는 저자 전용 온라인 서가와 웹북이 함께 지원되며, 가족과 지인에게 링크나 QR로 공유할 수 있습니다.
+            자서전과 기념도서는 종이책으로 제작할 수도 있고, 종이책을 인쇄하지 않고 프라이빗 링크와 고화질 플립북으로만 제작할 수도 있습니다.
+            웹북·라이트 플랜은 가족과 지인이 확인할 수 있는 프라이빗 링크로 제공되며, 링크나 QR로 공유할 수 있습니다.
           </p>
         </div>
         <div className={styles.formatGrid}>
@@ -403,25 +408,25 @@ export default function AutobiographyPage() {
             <h3>웹북으로만 제작</h3>
             <p>
               종이책을 인쇄하지 않고 저자 프로필, 도서 소개 페이지, 고화질 플립북과 공유 링크로 구성된 웹북을 제작합니다.
-              완성 PDF가 있으면 웹용으로 최적화하고, 원고만 있는 경우에는 필요한 표지·내지 디자인 범위를 상담합니다.
+              준비된 원고를 웹용으로 최적화하고, 필요한 표지·내지 디자인 범위를 상담합니다.
             </p>
             <ul className={styles.formatList}>
-              {[...ONLINE_LIBRARY_INCLUDED, '공개 또는 프라이빗 링크', '공유용 QR'].map(item => <li key={item}>{item}</li>)}
+              {[...PRIVATE_WEBBOOK_INCLUDED, '공유용 QR'].map(item => <li key={item}>{item}</li>)}
             </ul>
           </article>
           <article className={styles.formatCard}>
             <span className={styles.formatNumber}>02</span>
             <h3>종이책과 함께 제작</h3>
             <p>
-              라이트·스탠다드·프리미엄 플랜으로 종이책을 제작하면 저자 전용 온라인 서가와 고화질 플립북도 함께 제공합니다.
+              라이트 플랜은 프라이빗 링크와 고화질 플립북을, 스탠다드·프리미엄 플랜은 저자 전용 온라인 서가와 고화질 플립북을 함께 제공합니다.
               가족 소장용 자서전, 퇴임 기념도서, 칠순·팔순 기념책을 종이책으로 전달하고 온라인 링크로도 공유할 수 있습니다.
             </p>
             <ul className={styles.formatList}>
-              {['종이책 제작', '표지·내지 디자인', '저자 전용 온라인 서가', '고화질 플립북', '공개 또는 프라이빗 공유', '첫해 온라인 서가 이용'].map(item => <li key={item}>{item}</li>)}
+              {['종이책 제작', '표지·내지 디자인', '프라이빗 링크 또는 저자 전용 온라인 서가', '고화질 플립북', '공개 또는 프라이빗 공유', '첫해 이용 포함'].map(item => <li key={item}>{item}</li>)}
             </ul>
           </article>
         </div>
-        <Link className={styles.libraryLink} href="/library">온라인 서가 샘플 보기</Link>
+        <Link className={styles.libraryLink} href="/library">웹북 샘플 보기</Link>
       </section>
 
       <section className={styles.localSection} ref={ref(4)} aria-labelledby="local-heading">
@@ -518,24 +523,23 @@ export default function AutobiographyPage() {
                 </div>
               )}
               <dl>
-                <div><dt>원고 상태</dt><dd>{plan.manuscript}</dd></div>
+                {plan.manuscript && <div><dt>원고 상태</dt><dd>{plan.manuscript}</dd></div>}
                 <div><dt>인터뷰</dt><dd>{plan.interview}</dd></div>
                 <div><dt>편집/집필</dt><dd>{plan.writing}</dd></div>
                 <div><dt>디자인</dt><dd>{plan.design}</dd></div>
                 <div><dt>종이책</dt><dd>{plan.printedBook}</dd></div>
-                <div><dt>웹북·온라인 서가</dt><dd>{plan.webbook}</dd></div>
+                <div><dt>{plan.name === '웹북 플랜' || plan.name === '라이트 플랜' ? '웹북·프라이빗 링크' : '웹북·온라인 서가'}</dt><dd>{plan.webbook}</dd></div>
                 <div><dt>상담 확인</dt><dd>{plan.check}</dd></div>
               </dl>
             </article>
           ))}
         </div>
         <aside className={styles.maintenanceNote}>
-          <strong>온라인 서가와 웹북은 {ONLINE_LIBRARY_PRICING.firstYearLabel} · {ONLINE_LIBRARY_PRICING.vatLabel}</strong>
-          <p>계속 유지할 경우 2년 차부터 {ONLINE_LIBRARY_PRICING.annualFee}의 이용료가 적용됩니다. 부가세 포함 금액입니다.</p>
-          <span>온라인 서가 유지, 도서 페이지와 이미지 보관, 플립북 서비스, 공유 링크 유지와 기본 시스템 관리가 포함됩니다.</span>
+          <strong>프라이빗 링크와 웹북은 첫해 이용료가 포함됩니다.</strong>
+          <p>계속 유지할 경우 2년 차부터 연 99,000원의 이용료가 적용됩니다. 부가세 포함 금액입니다.</p>
         </aside>
         <p className={styles.priceNote}>
-          웹북 플랜은 완성 PDF 또는 편집 완료 원고를 기준으로 하며, 표지·내지 제작과 원고 편집이 필요한 경우 작업 범위에 따라 금액이 달라집니다.
+          웹북 플랜은 원고 편집과 웹북 최적화 범위를 확인하며, 표지·내지 디자인 강화 및 페이지 수 증가에 따라 추가 견적이 발생할 수 있습니다.
           종이책 플랜은 인쇄 부수와 제본 사양을 별도로 확인하며, 사진 정리, 추가 인터뷰, 장기 집필과 고급 제작이 필요한 경우 별도 범위가 적용될 수 있습니다.
         </p>
         <div className={styles.midCta}>
@@ -562,6 +566,8 @@ export default function AutobiographyPage() {
             <div><dt>브랜딩 디자인</dt><dd>{businessPlan.design}</dd></div>
             <div><dt>종이책</dt><dd>{businessPlan.printedBook}</dd></div>
             <div><dt>전용 온라인 서가와 웹북</dt><dd>{businessPlan.webbook}</dd></div>
+            <div><dt>도서 유통</dt><dd>{businessPlan.royalty}</dd></div>
+            <div><dt>온라인 서가 혜택</dt><dd>{businessPlan.libraryBenefit}</dd></div>
             <div><dt>상담 확인</dt><dd>{businessPlan.check}</dd></div>
           </dl>
         </div>

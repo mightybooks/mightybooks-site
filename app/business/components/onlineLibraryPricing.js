@@ -1,6 +1,6 @@
 export const ONLINE_LIBRARY_PRICING = {
-  initialPrice: '660,000원부터',
-  initialPriceCompact: '66만 원부터',
+  initialPrice: '110만 원부터',
+  initialPriceCompact: '110만 원부터',
   vatLabel: '부가세 포함',
   firstYearLabel: '첫해 이용료 포함',
   annualFee: '연 132,000원',
