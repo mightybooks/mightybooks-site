@@ -1,33 +1,30 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { getAuthorBySlug, publishedAuthors } from '@/content/library/authors'
-import { getBooksByAuthor } from '@/content/library/books'
+import { getPublishedLibraryAuthorPage } from '@/lib/library-content'
 import LibraryBookshelf from '../../components/LibraryBookshelf'
 import styles from '../../library.module.css'
 
-export const dynamicParams = false
-
-export function generateStaticParams() {
-  return publishedAuthors.map(({ slug }) => ({ authorSlug: slug }))
-}
+export const dynamic = 'force-dynamic'
 
 export async function generateMetadata({ params }) {
   const { authorSlug } = await params
-  const author = getAuthorBySlug(authorSlug)
-  if (!author) return {}
+  const result = await getPublishedLibraryAuthorPage(authorSlug)
+  if (!result) return {}
+  const { author } = result
+
   return {
     title: `${author.displayName} 디지털 서가 | 마이티북스`,
-    description: author.shortBio || author.bio,
+    description: author.shortBio || author.bio?.[0] || '',
     alternates: { canonical: `/library/authors/${author.slug}` },
   }
 }
 
 export default async function AuthorLibraryPage({ params }) {
   const { authorSlug } = await params
-  const author = getAuthorBySlug(authorSlug)
-  if (!author) notFound()
-  const books = getBooksByAuthor(author.slug)
+  const result = await getPublishedLibraryAuthorPage(authorSlug)
+  if (!result) notFound()
+  const { author, books } = result
 
   return (
     <main className={styles.page}>
@@ -96,7 +93,7 @@ export default async function AuthorLibraryPage({ params }) {
             <h2>{author.displayName}의 서가</h2>
             <p>표지를 선택하면 책 소개와 샘플 열람 페이지로 이동합니다.</p>
           </header>
-          <LibraryBookshelf books={books} shelfBackgroundImage={author.shelfBackgroundImage} />
+          <LibraryBookshelf books={books} />
         </div>
       </section>
     </main>

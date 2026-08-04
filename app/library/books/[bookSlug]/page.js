@@ -1,21 +1,18 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { getAuthorBySlug } from '@/content/library/authors'
-import { getBookBySlug, publishedBooks } from '@/content/library/books'
+import { getPublishedLibraryBookPage } from '@/lib/library-content'
 import LibraryReaderButton from '../../components/LibraryReaderButton'
 import LibrarySampleButton from '../../components/LibrarySampleButton'
 import styles from '../../library.module.css'
 
-export const dynamicParams = false
-
-export function generateStaticParams() {
-  return publishedBooks.map(({ slug }) => ({ bookSlug: slug }))
-}
+export const dynamic = 'force-dynamic'
 
 export async function generateMetadata({ params }) {
   const { bookSlug } = await params
-  const book = getBookBySlug(bookSlug)
-  if (!book) return {}
+  const result = await getPublishedLibraryBookPage(bookSlug)
+  if (!result) return {}
+  const { book } = result
+
   return {
     title: `${book.displayTitle} | 마이티북스 온라인 서가`,
     description:
@@ -27,10 +24,9 @@ export async function generateMetadata({ params }) {
 
 export default async function LibraryBookPage({ params }) {
   const { bookSlug } = await params
-  const book = getBookBySlug(bookSlug)
-  if (!book) notFound()
-  const author = getAuthorBySlug(book.authorSlug)
-  if (!author) notFound()
+  const result = await getPublishedLibraryBookPage(bookSlug)
+  if (!result) notFound()
+  const { book, author } = result
   const descriptionParagraphs = Array.isArray(book.description)
     ? book.description
     : book.description.split(/\n\s*\n/)

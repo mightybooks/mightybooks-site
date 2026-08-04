@@ -1,7 +1,9 @@
 import Link from 'next/link'
-import { publishedAuthors } from '@/content/library/authors'
+import { getPublishedLibraryAuthors } from '@/lib/library-content'
 import LibraryAuthorExplorer from './components/LibraryAuthorExplorer'
 import styles from './library.module.css'
+
+export const dynamic = 'force-dynamic'
 
 export const metadata = {
   title: '온라인 서가 | 마이티북스',
@@ -9,7 +11,9 @@ export const metadata = {
   alternates: { canonical: '/library' },
 }
 
-export default function LibraryPage() {
+export default async function LibraryPage() {
+  const authors = await getPublishedLibraryAuthors()
+
   return (
     <main className={styles.page}>
       <section className={styles.hero}>
@@ -28,7 +32,7 @@ export default function LibraryPage() {
           </div>
           <p>궁금한 저자를 선택하면 그 저자의 소개와 등록 도서가 있는 서가로 이동합니다.</p>
         </header>
-        <LibraryAuthorExplorer authors={publishedAuthors} />
+        <LibraryAuthorExplorer authors={authors} />
       </section>
 
       <section className={styles.notice}>
