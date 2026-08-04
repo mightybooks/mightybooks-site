@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getAuthorBySlug } from '@/content/library/authors'
 import { getBookBySlug, publishedBooks } from '@/content/library/books'
+import LibraryReaderButton from '../../components/LibraryReaderButton'
 import LibrarySampleButton from '../../components/LibrarySampleButton'
 import styles from '../../library.module.css'
 
@@ -49,6 +50,9 @@ export default async function LibraryBookPage({ params }) {
           )}
           <div className={styles.actions}>
             <LibrarySampleButton book={book} />
+            {book.readerAvailable && (
+              <LibraryReaderButton slug={book.slug} title={book.displayTitle} />
+            )}
             <Link href={`/library/authors/${author.slug}`} className={styles.secondaryButton}>저자 서가로 돌아가기</Link>
           </div>
         </div>
@@ -61,12 +65,19 @@ export default async function LibraryBookPage({ params }) {
             <div className={styles.bookDescription}>
               {descriptionParagraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
             </div>
-            <div className={styles.pending}>
-              <strong>플립북 전체 서비스 준비 중</strong>
-              <p>  현재는 고화질 샘플을 먼저 만나보실 수 있습니다.
-                로그인과 구매·결제 기능은 안정적인 이용을 위해 최종 점검 중이며,
-                준비가 완료되는 대로 순차적으로 제공할 예정입니다.</p>
-            </div>
+            {book.readerAvailable ? (
+              <div className={styles.pending}>
+                <strong>로그인 회원 전체 도서 열람</strong>
+                <p>저자 계정 또는 도서 이용권이 등록된 회원은 전체 도서를 열람할 수 있습니다.</p>
+              </div>
+            ) : (
+              <div className={styles.pending}>
+                <strong>플립북 전체 서비스 준비 중</strong>
+                <p>현재는 고화질 샘플을 먼저 만나보실 수 있습니다.
+                  로그인과 구매·결제 기능은 안정적인 이용을 위해 최종 점검 중이며,
+                  준비가 완료되는 대로 순차적으로 제공할 예정입니다.</p>
+              </div>
+            )}
           </div>
           <div>
             <h2>특징</h2>

@@ -18,7 +18,14 @@ const HighResolutionBookPreviewModal = dynamic(
 
 export default function BookPreviewModalRouter({ book, onClose }) {
   if (book.highResolution) {
-    return <HighResolutionBookPreviewModal book={book} onClose={onClose} />
+    return (
+      <HighResolutionBookPreviewModal
+        title={book.displayTitle || book.title}
+        pages={book.samplePages || book.pages}
+        mode="sample"
+        onClose={onClose}
+      />
+    )
   }
 
   return <LegacyBookPreviewModal book={book} onClose={onClose} />

@@ -25,7 +25,7 @@ const getSoundSettingSnapshot = () => {
   }
 }
 
-export default function LibraryFlipbookModal({ book, onClose }) {
+export default function LibraryFlipbookModal({ title, pages, mode, onClose }) {
   const mounted = useSyncExternalStore(subscribeToClientMount, () => true, () => false)
   const isSoundMuted = useSyncExternalStore(
     subscribeToSoundSetting,
@@ -42,7 +42,12 @@ export default function LibraryFlipbookModal({ book, onClose }) {
   const [currentPage, setCurrentPage] = useState(0)
   const [pendingPage, setPendingPage] = useState(null)
   const [zoom, setZoom] = useState(1)
-  const totalPages = book.samplePages.length
+  const [viewerReady, setViewerReady] = useState(false)
+  const isReaderMode = mode === 'reader'
+  const modeLabel = isReaderMode ? 'Full book reader' : 'High-resolution sample'
+  const closeLabel = isReaderMode ? '전체 도서 닫기' : '샘플 닫기'
+  const dialogTitleId = isReaderMode ? 'library-reader-title' : 'library-sample-title'
+  const totalPages = pages.length
   const displayedPageIndex = pendingPage ?? currentPage
   const currentPageNumber = totalPages > 0
     ? Math.min(displayedPageIndex + 1, totalPages)
@@ -157,19 +162,19 @@ export default function LibraryFlipbookModal({ book, onClose }) {
         className={styles.dialog}
         role="dialog"
         aria-modal="true"
-        aria-labelledby="library-sample-title"
+        aria-labelledby={dialogTitleId}
         onMouseDown={(event) => event.stopPropagation()}
       >
         <header className={styles.header}>
           <div>
-            <span>High-resolution sample</span>
-            <h2 id="library-sample-title">{book.displayTitle}</h2>
+            <span>{modeLabel}</span>
+            <h2 id={dialogTitleId}>{title}</h2>
           </div>
           <div className={styles.headerTools}>
             <button type="button" onClick={toggleFullscreen} aria-label="전체화면 전환" title="전체화면">
               <Maximize size={19} aria-hidden="true" />
             </button>
-            <button ref={closeRef} type="button" onClick={onClose} aria-label="샘플 닫기" title="닫기">
+            <button ref={closeRef} type="button" onClick={onClose} aria-label={closeLabel} title="닫기">
               <X size={21} aria-hidden="true" />
             </button>
           </div>
@@ -177,20 +182,23 @@ export default function LibraryFlipbookModal({ book, onClose }) {
 
         <LibraryFlipbookViewer
           ref={viewerRef}
-          title={book.displayTitle}
-          pages={book.samplePages}
+          title={title}
+          pages={pages}
+          mode={mode}
+          loadCenterPage={displayedPageIndex}
           zoom={zoom}
           currentPage={currentPage}
           onPageChange={handlePageChange}
+          onReadyChange={setViewerReady}
         />
 
         <footer className={styles.controls}>
           <div className={styles.paging}>
-            <button type="button" onClick={previous} disabled={currentPage === 0}>
+            <button type="button" onClick={previous} disabled={!viewerReady || currentPage === 0}>
               <ChevronLeft size={19} aria-hidden="true" /> 이전
             </button>
-            <p aria-live="polite"><strong>{currentPage + 1}</strong> / {book.samplePages.length}</p>
-            <button type="button" onClick={next} disabled={currentPage === book.samplePages.length - 1}>
+            <p aria-live="polite"><strong>{currentPageNumber}</strong> / {totalPages}</p>
+            <button type="button" onClick={next} disabled={!viewerReady || currentPage === totalPages - 1}>
               다음 <ChevronRight size={19} aria-hidden="true" />
             </button>
           </div>
@@ -226,8 +234,8 @@ export default function LibraryFlipbookModal({ book, onClose }) {
               max={Math.max(totalPages - 1, 0)}
               step="1"
               value={displayedPageIndex}
-              disabled={totalPages <= 1}
-              aria-label="읽을 페이지 선택"
+              disabled={!viewerReady || totalPages <= 1}
+              aria-label={isReaderMode ? '전체 도서에서 읽을 페이지 선택' : '샘플에서 읽을 페이지 선택'}
               aria-valuetext={`${currentPageNumber} / ${totalPages}페이지, ${Math.round(safeProgressPercent)}%`}
               style={{ '--reading-progress': `${safeProgressPercent}%` }}
               onChange={updatePendingPage}

@@ -1,39 +1,71 @@
 'use client'
 
 import HTMLFlipBook from 'react-pageflip'
-import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react'
+import { forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
 import styles from './libraryFlipbook.module.css'
 
-const LibraryPage = forwardRef(function LibraryPage({ page, index, bookTitle, onFirstPageLoad }, ref) {
+const LibraryPage = forwardRef(function LibraryPage(
+  { page, index, bookTitle, mode, shouldLoad, isPriority, onFirstPageLoad },
+  ref
+) {
+  const pageModeLabel = mode === 'reader' ? '전체본' : '샘플'
+
   return (
     <div ref={ref} className={styles.page} data-density="soft">
-      {/* 원본 PNG를 브라우저가 직접 불러오도록 next/image를 사용하지 않습니다. */}
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src={page.src}
-        width={page.width}
-        height={page.height}
-        alt={`${bookTitle} 샘플 ${index + 1}페이지`}
-        loading={index === 0 ? 'eager' : 'lazy'}
-        fetchPriority={index === 0 ? 'high' : 'auto'}
-        draggable="false"
-        onLoad={index === 0 ? onFirstPageLoad : undefined}
-      />
+      {shouldLoad ? (
+        <>
+          {/* 원본 이미지를 브라우저가 직접 불러오도록 next/image를 사용하지 않습니다. */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={page.src}
+            width={page.width}
+            height={page.height}
+            alt={`${bookTitle} ${pageModeLabel} ${index + 1}페이지`}
+            loading={isPriority ? 'eager' : 'lazy'}
+            fetchPriority={isPriority ? 'high' : 'auto'}
+            draggable="false"
+            onLoad={index === 0 ? onFirstPageLoad : undefined}
+          />
+        </>
+      ) : (
+        <div className={styles.pagePlaceholder} aria-hidden="true" />
+      )}
     </div>
   )
 })
 
 const LibraryFlipbookViewer = forwardRef(function LibraryFlipbookViewer(
-  { pages, title, zoom, currentPage, onPageChange },
+  {
+    pages,
+    title,
+    mode,
+    loadCenterPage,
+    zoom,
+    currentPage,
+    onPageChange,
+    onReadyChange,
+  },
   ref
 ) {
   const bookRef = useRef(null)
   const viewportRef = useRef(null)
   const initializedRef = useRef(false)
+  const readyRef = useRef(false)
+  const onReadyChangeRef = useRef(onReadyChange)
   const lastPageRef = useRef(currentPage)
+  const baseSizeRef = useRef({ width: 320, height: 453 })
   const [firstPageLoaded, setFirstPageLoaded] = useState(false)
   const [baseSize, setBaseSize] = useState({ width: 320, height: 453 })
   const ratio = pages[0].width / pages[0].height
+  const isReaderMode = mode === 'reader'
+  const safeLoadCenterPage = Math.min(
+    pages.length - 1,
+    Math.max(0, loadCenterPage)
+  )
+
+  useEffect(() => {
+    onReadyChangeRef.current = onReadyChange
+  }, [onReadyChange])
 
   useEffect(() => {
     const updateSize = () => {
@@ -42,7 +74,19 @@ const LibraryFlipbookViewer = forwardRef(function LibraryFlipbookViewer(
       const availableWidth = Math.max(220, viewport.clientWidth - 28)
       const availableHeight = Math.max(280, viewport.clientHeight - 28)
       const width = Math.floor(Math.min(availableWidth, availableHeight * ratio, 680))
-      setBaseSize({ width, height: Math.round(width / ratio) })
+      const nextSize = { width, height: Math.round(width / ratio) }
+      const previousSize = baseSizeRef.current
+
+      if (
+        nextSize.width === previousSize.width &&
+        nextSize.height === previousSize.height
+      ) return
+
+      baseSizeRef.current = nextSize
+      readyRef.current = false
+      initializedRef.current = false
+      onReadyChangeRef.current?.(false)
+      setBaseSize(nextSize)
     }
     updateSize()
     const observer = new ResizeObserver(updateSize)
@@ -51,6 +95,13 @@ const LibraryFlipbookViewer = forwardRef(function LibraryFlipbookViewer(
   }, [ratio])
 
   useEffect(() => {
+    if (zoom !== 1) return
+    viewportRef.current?.scrollTo({ top: 0, left: 0 })
+  }, [zoom])
+
+  useEffect(() => {
+    if (isReaderMode) return undefined
+
     const preload = () => {
       pages.slice(1).forEach((page) => {
         const image = new window.Image()
@@ -63,19 +114,34 @@ const LibraryFlipbookViewer = forwardRef(function LibraryFlipbookViewer(
       if (idleId) window.cancelIdleCallback?.(idleId)
       if (timeoutId) window.clearTimeout(timeoutId)
     }
-  }, [pages])
+  }, [isReaderMode, pages])
 
   useImperativeHandle(ref, () => ({
-    flipPrev: () => bookRef.current?.pageFlip()?.flipPrev('top'),
-    flipNext: () => bookRef.current?.pageFlip()?.flipNext('top'),
-    turnToPage: (pageIndex) => bookRef.current?.pageFlip()?.turnToPage(pageIndex),
+    flipPrev: () => {
+      if (!readyRef.current) return
+      bookRef.current?.pageFlip()?.flipPrev('top')
+    },
+    flipNext: () => {
+      if (!readyRef.current) return
+      bookRef.current?.pageFlip()?.flipNext('top')
+    },
+    turnToPage: (pageIndex) => {
+      if (!readyRef.current) return
+      bookRef.current?.pageFlip()?.turnToPage(pageIndex)
+    },
+    isReady: () => readyRef.current,
   }), [])
 
-  const width = Math.round(baseSize.width * zoom)
-  const height = Math.round(baseSize.height * zoom)
-  const handleInit = useCallback(() => {
+  const scaledWidth = Math.round(baseSize.width * zoom)
+  const scaledHeight = Math.round(baseSize.height * zoom)
+  const handleInit = useCallback((event) => {
+    const activeInstance = bookRef.current?.pageFlip?.()
+    if (!activeInstance || event?.object !== activeInstance) return
+
     lastPageRef.current = currentPage
     initializedRef.current = true
+    readyRef.current = true
+    onReadyChangeRef.current?.(true)
   }, [currentPage])
   const handleFlip = useCallback((event) => {
     const nextPage = Number(event.data)
@@ -83,55 +149,87 @@ const LibraryFlipbookViewer = forwardRef(function LibraryFlipbookViewer(
 
     const safeNextPage = Math.min(pages.length - 1, Math.max(0, nextPage))
     const didPageChange = safeNextPage !== lastPageRef.current
+    if (!didPageChange) return
+
     lastPageRef.current = safeNextPage
     onPageChange(safeNextPage, {
-      shouldPlaySound: initializedRef.current && didPageChange,
+      shouldPlaySound: initializedRef.current,
     })
   }, [onPageChange, pages.length])
+  const handleFirstPageLoad = useCallback(() => setFirstPageLoaded(true), [])
+  const pageElements = useMemo(() => pages.map((page, index) => {
+    const shouldLoad = !isReaderMode || index === 0 || (
+      index >= safeLoadCenterPage - 2 &&
+      index <= safeLoadCenterPage + 4
+    )
+
+    return (
+      <LibraryPage
+        key={`${mode}-${index}`}
+        page={page}
+        index={index}
+        bookTitle={title}
+        mode={mode}
+        shouldLoad={shouldLoad}
+        isPriority={index === 0 || index === safeLoadCenterPage}
+        onFirstPageLoad={handleFirstPageLoad}
+      />
+    )
+  }), [
+    handleFirstPageLoad,
+    isReaderMode,
+    mode,
+    pages,
+    safeLoadCenterPage,
+    title,
+  ])
 
   return (
     <div ref={viewportRef} className={`${styles.viewport} ${zoom > 1 ? styles.zoomed : ''}`}>
       {!firstPageLoaded && <div className={styles.loading} role="status">첫 페이지를 불러오는 중입니다.</div>}
-      <div className={styles.singlePageFrame} style={{ width, height }}>
-        <HTMLFlipBook
-          key={`${width}-${height}`}
-          ref={bookRef}
-          width={width}
-          height={height}
-          minWidth={width}
-          maxWidth={width}
-          minHeight={height}
-          maxHeight={height}
-          size="fixed"
-          startPage={currentPage}
-          drawShadow
-          flippingTime={zoom > 1 ? 280 : 650}
-          usePortrait
-          autoSize={false}
-          maxShadowOpacity={0.25}
-          showCover={false}
-          mobileScrollSupport
-          swipeDistance={24}
-          useMouseEvents={zoom === 1}
-          clickEventForward={false}
-          renderOnlyPageLengthChange
-          disableFlipByClick={zoom > 1}
-          className={styles.flipbook}
-          style={{}}
-          startZIndex={0}
-          onInit={handleInit}
-          onFlip={handleFlip}
-        >
-          {pages.map((page, index) => (
-            <LibraryPage
-              key={page.src}
-              page={page}
-              index={index}
-              bookTitle={title}
-              onFirstPageLoad={() => setFirstPageLoaded(true)}
-            />
-          ))}
-        </HTMLFlipBook>
+      <div className={styles.zoomStage}>
+        <div className={styles.zoomCanvas} style={{ width: scaledWidth, height: scaledHeight }}>
+          <div
+            className={styles.singlePageFrame}
+            style={{
+              width: baseSize.width,
+              height: baseSize.height,
+              transform: `scale(${zoom})`,
+            }}
+          >
+            <HTMLFlipBook
+              key={`${baseSize.width}-${baseSize.height}`}
+              ref={bookRef}
+              width={baseSize.width}
+              height={baseSize.height}
+              minWidth={baseSize.width}
+              maxWidth={baseSize.width}
+              minHeight={baseSize.height}
+              maxHeight={baseSize.height}
+              size="fixed"
+              startPage={currentPage}
+              drawShadow
+              flippingTime={650}
+              usePortrait
+              autoSize={false}
+              maxShadowOpacity={0.25}
+              showCover={false}
+              mobileScrollSupport
+              swipeDistance={24}
+              useMouseEvents
+              clickEventForward={false}
+              renderOnlyPageLengthChange={!isReaderMode}
+              disableFlipByClick={false}
+              className={styles.flipbook}
+              style={{}}
+              startZIndex={0}
+              onInit={handleInit}
+              onFlip={handleFlip}
+            >
+              {pageElements}
+            </HTMLFlipBook>
+          </div>
+        </div>
       </div>
     </div>
   )

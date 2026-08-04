@@ -12,7 +12,14 @@ export default function LibrarySampleButton({ book }) {
       <button type="button" className={styles.button} onClick={() => setOpen(true)}>
         고화질 샘플 읽기
       </button>
-      {open && <LibraryFlipbookModal book={book} onClose={() => setOpen(false)} />}
+      {open && (
+        <LibraryFlipbookModal
+          title={book.displayTitle}
+          pages={book.samplePages}
+          mode="sample"
+          onClose={() => setOpen(false)}
+        />
+      )}
     </>
   )
 }

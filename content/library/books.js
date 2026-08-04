@@ -47,6 +47,7 @@ export const libraryBooks = [
       '단행본이면서 계속 확장되는 ‘500자 소설’ 프로젝트',      
     ],
     samplePages,
+    readerAvailable: true,
     published: true,
   },
   {
