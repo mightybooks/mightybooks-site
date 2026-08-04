@@ -6,6 +6,11 @@ import styles from '../admin.module.css'
 
 const menus = [
   {
+    title: '온라인 서가 관리',
+    description: '저자 프로필, 언론 보도와 도서 정보를 관리합니다.',
+    href: '/admin/library',
+  },
+  {
     title: '블로그 관리',
     description: '블로그 글 작성 및 발행 관리',
     href: '/admin/posts',

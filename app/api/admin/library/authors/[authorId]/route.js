@@ -93,7 +93,7 @@ export async function PUT(request, { params }) {
   }
 
   const { error: saveError } = await supabaseAdmin.rpc(
-    'save_admin_library_author',
+    'save_admin_library_author_v2',
     {
       p_author_id: authorId,
       p_author: validated.value,

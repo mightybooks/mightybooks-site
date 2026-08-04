@@ -30,6 +30,13 @@ export default async function LibraryBookPage({ params }) {
   const descriptionParagraphs = Array.isArray(book.description)
     ? book.description
     : book.description.split(/\n\s*\n/)
+  const hasSamplePages = Array.isArray(book.samplePages) &&
+    book.samplePages.length > 0 &&
+    book.samplePages.every(page => (
+      page && typeof page.src === 'string' && page.src.length > 0 &&
+      Number.isFinite(page.width) && page.width > 0 &&
+      Number.isFinite(page.height) && page.height > 0
+    ))
 
   return (
     <main className={styles.page}>
@@ -69,9 +76,9 @@ export default async function LibraryBookPage({ params }) {
             ) : (
               <div className={styles.pending}>
                 <strong>플립북 전체 서비스 준비 중</strong>
-                <p>현재는 고화질 샘플을 먼저 만나보실 수 있습니다.
-                  로그인과 구매·결제 기능은 안정적인 이용을 위해 최종 점검 중이며,
-                  준비가 완료되는 대로 순차적으로 제공할 예정입니다.</p>
+                <p>{hasSamplePages
+                  ? '현재는 고화질 샘플을 먼저 만나보실 수 있습니다. 전체본은 준비가 완료되는 대로 제공할 예정입니다.'
+                  : '샘플과 전체 도서 열람 자산을 준비하고 있습니다. 준비가 완료되는 대로 순차적으로 제공할 예정입니다.'}</p>
               </div>
             )}
           </div>

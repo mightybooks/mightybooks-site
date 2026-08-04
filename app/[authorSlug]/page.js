@@ -1,5 +1,5 @@
-import { notFound } from 'next/navigation'
-import { getPublishedLibraryAuthorPage } from '@/lib/library-content'
+import { notFound, permanentRedirect } from 'next/navigation'
+import { getPublishedLibraryAuthorPage, getPublishedLibraryAuthorRedirect } from '@/lib/library-content'
 import LibraryAuthorPage from '@/app/library/components/LibraryAuthorPage'
 
 export const dynamic = 'force-dynamic'
@@ -20,7 +20,11 @@ export async function generateMetadata({ params }) {
 export default async function AuthorPage({ params }) {
   const { authorSlug } = await params
   const result = await getPublishedLibraryAuthorPage(authorSlug)
-  if (!result) notFound()
+  if (!result) {
+    const currentSlug = await getPublishedLibraryAuthorRedirect(authorSlug)
+    if (currentSlug) permanentRedirect(`/${currentSlug}`)
+    notFound()
+  }
 
   return <LibraryAuthorPage author={result.author} books={result.books} />
 }

@@ -221,6 +221,27 @@
   background: var(--library-red);
   font-weight: 800;
   text-decoration: none;
+  border: 1px solid var(--library-red);
+  cursor: pointer;
+  box-shadow: 0 4px 11px rgba(92, 31, 26, .16);
+  transition: background .2s, border-color .2s, box-shadow .2s, transform .2s;
+}
+
+.button:hover:not(:disabled) {
+  background: #74251f;
+  border-color: #74251f;
+  box-shadow: 0 7px 16px rgba(92, 31, 26, .24);
+  transform: translateY(-2px);
+}
+
+.button:active:not(:disabled) {
+  box-shadow: 0 2px 6px rgba(92, 31, 26, .18);
+  transform: translateY(1px);
+}
+
+.button:focus-visible {
+  outline: 3px solid rgba(143, 48, 40, .34);
+  outline-offset: 3px;
 }
 
 .authorLibrary {
@@ -258,6 +279,17 @@
 
 .penName { margin-top: 5px; color: #6b6259; font-size: 14px; }
 .role { margin-top: 10px; color: var(--library-red); font-weight: 800; }
+
+.socialLinks { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.socialLinks a {
+  display: inline-flex; width: 34px; height: 34px; align-items: center; justify-content: center;
+  color: #50463e; font-size: 11px; font-weight: 800; text-decoration: none;
+  border: 1px solid rgba(32, 27, 22, .24); border-radius: 50%; cursor: pointer;
+  transition: color .2s, background .2s, border-color .2s, transform .2s;
+}
+.socialLinks a:hover { color: #fff; background: var(--library-red); border-color: var(--library-red); transform: translateY(-1px); }
+.socialLinks a:focus-visible { color: #fff; outline: 2px solid var(--library-red); outline-offset: 3px; background: var(--library-red); border-color: var(--library-red); }
+.socialLinks svg { display: block; flex: 0 0 auto; }
 
 .profileBlock {
   margin-top: 28px;
@@ -309,6 +341,34 @@
   font-size: 14px;
   font-weight: 800;
 }
+
+.externalLinks { display: grid; gap: 10px; margin-top: 28px; }
+.externalLinkCard {
+  display: flex; align-items: center; justify-content: space-between; gap: 20px; min-height: 72px;
+  padding: 15px 18px; color: inherit; text-decoration: none; border: 1px solid rgba(75, 58, 45, .2);
+  border-radius: 8px; background: linear-gradient(145deg, rgba(255, 255, 255, .62), rgba(245, 238, 228, .68));
+  box-shadow: 0 5px 14px rgba(55, 42, 32, .07); cursor: pointer;
+  transition: border-color .2s, box-shadow .2s, transform .2s, background .2s;
+}
+.externalLinkCard:hover { border-color: rgba(143, 48, 40, .55); background: linear-gradient(145deg, #fff, #f2e9dd); box-shadow: 0 8px 18px rgba(55, 42, 32, .11); transform: translateY(-2px); }
+.externalLinkCard:focus-visible { outline: 2px solid var(--library-red); outline-offset: 3px; border-color: var(--library-red); box-shadow: 0 8px 18px rgba(55, 42, 32, .11); }
+.externalLinkCard span { display: grid; gap: 4px; }
+.externalLinkCard strong { font-size: 14px; }
+.externalLinkCard small { color: #766b61; line-height: 1.5; }
+.externalLinkCard b { color: var(--library-red); }
+.authorBackRow { width: min(1320px, calc(100% - 64px)); margin: -72px auto 0; padding-bottom: 80px; }
+
+.pressPage { width: min(900px, calc(100% - 48px)); margin: 0 auto; padding: 150px 0 100px; }
+.pressHeader { padding-bottom: 28px; border-bottom: 1px solid rgba(32, 27, 22, .18); }
+.pressHeader h1 { margin-top: 10px; font-size: clamp(38px, 6vw, 64px); letter-spacing: -.05em; }
+.pressHeader p:last-child { margin-top: 12px; color: #70675e; }
+.pressList { display: grid; gap: 0; }
+.pressItem { padding: 30px 0; border-bottom: 1px solid rgba(32, 27, 22, .14); }
+.pressMeta { color: var(--library-red); font-size: 12px; font-weight: 800; }
+.pressItem h2 { margin-top: 8px; font-size: clamp(20px, 3vw, 28px); }
+.pressItem > p { margin-top: 12px; color: #665d54; line-height: 1.8; }
+.pressSource { display: inline-flex; margin-top: 16px; color: var(--library-red); font-weight: 800; }
+.pressEmpty { margin: 34px 0; padding: 36px; color: #70675e; text-align: center; background: rgba(255,255,255,.38); }
 
 .shelfArea {
   min-width: 0;
@@ -363,8 +423,10 @@
 }
 
 .button:disabled {
-  cursor: wait;
-  opacity: .65;
+  cursor: not-allowed;
+  opacity: .48;
+  box-shadow: none;
+  transform: none;
 }
 
 .readerError {
@@ -473,6 +535,7 @@
 
   .bookHero .bookCover { width: min(74%, 330px); margin: 0 auto; }
   .detailGrid { grid-template-columns: 1fr; gap: 50px; }
+  .authorBackRow { width: min(100% - 32px, 1180px); margin-top: -54px; padding-bottom: 60px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

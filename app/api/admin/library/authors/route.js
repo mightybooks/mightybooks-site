@@ -39,7 +39,7 @@ export async function GET(request) {
   let authorQuery = supabaseAdmin
     .from('authors')
     .select(
-      'id,slug,display_name,status,pen_name,occupation,profile_image_path,short_bio,display_order,created_at,updated_at'
+      'id,slug,display_name,status,pen_name,occupation,profile_image_path,short_bio,display_order,press_enabled,created_at,updated_at'
     )
     .order('display_order', { ascending: true })
     .order('slug', { ascending: true })
@@ -157,7 +157,7 @@ export async function POST(request) {
   }
 
   const { data: authorId, error: saveError } =
-    await supabaseAdmin.rpc('save_admin_library_author', {
+    await supabaseAdmin.rpc('save_admin_library_author_v2', {
       p_author_id: null,
       p_author: validated.value,
     })
