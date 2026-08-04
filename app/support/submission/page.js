@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import styles from './submission.module.css'
 
 export const metadata = {
@@ -49,21 +50,21 @@ export default function SubmissionPage() {
 
         <div className={styles.emailBox}>
           <div className={styles.emailLabel}>현재 상황에 맞는 상담 경로</div>
-          <a href="/support/paid-consultation" className={styles.emailAddr}>
+          <Link href="/support/paid-consultation" className={styles.emailAddr}>
             기획출간 유료상담 보기 →
-          </a>
+          </Link>
           <p className={styles.emailNote}>
             원고 상태, 출간 방식, 제작비 구조를 점검해야 할 때 이용합니다.
           </p>
-          <a href="/business/autobiography" className={styles.emailAddr}>
+          <Link href="/business/autobiography" className={styles.emailAddr}>
             자서전·기념 도서 제작 →
-          </a>
+          </Link>
           <p className={styles.emailNote}>
             부모님 자서전, 회고록, 퇴임기념집, 가족에게 남기는 책을 만들고 싶을 때 이용합니다.
           </p>
-          <a href="/business/poetry" className={styles.emailAddr}>
+          <Link href="/business/poetry" className={styles.emailAddr}>
             시집·문집 제작 →
-          </a>
+          </Link>
           <p className={styles.emailNote}>
             개인 시집, 동호회 문집, 가족 문집, 추모 문집을 만들고 싶을 때 이용합니다.
           </p>

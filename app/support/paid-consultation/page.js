@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import styles from '../diagnosis/diagnosis.module.css'
 
 export const metadata = {
@@ -151,12 +152,12 @@ export default function PaidConsultationPage() {
             >
               기획출간 유료상담 신청하기 →
             </a>
-            <a href="/support/diagnosis" className={styles.ctaBtnGhost}>
+            <Link href="/support/diagnosis" className={styles.ctaBtnGhost}>
               상담 경로 다시 선택하기 →
-            </a>
-            <a href="/support/faq" className={styles.ctaBtnGhost}>
+            </Link>
+            <Link href="/support/faq" className={styles.ctaBtnGhost}>
               자주 묻는 질문 보기 →
-            </a>
+            </Link>
           </div>
         </div>
       </section>

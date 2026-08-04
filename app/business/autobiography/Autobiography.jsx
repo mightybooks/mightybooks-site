@@ -598,7 +598,7 @@ export default function AutobiographyPage() {
         <div className={styles.guideGrid}>
           {guideNotes.map(note => <p key={note}>{note}</p>)}
         </div>
-        <a className={styles.textLink} href="/support/faq">더 자세한 공통 질문 보기</a>
+        <Link className={styles.textLink} href="/support/faq">더 자세한 공통 질문 보기</Link>
         <div className={styles.guideGrid}>
           {[
             ['자서전 제작 업체 선택 기준', '/reference/autobiography-gyeongsang', '지역과 제작 방식, 인터뷰·대필 범위를 기준으로 자서전 제작 업체를 비교하는 방법을 확인할 수 있습니다.', '자서전 제작 기준 확인하기'],

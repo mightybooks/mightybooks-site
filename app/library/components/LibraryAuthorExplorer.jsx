@@ -12,7 +12,7 @@ function AuthorCard({ author }) {
 
   return (
     <Link
-      href={`/library/authors/${author.slug}`}
+      href={`/${author.slug}`}
       className={styles.authorCard}
       aria-label={`${authorLabel} 저자 서가 보기`}
     >

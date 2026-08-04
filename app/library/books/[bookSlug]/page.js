@@ -49,7 +49,7 @@ export default async function LibraryBookPage({ params }) {
             {book.readerAvailable && (
               <LibraryReaderButton slug={book.slug} title={book.displayTitle} />
             )}
-            <Link href={`/library/authors/${author.slug}`} className={styles.secondaryButton}>저자 서가로 돌아가기</Link>
+            <Link href={`/${author.slug}`} className={styles.secondaryButton}>저자 서가로 돌아가기</Link>
           </div>
         </div>
       </section>

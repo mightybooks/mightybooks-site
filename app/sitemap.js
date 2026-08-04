@@ -1,4 +1,8 @@
-const baseUrl = 'https://xn--hz2b41ezwf0zf9tq.com'
+import { getPublishedLibrarySitemapEntries } from '@/lib/library-content'
+
+export const dynamic = 'force-dynamic'
+
+const baseUrl = 'https://mightybooks.kr'
 
 const routes = [
   ['/', 1],
@@ -37,12 +41,37 @@ const routes = [
   ['/tools/memoir-schedule', 0.68],
   ['/tools/book-page-calculator', 0.68],
   ['/partner', 0.62],
+  ['/library', 0.7],
 ]
 
-export default function sitemap() {
-  return routes.map(([path, priority]) => ({
+export default async function sitemap() {
+  const staticEntries = routes.map(([path, priority]) => ({
     url: `${baseUrl}${path}`,
     changeFrequency: path.startsWith('/reference') ? 'monthly' : 'weekly',
     priority,
   }))
+
+  let libraryEntries
+
+  try {
+    libraryEntries = await getPublishedLibrarySitemapEntries()
+  } catch {
+    return staticEntries
+  }
+
+  return [
+    ...staticEntries,
+    ...libraryEntries.authors.map((author) => ({
+      url: `${baseUrl}/${author.slug}`,
+      lastModified: author.updatedAt,
+      changeFrequency: 'weekly',
+      priority: 0.68,
+    })),
+    ...libraryEntries.books.map((book) => ({
+      url: `${baseUrl}/library/books/${book.slug}`,
+      lastModified: book.updatedAt,
+      changeFrequency: 'weekly',
+      priority: 0.64,
+    })),
+  ]
 }

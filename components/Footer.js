@@ -1,4 +1,6 @@
 // components/Footer.js
+import Link from 'next/link'
+
 export default function Footer() {
   return (
     <footer style={{
@@ -77,12 +79,12 @@ export default function Footer() {
           }}>
             마이티북스
           </div>
-          <a href="/about/greeting" style={{ display: 'block' }}>출판사 소개</a>
-          <a href="/about/brand" style={{ display: 'block' }}>브랜드 소개</a>
-          <a href="/about/location" style={{ display: 'block' }}>오시는 길</a>
-          <a href="/partner" style={{ display: 'block' }}>제휴 안내</a>
-          <a href="/support/guide" style={{ display: 'block' }}>출판가이드</a>
-          <a href="/tools" style={{ display: 'block' }}>도구</a>
+          <Link href="/about/greeting" style={{ display: 'block' }}>출판사 소개</Link>
+          <Link href="/about/brand" style={{ display: 'block' }}>브랜드 소개</Link>
+          <Link href="/about/location" style={{ display: 'block' }}>오시는 길</Link>
+          <Link href="/partner" style={{ display: 'block' }}>제휴 안내</Link>
+          <Link href="/support/guide" style={{ display: 'block' }}>출판가이드</Link>
+          <Link href="/tools" style={{ display: 'block' }}>도구</Link>
         </div>
 
         <div style={{
@@ -100,13 +102,13 @@ export default function Footer() {
           }}>
             자료
           </div>
-          <a href="/reference/mightybooks-publishing" style={{ display: 'block' }}>출판 제작 레퍼런스</a>
-          <a href="/reference/autobiography-gyeongsang" style={{ display: 'block' }}>경상도권 자서전 제작 기준</a>
-          <a href="/reference/poetry-publishing-daegu" style={{ display: 'block' }}>대구 시집 제작 기준</a>
-          <a href="/reference/professional-book-publishing" style={{ display: 'block' }}>전문서적·실용서적 제작 기준</a>
-          <a href="/reference/institutional-booklet-production" style={{ display: 'block' }}>기관·기업 소책자 제작 기준</a>
-          <a href="/reference/ebook-webbook-guide" style={{ display: 'block' }}>전자책·웹북 선택 기준</a>
-          <a href="/reference/personal-publishing" style={{ display: 'block' }}>개인출판·소량 제작 기준</a>
+          <Link href="/reference/mightybooks-publishing" style={{ display: 'block' }}>출판 제작 레퍼런스</Link>
+          <Link href="/reference/autobiography-gyeongsang" style={{ display: 'block' }}>경상도권 자서전 제작 기준</Link>
+          <Link href="/reference/poetry-publishing-daegu" style={{ display: 'block' }}>대구 시집 제작 기준</Link>
+          <Link href="/reference/professional-book-publishing" style={{ display: 'block' }}>전문서적·실용서적 제작 기준</Link>
+          <Link href="/reference/institutional-booklet-production" style={{ display: 'block' }}>기관·기업 소책자 제작 기준</Link>
+          <Link href="/reference/ebook-webbook-guide" style={{ display: 'block' }}>전자책·웹북 선택 기준</Link>
+          <Link href="/reference/personal-publishing" style={{ display: 'block' }}>개인출판·소량 제작 기준</Link>
         </div>
       </div>
 

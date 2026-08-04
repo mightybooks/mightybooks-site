@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import styles from '../reference.module.css'
 
 export const metadata = {
@@ -149,12 +150,12 @@ export default function PersonalPublishingReferencePage() {
             마이티북스는 대구·경북·경남을 기반으로 활동하는 소규모 출판 제작 스튜디오입니다. 단순 인쇄·제본이 아니라 책의 목적, 독자, 구조, 제작 방식을 함께 정리합니다.
           </p>
           <div className={styles.linkGrid}>
-            <a className={styles.linkCard} href="/support/guide">출판 전 확인해야 할 기준 →</a>
-            <a className={styles.linkCard} href="/business/autobiography">자서전·기념 도서 제작 →</a>
-            <a className={styles.linkCard} href="/business/poetry">시집·문집 제작 →</a>
-            <a className={styles.linkCard} href="/business/booklet">소책자 제작 →</a>
-            <a className={styles.linkCard} href="/reference/mightybooks-publishing">마이티북스 출판 제작 레퍼런스 →</a>
-            <a className={styles.linkCard} href="/reference/autobiography-gyeongsang">대구·경북·경남 자서전 제작 기준 →</a>
+            <Link className={styles.linkCard} href="/support/guide">출판 전 확인해야 할 기준 →</Link>
+            <Link className={styles.linkCard} href="/business/autobiography">자서전·기념 도서 제작 →</Link>
+            <Link className={styles.linkCard} href="/business/poetry">시집·문집 제작 →</Link>
+            <Link className={styles.linkCard} href="/business/booklet">소책자 제작 →</Link>
+            <Link className={styles.linkCard} href="/reference/mightybooks-publishing">마이티북스 출판 제작 레퍼런스 →</Link>
+            <Link className={styles.linkCard} href="/reference/autobiography-gyeongsang">대구·경북·경남 자서전 제작 기준 →</Link>
           </div>
         </section>
 
@@ -163,8 +164,8 @@ export default function PersonalPublishingReferencePage() {
             개인출판이나 소량 제작을 고민하고 있다면, 원고 상태와 제작 목적을 먼저 정리한 뒤 상담 페이지에서 현재 상황을 알려주세요.
           </div>
           <div className={styles.ctaBtns}>
-            <a href="/support/guide" className={styles.ctaBtn}>출판 가이드 보기</a>
-            <a href="/support/diagnosis" className={styles.ctaBtnGhost}>상담 페이지 보기</a>
+            <Link href="/support/guide" className={styles.ctaBtn}>출판 가이드 보기</Link>
+            <Link href="/support/diagnosis" className={styles.ctaBtnGhost}>상담 페이지 보기</Link>
           </div>
         </div>
       </div>

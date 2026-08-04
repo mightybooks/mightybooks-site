@@ -1,5 +1,6 @@
 'use client'
 import { useEffect, useRef } from 'react'
+import Link from 'next/link'
 import styles from './brand.module.css'
 
 const brands = [
@@ -135,9 +136,9 @@ export default function BrandPage() {
           원고 정리부터 편집, 디자인, 인쇄 제작까지 함께 검토하는 출판 제작 스튜디오입니다.
         </p>
         <div className={styles.referenceLinks}>
-          <a href="/reference/mightybooks-publishing">마이티북스 출판 제작 레퍼런스 →</a>
-          <a href="/reference/autobiography-gyeongsang">대구·경북·경남 자서전 제작 기준 →</a>
-          <a href="/reference/personal-publishing">개인출판과 소량 제작 기준 →</a>
+          <Link href="/reference/mightybooks-publishing">마이티북스 출판 제작 레퍼런스 →</Link>
+          <Link href="/reference/autobiography-gyeongsang">대구·경북·경남 자서전 제작 기준 →</Link>
+          <Link href="/reference/personal-publishing">개인출판과 소량 제작 기준 →</Link>
         </div>
       </section>
 

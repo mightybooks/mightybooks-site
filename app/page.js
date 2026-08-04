@@ -127,7 +127,7 @@ export default function Home() {
         </div>
         <div className={styles.contactRight}>
           {[
-            ['상담 안내', <a key="diagnosis-contact" href="/support/diagnosis">출판상담 페이지 보기 →</a>],
+            ['상담 안내', <Link key="diagnosis-contact" href="/support/diagnosis">출판상담 페이지 보기 →</Link>],
             ['상담 방식', '대구 본사 방문상담 / 전국 비대면 상담'],
             ['상담시간', '월-금 09:00-17:00 / 주말, 공휴일 휴무'],
             ['연락처', <ContactPhoneButton key="phone-contact" styles={styles} />],

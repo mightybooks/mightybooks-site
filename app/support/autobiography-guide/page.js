@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import styles from '../guide/guide.module.css'
 
 export const metadata = {
@@ -112,10 +113,10 @@ export default function AutobiographyGuidePage() {
         <div className={styles.cta}>
           <div className={styles.ctaText}>관련 서비스와 상담 페이지</div>
           <div className={styles.ctaBtns}>
-            <a href="/business/autobiography" className={styles.ctaBtn}>자서전·기념 도서 제작 →</a>
-            <a href="/support/diagnosis" className={styles.ctaBtnGhost}>출판상담 →</a>
-            <a href="/about/location" className={styles.ctaBtnGhost}>오시는 길 →</a>
-            <a href="/support/faq" className={styles.ctaBtnGhost}>FAQ →</a>
+            <Link href="/business/autobiography" className={styles.ctaBtn}>자서전·기념 도서 제작 →</Link>
+            <Link href="/support/diagnosis" className={styles.ctaBtnGhost}>출판상담 →</Link>
+            <Link href="/about/location" className={styles.ctaBtnGhost}>오시는 길 →</Link>
+            <Link href="/support/faq" className={styles.ctaBtnGhost}>FAQ →</Link>
           </div>
         </div>
       </div>

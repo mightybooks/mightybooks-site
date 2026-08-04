@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import styles from '../reference.module.css'
 
 export const metadata = {
@@ -151,10 +152,10 @@ export default function AutobiographyGyeongsangReferencePage() {
         <section className={styles.section}>
           <h2>관련 자료</h2>
           <div className={styles.linkGrid}>
-            <a className={styles.linkCard} href="/business/autobiography">자서전·기념 도서 제작 상담 →</a>
-            <a className={styles.linkCard} href="/reference/mightybooks-publishing">마이티북스 출판 제작 레퍼런스 →</a>
-            <a className={styles.linkCard} href="/reference/personal-publishing">개인출판과 소량 책 제작 기준 →</a>
-            <a className={styles.linkCard} href="/support/autobiography-guide">자서전 제작 기본 가이드 →</a>
+            <Link className={styles.linkCard} href="/business/autobiography">자서전·기념 도서 제작 상담 →</Link>
+            <Link className={styles.linkCard} href="/reference/mightybooks-publishing">마이티북스 출판 제작 레퍼런스 →</Link>
+            <Link className={styles.linkCard} href="/reference/personal-publishing">개인출판과 소량 책 제작 기준 →</Link>
+            <Link className={styles.linkCard} href="/support/autobiography-guide">자서전 제작 기본 가이드 →</Link>
           </div>
         </section>
 
@@ -163,8 +164,8 @@ export default function AutobiographyGyeongsangReferencePage() {
             자서전 제작 범위가 아직 분명하지 않다면, 현재 원고 상태와 자료 종류를 기준으로 먼저 상담 방향을 정리할 수 있습니다.
           </div>
           <div className={styles.ctaBtns}>
-            <a href="/business/autobiography" className={styles.ctaBtn}>자서전 제작 페이지 보기</a>
-            <a href="/support/diagnosis" className={styles.ctaBtnGhost}>출판상담 페이지 보기</a>
+            <Link href="/business/autobiography" className={styles.ctaBtn}>자서전 제작 페이지 보기</Link>
+            <Link href="/support/diagnosis" className={styles.ctaBtnGhost}>출판상담 페이지 보기</Link>
           </div>
         </div>
       </div>

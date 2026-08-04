@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import styles from '../reference.module.css'
 
 export const metadata = {
@@ -170,8 +171,8 @@ export default function MightybooksPublishingReferencePage() {
             책의 목적과 원고 상태가 정리되지 않았다면 먼저 출판 가이드와 상담 페이지를 확인해 주세요.
           </div>
           <div className={styles.ctaBtns}>
-            <a href="/support/guide" className={styles.ctaBtn}>출판 가이드 보기</a>
-            <a href="/support/diagnosis" className={styles.ctaBtnGhost}>상담 페이지 보기</a>
+            <Link href="/support/guide" className={styles.ctaBtn}>출판 가이드 보기</Link>
+            <Link href="/support/diagnosis" className={styles.ctaBtnGhost}>상담 페이지 보기</Link>
           </div>
         </div>
       </div>

@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import styles from './guide.module.css'
 
 export const metadata = {
@@ -320,9 +321,9 @@ export default function GuidePage() {
             출판 진행 가능 여부를 먼저 확인하고 싶으신가요?
           </div>
           <div className={styles.ctaBtns}>
-            <a href="/support/faq" className={styles.ctaBtn}>
+            <Link href="/support/faq" className={styles.ctaBtn}>
               자주 묻는 질문 보기 →
-            </a>
+            </Link>
             <a href="mailto:novelstudylab@naver.com" className={styles.ctaBtnGhost}>
               사전 문의하기 →
             </a>
@@ -352,15 +353,15 @@ export default function GuidePage() {
         </div>
 
         <div className={styles.bottomNav}>
-          <a href="/portfolio/books" className={styles.backLink}>
+          <Link href="/portfolio/books" className={styles.backLink}>
             ← 포트폴리오 보기
-          </a>
+          </Link>
         </div>
 
         <div className={styles.bottomNav}>
-          <a href="/business/self-publishing" className={styles.backLink}>
+          <Link href="/business/self-publishing" className={styles.backLink}>
             ← 전문서적·실용서·교재 제작 안내
-          </a>
+          </Link>
         </div>
 
       </div>

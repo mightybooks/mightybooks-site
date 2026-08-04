@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import styles from './diagnosis.module.css'
 import ServiceContactCta from '../../business/components/ServiceContactCta'
 
@@ -153,9 +154,9 @@ export default function DiagnosisPage() {
           </p>
           <div className={styles.ctaBtns}>
             <ServiceContactCta styles={styles} />
-            <a href="/support/faq" className={styles.ctaBtnGhost}>
+            <Link href="/support/faq" className={styles.ctaBtnGhost}>
               자주 묻는 질문 보기 →
-            </a>
+            </Link>
           </div>
         </div>
       </section>
