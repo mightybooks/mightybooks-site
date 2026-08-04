@@ -135,6 +135,39 @@
   max-width: 560px;
 }
 
+.accountShell {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.pageHeader {
+  margin-bottom: 34px;
+}
+
+.pageIntro {
+  max-width: 680px;
+  color: rgba(255, 255, 255, .58);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.accountPanel,
+.librarySection {
+  border: 1px solid rgba(255, 255, 255, .08);
+  background: var(--black2);
+}
+
+.accountPanel {
+  padding: 36px 40px 40px;
+}
+
+.sectionTitle {
+  margin: 0;
+  font-size: 22px;
+  line-height: 1.35;
+}
+
 .details {
   margin: 30px 0;
   border-top: 1px solid rgba(255, 255, 255, .08);
@@ -203,6 +236,180 @@
   margin-top: 0;
 }
 
+.librarySection {
+  margin-top: 28px;
+  padding: 36px 40px 40px;
+}
+
+.sectionHeader {
+  margin-bottom: 26px;
+}
+
+.sectionHeader p {
+  margin-top: 8px;
+  color: rgba(255, 255, 255, .5);
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.libraryGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.bookCard {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(255, 255, 255, .09);
+  background: var(--black3);
+}
+
+.coverFrame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3180 / 4500;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(255, 255, 255, .08);
+  background:
+    radial-gradient(circle at 50% 35%, rgba(232, 0, 30, .08), transparent 42%),
+    #111;
+}
+
+.bookCover {
+  padding: 18px;
+  object-fit: contain;
+}
+
+.coverPlaceholder {
+  position: absolute;
+  inset: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, .1);
+  color: rgba(255, 255, 255, .38);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .08em;
+}
+
+.bookCardBody {
+  min-width: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 22px;
+}
+
+.bookLabels {
+  min-height: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-bottom: 14px;
+}
+
+.accessBadge,
+.archivedLabel {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 4px 8px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .04em;
+}
+
+.accessBadge {
+  background: rgba(232, 0, 30, .14);
+  color: #ff8594;
+}
+
+.archivedLabel {
+  border: 1px solid rgba(255, 255, 255, .12);
+  color: rgba(255, 255, 255, .5);
+}
+
+.bookCardBody h3 {
+  margin: 0;
+  overflow-wrap: anywhere;
+  font-size: 18px;
+  line-height: 1.45;
+}
+
+.bookAuthor {
+  margin-top: 8px;
+  color: rgba(255, 255, 255, .58);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.bookDescription {
+  margin-top: 16px;
+  display: -webkit-box;
+  overflow: hidden;
+  color: rgba(255, 255, 255, .54);
+  font-size: 12px;
+  line-height: 1.7;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+}
+
+.bookAction {
+  width: 100%;
+  min-height: 44px;
+  margin-top: auto;
+  padding: 11px 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--red);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 800;
+  transition: background .2s ease;
+}
+
+.bookDescription + .bookAction,
+.bookAuthor + .bookAction {
+  margin-top: 22px;
+}
+
+.bookAction:hover {
+  background: var(--red-dark);
+}
+
+.emptyLibrary {
+  padding: 44px 28px;
+  border: 1px dashed rgba(255, 255, 255, .14);
+  text-align: center;
+}
+
+.emptyLibrary p {
+  color: rgba(255, 255, 255, .55);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.emptyLibrary p:first-child {
+  color: #fff;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.emptyLibrary .bookAction {
+  width: auto;
+  margin-top: 24px;
+}
+
+@media (max-width: 900px) {
+  .libraryGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 @media (max-width: 600px) {
   .authPage,
   .accountPage {
@@ -214,13 +421,29 @@
     padding: 30px 22px;
   }
 
+  .accountPanel,
+  .librarySection {
+    padding: 28px 22px;
+  }
+
   .title {
     font-size: 24px;
+  }
+
+  .sectionTitle {
+    font-size: 20px;
   }
 
   .detailRow {
     grid-template-columns: 1fr;
     gap: 7px;
+  }
+
+  .libraryGrid {
+    width: 100%;
+    max-width: 340px;
+    margin-inline: auto;
+    grid-template-columns: 1fr;
   }
 }
 
