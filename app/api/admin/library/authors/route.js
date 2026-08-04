@@ -6,17 +6,16 @@ import {
   getAdminLibraryAuthor,
   jsonResponse,
   logDatabaseError,
+  parseAdminListParams,
   readJsonObject,
+  sanitizePostgrestSearch,
   validateAuthorPayload,
 } from '@/lib/admin-library-api'
 import { requireAdmin } from '@/lib/server-auth'
 import { supabaseAdmin } from '@/lib/supabase-admin'
+import { invalidateLibraryAuthorCache } from '@/lib/library-cache'
 
 export const dynamic = 'force-dynamic'
-
-function incrementCount(counts, authorId) {
-  counts.set(authorId, (counts.get(authorId) ?? 0) + 1)
-}
 
 export async function GET(request) {
   const authorization = await requireAdmin(request)
@@ -24,31 +23,32 @@ export async function GET(request) {
 
   if (authorizationError) return authorizationError
 
-  const searchParams = new URL(request.url).searchParams
-  const status = searchParams.get('status') ?? 'all'
-  const searchTerm = (searchParams.get('q') ?? '').trim().toLowerCase()
-
-  if (status !== 'all' && !AUTHOR_STATUSES.includes(status)) {
-    return errorResponse(
-      'INVALID_STATUS',
-      '올바른 저자 상태를 선택해 주세요.',
-      400
-    )
-  }
+  const parsed = parseAdminListParams(request, AUTHOR_STATUSES)
+  if (parsed.error) return errorResponse(parsed.error.code, parsed.error.message, 400)
+  const { status, q, page, pageSize, from, to } = parsed.value
 
   let authorQuery = supabaseAdmin
     .from('authors')
     .select(
-      'id,slug,display_name,status,pen_name,occupation,profile_image_path,short_bio,display_order,press_enabled,created_at,updated_at'
+      'id,slug,display_name,status,occupation,updated_at',
+      { count: 'exact' }
     )
     .order('display_order', { ascending: true })
     .order('slug', { ascending: true })
+    .range(from, to)
 
   if (status !== 'all') {
     authorQuery = authorQuery.eq('status', status)
   }
 
-  const { data: authorRows, error: authorError } = await authorQuery
+  const searchTerm = sanitizePostgrestSearch(q)
+  if (searchTerm) {
+    authorQuery = authorQuery.or(
+      `display_name.ilike.%${searchTerm}%,slug.ilike.%${searchTerm}%,occupation.ilike.%${searchTerm}%`
+    )
+  }
+
+  const { data: authors, error: authorError, count } = await authorQuery
 
   if (authorError) {
     logDatabaseError(
@@ -63,76 +63,13 @@ export async function GET(request) {
     )
   }
 
-  const authors = (authorRows ?? []).filter(author => {
-    if (!searchTerm) return true
-
-    return [author.display_name, author.pen_name, author.slug].some(
-      value =>
-        typeof value === 'string' &&
-        value.toLowerCase().includes(searchTerm)
-    )
-  })
-
-  if (authors.length === 0) {
-    return jsonResponse({ authors: [] })
-  }
-
-  const authorIds = authors.map(author => author.id)
-  const [bookLinksResult, membershipsResult, sectionsResult] =
-    await Promise.all([
-      supabaseAdmin
-        .from('book_authors')
-        .select('author_id')
-        .in('author_id', authorIds),
-      supabaseAdmin
-        .from('author_memberships')
-        .select('author_id')
-        .in('author_id', authorIds),
-      supabaseAdmin
-        .from('author_career_sections')
-        .select('author_id')
-        .in('author_id', authorIds),
-    ])
-
-  const countError =
-    bookLinksResult.error ||
-    membershipsResult.error ||
-    sectionsResult.error
-
-  if (countError) {
-    logDatabaseError(
-      '[Admin library authors GET] Author counts lookup failed',
-      countError
-    )
-
-    return errorResponse(
-      'AUTHOR_LIST_FETCH_FAILED',
-      '저자 목록을 불러오지 못했습니다.',
-      500
-    )
-  }
-
-  const bookCounts = new Map()
-  const membershipCounts = new Map()
-  const sectionCounts = new Map()
-
-  for (const row of bookLinksResult.data ?? []) {
-    incrementCount(bookCounts, row.author_id)
-  }
-  for (const row of membershipsResult.data ?? []) {
-    incrementCount(membershipCounts, row.author_id)
-  }
-  for (const row of sectionsResult.data ?? []) {
-    incrementCount(sectionCounts, row.author_id)
-  }
-
+  const total = count ?? 0
   return jsonResponse({
-    authors: authors.map(author => ({
-      ...author,
-      book_count: bookCounts.get(author.id) ?? 0,
-      membership_count: membershipCounts.get(author.id) ?? 0,
-      career_section_count: sectionCounts.get(author.id) ?? 0,
-    })),
+    authors: authors ?? [],
+    page,
+    pageSize,
+    total,
+    totalPages: Math.max(1, Math.ceil(total / pageSize)),
   })
 }
 
@@ -180,6 +117,11 @@ export async function POST(request) {
       500
     )
   }
+
+  invalidateLibraryAuthorCache({
+    newSlug: result.author.slug,
+    bookSlugs: result.author.linked_books.map(book => book.slug),
+  })
 
   return jsonResponse({ author: result.author }, { status: 201 })
 }

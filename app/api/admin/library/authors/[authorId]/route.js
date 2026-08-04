@@ -12,6 +12,7 @@ import {
 } from '@/lib/admin-library-api'
 import { requireAdmin } from '@/lib/server-auth'
 import { supabaseAdmin } from '@/lib/supabase-admin'
+import { invalidateLibraryAuthorCache } from '@/lib/library-cache'
 
 export const dynamic = 'force-dynamic'
 
@@ -92,6 +93,17 @@ export async function PUT(request, { params }) {
     )
   }
 
+  const { data: previousAuthor, error: previousAuthorError } = await supabaseAdmin
+    .from('authors')
+    .select('slug')
+    .eq('id', authorId)
+    .maybeSingle()
+
+  if (previousAuthorError) {
+    logDatabaseError('[Admin library author PUT] Previous slug lookup failed', previousAuthorError)
+    return errorResponse('AUTHOR_FETCH_FAILED', '저자 정보를 불러오지 못했습니다.', 500)
+  }
+
   const { error: saveError } = await supabaseAdmin.rpc(
     'save_admin_library_author_v2',
     {
@@ -119,6 +131,12 @@ export async function PUT(request, { params }) {
     )
   }
 
+  invalidateLibraryAuthorCache({
+    oldSlug: previousAuthor?.slug,
+    newSlug: result.author.slug,
+    bookSlugs: result.author.linked_books.map(book => book.slug),
+  })
+
   return jsonResponse({ author: result.author })
 }
 
@@ -136,6 +154,17 @@ export async function DELETE(request, { params }) {
       '올바른 저자 ID가 필요합니다.',
       400
     )
+  }
+
+  const { data: previousAuthor, error: previousAuthorError } = await supabaseAdmin
+    .from('authors')
+    .select('slug')
+    .eq('id', authorId)
+    .maybeSingle()
+
+  if (previousAuthorError) {
+    logDatabaseError('[Admin library author DELETE] Previous slug lookup failed', previousAuthorError)
+    return errorResponse('AUTHOR_FETCH_FAILED', '저자 정보를 불러오지 못했습니다.', 500)
   }
 
   const { data, error } = await supabaseAdmin.rpc(
@@ -172,6 +201,8 @@ export async function DELETE(request, { params }) {
       500
     )
   }
+
+  invalidateLibraryAuthorCache({ oldSlug: previousAuthor?.slug })
 
   return jsonResponse({ deleted: true, id: authorId })
 }

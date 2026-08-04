@@ -9,7 +9,7 @@
 .notice, .error { margin: 12px 0; padding: 12px 14px; background: #173d2b; font-size: 13px; }
 .error { background: #51212a; }
 .layout { display: grid; grid-template-columns: minmax(250px, 340px) minmax(0, 820px); gap: 22px; align-items: start; }
-.panel { padding: 20px; border: 1px solid #333; background: #1b1b1b; }
+.panel { position: relative; padding: 20px; border: 1px solid #333; background: #1b1b1b; }
 .list { display: grid; gap: 8px; margin-top: 12px; }
 .listItem { display: flex; width: 100%; justify-content: space-between; gap: 12px; padding: 12px; color: #fff; text-align: left; border: 1px solid #333; background: #232323; cursor: pointer; }
 .muted { color: #999; font-size: 12px; }.section { margin-top: 28px; padding-top: 20px; border-top: 1px solid #333; }
@@ -20,4 +20,9 @@
 .rowCard { margin-top: 10px; padding: 14px; border: 1px solid #3a3a3a; background: #222; }.rowActions { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
 .preview { width: 130px; height: 130px; object-fit: cover; border-radius: 50%; background: #333; }
 .empty { padding: 24px 0; color: #999; text-align: center; }.status { color: #aaa; font-size: 12px; }
+.listFilters { display: grid; gap: 8px; margin: 14px 0 10px; }
+.pagination { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 14px; color: #aaa; font-size: 12px; }
+.skeletonList { display: grid; gap: 8px; margin-top: 12px; }
+.skeletonList span { display: block; height: 61px; border: 1px solid #303030; background: linear-gradient(90deg, #222, #292929, #222); }
+.detailLoading { position: absolute; inset: 0; z-index: 5; display: grid; place-items: start center; padding-top: 72px; color: #ddd; background: rgba(27,27,27,.92); }
 @media(max-width:800px){.page{padding:94px 16px 24px}.layout{grid-template-columns:1fr}.grid{grid-template-columns:1fr}.full{grid-column:auto}}

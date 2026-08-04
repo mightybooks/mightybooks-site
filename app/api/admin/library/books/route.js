@@ -3,18 +3,22 @@ import {
   errorResponse,
   jsonResponse,
   logDatabaseError,
+  parseAdminListParams,
   readJsonObject,
+  sanitizePostgrestSearch,
 } from '@/lib/admin-library-api'
 import {
   bookSaveErrorResponse,
   getAdminLibraryBook,
-  getAdminLibraryBooks,
+  getAdminLibraryBookList,
   validateBookCreatePayload,
 } from '@/lib/admin-library-books'
 import { requireAdmin } from '@/lib/server-auth'
 import { supabaseAdmin } from '@/lib/supabase-admin'
+import { invalidateLibraryBookCache } from '@/lib/library-cache'
 
 export const dynamic = 'force-dynamic'
+const BOOK_STATUSES = ['draft', 'published', 'archived']
 
 export async function GET(request) {
   const authorization = await requireAdmin(request)
@@ -22,7 +26,12 @@ export async function GET(request) {
 
   if (authorizationError) return authorizationError
 
-  const result = await getAdminLibraryBooks()
+  const parsed = parseAdminListParams(request, BOOK_STATUSES)
+  if (parsed.error) return errorResponse(parsed.error.code, parsed.error.message, 400)
+  const result = await getAdminLibraryBookList({
+    ...parsed.value,
+    q: sanitizePostgrestSearch(parsed.value.q),
+  })
 
   if (result.error) {
     logDatabaseError(
@@ -37,7 +46,7 @@ export async function GET(request) {
     )
   }
 
-  return jsonResponse({ books: result.books })
+  return jsonResponse(result)
 }
 
 export async function POST(request) {
@@ -87,6 +96,11 @@ export async function POST(request) {
       500
     )
   }
+
+  invalidateLibraryBookCache({
+    newSlug: result.book.slug,
+    authorSlugs: result.book.authors.map(author => author.slug),
+  })
 
   return jsonResponse({ book: result.book }, { status: 201 })
 }

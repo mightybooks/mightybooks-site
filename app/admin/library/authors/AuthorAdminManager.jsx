@@ -27,14 +27,17 @@ export default function AuthorAdminManager() {
   const [authors, setAuthors] = useState([]), [form, setForm] = useState(blank)
   const [loading, setLoading] = useState(true), [saving, setSaving] = useState(false)
   const [message, setMessage] = useState(''), [error, setError] = useState(''), [file, setFile] = useState(null)
-  const load = useCallback(async () => { setLoading(true); setError(''); try { setAuthors((await request('/api/admin/library/authors')).authors) } catch (e) { setError(e.message) } finally { setLoading(false) } }, [])
+  const [searchInput, setSearchInput] = useState(''), [q, setQ] = useState(''), [status, setStatus] = useState('all')
+  const [page, setPage] = useState(1), [totalPages, setTotalPages] = useState(1), [total, setTotal] = useState(0)
+  const [detailLoading, setDetailLoading] = useState(false)
+  const load = useCallback(async () => { setLoading(true); setError(''); try { const data = await request(`/api/admin/library/authors?${new URLSearchParams({ q, status, page: String(page), pageSize: '30' })}`); setAuthors(data.authors); setTotalPages(data.totalPages); setTotal(data.total) } catch (e) { setError(e.message) } finally { setLoading(false) } }, [page, q, status])
   useEffect(() => { load() }, [load])
   useEffect(() => {
     if (!message) return undefined
     const timer = window.setTimeout(() => setMessage(''), 4500)
     return () => window.clearTimeout(timer)
   }, [message])
-  const edit = async id => { setError(''); try { setForm((await request(`/api/admin/library/authors/${id}`)).author); setMessage('') } catch (e) { setError(e.message) } }
+  const edit = async id => { if (detailLoading) return; setDetailLoading(true); setError(''); try { setForm((await request(`/api/admin/library/authors/${id}`)).author); setMessage('') } catch (e) { setError(e.message) } finally { setDetailLoading(false) } }
   const update = (key, value) => setForm(current => ({ ...current, [key]: value }))
   const updateRow = (key, index, values) => update(key, form[key].map((row, i) => i === index ? { ...row, ...values } : row))
   const add = (key, value) => update(key, [...form[key], { ...value, sort_order: form[key].length }])
@@ -42,19 +45,24 @@ export default function AuthorAdminManager() {
   const payload = () => ({ ...form, bio_paragraphs: form.bio_paragraphs.filter(Boolean),
     social_links: form.social_links.map((x, i) => ({ ...x, sort_order: i })), external_links: form.external_links.map((x, i) => ({ ...x, sort_order: i })),
     press_items: form.press_items.map((x, i) => ({ ...x, sort_order: i })), career_sections: form.career_sections.map((s, i) => ({ ...s, sort_order: i, items: s.items.map((x, j) => ({ ...x, sort_order: j })) })) })
-  const save = async e => { e.preventDefault(); const isNew = !form.id; setSaving(true); setError(''); setMessage(''); try {
+  const save = async e => { e.preventDefault(); if (saving) return; const isNew = !form.id; setSaving(true); setError(''); setMessage(''); try {
     const data = await request(form.id ? `/api/admin/library/authors/${form.id}` : '/api/admin/library/authors', { method: form.id ? 'PUT' : 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload()) })
-    setForm(data.author); await load(); setMessage(isNew ? '저자를 등록했습니다.' : '변경사항을 저장했습니다.')
+    setForm(data.author)
+    if (isNew) {
+      if (page !== 1) setPage(1)
+      else await load()
+    } else await load()
+    setMessage(isNew ? '저자를 등록했습니다.' : '변경사항을 저장했습니다.')
   } catch (e) { setError(`${e.message}${e.code ? ` (${e.code})` : ''}`) } finally { setSaving(false) } }
-  const destroy = async () => { if (!form.id || !window.confirm('이 저자를 삭제하시겠습니까?')) return; setSaving(true); setError(''); setMessage(''); try { await request(`/api/admin/library/authors/${form.id}`, { method: 'DELETE' }); setForm(blank); await load(); setMessage('저자를 삭제했습니다.') } catch (e) { setError(`${e.message}${e.code ? ` (${e.code})` : ''}`) } finally { setSaving(false) } }
-  const upload = async () => { if (!form.id || !file) return; setSaving(true); setError(''); setMessage(''); const body = new FormData(); body.append('file', file); try { const data = await request(`/api/admin/library/authors/${form.id}/profile-image`, { method: 'POST', body }); update('profile_image_path', data.profile_image_path); setFile(null); await load(); setMessage('프로필 이미지를 업로드했습니다.') } catch (e) { setError(e.message) } finally { setSaving(false) } }
-  const deleteImage = async () => { if (!form.id || !window.confirm('프로필 이미지를 삭제하시겠습니까?')) return; setSaving(true); setError(''); setMessage(''); try { await request(`/api/admin/library/authors/${form.id}/profile-image`, { method: 'DELETE' }); update('profile_image_path', null); await load(); setMessage('프로필 이미지를 삭제했습니다.') } catch (e) { setError(e.message) } finally { setSaving(false) } }
+  const destroy = async () => { if (!form.id || saving || !window.confirm('이 저자를 삭제하시겠습니까?')) return; setSaving(true); setError(''); setMessage(''); try { await request(`/api/admin/library/authors/${form.id}`, { method: 'DELETE' }); setForm(blank); if (authors.length === 1 && page > 1) setPage(current => current - 1); else await load(); setMessage('저자를 삭제했습니다.') } catch (e) { setError(`${e.message}${e.code ? ` (${e.code})` : ''}`) } finally { setSaving(false) } }
+  const upload = async () => { if (!form.id || !file || saving) return; setSaving(true); setError(''); setMessage(''); const body = new FormData(); body.append('file', file); try { const data = await request(`/api/admin/library/authors/${form.id}/profile-image`, { method: 'POST', body }); update('profile_image_path', data.profile_image_path); setFile(null); setMessage('프로필 이미지를 업로드했습니다.') } catch (e) { setError(e.message) } finally { setSaving(false) } }
+  const deleteImage = async () => { if (!form.id || saving || !window.confirm('프로필 이미지를 삭제하시겠습니까?')) return; setSaving(true); setError(''); setMessage(''); try { await request(`/api/admin/library/authors/${form.id}/profile-image`, { method: 'DELETE' }); update('profile_image_path', null); setMessage('프로필 이미지를 삭제했습니다.') } catch (e) { setError(e.message) } finally { setSaving(false) } }
 
   return <main className={styles.page}>
     <header className={styles.header}><div><Link className={styles.nav} href="/admin/library">← 서가 관리</Link><h1>저자 관리</h1></div><button className={styles.button} onClick={() => { setForm(blank); setMessage(''); setError('') }}>신규 등록</button></header>
     {message && <p className={styles.notice} role="status">{message}</p>}{error && <p className={styles.error} role="alert">{error}</p>}
-    <div className={styles.layout}><aside className={styles.panel}><h2>저자 목록</h2>{loading ? <p className={styles.empty}>목록을 불러오는 중…</p> : authors.length === 0 ? <p className={styles.empty}>등록된 저자가 없습니다.</p> : <div className={styles.list}>{authors.map(a => <button className={styles.listItem} key={a.id} onClick={() => edit(a.id)}><span>{a.display_name}<br/><small className={styles.muted}>/{a.slug}</small></span><small>{a.status}</small></button>)}</div>}</aside>
-      <form className={styles.panel} onSubmit={save}><h2>{form.id ? '저자 수정' : '저자 등록'}</h2><div className={styles.grid}>
+    <div className={styles.layout}><aside className={styles.panel}><h2>저자 목록</h2><form className={styles.listFilters} onSubmit={event => { event.preventDefault(); setPage(1); setQ(searchInput.trim()) }}><input className={styles.input} value={searchInput} onChange={event => setSearchInput(event.target.value)} placeholder="이름 또는 slug 검색"/><select className={styles.select} value={status} onChange={event => { setStatus(event.target.value); setPage(1) }}><option value="all">전체 상태</option><option value="draft">초안</option><option value="published">공개</option><option value="archived">보관</option></select><button className={styles.small} disabled={loading}>검색</button></form><p className={styles.muted}>총 {total}명</p>{loading ? <div className={styles.skeletonList} aria-label="저자 목록 로딩"><span/><span/><span/></div> : authors.length === 0 ? <p className={styles.empty}>등록된 저자가 없습니다.</p> : <div className={styles.list}>{authors.map(a => <button className={styles.listItem} key={a.id} disabled={detailLoading} onClick={() => edit(a.id)}><span>{a.display_name}<br/><small className={styles.muted}>/{a.slug}</small></span><small>{a.status}</small></button>)}</div>}<div className={styles.pagination}><button className={styles.small} disabled={loading || page <= 1} onClick={() => setPage(current => current - 1)}>이전</button><span>{page} / {totalPages}</span><button className={styles.small} disabled={loading || page >= totalPages} onClick={() => setPage(current => current + 1)}>다음</button></div></aside>
+      <form className={styles.panel} onSubmit={save} aria-busy={detailLoading}>{detailLoading && <div className={styles.detailLoading}>상세 정보를 불러오는 중…</div>}<h2>{form.id ? '저자 수정' : '저자 등록'}</h2><div className={styles.grid}>
         <label className={styles.field}>표시 이름<input className={styles.input} value={form.display_name} onChange={e => update('display_name', e.target.value)} required /></label>
         <label className={styles.field}>slug<input className={styles.input} value={form.slug} onChange={e => update('slug', e.target.value)} required /></label>
         <label className={styles.field}>필명<input className={styles.input} value={form.pen_name || ''} onChange={e => update('pen_name', e.target.value)} /></label>

@@ -4,6 +4,7 @@ import {
 } from '@/lib/admin-library-api'
 import { requireAdmin } from '@/lib/server-auth'
 import { supabaseAdmin } from '@/lib/supabase-admin'
+import { invalidateLibraryAuthorCache } from '@/lib/library-cache'
 
 export const dynamic = 'force-dynamic'
 const BUCKET = 'author-profile-images'
@@ -32,7 +33,7 @@ async function authorize(request, params) {
   if (authError) return { error: authError }
   const { authorId } = await params
   if (!isUuid(authorId)) return { error: errorResponse('INVALID_AUTHOR_ID', '올바른 저자 ID가 필요합니다.', 400) }
-  const { data, error } = await supabaseAdmin.from('authors').select('id,profile_image_path').eq('id', authorId).maybeSingle()
+  const { data, error } = await supabaseAdmin.from('authors').select('id,slug,profile_image_path').eq('id', authorId).maybeSingle()
   if (error) {
     logDatabaseError('[Admin author profile image] Author lookup failed', error)
     return { error: errorResponse('AUTHOR_FETCH_FAILED', '저자 정보를 불러오지 못했습니다.', 500) }
@@ -71,6 +72,7 @@ export async function POST(request, { params }) {
   }
   const oldPath = storagePathFromUrl(result.author.profile_image_path)
   if (oldPath) await bucket.remove([oldPath])
+  invalidateLibraryAuthorCache({ newSlug: result.author.slug })
   return jsonResponse({ profile_image_path: publicUrl })
 }
 
@@ -84,5 +86,6 @@ export async function DELETE(request, { params }) {
   }
   const oldPath = storagePathFromUrl(result.author.profile_image_path)
   if (oldPath) await supabaseAdmin.storage.from(BUCKET).remove([oldPath])
+  invalidateLibraryAuthorCache({ newSlug: result.author.slug })
   return jsonResponse({ profile_image_path: null })
 }

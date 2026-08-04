@@ -14,12 +14,29 @@ import {
 } from '@/lib/admin-library-books'
 import { requireAdmin } from '@/lib/server-auth'
 import { supabaseAdmin } from '@/lib/supabase-admin'
+import { invalidateLibraryBookCache } from '@/lib/library-cache'
 
 export const dynamic = 'force-dynamic'
 
 async function getValidatedBookId(params) {
   const { bookId } = await params
   return isUuid(bookId) ? bookId : null
+}
+
+async function getBookCacheContext(bookId) {
+  const [bookResult, linksResult] = await Promise.all([
+    supabaseAdmin.from('books').select('slug').eq('id', bookId).maybeSingle(),
+    supabaseAdmin
+      .from('book_authors')
+      .select('authors!inner(slug)')
+      .eq('book_id', bookId),
+  ])
+  const error = bookResult.error || linksResult.error
+  if (error) return { error }
+  return {
+    slug: bookResult.data?.slug ?? null,
+    authorSlugs: (linksResult.data ?? []).map(link => link.authors?.slug).filter(Boolean),
+  }
 }
 
 export async function GET(request, { params }) {
@@ -97,6 +114,12 @@ export async function PATCH(request, { params }) {
     )
   }
 
+  const previous = await getBookCacheContext(bookId)
+  if (previous.error) {
+    logDatabaseError('[Admin library book PATCH] Cache context lookup failed', previous.error)
+    return errorResponse('BOOK_FETCH_FAILED', '도서 정보를 불러오지 못했습니다.', 500)
+  }
+
   const { error: saveError } = await supabaseAdmin.rpc(
     'save_admin_library_book',
     {
@@ -124,6 +147,15 @@ export async function PATCH(request, { params }) {
     )
   }
 
+  invalidateLibraryBookCache({
+    oldSlug: previous.slug,
+    newSlug: result.book.slug,
+    authorSlugs: [
+      ...previous.authorSlugs,
+      ...result.book.authors.map(author => author.slug),
+    ],
+  })
+
   return jsonResponse({ book: result.book })
 }
 
@@ -141,6 +173,12 @@ export async function DELETE(request, { params }) {
       '올바른 도서 ID가 필요합니다.',
       400
     )
+  }
+
+  const previous = await getBookCacheContext(bookId)
+  if (previous.error) {
+    logDatabaseError('[Admin library book DELETE] Cache context lookup failed', previous.error)
+    return errorResponse('BOOK_FETCH_FAILED', '도서 정보를 불러오지 못했습니다.', 500)
   }
 
   const { data, error } = await supabaseAdmin.rpc(
@@ -182,6 +220,11 @@ export async function DELETE(request, { params }) {
       500
     )
   }
+
+  invalidateLibraryBookCache({
+    oldSlug: previous.slug,
+    authorSlugs: previous.authorSlugs,
+  })
 
   return jsonResponse({ deleted: true, bookId })
 }

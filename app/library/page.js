@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { getPublishedLibraryAuthors } from '@/lib/library-content'
+import { getPublishedLibraryAuthorCards } from '@/lib/library-content'
 import LibraryAuthorExplorer from './components/LibraryAuthorExplorer'
 import styles from './library.module.css'
 
@@ -12,7 +12,7 @@ export const metadata = {
 }
 
 export default async function LibraryPage() {
-  const authors = await getPublishedLibraryAuthors()
+  const authors = await getPublishedLibraryAuthorCards()
 
   return (
     <main className={styles.page}>
