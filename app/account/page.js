@@ -1,7 +1,7 @@
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
-import { getBookBySlug } from '@/content/library/books'
+import { getPublishedLibraryBookCardsBySlugs } from '@/lib/library-content'
 import { getCurrentUserBooks } from '@/lib/library-access'
 import { createSupabaseServerClient } from '@/lib/supabase-server'
 import AccountLogoutButton from './AccountLogoutButton'
@@ -49,9 +49,15 @@ export default async function AccountPage() {
     user.user_metadata?.display_name ||
     '마이티북스 회원'
   const accountStatus = profile?.account_status || 'unknown'
+  const bookContents = await getPublishedLibraryBookCardsBySlugs(
+    books.map((book) => book.slug)
+  )
+  const contentBySlug = new Map(
+    bookContents.map((content) => [content.slug, content])
+  )
   const libraryEntries = books.map((book) => ({
     ...book,
-    content: getBookBySlug(book.slug),
+    content: contentBySlug.get(book.slug) || null,
   }))
 
   return (
