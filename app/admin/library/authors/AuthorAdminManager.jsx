@@ -11,7 +11,7 @@ const blank = {
   profile_image_path: null, short_bio: '', bio_paragraphs: [], display_order: 0,
   career_sections: [], social_links: [], external_links: [], press_enabled: false, press_items: [],
 }
-const labels = { homepage: '홈페이지', instagram: '인스타그램', blog: '블로그', youtube: '유튜브', facebook: '페이스북', x: 'X', brunch: '브런치', other: '기타' }
+const labels = { homepage: '홈페이지', instagram: '인스타그램', blog: '블로그', youtube: '유튜브', facebook: '페이스북', threads: '스레드', x: 'X', brunch: '브런치', other: '기타' }
 
 async function request(path, options = {}) {
   const { data: { session } } = await supabase.auth.getSession()
