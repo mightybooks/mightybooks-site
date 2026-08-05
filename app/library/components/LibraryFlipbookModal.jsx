@@ -178,6 +178,11 @@ export default function LibraryFlipbookModal({
     if (!dialog) return
 
     const preventCopyOrSave = (event) => event.preventDefault()
+    const preventNonPrimaryMouse = (event) => {
+      if (event.button === 0) return
+      event.preventDefault()
+      event.stopPropagation()
+    }
     const restrictedEvents = [
       'contextmenu',
       'copy',
@@ -189,11 +194,13 @@ export default function LibraryFlipbookModal({
     restrictedEvents.forEach((eventName) => {
       dialog.addEventListener(eventName, preventCopyOrSave)
     })
+    dialog.addEventListener('mousedown', preventNonPrimaryMouse, true)
 
     return () => {
       restrictedEvents.forEach((eventName) => {
         dialog.removeEventListener(eventName, preventCopyOrSave)
       })
+      dialog.removeEventListener('mousedown', preventNonPrimaryMouse, true)
     }
   }, [isReaderMode, mounted])
 
