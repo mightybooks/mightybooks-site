@@ -1,6 +1,10 @@
 import { NextResponse } from 'next/server'
 import { getCurrentUserBookAccess } from '@/lib/library-access'
 import { createBookReaderManifest } from '@/lib/library-reader'
+import {
+  createReaderSession,
+  logReaderAuditEvent,
+} from '@/lib/library-reader-security'
 
 const BOOK_SLUG_PATTERN = /^[a-z0-9]+(-[a-z0-9]+)*$/
 const NO_STORE_HEADERS = {
@@ -20,7 +24,7 @@ function jsonNoStore(body, init = {}) {
   })
 }
 
-export async function GET(_request, { params }) {
+export async function GET(request, { params }) {
   try {
     const { slug } = await params
 
@@ -34,6 +38,7 @@ export async function GET(_request, { params }) {
     const result = await getCurrentUserBookAccess(slug)
 
     if (!result.user) {
+      logReaderAuditEvent('manifest_denied_unauthenticated', { request })
       return jsonNoStore(
         { error: '로그인이 필요합니다.' },
         { status: 401 }
@@ -41,6 +46,10 @@ export async function GET(_request, { params }) {
     }
 
     if (!result.allowed || !result.book) {
+      logReaderAuditEvent('manifest_denied_no_access', {
+        request,
+        user: result.user,
+      })
       return jsonNoStore(
         { error: '열람 가능한 전체 도서를 찾을 수 없습니다.' },
         { status: 404 }
@@ -56,13 +65,31 @@ export async function GET(_request, { params }) {
       )
     }
 
+    const readerSession = createReaderSession(result.user)
+
+    logReaderAuditEvent('manifest_issued', {
+      request,
+      user: result.user,
+      bookId: result.book.id,
+      sessionId: readerSession.id,
+      accessType: result.accessType,
+      pageCount: reader.pageCount,
+    })
+
     return jsonNoStore({
       allowed: true,
       accessType: result.accessType,
       book: result.book,
-      reader,
+      reader: {
+        ...reader,
+        sessionId: readerSession.id,
+        watermark: readerSession.watermark,
+      },
     })
-  } catch {
+  } catch (error) {
+    console.error('[Library reader manifest] Request failed', {
+      message: error?.message || String(error),
+    })
     return jsonNoStore(
       { error: '전체 도서 열람 정보를 불러오지 못했습니다.' },
       { status: 500 }

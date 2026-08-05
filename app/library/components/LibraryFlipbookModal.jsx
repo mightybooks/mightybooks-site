@@ -25,7 +25,15 @@ const getSoundSettingSnapshot = () => {
   }
 }
 
-export default function LibraryFlipbookModal({ title, pages, mode, onClose }) {
+export default function LibraryFlipbookModal({
+  title,
+  pages,
+  mode,
+  watermark,
+  onPageRangeNeeded,
+  pageLoadError,
+  onClose,
+}) {
   const mounted = useSyncExternalStore(subscribeToClientMount, () => true, () => false)
   const isSoundMuted = useSyncExternalStore(
     subscribeToSoundSetting,
@@ -124,6 +132,11 @@ export default function LibraryFlipbookModal({ title, pages, mode, onClose }) {
   }, [isSoundMuted])
 
   useEffect(() => {
+    if (!isReaderMode) return
+    onPageRangeNeeded?.(currentPage)
+  }, [currentPage, isReaderMode, onPageRangeNeeded])
+
+  useEffect(() => {
     const audio = new Audio('/library/audio/page-turn.mp3')
     audio.preload = 'auto'
     audio.volume = .35
@@ -139,6 +152,11 @@ export default function LibraryFlipbookModal({ title, pages, mode, onClose }) {
     if (!mounted) return
     const previousOverflow = document.body.style.overflow
     const handleKeyDown = (event) => {
+      const key = event.key.toLowerCase()
+      if (isReaderMode && (event.ctrlKey || event.metaKey) && (key === 's' || key === 'p')) {
+        event.preventDefault()
+        return
+      }
       if (event.key === 'Escape' && !document.fullscreenElement) onClose()
       if (event.target instanceof HTMLInputElement && event.target.type === 'range') return
       if (event.key === 'ArrowLeft') previous()
@@ -151,15 +169,45 @@ export default function LibraryFlipbookModal({ title, pages, mode, onClose }) {
       document.body.style.overflow = previousOverflow
       window.removeEventListener('keydown', handleKeyDown)
     }
-  }, [mounted, next, onClose, previous])
+  }, [isReaderMode, mounted, next, onClose, previous])
+
+  useEffect(() => {
+    if (!mounted || !isReaderMode) return
+
+    const dialog = dialogRef.current
+    if (!dialog) return
+
+    const preventCopyOrSave = (event) => event.preventDefault()
+    const restrictedEvents = [
+      'contextmenu',
+      'copy',
+      'cut',
+      'dragstart',
+      'selectstart',
+    ]
+
+    restrictedEvents.forEach((eventName) => {
+      dialog.addEventListener(eventName, preventCopyOrSave)
+    })
+
+    return () => {
+      restrictedEvents.forEach((eventName) => {
+        dialog.removeEventListener(eventName, preventCopyOrSave)
+      })
+    }
+  }, [isReaderMode, mounted])
 
   if (!mounted) return null
 
   return createPortal(
-    <div className={styles.backdrop} onMouseDown={onClose} role="presentation">
+    <div
+      className={`${styles.backdrop} ${isReaderMode ? styles.readerBackdrop : ''}`}
+      onMouseDown={onClose}
+      role="presentation"
+    >
       <section
         ref={dialogRef}
-        className={styles.dialog}
+        className={`${styles.dialog} ${isReaderMode ? styles.copyRestricted : ''}`}
         role="dialog"
         aria-modal="true"
         aria-labelledby={dialogTitleId}
@@ -185,11 +233,14 @@ export default function LibraryFlipbookModal({ title, pages, mode, onClose }) {
           title={title}
           pages={pages}
           mode={mode}
+          watermark={isReaderMode ? watermark : null}
           loadCenterPage={displayedPageIndex}
           zoom={zoom}
           currentPage={currentPage}
           onPageChange={handlePageChange}
           onReadyChange={setViewerReady}
+          pageLoadError={pageLoadError}
+          onRetryPage={() => onPageRangeNeeded?.(currentPage)}
         />
 
         <footer className={styles.controls}>
@@ -247,7 +298,10 @@ export default function LibraryFlipbookModal({ title, pages, mode, onClose }) {
             <p>남은 페이지 {Math.max(totalPages - currentPageNumber, 0)}쪽</p>
           </div>
         </footer>
-        <p className={styles.hint}>좌우 버튼·방향키·스와이프로 넘기고, 확대 후 스크롤해 읽을 수 있습니다.</p>
+        <p className={styles.hint}>
+          좌우 버튼·방향키·스와이프로 넘기고, 확대 후 스크롤해 읽을 수 있습니다.
+          {isReaderMode ? ' 전체본에는 복사·저장 제한이 적용됩니다.' : ''}
+        </p>
       </section>
     </div>,
     document.body

@@ -5,14 +5,23 @@ import { forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRe
 import styles from './libraryFlipbook.module.css'
 
 const LibraryPage = forwardRef(function LibraryPage(
-  { page, index, bookTitle, mode, shouldLoad, isPriority, onFirstPageLoad },
+  {
+    page,
+    index,
+    bookTitle,
+    mode,
+    watermark,
+    shouldLoad,
+    isPriority,
+    onFirstPageLoad,
+  },
   ref
 ) {
   const pageModeLabel = mode === 'reader' ? '전체본' : '샘플'
 
   return (
     <div ref={ref} className={styles.page} data-density="soft">
-      {shouldLoad ? (
+      {shouldLoad && page.src ? (
         <>
           {/* 원본 이미지를 브라우저가 직접 불러오도록 next/image를 사용하지 않습니다. */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -23,13 +32,24 @@ const LibraryPage = forwardRef(function LibraryPage(
             alt={`${bookTitle} ${pageModeLabel} ${index + 1}페이지`}
             loading={isPriority ? 'eager' : 'lazy'}
             fetchPriority={isPriority ? 'high' : 'auto'}
-            draggable="false"
+            draggable={false}
+            referrerPolicy="no-referrer"
             onLoad={index === 0 ? onFirstPageLoad : undefined}
           />
         </>
       ) : (
         <div className={styles.pagePlaceholder} aria-hidden="true" />
       )}
+      {watermark && [0, 1, 2, 3, 4, 5].map((slot) => (
+        <span
+          key={slot}
+          className={styles.watermarkPiece}
+          data-slot={slot}
+          aria-hidden="true"
+        >
+          {watermark}
+        </span>
+      ))}
     </div>
   )
 })
@@ -39,11 +59,14 @@ const LibraryFlipbookViewer = forwardRef(function LibraryFlipbookViewer(
     pages,
     title,
     mode,
+    watermark,
     loadCenterPage,
     zoom,
     currentPage,
     onPageChange,
     onReadyChange,
+    pageLoadError,
+    onRetryPage,
   },
   ref
 ) {
@@ -160,7 +183,7 @@ const LibraryFlipbookViewer = forwardRef(function LibraryFlipbookViewer(
   const pageElements = useMemo(() => pages.map((page, index) => {
     const shouldLoad = !isReaderMode || index === 0 || (
       index >= safeLoadCenterPage - 2 &&
-      index <= safeLoadCenterPage + 4
+      index <= safeLoadCenterPage + 2
     )
 
     return (
@@ -170,6 +193,7 @@ const LibraryFlipbookViewer = forwardRef(function LibraryFlipbookViewer(
         index={index}
         bookTitle={title}
         mode={mode}
+        watermark={watermark}
         shouldLoad={shouldLoad}
         isPriority={index === 0 || index === safeLoadCenterPage}
         onFirstPageLoad={handleFirstPageLoad}
@@ -182,11 +206,18 @@ const LibraryFlipbookViewer = forwardRef(function LibraryFlipbookViewer(
     pages,
     safeLoadCenterPage,
     title,
+    watermark,
   ])
 
   return (
     <div ref={viewportRef} className={`${styles.viewport} ${zoom > 1 ? styles.zoomed : ''}`}>
       {!firstPageLoaded && <div className={styles.loading} role="status">첫 페이지를 불러오는 중입니다.</div>}
+      {pageLoadError && (
+        <div className={styles.loadError} role="alert">
+          <p>{pageLoadError}</p>
+          <button type="button" onClick={onRetryPage}>다시 시도</button>
+        </div>
+      )}
       <div className={styles.zoomStage}>
         <div className={styles.zoomCanvas} style={{ width: scaledWidth, height: scaledHeight }}>
           <div
