@@ -46,7 +46,7 @@ echo.
 echo 원본: %TARGET%
 echo 결과: %OUTPUT%
 echo 크기: 3180 x 4500
-echo 품질: WebP 90
+echo 품질: WebP 무손실
 echo ========================================
 echo.
 
@@ -56,7 +56,7 @@ for %%F in ("%TARGET%\*.png") do (
         -filter Lanczos ^
         -resize "3180x4500!" ^
         -strip ^
-        -quality 90 ^
+        -define webp:lossless=true ^
         -define webp:method=6 ^
         "%OUTPUT%\%%~nF.webp"
 )
