@@ -137,7 +137,7 @@
   z-index: 2;
   max-width: 78%;
   overflow: hidden;
-  color: rgba(76, 55, 38, .16);
+  color: rgba(76, 55, 38, .08);
   font-size: clamp(8px, 1.4vw, 13px);
   font-weight: 700;
   line-height: 1.3;
