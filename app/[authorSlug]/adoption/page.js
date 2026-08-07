@@ -3,7 +3,8 @@ import { notFound } from 'next/navigation'
 import { getPublishedLibraryAuthorPage } from '@/lib/library-content'
 import { sianAdoptionRabbits } from '@/lib/sian-adoption'
 import SianAdoptionRabbitCard from '@/app/library/components/SianAdoptionRabbitCard'
-import styles from '@/app/library/library.module.css'
+import libraryStyles from '@/app/library/library.module.css'
+import styles from '@/app/library/components/SianAdoption.module.css'
 
 export const dynamic = 'force-dynamic'
 
@@ -28,10 +29,10 @@ export default async function SianAdoptionPage({ params }) {
   if (!result) notFound()
 
   return (
-    <main className={styles.page}>
+    <main className={libraryStyles.page}>
       <section className={styles.adoptionPage}>
         <header className={styles.adoptionHeader}>
-          <p className={styles.eyebrow}>Sian · Rabbit Adoption</p>
+          <p className={libraryStyles.eyebrow}>Sian · Rabbit Adoption</p>
           <h1>가족을 기다리는 토끼들</h1>
           <p>
             시안 작가가 입양을 돕고 있는 유기토끼들의 정보를 모았습니다.
