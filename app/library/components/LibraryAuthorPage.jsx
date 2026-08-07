@@ -78,8 +78,13 @@ export default function LibraryAuthorPage({ author, books }) {
               )}
             </div>
           )}
-          {(author.pressEnabled || externalLinks?.length > 0) && (
+          {(author.slug === 'sian' || author.pressEnabled || externalLinks?.length > 0) && (
             <div className={styles.externalLinks}>
+              {author.slug === 'sian' && (
+                <Link href="/sian/adoption" className={styles.externalLinkCard}>
+                  <span><strong>유기토끼 입양 홍보</strong><small>가족을 기다리는 토끼들을 소개합니다.</small></span><b>→</b>
+                </Link>
+              )}
               {author.pressEnabled && (
                 <Link href={pressPath} className={styles.externalLinkCard}>
                   <span><strong>언론 보도</strong><small>보도와 인터뷰를 확인합니다.</small></span><b>→</b>
