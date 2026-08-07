@@ -1,8 +1,11 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import styles from './page.module.css'
+import { notFound } from 'next/navigation'
 
-const pageUrl = 'https://mightybooks.kr/jungmyeongju/book-launch'
+const pageUrl =
+  'https://mightybooks.kr/library/authors/jungmyeongju/book-launch'
+
 const imageUrl =
   'https://mightybooks.kr/library/authors/jungmyeongju/book-launch.webp'
 
@@ -36,7 +39,13 @@ export const metadata = {
   },
 }
 
-export default function BookLaunchPage() {
+export default async function BookLaunchPage({ params }) {
+  const { authorSlug } = await params
+
+  if (authorSlug !== 'jungmyeongju') {
+    notFound()
+  }
+
   return (
     <main className={styles.page}>
       <article className={styles.event}>
@@ -72,7 +81,7 @@ export default function BookLaunchPage() {
 
             <div>
               <span>장소</span>
-              <strong>부산역 옆 혁정빌빙 802호 위대한경영자 (중앙대로 196번길 6-7)</strong>
+              <strong>부산역 옆 혁정빌딩 802호 위대한경영자 (중앙대로 196번길 6-7)</strong>
             </div>
           </div>
 

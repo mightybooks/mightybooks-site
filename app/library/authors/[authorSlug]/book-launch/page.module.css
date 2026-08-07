@@ -1,0 +1,47 @@
+.bookLaunchCard {
+  display: grid;
+  grid-template-columns: minmax(160px, 34%) 1fr;
+  gap: 24px;
+  margin-top: 40px;
+  padding: 18px;
+  border: 1px solid #e2dfd9;
+  text-decoration: none;
+  color: inherit;
+  background: #faf9f6;
+}
+
+.bookLaunchCard img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.bookLaunchCard div {
+  align-self: center;
+}
+
+.bookLaunchCard span {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 12px;
+  color: #777;
+}
+
+.bookLaunchCard strong {
+  display: block;
+  font-size: 17px;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+.bookLaunchCard p {
+  margin: 10px 0 0;
+  font-size: 13px;
+  color: #666;
+}
+
+@media (max-width: 640px) {
+  .bookLaunchCard {
+    grid-template-columns: 1fr;
+  }
+}
