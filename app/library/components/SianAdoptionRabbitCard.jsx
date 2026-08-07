@@ -2,7 +2,8 @@
 
 import Image from 'next/image'
 import { useState } from 'react'
-import styles from '../library.module.css'
+import libraryStyles from '../library.module.css'
+import styles from './SianAdoption.module.css'
 
 export default function SianAdoptionRabbitCard({ rabbit }) {
   const [activeIndex, setActiveIndex] = useState(0)
@@ -55,7 +56,7 @@ export default function SianAdoptionRabbitCard({ rabbit }) {
       <div className={styles.adoptionRabbitInfo}>
         <div className={styles.adoptionRabbitHeading}>
           <div>
-            <p className={styles.sectionKicker}>Adoption Profile</p>
+            <p className={libraryStyles.sectionKicker}>Adoption Profile</p>
             <h2>{rabbit.name}</h2>
           </div>
           {rabbit.status && <span className={styles.adoptionStatus}>{rabbit.status}</span>}
