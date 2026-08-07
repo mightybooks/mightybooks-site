@@ -36,7 +36,7 @@ const process = [
 
 const homeBreadcrumbJsonLd = {
   '@context': 'https://schema.org', '@type': 'BreadcrumbList',
-  itemListElement: [{ '@type': 'ListItem', position: 1, name: '홈', item: 'https://xn--hz2b41ezwf0zf9tq.com/' }],
+  itemListElement: [{ '@type': 'ListItem', position: 1, name: '홈', item: 'https://mightybooks.kr/' }],
 }
 
 export default function Home() {

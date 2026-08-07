@@ -31,12 +31,12 @@ const faqItems = [
 const jsonLd = {
   '@context': 'https://schema.org',
   '@graph': [
-    { '@type': 'Article', headline: '전문서적·실용서적을 출간하려면｜복잡한 원고를 책으로 만드는 기준', description: metadata.description, mainEntityOfPage: 'https://xn--hz2b41ezwf0zf9tq.com/reference/professional-book-publishing', author: { '@type': 'Organization', name: '마이티북스' }, publisher: { '@type': 'Organization', name: '마이티북스', url: 'https://xn--hz2b41ezwf0zf9tq.com' } },
+    { '@type': 'Article', headline: '전문서적·실용서적을 출간하려면｜복잡한 원고를 책으로 만드는 기준', description: metadata.description, mainEntityOfPage: 'https://mightybooks.kr/reference/professional-book-publishing', author: { '@type': 'Organization', name: '마이티북스' }, publisher: { '@type': 'Organization', name: '마이티북스', url: 'https://mightybooks.kr' } },
     { '@type': 'BreadcrumbList', itemListElement: [
-      { '@type': 'ListItem', position: 1, name: '홈', item: 'https://xn--hz2b41ezwf0zf9tq.com/' },
-      { '@type': 'ListItem', position: 2, name: '자료', item: 'https://xn--hz2b41ezwf0zf9tq.com/reference/mightybooks-publishing' },
-      { '@type': 'ListItem', position: 3, name: '출판 제작 레퍼런스', item: 'https://xn--hz2b41ezwf0zf9tq.com/reference/mightybooks-publishing' },
-      { '@type': 'ListItem', position: 4, name: '전문서적 제작 기준', item: 'https://xn--hz2b41ezwf0zf9tq.com/reference/professional-book-publishing' },
+      { '@type': 'ListItem', position: 1, name: '홈', item: 'https://mightybooks.kr/' },
+      { '@type': 'ListItem', position: 2, name: '자료', item: 'https://mightybooks.kr/reference/mightybooks-publishing' },
+      { '@type': 'ListItem', position: 3, name: '출판 제작 레퍼런스', item: 'https://mightybooks.kr/reference/mightybooks-publishing' },
+      { '@type': 'ListItem', position: 4, name: '전문서적 제작 기준', item: 'https://mightybooks.kr/reference/professional-book-publishing' },
     ] },
     { '@type': 'FAQPage', mainEntity: faqItems.map(([name,text]) => ({ '@type': 'Question', name, acceptedAnswer: { '@type': 'Answer', text } })) },
   ],

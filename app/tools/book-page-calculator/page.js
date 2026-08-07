@@ -32,7 +32,7 @@ const reasons = [
 const jsonLd = {
   '@context': 'https://schema.org',
   '@graph': [
-    { '@type': 'WebApplication', name: '원고 글자 수로 예상 책 페이지 계산하기', url: 'https://xn--hz2b41ezwf0zf9tq.com/tools/book-page-calculator', applicationCategory: 'BusinessApplication', operatingSystem: 'Web Browser', description: metadata.description },
+    { '@type': 'WebApplication', name: '원고 글자 수로 예상 책 페이지 계산하기', url: 'https://mightybooks.kr/tools/book-page-calculator', applicationCategory: 'BusinessApplication', operatingSystem: 'Web Browser', description: metadata.description },
     { '@type': 'FAQPage', mainEntity: faqs.map(([name, text]) => ({ '@type': 'Question', name, acceptedAnswer: { '@type': 'Answer', text } })) },
   ],
 }

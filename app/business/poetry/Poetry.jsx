@@ -49,9 +49,9 @@ const faqs = [
 ]
 
 const breadcrumbJsonLd = { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
-  { '@type': 'ListItem', position: 1, name: '홈', item: 'https://xn--hz2b41ezwf0zf9tq.com/' },
-  { '@type': 'ListItem', position: 2, name: '출판서비스', item: 'https://xn--hz2b41ezwf0zf9tq.com/business/poetry' },
-  { '@type': 'ListItem', position: 3, name: '시집·문집·에세이 제작', item: 'https://xn--hz2b41ezwf0zf9tq.com/business/poetry' },
+  { '@type': 'ListItem', position: 1, name: '홈', item: 'https://mightybooks.kr/' },
+  { '@type': 'ListItem', position: 2, name: '출판서비스', item: 'https://mightybooks.kr/business/poetry' },
+  { '@type': 'ListItem', position: 3, name: '시집·문집·에세이 제작', item: 'https://mightybooks.kr/business/poetry' },
 ] }
 const faqJsonLd = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map(([name, text]) => ({ '@type': 'Question', name, acceptedAnswer: { '@type': 'Answer', text } })) }
 

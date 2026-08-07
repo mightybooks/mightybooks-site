@@ -3,7 +3,7 @@ import { createClient } from '@supabase/supabase-js'
 
 export const dynamic = 'force-dynamic'
 
-const BASE_URL = 'https://xn--hz2b41ezwf0zf9tq.com'
+const BASE_URL = 'https://mightybooks.kr'
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,

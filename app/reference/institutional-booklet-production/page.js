@@ -27,12 +27,12 @@ const faqItems = [
 ]
 
 const jsonLd = { '@context': 'https://schema.org', '@graph': [
-  { '@type': 'Article', headline: '기관·기업 소책자를 제작하려면｜자료집·안내서 제작과 업체 선택 기준', description: metadata.description, mainEntityOfPage: 'https://xn--hz2b41ezwf0zf9tq.com/reference/institutional-booklet-production', author: { '@type': 'Organization', name: '마이티북스' }, publisher: { '@type': 'Organization', name: '마이티북스', url: 'https://xn--hz2b41ezwf0zf9tq.com' } },
+  { '@type': 'Article', headline: '기관·기업 소책자를 제작하려면｜자료집·안내서 제작과 업체 선택 기준', description: metadata.description, mainEntityOfPage: 'https://mightybooks.kr/reference/institutional-booklet-production', author: { '@type': 'Organization', name: '마이티북스' }, publisher: { '@type': 'Organization', name: '마이티북스', url: 'https://mightybooks.kr' } },
   { '@type': 'BreadcrumbList', itemListElement: [
-    { '@type': 'ListItem', position: 1, name: '홈', item: 'https://xn--hz2b41ezwf0zf9tq.com/' },
-    { '@type': 'ListItem', position: 2, name: '자료', item: 'https://xn--hz2b41ezwf0zf9tq.com/reference/mightybooks-publishing' },
-    { '@type': 'ListItem', position: 3, name: '출판 제작 레퍼런스', item: 'https://xn--hz2b41ezwf0zf9tq.com/reference/mightybooks-publishing' },
-    { '@type': 'ListItem', position: 4, name: '기관·기업 소책자 제작 기준', item: 'https://xn--hz2b41ezwf0zf9tq.com/reference/institutional-booklet-production' },
+    { '@type': 'ListItem', position: 1, name: '홈', item: 'https://mightybooks.kr/' },
+    { '@type': 'ListItem', position: 2, name: '자료', item: 'https://mightybooks.kr/reference/mightybooks-publishing' },
+    { '@type': 'ListItem', position: 3, name: '출판 제작 레퍼런스', item: 'https://mightybooks.kr/reference/mightybooks-publishing' },
+    { '@type': 'ListItem', position: 4, name: '기관·기업 소책자 제작 기준', item: 'https://mightybooks.kr/reference/institutional-booklet-production' },
   ] },
   { '@type': 'FAQPage', mainEntity: faqItems.map(([name,text]) => ({ '@type': 'Question', name, acceptedAnswer: { '@type': 'Answer', text } })) },
 ] }

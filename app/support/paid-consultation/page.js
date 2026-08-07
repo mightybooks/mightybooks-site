@@ -42,9 +42,9 @@ const breadcrumbJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
   itemListElement: [
-    { '@type': 'ListItem', position: 1, name: '홈', item: 'https://xn--hz2b41ezwf0zf9tq.com/' },
-    { '@type': 'ListItem', position: 2, name: '출판상담', item: 'https://xn--hz2b41ezwf0zf9tq.com/support/diagnosis' },
-    { '@type': 'ListItem', position: 3, name: '기획출간 유료상담', item: 'https://xn--hz2b41ezwf0zf9tq.com/support/paid-consultation' },
+    { '@type': 'ListItem', position: 1, name: '홈', item: 'https://mightybooks.kr/' },
+    { '@type': 'ListItem', position: 2, name: '출판상담', item: 'https://mightybooks.kr/support/diagnosis' },
+    { '@type': 'ListItem', position: 3, name: '기획출간 유료상담', item: 'https://mightybooks.kr/support/paid-consultation' },
   ],
 }
 

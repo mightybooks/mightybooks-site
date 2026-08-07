@@ -17,7 +17,7 @@ export const metadata = {
   },
 }
 
-const pageUrl = 'https://xn--hz2b41ezwf0zf9tq.com/reference/autobiography-gyeongsang'
+const pageUrl = 'https://mightybooks.kr/reference/autobiography-gyeongsang'
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -32,7 +32,7 @@ const jsonLd = {
   publisher: {
     '@type': 'Organization',
     name: '마이티북스',
-    url: 'https://xn--hz2b41ezwf0zf9tq.com',
+    url: 'https://mightybooks.kr',
   },
   mainEntityOfPage: pageUrl,
 }

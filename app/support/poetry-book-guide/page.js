@@ -31,7 +31,7 @@ const articleJsonLd = {
     '@type': 'Organization',
     name: '마이티북스',
   },
-  mainEntityOfPage: 'https://xn--hz2b41ezwf0zf9tq.com/support/poetry-book-guide',
+  mainEntityOfPage: 'https://mightybooks.kr/support/poetry-book-guide',
 }
 
 export default function PoetryBookGuidePage() {

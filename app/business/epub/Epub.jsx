@@ -75,8 +75,8 @@ const faqs = [
   ['웹북 내용은 나중에 수정할 수 있나요?', '가능합니다. 다만 지속적인 수정과 운영은 계약 범위 또는 별도 유지보수 조건에 따릅니다.'],
   ['EPUB, PDF와 웹북을 모두 만들 수 있나요?', '가능합니다. 각 형식의 구조와 편집 방식이 달라 제작 범위와 비용은 별도로 산정합니다.'],
 ]
-const breadcrumbJsonLd = { '@context':'https://schema.org','@type':'BreadcrumbList',itemListElement:[{'@type':'ListItem',position:1,name:'홈',item:'https://xn--hz2b41ezwf0zf9tq.com/'},{'@type':'ListItem',position:2,name:'출판서비스',item:'https://xn--hz2b41ezwf0zf9tq.com/business/epub'},{'@type':'ListItem',position:3,name:'전자책·웹북 제작',item:'https://xn--hz2b41ezwf0zf9tq.com/business/epub'}] }
-const serviceJsonLd = { '@context':'https://schema.org','@type':'Service',name:'전자책·웹북 제작',provider:{'@type':'Organization',name:'마이티북스',url:'https://xn--hz2b41ezwf0zf9tq.com/'},areaServed:'대한민국',url:'https://xn--hz2b41ezwf0zf9tq.com/business/epub' }
+const breadcrumbJsonLd = { '@context':'https://schema.org','@type':'BreadcrumbList',itemListElement:[{'@type':'ListItem',position:1,name:'홈',item:'https://mightybooks.kr/'},{'@type':'ListItem',position:2,name:'출판서비스',item:'https://mightybooks.kr/business/epub'},{'@type':'ListItem',position:3,name:'전자책·웹북 제작',item:'https://mightybooks.kr/business/epub'}] }
+const serviceJsonLd = { '@context':'https://schema.org','@type':'Service',name:'전자책·웹북 제작',provider:{'@type':'Organization',name:'마이티북스',url:'https://mightybooks.kr/'},areaServed:'대한민국',url:'https://mightybooks.kr/business/epub' }
 const faqJsonLd = { '@context':'https://schema.org','@type':'FAQPage',mainEntity:faqs.map(([name,text])=>({'@type':'Question',name,acceptedAnswer:{'@type':'Answer',text}})) }
 
 function ContactButtons() { const [open,setOpen]=useState(false); return <><div className={styles.contactRow}><a href={KAKAO_URL} target="_blank" rel="noopener noreferrer" className={styles.ctaBtn}>오픈채팅 문의</a><button type="button" className={styles.ctaBtnGhost} onClick={()=>setOpen(true)}>전화 문의</button><a href={`mailto:${EMAIL_ADDRESS}`} className={styles.ctaBtnGhost}>이메일 문의</a></div>{open&&<PhoneConsultModal styles={styles} onClose={()=>setOpen(false)}/>}</> }

@@ -31,7 +31,7 @@ const reasons = [
 const jsonLd = {
   '@context': 'https://schema.org',
   '@graph': [
-    { '@type': 'WebApplication', name: '칠순·팔순 기념책 제작 일정 계산기', url: 'https://xn--hz2b41ezwf0zf9tq.com/tools/memoir-schedule', applicationCategory: 'BusinessApplication', operatingSystem: 'Web Browser', description: metadata.description },
+    { '@type': 'WebApplication', name: '칠순·팔순 기념책 제작 일정 계산기', url: 'https://mightybooks.kr/tools/memoir-schedule', applicationCategory: 'BusinessApplication', operatingSystem: 'Web Browser', description: metadata.description },
     { '@type': 'FAQPage', mainEntity: faqs.map(([name, text]) => ({ '@type': 'Question', name, acceptedAnswer: { '@type': 'Answer', text } })) },
   ],
 }

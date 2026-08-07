@@ -20,11 +20,11 @@ const professionalLibraryUses = [
   '모바일과 PC에서 이용 가능한 반응형 열람 환경',
 ]
 const breadcrumbJsonLd = { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
-  { '@type': 'ListItem', position: 1, name: '홈', item: 'https://xn--hz2b41ezwf0zf9tq.com/' },
-  { '@type': 'ListItem', position: 2, name: '출판서비스', item: 'https://xn--hz2b41ezwf0zf9tq.com/business/self-publishing' },
-  { '@type': 'ListItem', position: 3, name: '전문서적·전문가 브랜딩 도서·실용서·교재 제작', item: 'https://xn--hz2b41ezwf0zf9tq.com/business/self-publishing' },
+  { '@type': 'ListItem', position: 1, name: '홈', item: 'https://mightybooks.kr/' },
+  { '@type': 'ListItem', position: 2, name: '출판서비스', item: 'https://mightybooks.kr/business/self-publishing' },
+  { '@type': 'ListItem', position: 3, name: '전문서적·전문가 브랜딩 도서·실용서·교재 제작', item: 'https://mightybooks.kr/business/self-publishing' },
 ] }
-const serviceJsonLd = { '@context': 'https://schema.org', '@type': 'Service', name: '전문서적·전문가 브랜딩 도서·실용서·교재 제작', provider: { '@type': 'Organization', name: '마이티북스', url: 'https://xn--hz2b41ezwf0zf9tq.com/' }, areaServed: '대한민국', url: 'https://xn--hz2b41ezwf0zf9tq.com/business/self-publishing', description: '전문 지식, 강의 자료와 현장 노하우를 목적과 독자에 맞는 전문서적, 실용서와 교재로 기획·제작합니다.' }
+const serviceJsonLd = { '@context': 'https://schema.org', '@type': 'Service', name: '전문서적·전문가 브랜딩 도서·실용서·교재 제작', provider: { '@type': 'Organization', name: '마이티북스', url: 'https://mightybooks.kr/' }, areaServed: '대한민국', url: 'https://mightybooks.kr/business/self-publishing', description: '전문 지식, 강의 자료와 현장 노하우를 목적과 독자에 맞는 전문서적, 실용서와 교재로 기획·제작합니다.' }
 const faqJsonLd = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map(([name, text]) => ({ '@type': 'Question', name, acceptedAnswer: { '@type': 'Answer', text } })) }
 
 function ContactButtons() {

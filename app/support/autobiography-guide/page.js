@@ -31,7 +31,7 @@ const articleJsonLd = {
     '@type': 'Organization',
     name: '마이티북스',
   },
-  mainEntityOfPage: 'https://xn--hz2b41ezwf0zf9tq.com/support/autobiography-guide',
+  mainEntityOfPage: 'https://mightybooks.kr/support/autobiography-guide',
 }
 
 export default function AutobiographyGuidePage() {

@@ -31,12 +31,12 @@ const faqItems = [
 ]
 
 const jsonLd = { '@context': 'https://schema.org', '@graph': [
-  { '@type': 'Article', headline: '전자책과 웹북은 무엇이 다를까｜PDF·EPUB·웹 출판 선택 기준', description: metadata.description, mainEntityOfPage: 'https://xn--hz2b41ezwf0zf9tq.com/reference/ebook-webbook-guide', author: { '@type': 'Organization', name: '마이티북스' }, publisher: { '@type': 'Organization', name: '마이티북스', url: 'https://xn--hz2b41ezwf0zf9tq.com' } },
+  { '@type': 'Article', headline: '전자책과 웹북은 무엇이 다를까｜PDF·EPUB·웹 출판 선택 기준', description: metadata.description, mainEntityOfPage: 'https://mightybooks.kr/reference/ebook-webbook-guide', author: { '@type': 'Organization', name: '마이티북스' }, publisher: { '@type': 'Organization', name: '마이티북스', url: 'https://mightybooks.kr' } },
   { '@type': 'BreadcrumbList', itemListElement: [
-    { '@type': 'ListItem', position: 1, name: '홈', item: 'https://xn--hz2b41ezwf0zf9tq.com/' },
-    { '@type': 'ListItem', position: 2, name: '자료', item: 'https://xn--hz2b41ezwf0zf9tq.com/reference/mightybooks-publishing' },
-    { '@type': 'ListItem', position: 3, name: '출판 제작 레퍼런스', item: 'https://xn--hz2b41ezwf0zf9tq.com/reference/mightybooks-publishing' },
-    { '@type': 'ListItem', position: 4, name: '전자책·웹북 선택 기준', item: 'https://xn--hz2b41ezwf0zf9tq.com/reference/ebook-webbook-guide' },
+    { '@type': 'ListItem', position: 1, name: '홈', item: 'https://mightybooks.kr/' },
+    { '@type': 'ListItem', position: 2, name: '자료', item: 'https://mightybooks.kr/reference/mightybooks-publishing' },
+    { '@type': 'ListItem', position: 3, name: '출판 제작 레퍼런스', item: 'https://mightybooks.kr/reference/mightybooks-publishing' },
+    { '@type': 'ListItem', position: 4, name: '전자책·웹북 선택 기준', item: 'https://mightybooks.kr/reference/ebook-webbook-guide' },
   ] },
   { '@type': 'FAQPage', mainEntity: faqItems.map(([name,text]) => ({ '@type': 'Question', name, acceptedAnswer: { '@type': 'Answer', text } })) },
 ] }

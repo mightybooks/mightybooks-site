@@ -31,7 +31,7 @@ const articleJsonLd = {
     '@type': 'Organization',
     name: '마이티북스',
   },
-  mainEntityOfPage: 'https://xn--hz2b41ezwf0zf9tq.com/support/local-publishing-daegu',
+  mainEntityOfPage: 'https://mightybooks.kr/support/local-publishing-daegu',
 }
 
 export default function LocalPublishingDaeguPage() {

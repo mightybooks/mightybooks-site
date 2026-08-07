@@ -39,9 +39,9 @@ const faqs = [
   ['예산에 맞춰 제작할 수 있나요?', '예산 범위에서 판형, 페이지, 용지, 제본과 부수를 조정할 수 있습니다. 필요한 작업량과 맞지 않으면 진행 가능한 범위를 별도로 안내합니다.'],
 ]
 const breadcrumbJsonLd = { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
-  { '@type': 'ListItem', position: 1, name: '홈', item: 'https://xn--hz2b41ezwf0zf9tq.com/' },
-  { '@type': 'ListItem', position: 2, name: '출판서비스', item: 'https://xn--hz2b41ezwf0zf9tq.com/business/booklet' },
-  { '@type': 'ListItem', position: 3, name: '기관·기업 소책자 제작', item: 'https://xn--hz2b41ezwf0zf9tq.com/business/booklet' },
+  { '@type': 'ListItem', position: 1, name: '홈', item: 'https://mightybooks.kr/' },
+  { '@type': 'ListItem', position: 2, name: '출판서비스', item: 'https://mightybooks.kr/business/booklet' },
+  { '@type': 'ListItem', position: 3, name: '기관·기업 소책자 제작', item: 'https://mightybooks.kr/business/booklet' },
 ] }
 const faqJsonLd = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map(([name,text]) => ({ '@type': 'Question', name, acceptedAnswer: { '@type': 'Answer', text } })) }
 
