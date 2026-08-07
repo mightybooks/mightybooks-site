@@ -92,10 +92,10 @@ const books = [
   {
     title: '내 마음이 오래 봐 달라고 말했다',
     subtitle: '셀프 명상상담 100회가 만들어낸 기적',
-    author: '정명자',
+    author: '정명주',
     status: '2026년 7월 1일 출간',
     cover: '/image/list/list025.jpg',
-    brand: '장미와 여우',
+    brand: '마이티북스',
   },
   {
     title: '내가 묻고 산이 답하다',
