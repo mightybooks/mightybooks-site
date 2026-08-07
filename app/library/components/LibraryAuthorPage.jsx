@@ -99,34 +99,39 @@ export default function LibraryAuthorPage({ author, books, adoptionEnabled = fal
           )}
         </aside>
 
-        <div className={styles.shelfArea}>
+       <div className={styles.shelfArea}>
           <header className={styles.shelfHeader}>
-            <p className={styles.sectionKicker}>Books by {author.penName || author.displayName}</p>
+            <p className={styles.sectionKicker}>
+              Books by {author.penName || author.displayName}
+            </p>
             <h2>{author.displayName}의 서가</h2>
             <p>표지를 선택하면 책 소개와 샘플 열람 페이지로 이동합니다.</p>
           </header>
+
           <LibraryBookshelf books={books} />
+
+          {author.featuredVideoUrl && (
+            <section className={styles.authorVideoSection}>
+              <h2>{author.featuredVideoTitle || '영상'}</h2>
+
+              <div className={styles.authorVideoFrame}>
+                <iframe
+                  src={author.featuredVideoUrl}
+                  title={author.featuredVideoTitle || `${author.displayName} 영상`}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  allowFullScreen
+                />
+              </div>
+            </section>
+          )}
         </div>
       </section>
 
-      {author.featuredVideoUrl && (
-              <section className={styles.authorVideoSection}>
-                <h2>{author.featuredVideoTitle || '영상'}</h2>
-
-                <div className={styles.authorVideoFrame}>
-                  <iframe
-                    src={author.featuredVideoUrl}
-                    title={author.featuredVideoTitle || `${author.displayName} 영상`}
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    referrerPolicy="strict-origin-when-cross-origin"
-                    allowFullScreen
-                  />
-                </div>
-              </section>
-            )}
-
       <div className={styles.authorBackRow}>
-        <Link href="/library" className={styles.backLink}>← 저자 목록으로</Link>
+        <Link href="/library" className={styles.backLink}>
+          ← 저자 목록으로
+        </Link>
       </div>
     </main>
   )
