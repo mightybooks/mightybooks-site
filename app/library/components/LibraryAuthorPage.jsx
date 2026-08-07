@@ -3,7 +3,7 @@ import Link from 'next/link'
 import LibraryBookshelf from './LibraryBookshelf'
 import styles from '../library.module.css'
 
-export default function LibraryAuthorPage({ author, books }) {
+export default function LibraryAuthorPage({ author, books, adoptionEnabled = false }) {
   const channelNames = { homepage: '홈페이지', instagram: '인스타그램', blog: '블로그', youtube: '유튜브', facebook: '페이스북', threads: '스레드', x: 'X', brunch: '브런치', other: '외부 채널' }
   const pressPath = `/library/authors/${author.slug}/press`
   const externalLinks = author.externalLinks?.filter((link) => {
@@ -78,10 +78,10 @@ export default function LibraryAuthorPage({ author, books }) {
               )}
             </div>
           )}
-          {(author.slug === 'sian' || author.pressEnabled || externalLinks?.length > 0) && (
+          {(adoptionEnabled || author.pressEnabled || externalLinks?.length > 0) && (
             <div className={styles.externalLinks}>
-              {author.slug === 'sian' && (
-                <Link href="/sian/adoption" className={styles.externalLinkCard}>
+              {adoptionEnabled && (
+                <Link href={`/${author.slug}/adoption`} className={styles.externalLinkCard}>
                   <span><strong>유기토끼 입양 홍보</strong><small>가족을 기다리는 토끼들을 소개합니다.</small></span><b>→</b>
                 </Link>
               )}

@@ -1,5 +1,6 @@
 import { notFound, permanentRedirect } from 'next/navigation'
 import { getPublishedLibraryAuthorPage, getPublishedLibraryAuthorRedirect } from '@/lib/library-content'
+import { getPublishedAuthorAdoptionFeature } from '@/lib/author-feature'
 import LibraryAuthorPage from '@/app/library/components/LibraryAuthorPage'
 
 export const dynamic = 'force-dynamic'
@@ -54,5 +55,13 @@ export default async function AuthorPage({ params }) {
     notFound()
   }
 
-  return <LibraryAuthorPage author={result.author} books={result.books} />
+  const adoptionFeature = await getPublishedAuthorAdoptionFeature(result.author.slug)
+
+  return (
+    <LibraryAuthorPage
+      author={result.author}
+      books={result.books}
+      adoptionEnabled={adoptionFeature?.enabled === true}
+    />
+  )
 }
