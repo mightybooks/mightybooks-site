@@ -550,3 +550,10 @@
     transform: none;
   }
 }
+
+.bookLaunchImage {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}

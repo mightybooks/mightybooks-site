@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import styles from './page.module.css'
 import { notFound } from 'next/navigation'
+import styles from '../../../library.module.css'
 
 const pageUrl =
   'https://mightybooks.kr/library/authors/jungmyeongju/book-launch'
@@ -9,34 +9,40 @@ const pageUrl =
 const imageUrl =
   'https://mightybooks.kr/library/authors/jungmyeongju/book-launch.webp'
 
-export const metadata = {
-  title: '정명주 작가 출간기념회 | 마이티북스',
-  description:
-    '정명주 작가 《내 마음이 오래 봐 달라고 말했다》 출간기념회 안내입니다.',
+export async function generateMetadata({ params }) {
+  const { authorSlug } = await params
 
-  alternates: {
-    canonical: pageUrl,
-  },
+  if (authorSlug !== 'jungmyeongju') return {}
 
-  openGraph: {
-    title: '정명주 작가 《내 마음이 오래 봐 달라고 말했다》 출간기념회',
-    description: '2026년 8월 7일 오후 5시 · 위대한경영자',
-    url: pageUrl,
-    type: 'article',
-    images: [
-      {
-        url: imageUrl,
-        alt: '정명주 작가 출간기념회',
-      },
-    ],
-  },
+  return {
+    title: '정명주 작가 출간기념회 | 마이티북스',
+    description:
+      '정명주 작가 《내 마음이 오래 봐 달라고 말했다》 출간기념회 안내입니다.',
 
-  twitter: {
-    card: 'summary_large_image',
-    title: '정명주 작가 《내 마음이 오래 봐 달라고 말했다》 출간기념회',
-    description: '2026년 8월 7일 오후 5시 · 위대한경영자',
-    images: [imageUrl],
-  },
+    alternates: {
+      canonical: pageUrl,
+    },
+
+    openGraph: {
+      title: '정명주 작가 《내 마음이 오래 봐 달라고 말했다》 출간기념회',
+      description: '2026년 8월 7일 오후 5시 · 위대한경영자',
+      url: pageUrl,
+      type: 'article',
+      images: [
+        {
+          url: imageUrl,
+          alt: '정명주 작가 출간기념회',
+        },
+      ],
+    },
+
+    twitter: {
+      card: 'summary_large_image',
+      title: '정명주 작가 《내 마음이 오래 봐 달라고 말했다》 출간기념회',
+      description: '2026년 8월 7일 오후 5시 · 위대한경영자',
+      images: [imageUrl],
+    },
+  }
 }
 
 export default async function BookLaunchPage({ params }) {
@@ -48,58 +54,54 @@ export default async function BookLaunchPage({ params }) {
 
   return (
     <main className={styles.page}>
-      <article className={styles.event}>
-        <div className={styles.imageWrap}>
-          <Image
-            src="/library/authors/jungmyeongju/book-launch.webp"
-            width={1600}
-            height={900}
-            alt="정명주 작가 출간기념회"
-            className={styles.image}
-            priority
-          />
-        </div>
+      <section className={styles.pressPage}>
 
-        <div className={styles.content}>
-          <p className={styles.kicker}>BOOK LAUNCH</p>
+        <header className={styles.pressHeader}>
+          <p className={styles.eyebrow}>Book Launch</p>
 
-          <h1>
-            정명주 작가
-            <br />
-            출간기념회
-          </h1>
+          <h1>정명주 작가 출간기념회</h1>
 
-          <p className={styles.bookTitle}>
-            《내 마음이 오래 봐 달라고 말했다》
+          <p>
+            《내 마음이 오래 봐 달라고 말했다》 출간을 기념하는 자리입니다.
           </p>
+        </header>
 
-          <div className={styles.info}>
-            <div>
-              <span>일시</span>
-              <strong>2026년 8월 7일 오후 5시</strong>
-            </div>
-
-            <div>
-              <span>장소</span>
-              <strong>부산역 옆 혁정빌딩 802호 위대한경영자 (중앙대로 196번길 6-7)</strong>
-            </div>
+        <div className={styles.pressList}>
+          <div className={styles.pressItem}>
+            <Image
+              src="/library/authors/jungmyeongju/book-launch.webp"
+              width={1920}
+              height={640}
+              sizes="(max-width: 948px) calc(100vw - 48px), 900px"
+              alt="정명주 작가 내 마음이 오래 봐 달라고 말했다 출간기념회"
+              className={styles.bookLaunchImage}
+              priority
+            />
           </div>
 
-          <div className={styles.intro}>
+          <div className={styles.pressItem}>
+            <p className={styles.pressMeta}>2026. 8. 7. FRI · 17:00</p>
+
+            <h2>《내 마음이 오래 봐 달라고 말했다》</h2>
+
             <p>
-              정명주 작가의 《내 마음이 오래 봐 달라고 말했다》 출간을
-              기념하는 자리를 마련합니다.
+              <strong>일시</strong><br />
+              2026년 8월 7일 오후 5시
             </p>
+
             <p>
-              한 권의 책으로 이어진 이야기와 작가를 함께 만나는 자리입니다.
+              <strong>장소</strong><br />
+              부산역 옆 혁정빌딩 802호 위대한경영자<br />
+              중앙대로 196번길 6-7
             </p>
           </div>
-
-          <Link href="/jungmyeongju" className={styles.authorLink}>
-            정명주 작가의 서가 보기 →
-          </Link>
         </div>
-      </article>
+
+        <Link className={styles.backLink} href="/jungmyeongju">
+          ← 정명주 작가의 서가로
+        </Link>
+
+      </section>
     </main>
   )
 }
