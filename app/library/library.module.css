@@ -356,6 +356,12 @@
 .externalLinkCard strong { font-size: 14px; }
 .externalLinkCard small { color: #766b61; line-height: 1.5; }
 .externalLinkCard b { color: var(--library-red); }
+.authorBackRow {
+  width: min(1320px, calc(100% - 64px));
+  margin: -72px auto 0;
+  padding-bottom: 80px;
+}
+
 @media (max-width: 720px) {
   .authorVideoSection {
     margin-top: 44px;
@@ -363,18 +369,10 @@
   }
 
   .authorBackRow {
-    width: min(1320px, calc(100% - 64px));
-    margin: -72px auto 0;
-    padding-bottom: 80px;
-  }
-
-  @media (max-width: 720px) {
-  .authorBackRow {
     width: min(100% - 32px, 1180px);
-    margin-top: 24px;
+    margin: 24px auto 0;
     padding-bottom: 60px;
   }
- }
 }
 
 .pressPage { width: min(900px, calc(100% - 48px)); margin: 0 auto; padding: 150px 0 100px; }
