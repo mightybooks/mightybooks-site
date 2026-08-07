@@ -108,6 +108,23 @@ export default function LibraryAuthorPage({ author, books, adoptionEnabled = fal
           <LibraryBookshelf books={books} />
         </div>
       </section>
+
+      {author.featuredVideoUrl && (
+              <section className={styles.authorVideoSection}>
+                <h2>{author.featuredVideoTitle || '영상'}</h2>
+
+                <div className={styles.authorVideoFrame}>
+                  <iframe
+                    src={author.featuredVideoUrl}
+                    title={author.featuredVideoTitle || `${author.displayName} 영상`}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    allowFullScreen
+                  />
+                </div>
+              </section>
+            )}
+
       <div className={styles.authorBackRow}>
         <Link href="/library" className={styles.backLink}>← 저자 목록으로</Link>
       </div>
