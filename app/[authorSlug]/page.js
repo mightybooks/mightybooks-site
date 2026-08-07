@@ -14,7 +14,7 @@ export async function generateMetadata({ params }) {
   const description = author.shortBio || author.bio?.[0] || ''
 
   return {
-    title: `${author.displayName} 디지털 서가 | 마이티북스`,
+    title: `${author.displayName} 서가 | 마이티북스`,
     description,
 
     alternates: {
@@ -22,7 +22,7 @@ export async function generateMetadata({ params }) {
     },
 
     openGraph: {
-      title: `${author.displayName} 디지털 서가 | 마이티북스`,
+      title: `${author.displayName} 서가 | 마이티북스`,
       description,
       url: `/${author.slug}`,
       type: 'profile',
@@ -38,7 +38,7 @@ export async function generateMetadata({ params }) {
 
     twitter: {
       card: 'summary_large_image',
-      title: `${author.displayName} 디지털 서가 | 마이티북스`,
+      title: `${author.displayName} 서가 | 마이티북스`,
       description,
       images: author.profileImage ? [author.profileImage] : undefined,
     },
