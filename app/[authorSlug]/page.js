@@ -7,13 +7,41 @@ export const dynamic = 'force-dynamic'
 export async function generateMetadata({ params }) {
   const { authorSlug } = await params
   const result = await getPublishedLibraryAuthorPage(authorSlug)
+
   if (!result) return {}
+
   const { author } = result
+  const description = author.shortBio || author.bio?.[0] || ''
 
   return {
     title: `${author.displayName} 디지털 서가 | 마이티북스`,
-    description: author.shortBio || author.bio?.[0] || '',
-    alternates: { canonical: `/${author.slug}` },
+    description,
+
+    alternates: {
+      canonical: `/${author.slug}`,
+    },
+
+    openGraph: {
+      title: `${author.displayName} 디지털 서가 | 마이티북스`,
+      description,
+      url: `/${author.slug}`,
+      type: 'profile',
+      images: author.profileImage
+        ? [
+            {
+              url: author.profileImage,
+              alt: `${author.displayName} 프로필`,
+            },
+          ]
+        : undefined,
+    },
+
+    twitter: {
+      card: 'summary_large_image',
+      title: `${author.displayName} 디지털 서가 | 마이티북스`,
+      description,
+      images: author.profileImage ? [author.profileImage] : undefined,
+    },
   }
 }
 
