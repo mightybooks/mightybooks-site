@@ -64,6 +64,19 @@
   perspective: 1000px;
 }
 
+.previewVisual {
+  width: min(100%, 390px);
+  margin: 0 auto;
+}
+
+.previewVisual .coverButton {
+  width: 100%;
+}
+
+.coverButtonWithActions {
+  padding-bottom: 26px;
+}
+
 .coverButton:focus-visible {
   outline: 2px solid #fff;
   outline-offset: 8px;
@@ -143,6 +156,45 @@
   transform: translateX(-50%);
 }
 
+.previewActions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.previewActions button,
+.accessModalClose {
+  min-height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 10px 16px;
+  border: 1px solid rgba(255, 255, 255, .2);
+  background: rgba(18, 18, 18, .88);
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, .28);
+  font-size: 13px;
+  font-weight: 800;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.previewActions button:hover,
+.accessModalClose:hover {
+  border-color: rgba(255, 255, 255, .46);
+  background: rgba(255, 255, 255, .14);
+}
+
+.previewActions button:focus-visible,
+.accessModalClose:focus-visible,
+.accessModalIconClose:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
 .loadingOverlay,
 .modalBackdrop {
   position: fixed;
@@ -170,6 +222,47 @@
 .modalBackdrop {
   overflow-y: auto;
   overscroll-behavior: contain;
+}
+
+.accessModal {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(calc(100% - 40px), 480px);
+  padding: 44px 34px 32px;
+  border: 1px solid rgba(255, 255, 255, .14);
+  border-top: 3px solid var(--red);
+  background: #151515;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, .7);
+  text-align: center;
+  transform: translate(-50%, -50%);
+}
+
+.accessModalIconClose {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+}
+
+.accessModal p {
+  color: rgba(255, 255, 255, .84);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.7;
+  word-break: keep-all;
+}
+
+.accessModalClose {
+  min-width: 112px;
+  margin-top: 26px;
 }
 
 .modalPositioner {
@@ -350,6 +443,25 @@
 
   .coverButton {
     width: min(100%, 330px);
+  }
+
+  .previewVisual {
+    width: min(100%, 330px);
+  }
+
+  .previewActions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .previewActions button {
+    width: 100%;
+    white-space: normal;
+  }
+
+  .accessModal {
+    width: min(calc(100% - 32px), 480px);
+    padding: 42px 22px 26px;
   }
 
   .modalBackdrop {

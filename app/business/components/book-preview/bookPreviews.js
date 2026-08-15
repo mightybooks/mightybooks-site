@@ -42,9 +42,9 @@ export const companyBookletPreview = {
   cover: '/book-previews/booklet/company/cover3d.png',
   coverAlt: '마이티북스 실제 제작 기업 소책자 3D 표지',
   pages: Array.from(
-    { length: 11 },
+    { length: 12 },
     (_, index) =>
-      `/book-previews/booklet/company/page${String(index + 1).padStart(3, '0')}.jpg`
+      `/book-previews/booklet/company/ktservice_south${String(index + 1).padStart(2, '0')}.webp`
   ),
 }
 

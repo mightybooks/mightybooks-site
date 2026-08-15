@@ -81,6 +81,7 @@ export default function BookletPage() {
         <span className={styles.eyebrow}>Production Portfolio</span>
         <h2 className={styles.sectionTitle}>기존 제작 경험을<br /><em>목적에 맞게 적용합니다</em></h2>
         <p>자료집, 교육자료와 행사 소책자 등 실제 제작 경험을 바탕으로 정보 구조와 인쇄 사양을 상담합니다.</p>
+        <p>마이티북스는 기관과 기업의 교육자료를 플립북으로 제작하여, 소속 직원들이 마이티북스 홈페이지에서 언제든 편리하게 열람할 수 있도록 지원합니다.</p>
       </div>
       <Image src="/image/home/smallbook.png" alt="기관 기업 소책자와 자료집 제작 사례" width={1800} height={1000} />
     </section>
@@ -88,7 +89,7 @@ export default function BookletPage() {
     <section className={styles.sectionAlt}><div className={styles.twoColumn}><div><span className={styles.eyebrow}>Before Inquiry</span><h2 className={styles.sectionTitle}>견적 문의 전에<br /><em>알려 주세요</em></h2><p className={styles.sectionDesc}>원고 분량, 예상 페이지 수, 인쇄 부수, 납품일과 예산을 알려 주시면 진행 가능 여부와 견적을 안내합니다.</p><ContactButtons /></div><ItemList items={checklist} /></div></section>
 
     <section className={styles.section}><SectionHeader eyebrow="FAQ" title={<>자주 묻는 <em>질문</em></>} /><FaqList /></section>
-    <section id="booklet-preview" className={styles.sectionAlt} aria-label="실제 제작 소책자 내지 미리보기"><BookPreviewTrigger book={companyBookletPreview} /></section>
+    <section id="booklet-preview" className={styles.sectionAlt} aria-label="실제 제작 소책자 내지 미리보기"><BookPreviewTrigger book={companyBookletPreview} showFullViewNotice /></section>
     <section className={styles.finalCta}><h2>제작 범위와 예산을<br /><em>먼저 확인합니다</em></h2><p>원고 분량, 페이지 수, 인쇄 부수, 납품일과 예산을 알려 주시면 작업 범위와 진행 가능 여부를 안내합니다.</p><ContactButtons /></section>
   </main>
 }
