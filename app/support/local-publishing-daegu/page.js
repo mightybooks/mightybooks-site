@@ -97,6 +97,7 @@ export default function LocalPublishingDaeguPage() {
             <Link href="/business/poetry" className={styles.ctaBtnGhost}>시집·문집 제작 →</Link>
             <Link href="/support/diagnosis" className={styles.ctaBtnGhost}>출판상담 →</Link>
             <Link href="/about/location" className={styles.ctaBtnGhost}>오시는 길 →</Link>
+            <Link href="/support/local-publishing-gyeongsan" className={styles.ctaBtnGhost}>경산 출판 안내 →</Link>
           </div>
         </div>
       </div>
