@@ -1,0 +1,452 @@
+.resourcePage {
+  --meditation-purple: #3f2d45;
+  --meditation-pink: #ad6f79;
+  width: min(1080px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: 152px 0 96px;
+}
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(44px, 7vw, 78px);
+  color: #f9f4ed;
+  background:
+    radial-gradient(circle at 86% 14%, rgba(196, 126, 140, .26), transparent 34%),
+    linear-gradient(135deg, #2e2233, var(--meditation-purple));
+  box-shadow: 0 24px 60px rgba(49, 36, 50, .16);
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  right: -70px;
+  bottom: -110px;
+  width: 290px;
+  height: 290px;
+  border: 1px solid rgba(255, 255, 255, .12);
+  border-radius: 50%;
+}
+
+.eyebrow,
+.sectionHeading > p,
+.pdfLabel,
+.modalEyebrow {
+  color: #d8a9b2;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  position: relative;
+  z-index: 1;
+  margin-top: 14px;
+  font-size: clamp(42px, 7vw, 76px);
+  line-height: 1.12;
+  letter-spacing: -.055em;
+  word-break: keep-all;
+}
+
+.subtitle {
+  position: relative;
+  z-index: 1;
+  margin-top: 14px;
+  color: rgba(255, 255, 255, .72);
+  font-size: clamp(16px, 2.2vw, 20px);
+  font-weight: 500;
+}
+
+.introduction {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  max-width: 760px;
+  gap: 12px;
+  margin-top: 36px;
+}
+
+.introduction p {
+  color: rgba(255, 255, 255, .78);
+  line-height: 1.9;
+  word-break: keep-all;
+}
+
+.section {
+  padding: 84px 0;
+  border-bottom: 1px solid rgba(32, 27, 22, .15);
+}
+
+.sectionHeading {
+  margin-bottom: 32px;
+}
+
+.sectionHeading > p {
+  color: var(--meditation-pink);
+}
+
+.sectionHeading h2 {
+  margin-top: 8px;
+  font-size: clamp(30px, 4vw, 46px);
+  letter-spacing: -.045em;
+}
+
+.sectionHeading > span {
+  display: block;
+  margin-top: 12px;
+  color: #756a62;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.stepGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.stepCard {
+  min-height: 244px;
+  padding: 28px;
+  border: 1px solid rgba(63, 45, 69, .14);
+  border-top: 3px solid var(--meditation-pink);
+  background: rgba(255, 255, 255, .48);
+}
+
+.stepCard > span {
+  color: var(--meditation-pink);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .12em;
+}
+
+.stepCard h3 {
+  margin-top: 28px;
+  font-size: 21px;
+  letter-spacing: -.025em;
+}
+
+.stepCard p {
+  margin-top: 14px;
+  color: #665d54;
+  font-size: 14px;
+  line-height: 1.8;
+  word-break: keep-all;
+}
+
+.flowBlock {
+  margin-top: 28px;
+  padding: 26px 30px;
+  color: #f7f1e9;
+  background: var(--meditation-purple);
+}
+
+.flowBlock h3 {
+  font-size: 14px;
+}
+
+.flowBlock ol {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 16px;
+  padding: 0;
+  list-style: none;
+}
+
+.flowBlock li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: rgba(255, 255, 255, .78);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.flowBlock li:not(:last-child)::after {
+  content: '→';
+  color: #d8a9b2;
+}
+
+.recommendSection {
+  display: grid;
+  grid-template-columns: minmax(240px, .7fr) minmax(0, 1.3fr);
+  gap: clamp(36px, 7vw, 84px);
+}
+
+.recommendList {
+  display: grid;
+  gap: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: recommendation;
+}
+
+.recommendList li {
+  position: relative;
+  min-height: 62px;
+  padding: 18px 14px 18px 42px;
+  color: #51483f;
+  line-height: 1.65;
+  border-bottom: 1px solid rgba(32, 27, 22, .12);
+  counter-increment: recommendation;
+}
+
+.recommendList li::before {
+  content: counter(recommendation, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  color: var(--meditation-pink);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.materialSection {
+  border-bottom: 0;
+}
+
+.downloadGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.downloadCard {
+  display: flex;
+  min-height: 285px;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 30px;
+  padding: clamp(26px, 4vw, 38px);
+  border: 1px solid rgba(63, 45, 69, .18);
+  background: #f9f6f1;
+  box-shadow: 0 12px 30px rgba(46, 34, 51, .07);
+}
+
+.pdfLabel {
+  color: var(--meditation-pink);
+}
+
+.downloadCard h3 {
+  margin-top: 16px;
+  font-size: clamp(21px, 2.5vw, 27px);
+  letter-spacing: -.03em;
+}
+
+.downloadCard div > p:last-child {
+  margin-top: 14px;
+  color: #6b6158;
+  font-size: 14px;
+  line-height: 1.8;
+  word-break: keep-all;
+}
+
+.downloadButton,
+.instagramButton {
+  display: inline-flex;
+  min-height: 50px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 0 20px;
+  color: #fff;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 800;
+  border: 1px solid var(--meditation-purple);
+  background: var(--meditation-purple);
+  cursor: pointer;
+  transition: background .2s, border-color .2s, transform .2s;
+}
+
+.downloadButton:hover,
+.instagramButton:hover {
+  border-color: #624667;
+  background: #624667;
+  transform: translateY(-2px);
+}
+
+.downloadButton:focus-visible,
+.instagramButton:focus-visible,
+.modalClose:focus-visible {
+  outline: 3px solid rgba(173, 111, 121, .42);
+  outline-offset: 3px;
+}
+
+.resourceNotes {
+  display: grid;
+  gap: 8px;
+  margin-top: 28px;
+  padding-top: 22px;
+  color: #71675e;
+  font-size: 13px;
+  line-height: 1.75;
+  border-top: 1px solid rgba(32, 27, 22, .12);
+}
+
+.resourceNotes strong {
+  margin-right: 6px;
+  color: #544a42;
+}
+
+.caution {
+  margin-top: 10px;
+  color: #82776d;
+  font-size: 12px;
+}
+
+.backLink {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  color: var(--meditation-purple);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.backLink:focus-visible {
+  outline: 2px solid var(--meditation-pink);
+  outline-offset: 4px;
+}
+
+.modalBackdrop {
+  --meditation-purple: #3f2d45;
+  --meditation-pink: #ad6f79;
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: grid;
+  width: 100%;
+  height: 100dvh;
+  place-items: center;
+  overflow-y: auto;
+  padding: 24px;
+  background: rgba(24, 17, 27, .78);
+  backdrop-filter: blur(7px);
+  overscroll-behavior: contain;
+}
+
+.modal {
+  position: relative;
+  width: min(100%, 500px);
+  max-height: calc(100dvh - 48px);
+  overflow-y: auto;
+  padding: 50px 38px 38px;
+  color: #2b222c;
+  text-align: center;
+  border-top: 4px solid var(--meditation-pink);
+  background: #faf6f1;
+  box-shadow: 0 28px 80px rgba(18, 12, 20, .42);
+}
+
+.modalClose {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  color: #49384c;
+  font-size: 27px;
+  line-height: 1;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.modalEyebrow {
+  color: var(--meditation-pink);
+}
+
+.modal h2 {
+  margin-top: 8px;
+  font-size: 30px;
+  letter-spacing: -.04em;
+}
+
+.modalDescription {
+  margin-top: 20px;
+  color: #655a61;
+  line-height: 1.85;
+  word-break: keep-all;
+}
+
+.instagramButton {
+  width: min(100%, 300px);
+  margin: 28px auto 0;
+  text-decoration: none;
+}
+
+@media (max-width: 760px) {
+  .resourcePage {
+    width: min(100% - 32px, 1080px);
+    padding: 116px 0 70px;
+  }
+
+  .hero {
+    padding: 42px 24px;
+  }
+
+  .hero h1 {
+    font-size: clamp(38px, 12vw, 54px);
+  }
+
+  .section {
+    padding: 62px 0;
+  }
+
+  .stepGrid,
+  .downloadGrid,
+  .recommendSection {
+    grid-template-columns: 1fr;
+  }
+
+  .stepCard {
+    min-height: 0;
+  }
+
+  .stepCard h3 {
+    margin-top: 18px;
+  }
+
+  .flowBlock {
+    padding: 24px 20px;
+  }
+
+  .flowBlock ol {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .flowBlock li:not(:last-child)::after {
+    content: '↓';
+  }
+
+  .downloadCard {
+    min-height: 260px;
+  }
+
+  .modalBackdrop {
+    padding: 16px;
+  }
+
+  .modal {
+    max-height: calc(100dvh - 32px);
+    padding: 50px 22px 28px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .downloadButton,
+  .instagramButton {
+    transition: none;
+  }
+
+  .downloadButton:hover,
+  .instagramButton:hover {
+    transform: none;
+  }
+}

@@ -78,7 +78,7 @@ export default function LibraryAuthorPage({ author, books, adoptionEnabled = fal
               )}
             </div>
           )}
-          {(adoptionEnabled || author.pressEnabled || externalLinks?.length > 0) && (
+          {(adoptionEnabled || author.pressEnabled || author.resourceLinks?.length > 0 || externalLinks?.length > 0) && (
             <div className={styles.externalLinks}>
               {adoptionEnabled && (
                 <Link href={`/${author.slug}/adoption`} className={styles.externalLinkCard}>
@@ -90,6 +90,11 @@ export default function LibraryAuthorPage({ author, books, adoptionEnabled = fal
                   <span><strong>언론 보도</strong><small>보도와 인터뷰를 확인합니다.</small></span><b>→</b>
                 </Link>
               )}
+              {author.resourceLinks?.map((resource) => (
+                <Link key={resource.href} href={resource.href} className={styles.externalLinkCard}>
+                  <span><strong>{resource.title}</strong><small>{resource.description}</small></span><b>→</b>
+                </Link>
+              ))}
               {externalLinks?.map((link) => (
                 <a key={link.url} href={link.url} target="_blank" rel="noopener noreferrer" className={styles.externalLinkCard}>
                   <span><strong>{link.title}</strong>{link.description && <small>{link.description}</small>}</span><b>↗</b>

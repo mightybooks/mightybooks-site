@@ -1,4 +1,5 @@
 import { getPublishedLibrarySitemapEntries } from '@/lib/library-content'
+import { getAuthorResourceLinks } from '@/lib/library-author-resources'
 
 export const dynamic = 'force-dynamic'
 
@@ -68,6 +69,14 @@ export default async function sitemap() {
       changeFrequency: 'weekly',
       priority: 0.68,
     })),
+    ...libraryEntries.authors.flatMap((author) =>
+      getAuthorResourceLinks(author.slug).map((resource) => ({
+        url: `${baseUrl}${resource.href}`,
+        lastModified: author.updatedAt,
+        changeFrequency: 'monthly',
+        priority: 0.56,
+      }))
+    ),
     ...libraryEntries.books.map((book) => ({
       url: `${baseUrl}/library/books/${book.slug}`,
       lastModified: book.updatedAt,
