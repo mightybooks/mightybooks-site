@@ -3,12 +3,40 @@ import Link from 'next/link'
 import LibraryBookshelf from './LibraryBookshelf'
 import styles from '../library.module.css'
 
-export default function LibraryAuthorPage({ author, books, adoptionEnabled = false }) {
+export default function LibraryAuthorPage({ author, books, adoptionEnabled = false, supplementalLinks = [], relatedLinkOrder = [] }) {
   const channelNames = { homepage: '홈페이지', instagram: '인스타그램', blog: '블로그', youtube: '유튜브', facebook: '페이스북', threads: '스레드', x: 'X', brunch: '브런치', other: '외부 채널' }
   const pressPath = `/library/authors/${author.slug}/press`
+  const supplementalPaths = new Set(supplementalLinks.map((link) => link.href))
   const externalLinks = author.externalLinks?.filter((link) => {
-    if (!author.pressEnabled) return true
-    try { return new URL(link.url).pathname.replace(/\/$/, '') !== pressPath } catch { return true }
+    try {
+      const pathname = new URL(link.url, 'https://mightybooks.kr').pathname.replace(/\/$/, '')
+      return (!author.pressEnabled || pathname !== pressPath) && !supplementalPaths.has(pathname)
+    } catch {
+      return true
+    }
+  })
+  const relatedLinks = [
+    ...(adoptionEnabled ? [{
+      href: `/${author.slug}/adoption`,
+      title: '유기토끼 입양 홍보',
+      description: '가족을 기다리는 토끼들을 소개합니다.',
+    }] : []),
+    ...supplementalLinks,
+    ...(author.pressEnabled ? [{
+      href: pressPath,
+      title: '언론 보도',
+      description: '보도와 인터뷰를 확인합니다.',
+    }] : []),
+    ...(externalLinks ?? []).map((link) => ({ ...link, isExternal: true })),
+  ].sort((a, b) => {
+    if (relatedLinkOrder.length === 0) return 0
+
+    const aIndex = relatedLinkOrder.indexOf(a.href || a.url)
+    const bIndex = relatedLinkOrder.indexOf(b.href || b.url)
+    const aOrder = aIndex === -1 ? relatedLinkOrder.length : aIndex
+    const bOrder = bIndex === -1 ? relatedLinkOrder.length : bIndex
+
+    return aOrder - bOrder
   })
   return (
     <main className={styles.page}>
@@ -78,28 +106,21 @@ export default function LibraryAuthorPage({ author, books, adoptionEnabled = fal
               )}
             </div>
           )}
-          {(adoptionEnabled || author.pressEnabled || author.resourceLinks?.length > 0 || externalLinks?.length > 0) && (
+          {relatedLinks.length > 0 && (
             <div className={styles.externalLinks}>
-              {adoptionEnabled && (
-                <Link href={`/${author.slug}/adoption`} className={styles.externalLinkCard}>
-                  <span><strong>유기토끼 입양 홍보</strong><small>가족을 기다리는 토끼들을 소개합니다.</small></span><b>→</b>
-                </Link>
-              )}
-              {author.pressEnabled && (
-                <Link href={pressPath} className={styles.externalLinkCard}>
-                  <span><strong>언론 보도</strong><small>보도와 인터뷰를 확인합니다.</small></span><b>→</b>
-                </Link>
-              )}
-              {author.resourceLinks?.map((resource) => (
-                <Link key={resource.href} href={resource.href} className={styles.externalLinkCard}>
-                  <span><strong>{resource.title}</strong><small>{resource.description}</small></span><b>→</b>
-                </Link>
-              ))}
-              {externalLinks?.map((link) => (
-                <a key={link.url} href={link.url} target="_blank" rel="noopener noreferrer" className={styles.externalLinkCard}>
-                  <span><strong>{link.title}</strong>{link.description && <small>{link.description}</small>}</span><b>↗</b>
-                </a>
-              ))}
+              {relatedLinks.map((link) => {
+                const content = <><span><strong>{link.title}</strong>{link.description && <small>{link.description}</small>}</span><b>{link.isExternal ? '↗' : '→'}</b></>
+
+                return link.isExternal ? (
+                  <a key={link.url} href={link.url} target="_blank" rel="noopener noreferrer" className={styles.externalLinkCard}>
+                    {content}
+                  </a>
+                ) : (
+                  <Link key={link.href} href={link.href} className={styles.externalLinkCard}>
+                    {content}
+                  </Link>
+                )
+              })}
             </div>
           )}
         </aside>

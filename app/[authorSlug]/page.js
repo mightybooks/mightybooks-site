@@ -1,6 +1,10 @@
 import { notFound, permanentRedirect } from 'next/navigation'
 import { getPublishedLibraryAuthorPage, getPublishedLibraryAuthorRedirect } from '@/lib/library-content'
 import { getPublishedAuthorAdoptionFeature } from '@/lib/author-feature'
+import {
+  getAuthorRelatedLinkOrder,
+  getAuthorSupplementalLinks,
+} from '@/lib/library-author-resources'
 import LibraryAuthorPage from '@/app/library/components/LibraryAuthorPage'
 
 export const dynamic = 'force-dynamic'
@@ -56,12 +60,18 @@ export default async function AuthorPage({ params }) {
   }
 
   const adoptionFeature = await getPublishedAuthorAdoptionFeature(result.author.slug)
+  const supplementalLinks = getAuthorSupplementalLinks(
+    result.author.slug,
+    result.author.externalLinks
+  )
 
   return (
     <LibraryAuthorPage
       author={result.author}
       books={result.books}
       adoptionEnabled={adoptionFeature?.enabled === true}
+      supplementalLinks={supplementalLinks}
+      relatedLinkOrder={getAuthorRelatedLinkOrder(result.author.slug)}
     />
   )
 }
