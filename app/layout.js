@@ -1,9 +1,10 @@
 import './globals.css'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
+import { SITE_URL } from '@/lib/site-url'
 
 export const metadata = {
-  metadataBase: new URL('https://mightybooks.kr'),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: '마이티북스 | 대구 자서전·시집·문집 제작 출판사',
     template: '%s',
@@ -43,20 +44,20 @@ const organizationJsonLd = {
   '@graph': [
     {
       '@type': 'Organization',
-      '@id': 'https://mightybooks.kr/#organization',
+      '@id': `${SITE_URL}/#organization`,
       name: '마이티북스',
-      url: 'https://mightybooks.kr',
-      logo: 'https://mightybooks.kr/logo.png',
+      url: SITE_URL,
+      logo: `${SITE_URL}/logo.png`,
       telephone: '010-5148-9433',
       email: 'novelstudylab@naver.com',
       description: '대구를 기반으로 자서전, 시집, 전문서, 기관 소책자와 전자책의 기획·편집·디자인·인쇄를 진행하는 출판 제작업체',
     },
     {
       '@type': 'ProfessionalService',
-      '@id': 'https://mightybooks.kr/#local',
+      '@id': `${SITE_URL}/#local`,
       name: '마이티북스',
-      url: 'https://mightybooks.kr',
-      image: 'https://mightybooks.kr/logo.png',
+      url: SITE_URL,
+      image: `${SITE_URL}/logo.png`,
       telephone: '010-5148-9433',
       email: 'novelstudylab@naver.com',
       address: {

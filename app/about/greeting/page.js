@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import Link from 'next/link'
 import styles from './greeting.module.css'
+import { SITE_URL } from '@/lib/site-url'
 
 export const metadata = {
   title: '마이티북스 인사말 | 책 출간 상담과 출판 제작을 함께하는 출판사',
@@ -182,34 +183,34 @@ export default function GreetingPage() {
             '@graph': [
               {
                 '@type': 'Organization',
-                '@id': 'https://mightybooks.co.kr/#organization',
+                '@id': `${SITE_URL}/#organization`,
                 name: '마이티북스',
-                url: 'https://mightybooks.co.kr',
-                logo: 'https://mightybooks.co.kr/logo.png',
+                url: SITE_URL,
+                logo: `${SITE_URL}/logo.png`,
                 description:
                   '원고의 목적과 방향을 확인하고 책 출간 상담과 제작을 지원하는 출판사',
                 founder: {
-                  '@id': 'https://mightybooks.co.kr/#person',
+                  '@id': `${SITE_URL}/#person`,
                 },
               },
               {
                 '@type': 'Person',
-                '@id': 'https://mightybooks.co.kr/#person',
+                '@id': `${SITE_URL}/#person`,
                 name: '문수림',
                 jobTitle: '대표, 작가',
                 worksFor: {
-                  '@id': 'https://mightybooks.co.kr/#organization',
+                  '@id': `${SITE_URL}/#organization`,
                 },
                 url: 'https://surimstudio.com/writer',
                 sameAs: ['https://surimstudio.com'],
               },
               {
                 '@type': 'WebSite',
-                '@id': 'https://mightybooks.co.kr/#website',
-                url: 'https://mightybooks.co.kr',
+                '@id': `${SITE_URL}/#website`,
+                url: SITE_URL,
                 name: '마이티북스',
                 publisher: {
-                  '@id': 'https://mightybooks.co.kr/#organization',
+                  '@id': `${SITE_URL}/#organization`,
                 },
               },
             ],

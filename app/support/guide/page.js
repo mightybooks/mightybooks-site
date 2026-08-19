@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import styles from './guide.module.css'
+import { SITE_URL } from '@/lib/site-url'
 
 export const metadata = {
   title: '출판 가이드 | 책 출간 전 확인해야 할 기준 | 마이티북스',
@@ -23,11 +24,11 @@ const guideJsonLd = {
   publisher: {
     '@type': 'Organization',
     name: '마이티북스',
-    url: 'https://mightybooks.co.kr',
+    url: SITE_URL,
   },
   mainEntityOfPage: {
     '@type': 'WebPage',
-    '@id': 'https://mightybooks.co.kr/support/guide',
+    '@id': `${SITE_URL}/support/guide`,
   },
 }
 

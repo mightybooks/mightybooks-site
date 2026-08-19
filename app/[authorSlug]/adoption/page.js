@@ -5,6 +5,7 @@ import { getPublishedAuthorAdoptionFeature } from '@/lib/author-feature'
 import { sianAdoptionRabbits } from '@/lib/sian-adoption'
 import SianAdoptionRabbitCard from '@/app/library/components/SianAdoptionRabbitCard'
 import styles from '@/app/library/components/SianAdoption.module.css'
+import { createAuthorMetadata } from '@/lib/library-author-metadata'
 
 export const dynamic = 'force-dynamic'
 
@@ -14,13 +15,12 @@ export async function generateMetadata({ params }) {
 
   if (!feature?.enabled) return {}
 
-  return {
+  return createAuthorMetadata({
+    author: feature,
+    canonicalPath: `/${feature.slug}/adoption`,
     title: `${feature.displayName} 유기토끼 입양 홍보 | 마이티북스`,
     description: `${feature.displayName} 작가가 입양을 돕고 있는 유기토끼들의 프로필과 구조 정보를 소개합니다.`,
-    alternates: {
-      canonical: `/${feature.slug}/adoption`,
-    },
-  }
+  })
 }
 
 export default async function AdoptionPage({ params }) {

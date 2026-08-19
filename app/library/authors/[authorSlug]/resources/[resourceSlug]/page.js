@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getPublishedLibraryAuthorPage } from '@/lib/library-content'
 import { getAuthorResource } from '@/lib/library-author-resources'
+import { createAuthorMetadata } from '@/lib/library-author-metadata'
 import libraryStyles from '../../../../library.module.css'
 import ResourceDownloads from './ResourceDownloads'
 import styles from './page.module.css'
@@ -19,17 +20,12 @@ export async function generateMetadata({ params }) {
 
   const canonical = `/library/authors/${result.author.slug}/resources/${resource.slug}`
 
-  return {
+  return createAuthorMetadata({
+    author: result.author,
+    canonicalPath: canonical,
     title: `${resource.metadataTitle} | ${result.author.displayName} | 마이티북스`,
     description: resource.description,
-    alternates: { canonical },
-    openGraph: {
-      title: `${resource.title} | ${result.author.displayName}`,
-      description: resource.description,
-      url: canonical,
-      type: 'website',
-    },
-  }
+  })
 }
 
 export default async function AuthorResourcePage({ params }) {

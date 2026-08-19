@@ -1,9 +1,8 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
+import { SITE_URL } from '@/lib/site-url'
 
 export const dynamic = 'force-dynamic'
-
-const BASE_URL = 'https://mightybooks.kr'
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -65,11 +64,11 @@ export async function GET() {
   const blogLastMod = formatLastMod(publicPosts[0]?.created_at)
 
   const urls = [
-    renderUrl(`${BASE_URL}/blog`, blogLastMod),
-    renderUrl(`${BASE_URL}/blog/500-fiction`, blogLastMod),
+    renderUrl(`${SITE_URL}/blog`, blogLastMod),
+    renderUrl(`${SITE_URL}/blog/500-fiction`, blogLastMod),
     ...publicPosts.map((post) =>
       renderUrl(
-        `${BASE_URL}/blog/${encodeURIComponent(post.slug)}`,
+        `${SITE_URL}/blog/${encodeURIComponent(post.slug)}`,
         formatLastMod(post.created_at)
       )
     ),

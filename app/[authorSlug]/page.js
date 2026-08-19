@@ -6,6 +6,7 @@ import {
   getAuthorSupplementalLinks,
 } from '@/lib/library-author-resources'
 import LibraryAuthorPage from '@/app/library/components/LibraryAuthorPage'
+import { createAuthorMetadata } from '@/lib/library-author-metadata'
 
 export const dynamic = 'force-dynamic'
 
@@ -18,36 +19,13 @@ export async function generateMetadata({ params }) {
   const { author } = result
   const description = author.shortBio || author.bio?.[0] || ''
 
-  return {
+  return createAuthorMetadata({
+    author,
+    canonicalPath: `/${author.slug}`,
     title: `${author.displayName} 서가 | 마이티북스`,
     description,
-
-    alternates: {
-      canonical: `/${author.slug}`,
-    },
-
-    openGraph: {
-      title: `${author.displayName} 서가 | 마이티북스`,
-      description,
-      url: `/${author.slug}`,
-      type: 'profile',
-      images: author.profileImage
-        ? [
-            {
-              url: author.profileImage,
-              alt: `${author.displayName} 프로필`,
-            },
-          ]
-        : undefined,
-    },
-
-    twitter: {
-      card: 'summary_large_image',
-      title: `${author.displayName} 서가 | 마이티북스`,
-      description,
-      images: author.profileImage ? [author.profileImage] : undefined,
-    },
-  }
+    type: 'profile',
+  })
 }
 
 export default async function AuthorPage({ params }) {

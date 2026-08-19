@@ -1,4 +1,5 @@
 import styles from './location.module.css'
+import { SITE_URL } from '@/lib/site-url'
 
 export const metadata = {
   title: '마이티북스 오시는 길 | 대구 동구 출판사 방문 상담 안내',
@@ -134,10 +135,10 @@ export default function LocationPage() {
           __html: JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'LocalBusiness',
-            '@id': 'https://mightybooks.co.kr/#local',
+            '@id': `${SITE_URL}/#local`,
             name: '마이티북스',
-            image: 'https://mightybooks.co.kr/logo.png',
-            url: 'https://mightybooks.co.kr',
+            image: `${SITE_URL}/logo.png`,
+            url: SITE_URL,
             email: EMAIL,
             address: {
               '@type': 'PostalAddress',

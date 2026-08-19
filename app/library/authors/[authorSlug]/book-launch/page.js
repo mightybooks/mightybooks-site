@@ -2,47 +2,24 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import styles from '../../../library.module.css'
-
-const pageUrl =
-  'https://mightybooks.kr/library/authors/jungmyeongju/book-launch'
-
-const imageUrl =
-  'https://mightybooks.kr/library/authors/jungmyeongju/book-launch.webp'
+import { getPublishedLibraryAuthorPage } from '@/lib/library-content'
+import { createAuthorMetadata } from '@/lib/library-author-metadata'
 
 export async function generateMetadata({ params }) {
   const { authorSlug } = await params
 
   if (authorSlug !== 'jungmyeongju') return {}
+  const result = await getPublishedLibraryAuthorPage(authorSlug)
+  if (!result) return {}
 
-  return {
+  return createAuthorMetadata({
+    author: result.author,
+    canonicalPath: `/library/authors/${result.author.slug}/book-launch`,
     title: '정명주 작가 출간기념회 | 마이티북스',
     description:
       '정명주 작가 《내 마음이 오래 봐 달라고 말했다》 출간기념회 안내입니다.',
-
-    alternates: {
-      canonical: pageUrl,
-    },
-
-    openGraph: {
-      title: '정명주 작가 《내 마음이 오래 봐 달라고 말했다》 출간기념회',
-      description: '2026년 8월 7일 오후 5시 · 위대한경영자',
-      url: pageUrl,
-      type: 'article',
-      images: [
-        {
-          url: imageUrl,
-          alt: '정명주 작가 출간기념회',
-        },
-      ],
-    },
-
-    twitter: {
-      card: 'summary_large_image',
-      title: '정명주 작가 《내 마음이 오래 봐 달라고 말했다》 출간기념회',
-      description: '2026년 8월 7일 오후 5시 · 위대한경영자',
-      images: [imageUrl],
-    },
-  }
+    type: 'article',
+  })
 }
 
 export default async function BookLaunchPage({ params }) {
