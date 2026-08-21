@@ -134,6 +134,22 @@ const reviews = [
     size: 'wide',
     alt: '예스24 감성 가족 에세이 TOP20을 3주 연속 갱신한 나의 작은 스승들',
   },
+  {
+    id: 'crested-gecko-outsourced-editing',
+    src: '/image/review/17review.webp',
+    title: '《크레스티드게코 The-Kpet 키우는 법》 외주 책임편집',
+    description: '자사 출간 도서는 아니지만, 믿고 제작을 맡겨주신 고객을 위해 448페이지에 달하는 원고의 외주 책임편집을 진행했습니다. 방대한 분량의 원고를 실제 출판물로 완성할 수 있도록 전체 편집과 제작 실무를 담당한 사례입니다.',
+    size: 'large',
+    alt: '448페이지 크레스티드게코 The-Kpet 키우는 법 도서의 외주 책임편집 결과물 내지',
+  },
+  {
+    id: 'ebook-casebound-small-print-run',
+    src: '/image/review/18review.webp',
+    title: '전자책을 각양장 소량 인쇄본으로 제작',
+    description: '개인이 완성한 전자책을 원하는 판형의 종이책으로 제작한 사례입니다. 전자책 원본을 지정된 책 크기에 맞춰 비율과 구성을 재편집하고, 고객이 원하는 수량만큼 기념용 각양장 도서로 소량 제작했습니다.',
+    size: 'tall',
+    alt: '개인이 완성한 전자책을 원하는 판형으로 재편집해 소량 제작한 기념용 각양장 도서',
+  },
 ]
 
 function shuffleItems(items) {
