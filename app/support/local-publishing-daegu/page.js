@@ -98,6 +98,7 @@ export default function LocalPublishingDaeguPage() {
             <Link href="/support/diagnosis" className={styles.ctaBtnGhost}>출판상담 →</Link>
             <Link href="/about/location" className={styles.ctaBtnGhost}>오시는 길 →</Link>
             <Link href="/support/local-publishing-gyeongsan" className={styles.ctaBtnGhost}>경산 출판 안내 →</Link>
+            <Link href="/support/local-publishing-gumi" className={styles.ctaBtnGhost}>구미 책 출판 상담 안내 →</Link>
           </div>
         </div>
       </div>

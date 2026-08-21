@@ -19,6 +19,7 @@ const routes = [
   ['/support/poetry-book-guide', 0.62],
   ['/support/local-publishing-daegu', 0.62],
   ['/support/local-publishing-gyeongsan', 0.62],
+  ['/support/local-publishing-gumi', 0.62],
   ['/support/diagnosis', 0.72],
   ['/support/faq', 0.62],
   ['/support/submission', 0.56],
