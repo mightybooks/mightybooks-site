@@ -49,8 +49,43 @@
 .inquiry { background: var(--black); padding: 100px 80px; text-align: center; }
 .inquiry .contactSub { max-width: 680px; margin: 18px auto 0; line-height: 1.8; word-break: keep-all; }
 
+/* EDUCATION */
+.education {
+  background: var(--black2);
+  padding: 100px 80px 120px;
+}
+.educationIntro {
+  max-width: 720px;
+  margin: 20px auto 0;
+  color: var(--gray);
+  font-size: 15px;
+  line-height: 1.8;
+  word-break: keep-all;
+}
+.educationGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+.educationCard {
+  height: 300px;
+  border: 1px solid rgba(255,255,255,.08);
+}
+.educationCard:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 5px;
+}
+.educationCard .bizOverlay {
+  background: linear-gradient(to top, rgba(0,0,0,.94) 0%, rgba(0,0,0,.18) 72%);
+}
+.educationCard:hover .bizOverlay {
+  background: linear-gradient(to top, rgba(232,0,30,.45) 0%, rgba(0,0,0,.35) 100%);
+}
+
 /* MOVIE */
-.movie { background: var(--black); padding: 100px 0; }
+.movie { background: var(--black); padding: 130px 0 100px; }
 .videoWrap { max-width: 960px; margin: 0 auto; padding: 0 40px; position: relative; }
 .videoDeco {
   position: absolute; top: -30px; left: 20px;
@@ -232,7 +267,7 @@
   .contact { grid-template-columns: 1fr; padding: 80px 20px; }
   .portfolioHeader, .bizHeader { padding: 0 20px; }
   .bookGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 0 20px; }
-  .intro, .method, .process, .inquiry { padding-left: 20px; padding-right: 20px; }
+  .intro, .method, .process, .education, .inquiry { padding-left: 20px; padding-right: 20px; }
   .methodGrid { grid-template-columns: 1fr; gap: 45px; }
   .processGrid { grid-template-columns: repeat(2,1fr); }
 }
@@ -248,5 +283,8 @@
   .processGrid { grid-template-columns: 1fr; }
   .processItem { min-height: 0; }
   .processItem h3 { margin-top: 22px; }
+  .education { padding-top: 75px; padding-bottom: 90px; }
+  .educationGrid { grid-template-columns: 1fr; }
+  .educationCard { height: 280px; }
   .contactTitle { font-size: 40px; }
 }

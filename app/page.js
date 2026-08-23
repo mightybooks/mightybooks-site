@@ -34,6 +34,23 @@ const process = [
   ['05', '인쇄 및 납품, 유통', '최종 확인 후 인쇄하거나 전자책 파일을 제작해 결과물을 전달하고, 판매 유통을 체크해 드립니다.'],
 ]
 
+const educationLinks = [
+  {
+    title: '500자 글쓰기 워크숍',
+    desc: '자기 서사를 500자로 압축하고 요약해, 짧고 설득력 있는 문장으로 만드는 글쓰기 과정을 확인합니다.',
+    href: '/workshop/500-character-fiction',
+    img: '/image/home/edu006.jpg',
+    linkText: '워크숍 안내 보기',
+  },
+  {
+    title: '출판 관련 실전 교육',
+    desc: '글쓰기, 저작권, 1인 출판 도구와 퍼스널 브랜딩 등 실제 출판 과정에 필요한 교육을 살펴봅니다.',
+    href: '/support/education',
+    img: '/image/home/edu001.avif',
+    linkText: '출판 교육 살펴보기',
+  },
+]
+
 const homeBreadcrumbJsonLd = {
   '@context': 'https://schema.org', '@type': 'BreadcrumbList',
   itemListElement: [{ '@type': 'ListItem', position: 1, name: '홈', item: 'https://mightybooks.kr/' }],
@@ -89,6 +106,33 @@ export default function Home() {
       <section className={styles.process} aria-labelledby="process-title">
         <div className={styles.sectionHeader}><span className={styles.tag}>Production Process</span><h2 id="process-title" className={styles.bigTitle}>상담부터 납품, 유통까지 <em>제작 진행 과정</em></h2></div>
         <ol className={styles.processGrid}>{process.map(([num, title, desc]) => <li key={num} className={styles.processItem}><span>{num}</span><h3>{title}</h3><p>{desc}</p></li>)}</ol>
+      </section>
+
+      <section className={styles.education} aria-labelledby="education-title">
+        <div className={styles.sectionHeader}>
+          <span className={styles.tag}>Writing · Publishing Education</span>
+          <h2 id="education-title" className={styles.bigTitle}>글쓰기와 출판을 배우는 <em>교육 안내</em></h2>
+          <p className={styles.educationIntro}>마이티북스가 운영하는 글쓰기 워크숍과 출판 실무 교육을 확인해 보세요.</p>
+        </div>
+        <div className={styles.educationGrid}>
+          {educationLinks.map(item => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={`${styles.bizCard} ${styles.educationCard}`}
+              style={{ backgroundImage: `url(${item.img})` }}
+              aria-label={`${item.title} 페이지로 이동`}
+            >
+              <div className={styles.bizOverlay} />
+              <div className={styles.bizContent}>
+                <h3 className={styles.bizName}>{item.title}</h3>
+                <p className={styles.bizDesc}>{item.desc}</p>
+                <span className={styles.cardLink}>{item.linkText} →</span>
+              </div>
+              <span className={styles.bizArrow} aria-hidden="true">→</span>
+            </Link>
+          ))}
+        </div>
       </section>
 
       <section className={styles.movie} id="about">

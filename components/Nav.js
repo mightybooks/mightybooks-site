@@ -17,12 +17,10 @@ const navItems = [
     ],
   },
   {
-    label: '상담과 교육',
+    label: '상담 안내',
     children: [
       { label: '원고 접수 안내', href: '/support/submission' },
       { label: '기획출간 유료상담', href: '/support/paid-consultation' },
-      { label: '500자 글쓰기 워크숍', href: '/workshop/500-character-fiction' },
-      { label: '출판 교육', href: '/support/education' },
       { label: '출판 도구', href: '/tools' },
       { label: 'FAQ', href: '/support/faq' },
     ],
@@ -163,7 +161,7 @@ export default function Nav() {
       <button
         type="button"
         className={styles.mobileToggle}
-        aria-label="모바일 메뉴 열기"
+        aria-label={mobileOpen ? '모바일 메뉴 닫기' : '모바일 메뉴 열기'}
         aria-expanded={mobileOpen}
         aria-controls="mobile-nav"
         onClick={() => {

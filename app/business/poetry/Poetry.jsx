@@ -13,7 +13,7 @@ import {
 import styles from './poetry.module.css'
 
 const badges = ['완성 원고 기반 제작', '한 권부터 소량 인쇄 가능', '에세이·산문 윤문 선택 가능', '맞춤형 표지·내지 디자인', 'ISBN·서점 유통 지원']
-const bookTypes = ['개인 시집', '개인 작품집', '에세이집', '수필집', '산문집', '문학회 문집', '동호회 문집', '학교·기관 작품집', '공동 저자 문집', '독립출판물 형태의 개인 저서']
+const bookTypes = ['개인 시집', '개인 작품집', '단행본 소설', '에세이집', '수필집', '산문집', '문학회 문집', '동호회 문집', '학교·기관 작품집', '공동 저자 문집', '독립출판물 형태의 개인 저서']
 const manuscripts = ['한글 또는 워드로 작성한 원고', 'PDF로 정리된 원고', '문학회 회원별로 취합한 원고', '블로그나 브런치 등에 게시한 산문', '기존 회보나 소식지에 발표한 작품', '사진, 삽화, 캘리그래피가 포함된 원고']
 const proofreading = ['오탈자 확인', '맞춤법과 띄어쓰기 확인', '문장부호와 표기 방식 통일', '제목, 목차, 저자명 등 서지 정보 확인', '공동 문집의 필자별 형식 통일']
 const polishing = ['어색한 문장 정리', '반복 표현 정리', '문단 흐름 개선', '문체와 서술 시점 통일', '글 전체의 가독성 개선']
@@ -86,8 +86,8 @@ export default function PoetryPage() {
           <span className={styles.tag}>Poetry · Anthology · Essay</span>
           <p className={styles.heroService}>시집 · 문집 · 에세이 제작</p>
           <h1 className={styles.heroTitle}>써온 글을<br /><span>한 권의 책으로</span><br />만듭니다.</h1>
-          <p className={styles.heroCopy}>완성된 시와 산문 원고를 바탕으로 작품의 순서와 호흡, 여백을 정리하고 표지와 내지를 디자인해 한 권의 책으로 제작합니다.</p>
-          <p className={styles.heroSubcopy}>개인 시집과 에세이집부터 문학회·동호회 공동 문집까지, 단 한 권의 소량 인쇄부터 정식 출간과 서점 유통까지 안내합니다. 대구·경북·경남은 대면 상담, 그 외 지역은 전국 비대면 상담이 가능합니다.</p>
+          <p className={styles.heroCopy}>완성된 시와 산문, 단행본 소설 원고를 바탕으로 작품의 순서와 호흡, 여백을 정리하고 표지와 내지를 디자인해 한 권의 책으로 제작합니다.</p>
+          <p className={styles.heroSubcopy}>개인 시집과 완성된 단행본 소설, 에세이집부터 문학회·동호회 공동 문집까지, 단 한 권의 소량 인쇄부터 정식 출간과 서점 유통까지 안내합니다. 대구·경북·경남은 대면 상담이 가능하며, 원하는 경우 지역과 관계없이 처음부터 비대면으로 진행할 수 있습니다.</p>
           <div className={styles.badges}>{badges.map(item => <span key={item}>{item}</span>)}</div>
           <ContactButtons />
         </div>
@@ -100,7 +100,7 @@ export default function PoetryPage() {
       </div>
     </section>
 
-    <section className={styles.section} ref={reveal(0)}><Header tag="Book Types" title={<>어떤 글을 <em>책으로 만드나요?</em></>} desc="개인 시집 출판, 에세이 출판, 수필집 제작부터 여러 필자의 문집 제작과 개인 저서 제작까지 완성 원고를 책의 형태로 정리합니다." /><div className={`${styles.chipGrid} ${styles.bookTypeGrid}`}>{bookTypes.map(item => <span key={item}>{item}</span>)}</div></section>
+    <section className={styles.section} ref={reveal(0)}><Header tag="Book Types" title={<>어떤 글을 <em>책으로 만드나요?</em></>} desc="개인 시집 출판, 완성된 단행본 소설 출간, 에세이 출판, 수필집 제작부터 여러 필자의 문집 제작과 개인 저서 제작까지 완성 원고를 책의 형태로 정리합니다." /><div className={`${styles.chipGrid} ${styles.bookTypeGrid}`}>{bookTypes.map(item => <span key={item}>{item}</span>)}</div></section>
 
     <section className={styles.sectionAlt} ref={reveal(1)}><div className={styles.split}><div><span className={styles.tag}>Completed Manuscript</span><h2 className={styles.sectionTitle}>완성된 원고에서<br /><em>시작합니다</em></h2><p className={styles.sectionDesc}>작품 선정, 배열, 목차 구성, 표기 통일, 교정, 편집디자인과 인쇄를 지원합니다. 인터뷰를 통해 처음부터 원고를 대신 쓰는 서비스는 아닙니다.</p><p className={styles.note}>손글씨 원고나 파일 변환이 필요한 자료는 상태와 분량을 확인한 뒤 별도로 견적을 안내합니다.</p></div><div className={styles.card}><h3>접수 가능한 원고</h3><List items={manuscripts} /></div></div></section>
 
