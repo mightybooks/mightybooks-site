@@ -1,5 +1,6 @@
 import { getPublishedLibrarySitemapEntries } from '@/lib/library-content'
 import { getAuthorResourceLinks } from '@/lib/library-author-resources'
+import { localPublishingSlugs } from '@/app/support/local-publishing-data'
 
 export const dynamic = 'force-dynamic'
 
@@ -20,6 +21,7 @@ const routes = [
   ['/support/local-publishing-daegu', 0.62],
   ['/support/local-publishing-gyeongsan', 0.62],
   ['/support/local-publishing-gumi', 0.62],
+  ...localPublishingSlugs.map((slug) => [`/support/${slug}`, 0.62]),
   ['/support/diagnosis', 0.72],
   ['/support/faq', 0.62],
   ['/support/submission', 0.56],

@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import styles from '../guide/guide.module.css'
+import { localPublishingRegions } from '../local-publishing-data'
 
 export const metadata = {
   title: '대구에서 책을 만들 때 확인해야 할 것 | 마이티북스',
@@ -91,14 +92,25 @@ export default function LocalPublishingDaeguPage() {
         </div>
 
         <div className={styles.cta}>
+          <div className={styles.ctaText}>경북 지역 출판 안내</div>
+          <div className={styles.ctaBtns}>
+            <Link href="/support/local-publishing-gyeongsan" className={styles.ctaBtnGhost}>경산 출판 안내 →</Link>
+            <Link href="/support/local-publishing-gumi" className={styles.ctaBtnGhost}>구미 책 출판 상담 안내 →</Link>
+            {localPublishingRegions.map((region) => (
+              <Link href={`/support/${region.slug}`} className={styles.ctaBtnGhost} key={region.slug}>
+                {region.city} 출판 안내 →
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        <div className={styles.cta}>
           <div className={styles.ctaText}>관련 서비스와 상담 페이지</div>
           <div className={styles.ctaBtns}>
             <Link href="/business/autobiography" className={styles.ctaBtn}>자서전 제작 →</Link>
             <Link href="/business/poetry" className={styles.ctaBtnGhost}>시집·문집 제작 →</Link>
             <Link href="/support/diagnosis" className={styles.ctaBtnGhost}>출판상담 →</Link>
             <Link href="/about/location" className={styles.ctaBtnGhost}>오시는 길 →</Link>
-            <Link href="/support/local-publishing-gyeongsan" className={styles.ctaBtnGhost}>경산 출판 안내 →</Link>
-            <Link href="/support/local-publishing-gumi" className={styles.ctaBtnGhost}>구미 책 출판 상담 안내 →</Link>
           </div>
         </div>
       </div>
