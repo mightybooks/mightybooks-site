@@ -145,6 +145,24 @@ export default async function LocalPublishingRegionPage({ params }) {
         </div>
 
         <section className={styles.section}>
+          <h2>경북 지역 고객을 위한 두 가지 서비스 조건</h2>
+          <div className={styles.list}>
+            <div className={styles.listItem}>
+              <strong>첫 상담부터 출간까지, 프로 작가 문수림이 직접 담당합니다</strong>
+              <span>
+                {region.city}에서 출간을 의뢰해도 처음 상담한 사람과 실제 책을 만드는 담당자가 나뉘지 않습니다. 프로 작가 문수림이 원고 확인, 편집·디자인 협의, 인쇄·발행 관리와 최종 출간까지 직접 담당합니다.
+              </span>
+            </div>
+            <div className={styles.listItem}>
+              <strong>경북 지역 출간 고객에게 온라인 서가를 1년간 제공합니다</strong>
+              <span>
+                종이책 출간 고객에게 완성된 책을 웹에서 열람할 수 있는 마이티북스 온라인 서가를 별도 제작비 없이 제공합니다. 별도의 EPUB·PDF 전자책을 제작하는 혜택이나 판매용 공개 전자책이 아니며, 출간 후 1년 동안 프라이빗 링크로 가족·지인 등 원하는 사람과 열람할 수 있습니다.
+              </span>
+            </div>
+          </div>
+        </section>
+
+        <section className={styles.section}>
           <h2>{region.accessHeading}</h2>
           <p className={styles.quote}>{region.accessQuote}</p>
           <div className={styles.list}>

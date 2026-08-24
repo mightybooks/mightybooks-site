@@ -53,7 +53,7 @@ const productionScope = [
   ['원고 확인', '완성 원고, 메모, 사진과 자료의 상태를 먼저 살펴봅니다.'],
   ['편집·디자인', '책의 목적에 맞춰 교정, 본문 편집과 표지·내지 디자인 범위를 정합니다.'],
   ['발행 방식', '소장·배포·판매 목적에 따라 ISBN과 서점 유통 필요 여부를 구분합니다.'],
-  ['인쇄·온라인 서가', '필요한 부수의 종이책 제작과 서비스별 디지털 열람 방식을 검토합니다.'],
+  ['인쇄·발행 관리', '판형과 종이, 제본, 제작 부수를 정하고 인쇄부터 최종 발행까지 관리합니다.'],
 ]
 
 const process = [
@@ -97,6 +97,24 @@ export default function LocalPublishingGyeongsanPage() {
         </div>
 
         <section className={styles.section}>
+          <h2>경북 지역 고객을 위한 두 가지 서비스 조건</h2>
+          <div className={styles.list}>
+            <div className={styles.listItem}>
+              <strong>첫 상담부터 출간까지, 프로 작가 문수림이 직접 담당합니다</strong>
+              <span>
+                처음 전화를 받는 사람과 실제 책을 만드는 담당자가 따로 나뉘지 않습니다. 프로 작가 문수림이 첫 상담부터 원고 확인, 편집·디자인 협의, 인쇄·발행 관리와 최종 출간까지 직접 담당합니다.
+              </span>
+            </div>
+            <div className={styles.listItem}>
+              <strong>경북 지역 출간 고객에게 온라인 서가를 1년간 제공합니다</strong>
+              <span>
+                종이책 출간 고객에게 완성된 책을 웹에서 열람할 수 있는 마이티북스 온라인 서가를 별도 제작비 없이 제공합니다. 별도의 EPUB·PDF 전자책을 제작하는 혜택이나 판매용 공개 전자책이 아니며, 출간 후 1년 동안 프라이빗 링크로 가족·지인 등 원하는 사람과 열람할 수 있습니다.
+              </span>
+            </div>
+          </div>
+        </section>
+
+        <section className={styles.section}>
           <h2>경산에서 책을 만들 때 확인할 제작 범위</h2>
           <p>
             책 제작은 원고를 인쇄소에 전달하는 한 단계로 끝나지 않을 수 있습니다. 원고 상태와 책의 목적에 따라
@@ -117,7 +135,7 @@ export default function LocalPublishingGyeongsanPage() {
           <h2>부모님 자서전과 개인 회고록</h2>
           <p>
             부모님의 생애를 남기는 자서전, 개인 회고록, 퇴임 기념 책과 가족 기록은 자료의 양과 원고 유무에 따라 출발점이 다릅니다.
-            완성 원고가 없어도 메모, 사진, 연표와 인터뷰를 바탕으로 방향을 정할 수 있으며, 필요에 따라 자료의 디지털 보관과 열람까지 이용 가능합니다.
+            완성 원고가 없어도 메모, 사진, 연표와 인터뷰를 바탕으로 책의 구성과 필요한 자료 정리 범위를 정할 수 있습니다.
           </p>
           <div className={styles.linkGrid}>
             <Link className={styles.linkCard} href="/business/autobiography">자서전 제작 방식과 비용 자세히 보기 →</Link>
@@ -130,7 +148,6 @@ export default function LocalPublishingGyeongsanPage() {
           <p>
             경산의 개인 작가뿐 아니라 동인과 모임이 함께 만든 작품도 시집, 문집, 에세이 형태로 정리할 수 있습니다.
             작품 배열, 교정 범위, 표지와 내지 구성, 제작 부수와 유통 여부는 원고와 출간 목적을 확인한 뒤 결정합니다.
-            이 과정에서 제작비가 부담된다면, 디지털 온라인 서가를 이용하여 제작비를 획기적으로 줄일 수도 있습니다.
           </p>
           <div className={styles.linkGrid}>
             <Link className={styles.linkCard} href="/business/poetry">시집·문집·에세이 제작 서비스 자세히 보기 →</Link>
@@ -143,7 +160,6 @@ export default function LocalPublishingGyeongsanPage() {
           <p>
             직접 쓴 원고나 오랫동안 모은 기록이 있다면 판매용 책, 가족·지인 배포용 책, 개인 소장용 책 가운데 목적을 먼저 정하는 것이 좋습니다.
             목적에 따라 편집과 디자인의 범위, 제작 부수, ISBN과 유통 여부가 달라지므로 필요한 선택지를 먼저 비교해 보세요.
-            마이티북스에서는 퍼스널 브랜딩을 위한 저자 별 디지털 온라인 서가를 맞춤으로 제공하고 있어 차별화된 전략 무기로도 활용 가능합니다.
           </p>
           <div className={styles.linkGrid}>
             <Link className={styles.linkCard} href="/reference/personal-publishing">개인출판과 소량 책 제작 기준 자세히 보기 →</Link>

@@ -131,6 +131,24 @@ export default function LocalPublishingGumiPage() {
         </div>
 
         <section className={styles.section}>
+          <h2>경북 지역 고객을 위한 두 가지 서비스 조건</h2>
+          <div className={styles.list}>
+            <div className={styles.listItem}>
+              <strong>첫 상담부터 출간까지, 프로 작가 문수림이 직접 담당합니다</strong>
+              <span>
+                처음 전화를 받는 사람과 실제 책을 만드는 담당자가 따로 나뉘지 않습니다. 프로 작가 문수림이 첫 상담부터 원고 확인, 편집·디자인 협의, 인쇄·발행 관리와 최종 출간까지 직접 담당합니다.
+              </span>
+            </div>
+            <div className={styles.listItem}>
+              <strong>경북 지역 출간 고객에게 온라인 서가를 1년간 제공합니다</strong>
+              <span>
+                종이책 출간 고객에게 완성된 책을 웹에서 열람할 수 있는 마이티북스 온라인 서가를 별도 제작비 없이 제공합니다. 별도의 EPUB·PDF 전자책을 제작하는 혜택이나 판매용 공개 전자책이 아니며, 출간 후 1년 동안 프라이빗 링크로 가족·지인 등 원하는 사람과 열람할 수 있습니다.
+              </span>
+            </div>
+          </div>
+        </section>
+
+        <section className={styles.section}>
           <h2>구미에서 방문하는 방법</h2>
           <p className={styles.quote}>
             구미역에서 대경선을 이용해 동대구역으로 이동한 뒤, 도시철도 1호선으로 환승하면 안심역까지 올 수 있습니다. 안심역 3번 출구에서 마이티북스 사무실까지는 도보 약 5분입니다. 자차 이용시에는 동대구IC와 율암IC를 이용하시면 편하십니다.
