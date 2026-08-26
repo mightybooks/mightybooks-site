@@ -50,6 +50,29 @@ const sourceMaterials = [
   ['출생·결혼·창업·은퇴 연표', '사건의 순서를 잡아 회고록의 뼈대를 만듭니다.'],
 ]
 
+const narrativePrinciples = [
+  [
+    '목차는 삶에서 시작합니다',
+    '출생, 학창 시절, 직장, 결혼처럼 정해진 순서에 모두를 맞추지 않습니다. 실제 삶에서 중요한 사건과 시기, 관계를 중심으로 목차와 장을 설계합니다.',
+  ],
+  [
+    '연대기 너머 중심축을 찾습니다',
+    '사건을 시간순으로 나열하는 데 그치지 않고, 인터뷰와 자료에서 반복되는 선택과 가치가 무엇인지 확인해 삶을 한 권의 이야기로 묶습니다.',
+  ],
+  [
+    '실제 말과 기억을 우선합니다',
+    '날짜·인물·사건은 인터뷰, 녹음, 메모, 사진 설명과 연표를 기준으로 정리하고 감정과 의미는 당사자의 표현을 우선합니다. 그럴듯한 사건이나 마음을 임의로 보태지 않습니다.',
+  ],
+  [
+    '중요한 시간에 맞춰 분량을 정합니다',
+    '모든 장을 같은 길이로 맞추지 않습니다. 어떤 시기는 짧게 지나가고, 삶의 방향을 바꾼 사건은 한 장 전체를 차지할 수 있습니다.',
+  ],
+  [
+    '초고를 확인하며 구성을 조정합니다',
+    '초고를 읽으며 새로 떠오른 기억이나 필요한 자료가 생기면, 합의한 검토·수정 범위 안에서 원고에 반영하고 장의 흐름을 조정합니다.',
+  ],
+]
+
 const workScope = [
   '상담 및 방향 설정',
   '목차 구성',
@@ -367,7 +390,25 @@ export default function AutobiographyPage() {
         </div>
       </section>
 
-      <section className={styles.section} ref={ref(2)} aria-labelledby="scope-heading">
+      <section className={styles.section} ref={ref(2)} aria-labelledby="principles-heading">
+        <div className={styles.sectionHeader}>
+          <span className={styles.tag}>Narrative Design</span>
+          <h2 id="principles-heading" className={styles.sectionTitle}>정해진 자서전 틀에<br /><em>삶을 끼워 넣지 않습니다</em></h2>
+          <p className={styles.sectionLead}>
+            사람마다 삶의 중심과 중요한 시간이 다릅니다. 제공된 기억과 자료를 바탕으로 그 사람에게 필요한 목차, 서사의 흐름과 장별 분량을 설계합니다.
+          </p>
+        </div>
+        <div className={styles.cardGrid}>
+          {narrativePrinciples.map(([title, text]) => (
+            <article key={title} className={styles.materialCard}>
+              <h3>{title}</h3>
+              <p>{text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className={styles.section} ref={ref(3)} aria-labelledby="scope-heading">
         <div className={styles.split}>
           <div className={styles.imagePanel}>
             {/* TODO: 실제 편집·디자인 작업 사진으로 교체 예정입니다. */}
@@ -394,7 +435,7 @@ export default function AutobiographyPage() {
         </div>
       </section>
 
-      <section className={styles.formatSection} ref={ref(3)} aria-labelledby="format-heading">
+      <section className={styles.formatSection} ref={ref(4)} aria-labelledby="format-heading">
         <div className={styles.sectionHeader}>
           <span className={styles.tag}>Webbook / Printed Book</span>
           <h2 id="format-heading" className={styles.sectionTitle}>책은 종이로도,<br /><em>웹북으로도 남길 수 있습니다</em></h2>
@@ -429,7 +470,7 @@ export default function AutobiographyPage() {
         <Link className={styles.libraryLink} href="/library">웹북 샘플 보기</Link>
       </section>
 
-      <section className={styles.localSection} ref={ref(4)} aria-labelledby="local-heading">
+      <section className={styles.localSection} ref={ref(5)} aria-labelledby="local-heading">
         <div className={styles.localInner}>
           <span className={styles.tag}>Nationwide Service</span>
           <h2 id="local-heading" className={styles.sectionTitle}>지역 기반 · <em>전국 진행 가능</em></h2>
@@ -449,7 +490,7 @@ export default function AutobiographyPage() {
         </div>
       </section>
 
-      <section className={styles.section} ref={ref(5)} aria-labelledby="process-heading">
+      <section className={styles.section} ref={ref(6)} aria-labelledby="process-heading">
         <div className={styles.sectionHeader}>
           <span className={styles.tag}>Process</span>
           <h2 id="process-heading" className={styles.sectionTitle}>제작 <em>과정</em></h2>
@@ -471,7 +512,7 @@ export default function AutobiographyPage() {
         </div>
       </section>
 
-      <section className={styles.sectionAlt} ref={ref(6)} aria-labelledby="types-heading">
+      <section className={styles.sectionAlt} ref={ref(7)} aria-labelledby="types-heading">
         <div className={styles.sectionHeader}>
           <span className={styles.tag}>Book Types</span>
           <h2 id="types-heading" className={styles.sectionTitle}><em>다양한</em> 제작 형태</h2>
@@ -484,7 +525,7 @@ export default function AutobiographyPage() {
         </div>
       </section>
 
-      <section className={styles.gallerySection} ref={ref(7)} aria-labelledby="gallery-heading">
+      <section className={styles.gallerySection} ref={ref(8)} aria-labelledby="gallery-heading">
         <div className={styles.sectionHeader}>
           <span className={styles.tag}>Portfolio Mood</span>
           <h2 id="gallery-heading" className={styles.sectionTitle}>제작 도서와 <em>출판 경험</em></h2>
@@ -506,7 +547,7 @@ export default function AutobiographyPage() {
         </div>
       </section>
 
-      <section className={styles.priceSection} ref={ref(8)} aria-labelledby="price-heading">
+      <section className={styles.priceSection} ref={ref(9)} aria-labelledby="price-heading">
         <div className={styles.sectionHeader}>
           <span className={styles.tag}>Starting Price</span>
           <h2 id="price-heading" className={styles.sectionTitle}>원고 상태와 제작 방식에 맞는<br /><em>플랜을 선택할 수 있습니다</em></h2>
@@ -551,7 +592,7 @@ export default function AutobiographyPage() {
         </div>
       </section>
 
-      <section className={styles.businessSection} ref={ref(9)} aria-labelledby="business-heading">
+      <section className={styles.businessSection} ref={ref(10)} aria-labelledby="business-heading">
         <div className={styles.businessIntro}>
           <span className={styles.tag}>Business Publishing</span>
           <h2 id="business-heading" className={styles.sectionTitle}>대표자와 기관을 위한<br /><em>비즈니스 출판</em></h2>
@@ -577,7 +618,7 @@ export default function AutobiographyPage() {
         </div>
       </section>
 
-      <section className={styles.sectionAlt} ref={ref(10)} aria-labelledby="checklist-heading">
+      <section className={styles.sectionAlt} ref={ref(11)} aria-labelledby="checklist-heading">
         <div className={styles.split}>
           <div>
             <span className={styles.tag}>Before Contact</span>
@@ -594,7 +635,7 @@ export default function AutobiographyPage() {
         </div>
       </section>
 
-      <section className={styles.section} ref={ref(11)} aria-labelledby="guide-heading">
+      <section className={styles.section} ref={ref(12)} aria-labelledby="guide-heading">
         <div className={styles.sectionHeader}>
           <span className={styles.tag}>Quick Guide</span>
           <h2 id="guide-heading" className={styles.sectionTitle}>많이 문의하시는 <em>핵심 안내</em></h2>
@@ -619,7 +660,7 @@ export default function AutobiographyPage() {
         </div>
       </section>
 
-      <section className={styles.privacyBox} ref={ref(12)} aria-label="개인정보와 비밀보장 안내">
+      <section className={styles.privacyBox} ref={ref(13)} aria-label="개인정보와 비밀보장 안내">
         <h2>개인 자료는 제작 목적 안에서만 다룹니다</h2>
         <p>
           상담 내용과 전달받은 원고, 사진, 녹취 자료는 제작 목적 외 사용하지 않습니다.
@@ -627,11 +668,11 @@ export default function AutobiographyPage() {
         </p>
       </section>
 
-      <section id="book-preview" className={styles.sectionAlt} ref={ref(13)} aria-label="실제 제작 자서전 내지 미리보기">
+      <section id="book-preview" className={styles.sectionAlt} ref={ref(14)} aria-label="실제 제작 자서전 내지 미리보기">
         <BookPreviewTrigger book={autobiographyPreview} />
       </section>
 
-      <section className={styles.finderSection} ref={ref(14)} aria-labelledby="finder-heading">
+      <section className={styles.finderSection} ref={ref(15)} aria-labelledby="finder-heading">
         <div className={styles.sectionHeader}>
           <span className={styles.tag}>Plan Finder</span>
           <h2 id="finder-heading" className={styles.sectionTitle}>내게 맞는<br /><em>플랜 찾기</em></h2>

@@ -20,7 +20,7 @@ export const metadata = {
 
 const services = [
   { name: '자서전·회고록·기념도서', desc: '개인의 생애 기록부터 부모님 자서전, 기업·단체의 기념도서까지 인터뷰와 원고 정리부터 제작합니다.', href: '/business/autobiography', img: '/image/home/main002.avif' },
-  { name: '시집·문집·에세이', desc: '개인 시집, 동인 문집, 수필집 등 원고의 성격과 분량에 맞춰 편집과 디자인을 진행합니다.', href: '/business/poetry', img: '/image/home/main003.jpg' },
+  { name: '개인 시집 제작·출판', desc: '시집의 작품 배열부터 편집·디자인·인쇄까지 진행하며, 문집과 에세이도 함께 제작합니다.', href: '/business/poetry', img: '/image/home/main003.jpg' },
   { name: '전문서·실용서·개인 출판', desc: '전문 지식, 교육 자료, 연구 성과와 실무 경험을 정식 단행본으로 제작합니다.', href: '/business/self-publishing', img: '/image/home/main001.avif' },
   { name: '기관·기업 소책자', desc: '기관 보고서, 사업 기록, 교육자료, 홍보책자와 성과집의 편집·디자인·인쇄를 진행합니다.', href: '/business/booklet', img: '/image/home/main005.png' },
   { name: '전자책·웹북', desc: '종이책 원고를 전자책이나 웹에서 읽을 수 있는 디지털 콘텐츠로 제작합니다.', href: '/business/epub', img: '/image/home/surimji_cover3d.png' },

@@ -53,6 +53,15 @@ const breadcrumbJsonLd = { '@context': 'https://schema.org', '@type': 'Breadcrum
   { '@type': 'ListItem', position: 2, name: '출판서비스', item: 'https://mightybooks.kr/business/poetry' },
   { '@type': 'ListItem', position: 3, name: '개인 시집 제작·출판', item: 'https://mightybooks.kr/business/poetry' },
 ] }
+const serviceJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: '개인 시집 제작·출판',
+  description: '개인 시집의 원고 편집, 작품 배열, 교정, 표지·내지 디자인, ISBN 발급과 인쇄·출간을 진행하며 문집과 에세이도 함께 제작합니다.',
+  provider: { '@type': 'Organization', name: '마이티북스', url: 'https://mightybooks.kr/' },
+  areaServed: '대한민국',
+  url: 'https://mightybooks.kr/business/poetry',
+}
 const faqJsonLd = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map(([name, text]) => ({ '@type': 'Question', name, acceptedAnswer: { '@type': 'Answer', text } })) }
 
 function ContactButtons() {
@@ -77,13 +86,14 @@ export default function PoetryPage() {
 
   return <main className={styles.wrap}>
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }} />
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
 
     <section className={styles.hero}>
       <div className={styles.heroBg} /><div className={styles.heroOverlay} />
       <div className={styles.heroInner}>
         <div className={styles.heroContent}>
-          <span className={styles.tag}>Poetry · Anthology · Essay</span>
+          <span className={styles.tag}>Poetry Book Publishing</span>
           <p className={styles.heroService}>마이티북스 시집 제작 전문 서비스</p>
           <h1 className={styles.heroTitle}>개인 시집<br /><span>제작·출판</span></h1>
           <p className={styles.heroCopy}>마이티북스는 개인 시집의 원고 편집, 작품 배열, 교정, 표지·내지 디자인, ISBN과 인쇄까지 함께하는 출판 제작 서비스를 제공합니다.</p>

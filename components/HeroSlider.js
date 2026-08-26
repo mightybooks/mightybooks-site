@@ -21,10 +21,10 @@ const slides = [
   },
   {
     bg: '/image/home/slide001.avif',
-    label: 'Poetry / Anthology',
-    title: '시와 글을 모아\n책의 형태로 정리합니다',
-    sub: '개인 시집, 동호회 문집, 가족 문집, 기념 문집 제작을 안내합니다.',
-    btn: '시집·문집 제작',
+    label: 'Poetry Book Publishing',
+    title: '개인 시집을\n한 권의 책으로 만듭니다',
+    sub: '시집의 작품 배열부터 편집·디자인·인쇄까지 진행하며, 문집과 에세이도 함께 제작합니다.',
+    btn: '개인 시집 제작',
     btnHref: '/business/poetry',
   },
   {
