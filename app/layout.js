@@ -1,6 +1,7 @@
 import './globals.css'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
+import PublishingGuideLauncher from '@/components/publishing-guide/PublishingGuideLauncher'
 import { SITE_URL } from '@/lib/site-url'
 
 export const metadata = {
@@ -91,6 +92,7 @@ export default function RootLayout({ children }) {
         <Nav />
         <main>{children}</main>
         <Footer />
+        <PublishingGuideLauncher />
       </body>
     </html>
   )

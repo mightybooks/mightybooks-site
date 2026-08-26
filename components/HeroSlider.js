@@ -12,6 +12,14 @@ const slides = [
     btnHref: '/support/diagnosis',
   },
   {
+    bg: '/image/home/slide002.avif',
+    label: 'Publishing Guide',
+    title: '내 책, 어디서부터\n맡겨야 할까요?',
+    sub: '원고가 없어도, PDF까지 완성했어도 괜찮습니다.\n현재 상태에 맞는 제작 방향을 먼저 확인해 보세요.',
+    btn: '1분 출판 길라잡이',
+    btnHref: '/tools/publishing-guide',
+  },
+  {
     bg: '/image/home/slide003.avif',
     label: 'Autobiography / Memoir',
     title: '삶의 흐름을 정리해\n책으로 남깁니다',
@@ -99,6 +107,6 @@ export default function HeroSlider() {
         ))}
       </div>
       <div className={styles.progressBar} key={`p-${animKey}`} />
-    </section>
+      </section>
   )
 }

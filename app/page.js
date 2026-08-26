@@ -96,6 +96,10 @@ export default function Home() {
             <li>대구·경북·경남 방문 상담 또는 전국 비대면 협의로 수정 사항을 세부적으로 반영합니다.</li>
           </ul>
         </div>
+        <div className={styles.methodGuideCta}>
+          <p>무엇을 맡겨야 할지 모르겠다면 현재 원고와 파일 상태부터 확인해 보세요.</p>
+          <Link href="/tools/publishing-guide" className={styles.primaryButton}>출판 길라잡이 시작 →</Link>
+        </div>
       </section>
 
       <section className={styles.portfolio} id="portfolio" aria-labelledby="cases-title">
