@@ -169,14 +169,14 @@ export default function Home() {
           <h2 id="company-contact-title" className={styles.contactTitle}><em>Contact<br />US</em></h2>
           <div className={styles.contactEmail}>novelstudylab@naver.com</div>
           <p className={styles.contactSub}>
-            대구 본사 방문상담 가능 · 전국 비대면 상담 가능<br />
+            대구·경북·경남 대면상담 가능 · 전국 비대면 상담 가능<br />
             자서전 제작, 시집 제작, 문집 제작, 개인 출간 상담은 사전 문의 후 진행합니다.
           </p>
         </div>
         <div className={styles.contactRight}>
           {[
             ['상담 안내', <Link key="diagnosis-contact" href="/support/diagnosis">출판상담 페이지 보기 →</Link>],
-            ['상담 방식', '대구 본사 방문상담 / 전국 비대면 상담'],
+            ['상담 방식', '대구·경북·경남 대면상담 / 전국 비대면 상담'],
             ['상담시간', '월-금 09:00-17:00 / 주말, 공휴일 휴무'],
             ['연락처', <ContactPhoneButton key="phone-contact" styles={styles} />],
             ['이메일', <a key="email-contact" href="mailto:novelstudylab@naver.com">메일 보내기 →</a>],

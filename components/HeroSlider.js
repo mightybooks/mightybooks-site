@@ -7,7 +7,7 @@ const slides = [
     bg: '/image/home/slide004.avif',
     label: 'Life Story Publishing',
     title: '삶의 기록을\n한 권의 책으로 만듭니다',
-    sub: '자서전, 시집, 문집, 기념 도서를 기획부터 편집, 디자인, 제작까지 함께합니다.\n대구 본사 방문상담 가능 · 전국 비대면 상담 가능',
+    sub: '자서전, 시집, 문집, 기념 도서를 기획부터 편집, 디자인, 제작까지 함께합니다.\n대구·경북·경남 대면상담 가능 · 전국 비대면 상담 가능',
     btn: '출판상담 받기',
     btnHref: '/support/diagnosis',
   },

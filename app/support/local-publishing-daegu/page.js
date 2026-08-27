@@ -6,14 +6,14 @@ import { localPublishingRegions } from '../local-publishing-data'
 export const metadata = {
   title: '대구에서 책을 만들 때 확인해야 할 것 | 마이티북스',
   description:
-    '대구·경북권에서 방문상담 가능한 출판사를 찾는 고객을 위한 안내입니다. 자서전, 시집, 문집, 개인 출간 중심으로 설명합니다.',
+    '대구·경북권에서 대면상담 가능한 출판사를 찾는 고객을 위한 안내입니다. 자서전, 시집, 문집, 개인 출간 중심으로 설명합니다.',
   alternates: {
     canonical: '/support/local-publishing-daegu',
   },
   openGraph: {
     title: '대구에서 책을 만들 때 확인해야 할 것 | 마이티북스',
     description:
-      '대구·경북권에서 방문상담 가능한 출판사를 찾는 고객을 위한 자서전, 시집, 문집, 개인 출간 안내입니다.',
+      '대구·경북·경남권에서 대면상담 가능한 출판사를 찾는 고객을 위한 자서전, 시집, 문집, 개인 출간 안내입니다.',
     url: '/support/local-publishing-daegu',
     type: 'article',
   },
@@ -24,7 +24,7 @@ const articleJsonLd = {
   '@type': 'Article',
   headline: '대구에서 책을 만들 때 확인해야 할 것',
   description:
-    '대구·경북권에서 방문상담 가능한 출판사를 찾는 고객을 위한 자서전, 시집, 문집, 개인 출간 안내입니다.',
+    '대구·경북·경남권에서 대면상담 가능한 출판사를 찾는 고객을 위한 자서전, 시집, 문집, 개인 출간 안내입니다.',
   author: {
     '@type': 'Organization',
     name: '마이티북스',
@@ -48,7 +48,7 @@ export default function LocalPublishingDaeguPage() {
         <h1 className={styles.title}>대구에서 책을 만들 때<br /><em>확인해야 할 것</em></h1>
         <div className={styles.line} />
         <p className={styles.heroSub}>
-          대구·경북권에서 방문상담 가능한 출판사를 찾는 분을 위한 개인 출간 안내입니다.
+          대구·경북·경남권에서 방문상담 가능한 출판사를 찾는 분을 위한 개인 출간 안내입니다.
         </p>
       </div>
 
@@ -67,7 +67,7 @@ export default function LocalPublishingDaeguPage() {
         </div>
 
         <div className={styles.section}>
-          <h2 className={styles.h2}>2. 방문상담 전 준비할 자료</h2>
+          <h2 className={styles.h2}>2. 대면상담 전 준비할 자료</h2>
           <p>
             원고 파일, 손글씨 원고, 사진, 목차 메모, 제작 부수, 원하는 일정, 서점 유통 여부를 정리하면
             상담이 구체적입니다. 원고가 없어도 자서전 제작은 인터뷰 기반으로 시작할 수 있습니다.
@@ -80,7 +80,7 @@ export default function LocalPublishingDaeguPage() {
           <h2 className={styles.h2}>3. 지역 출판 상담에서 확인할 기준</h2>
           <div className={styles.processGrid}>
             {[
-              ['상담 방식', '예약제 방문상담인지, 사전 자료 확인이 필요한지 확인합니다.'],
+              ['상담 방식', '예약제 방문, 출장상담인지, 사전 자료 확인이 필요한지 확인합니다.'],
               ['제작 범위', '원고 정리, 교정, 편집, 디자인, 인쇄 중 어디까지 필요한지 구분합니다.'],
               ['제작 목적', '가족 보관용, 기념 배포용, 서점 유통용 중 목적을 정합니다.'],
               ['비용 구조', '작업 범위와 부수에 따라 비용이 어떻게 달라지는지 확인합니다.'],

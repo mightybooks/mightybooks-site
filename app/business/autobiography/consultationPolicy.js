@@ -13,9 +13,9 @@ export const AUTOBIOGRAPHY_TRAVEL_CONSULTATION = {
 export const AUTOBIOGRAPHY_CONSULTATION_MODES = [
   {
     number: '01',
-    title: '대구 본사 방문상담',
+    title: '대구·경북·경남 대면상담',
     label: '예약제',
-    description: '고객이 대구 동구 안심역 인근 마이티북스 사무실로 방문하여 문수림과 상담합니다.',
+    description: '고객이 대구 동구 안심역 인근 마이티북스 사무실로 방문하여 문수림과 상담하거나 출장을 요청할 수 있습니다.',
   },
   {
     number: '02',
