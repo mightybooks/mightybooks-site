@@ -22,6 +22,11 @@ export const FILE_FORMAT_NOTICES = {
     body: '마이티북스는 Canva에서 출력한 최종 PDF를 기준으로 제작합니다. 오탈자·문장·배치 등 내용 수정이 필요한 경우에는 Canva 원작업에서 직접 수정한 뒤 새로운 PDF를 보내주셔야 합니다.',
     support: '내용 수정 없이 최종 PDF를 기준으로 제작하실 예정이라면 그대로 계속 진행하시면 됩니다.',
   },
+  epub: {
+    title: 'EPUB 전자책을 가지고 계시는군요.',
+    body: '일반적인 EPUB은 본문과 이미지 자산을 활용해 종이책 판형에 맞게 다시 편집할 수 있습니다. 전자책 화면을 그대로 인쇄하는 것이 아니라 판형·여백·글자 크기·행간·쪽번호 등을 종이책에 맞게 새로 구성합니다.',
+    support: '다만 fixed-layout EPUB 등 파일 구조에 따라 별도 확인이 필요한 경우가 있습니다.',
+  },
 }
 
 export function getFileFormatNotice(fileFormat) {
@@ -71,14 +76,15 @@ export const GUIDE_QUESTIONS = [
     showWhen: answers => ['computer', 'designed'].includes(answers.manuscript),
     options: [
       option('hwp', '한글 HWP/HWPX'), option('word', 'Microsoft Word DOC/DOCX'), option('pdf', 'PDF'),
-      option('canva', 'Canva'), option('indesign', 'Adobe InDesign'), option('other', '기타'),
+      option('epub', 'EPUB 전자책'), option('canva', 'Canva'), option('indesign', 'Adobe InDesign'), option('other', '기타'),
       option('unknown', '잘 모르겠습니다'),
     ],
   },
   {
     id: 'trimStatus',
     title: '현재 파일은 실제 책 크기로 작업되어 있나요?',
-    showWhen: answers => answers.manuscript === 'designed' || ['pdf', 'canva', 'indesign'].includes(answers.fileFormat),
+    showWhen: answers => answers.fileFormat !== 'epub' &&
+      (answers.manuscript === 'designed' || ['pdf', 'canva', 'indesign'].includes(answers.fileFormat)),
     options: [
       option('final', '네, 최종 책 크기로 작업했습니다'), option('uncertain', '크기는 정했지만 정확한지는 모르겠습니다'),
       option('unset', '특별한 책 크기를 정하지 않고 작업했습니다'), option('unknown', '잘 모르겠습니다'),
@@ -300,7 +306,7 @@ export function classifyGuideResult(answers) {
   if (reformatNeeded && answers.fileFormat === 'pdf' && answers.sourceFile !== 'yes') {
     return RESULT_TYPES.REFORMAT_PDF
   }
-  if (reformatNeeded && (answers.sourceFile === 'yes' || ['canva', 'indesign'].includes(answers.fileFormat))) {
+  if (reformatNeeded && (answers.sourceFile === 'yes' || ['epub', 'canva', 'indesign'].includes(answers.fileFormat))) {
     return RESULT_TYPES.REFORMAT_SOURCE
   }
   if (

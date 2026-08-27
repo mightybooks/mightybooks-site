@@ -1,0 +1,15 @@
+export const lastMileGuideRoutes = [
+  '/support/pdf-to-printed-book',
+  '/support/ebook-pdf-to-printed-book',
+  '/support/epub-to-printed-book',
+  '/support/canva-pdf-to-printed-book',
+  '/support/hwp-to-printed-book',
+  '/support/word-to-printed-book',
+  '/support/a4-to-book-format',
+  '/support/small-run-book-printing',
+  '/support/personal-keepsake-book',
+  '/support/print-ready-pdf-check',
+  '/support/book-proof-vs-final-print',
+  '/support/keepsake-book-isbn',
+  '/support/digital-vs-offset-printing',
+]

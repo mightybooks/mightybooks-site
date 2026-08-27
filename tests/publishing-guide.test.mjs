@@ -276,9 +276,79 @@ test('C·D·E: HWP·DOCX·InDesign은 중간 안내 없이 진행한다', () => 
   for (const fileFormat of ['hwp', 'word', 'indesign']) assert.equal(getFileFormatNotice(fileFormat), null)
 })
 
+test('EPUB 선택지는 전용 안내를 제공하고 기존 파일 선택지를 유지한다', () => {
+  const fileFormat = GUIDE_QUESTIONS.find(question => question.id === 'fileFormat')
+  const labels = Object.fromEntries(fileFormat.options.map(item => [item.value, item.label]))
+  assert.equal(labels.epub, 'EPUB 전자책')
+  assert.equal(labels.hwp, '한글 HWP/HWPX')
+  assert.equal(labels.word, 'Microsoft Word DOC/DOCX')
+  assert.equal(labels.pdf, 'PDF')
+  assert.equal(labels.canva, 'Canva')
+  assert.equal(labels.indesign, 'Adobe InDesign')
+
+  const notice = getFileFormatNotice('epub')
+  assert.equal(notice.title, 'EPUB 전자책을 가지고 계시는군요.')
+  assert.match(notice.body, /본문과 이미지 자산을 활용/)
+  assert.match(notice.body, /판형·여백·글자 크기·행간·쪽번호/)
+  assert.match(notice.support, /fixed-layout EPUB/)
+})
+
 test('PDF·Canva 안내는 질문이나 STEP으로 추가되지 않는다', () => {
   assert.ok(!GUIDE_QUESTIONS.some(question => question.id === 'fileNotice'))
   assert.ok(!GUIDE_QUESTIONS.some(question => question.id === 'pdfNotice' || question.id === 'canvaNotice'))
+})
+
+test('EPUB 안내도 질문이나 STEP으로 추가되지 않고 판형 질문을 건너뛴다', () => {
+  assert.ok(!GUIDE_QUESTIONS.some(question => question.id === 'epubNotice'))
+  const answers = {
+    bookType: 'essay', format: 'print', quantity: '1-10', manuscript: 'designed', fileFormat: 'epub',
+  }
+  const visible = getVisibleQuestions(answers)
+  const questionIds = visible.map(question => question.id)
+  const fileFormatIndex = questionIds.indexOf('fileFormat')
+  assert.equal(questionIds[fileFormatIndex + 1], 'cover')
+  assert.ok(!questionIds.includes('trimStatus'))
+  assert.ok(!questionIds.includes('bookSize'))
+  assert.ok(!questionIds.includes('sourceFile'))
+})
+
+test('EPUB 종이책 판정은 기존 결과 유형과 상위 우선순위를 사용한다', () => {
+  const reformat = {
+    ...common, bookType: 'essay', manuscript: 'designed', fileFormat: 'epub', cover: 'ebook-front',
+    needs: ['reformat'],
+  }
+  const full = {
+    ...common, bookType: 'essay', manuscript: 'computer', fileFormat: 'epub', cover: 'ebook-front',
+    needs: ['interior', 'cover-design'],
+  }
+  const institutional = {
+    ...reformat, bookType: 'institutional', quantity: '101-300', purpose: 'internal',
+  }
+  assert.equal(classifyGuideResult(reformat), RESULT_TYPES.REFORMAT_SOURCE)
+  assert.equal(classifyGuideResult(full), RESULT_TYPES.FULL_LIGHT)
+  assert.equal(classifyGuideResult(institutional), RESULT_TYPES.INSTITUTIONAL)
+  assert.notEqual(classifyGuideResult(reformat), RESULT_TYPES.EBOOK)
+})
+
+test('EPUB 파일 형식은 현재 상태와 상담 메일에 정확히 표시되고 제목 형식은 유지된다', () => {
+  const answers = {
+    ...common, bookType: 'essay', manuscript: 'designed', fileFormat: 'epub', cover: 'ebook-front',
+    needs: ['reformat'],
+  }
+  const normalized = pruneHiddenGuideAnswers(answers)
+  const status = getResultStatusSummary(normalized)
+  assert.ok(status.some(item => item.id === 'fileFormat' && item.value === 'EPUB 전자책'))
+
+  const result = getGuideResult(normalized)
+  const message = buildConsultationNotification({
+    customer: { name: '테스트', contact: '010-0000-0000', note: '' },
+    answerRows: getConsultationAnswerRows(normalized),
+    result,
+    receivedAt: new Date('2026-08-27T00:00:00.000Z'),
+  })
+  assert.match(message.text, /파일 형식: EPUB 전자책/)
+  assert.match(message.html, /EPUB 전자책/)
+  assert.equal(message.subject, '[1~10권 | REFORMAT_SOURCE] 출판 길라잡이 신규 상담')
 })
 
 test('PDF·Canva 확인 후에는 기존 파일 형식 다음 질문으로 진행한다', () => {

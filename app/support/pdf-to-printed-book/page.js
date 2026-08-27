@@ -1,13 +1,14 @@
 import Link from 'next/link'
+import PublishingGuideCta from '../components/PublishingGuideCta'
 import styles from '../../reference/reference.module.css'
 
 export const metadata = {
-  title: '전자책·PDF를 소량 종이책으로 만들려면 | 파일 점검 기준',
-  description: '전자책이나 완성 PDF를 소량 종이책으로 제작할 때 판형, 원본파일, 표지 책등·뒤표지와 인쇄용 PDF에서 확인할 사항을 안내합니다.',
+  title: '완성된 PDF로 5권·10권 소량 책을 만들 수 있나요? | 마이티북스',
+  description: '완성 PDF로 5권·10권 등 소량 종이책을 제작할 때 판형, 원본파일, 표지 책등·뒤표지와 인쇄용 PDF에서 확인할 사항을 안내합니다.',
   alternates: { canonical: '/support/pdf-to-printed-book' },
   openGraph: {
-    title: '전자책·PDF를 소량 종이책으로 만들려면 | 파일 점검 기준',
-    description: '이미 완성한 파일을 활용해 필요한 재편집과 인쇄 공정만 구분하는 기준을 확인하세요.',
+    title: '완성된 PDF로 5권·10권 소량 책을 만들 수 있나요? | 마이티북스',
+    description: '완성 PDF를 활용해 필요한 재편집과 소량 인쇄·제본 공정만 구분하는 기준을 확인하세요.',
     url: '/support/pdf-to-printed-book',
     type: 'article',
   },
@@ -23,10 +24,12 @@ const checks = [
 ]
 
 const faqItems = [
-  ['PDF만 있어도 종이책을 만들 수 있나요?', '가능할 수 있습니다. 다만 현재 판형과 글꼴·이미지·여백 상태에 따라 그대로 인쇄하거나 PDF를 재구성해야 할 수 있습니다.'],
-  ['전자책 표지를 종이책에도 쓸 수 있나요?', '전자책 앞표지 이미지는 활용할 수 있지만 종이책에는 책등과 뒤표지를 포함한 펼침면 파일이 추가로 필요합니다.'],
-  ['Canva로 만든 파일도 인쇄할 수 있나요?', '내보낸 PDF와 원본 디자인의 크기, 재단 여백, 글꼴과 이미지 해상도를 확인한 뒤 인쇄 가능 여부와 보완 범위를 정합니다.'],
-  ['소량 제작에도 ISBN이 필요한가요?', '개인 보관이나 증정용 제작에는 ISBN을 반드시 적용하지 않습니다. 정식 출간과 서점 유통을 원할 때는 출판물의 기본 품질과 발행 정보를 별도로 확인합니다.'],
+  ['PDF만 보내면 종이책을 만들 수 있나요?', '가능할 수 있습니다. 현재 PDF의 판형, 재단 여백, 글꼴, 이미지, 페이지 순서와 종이책용 표지를 확인해 그대로 제작할지 보완할지 정합니다.'],
+  ['PDF로 책을 5권·10권만 제작할 수 있나요?', '소량 제작은 가능합니다. 실제 비용과 방식은 수량 외에도 판형, 페이지, 컬러 여부, 종이, 제본과 파일 상태를 함께 확인해 정합니다.'],
+  ['인쇄용 PDF인지 어떻게 확인하나요?', '희망 판형과 PDF 페이지 크기가 맞는지, 재단·안전 여백, 이미지 해상도, 글자와 페이지 위치, 컬러 데이터와 표지 펼침면을 확인합니다.'],
+  ['원본파일이 없어도 가능한가요?', '수정이 없고 인쇄 조건에 맞는 PDF라면 가능할 수 있습니다. 판형 변경이나 내용 수정이 필요하면 원본 확보 또는 별도 재편집을 검토합니다.'],
+  ['PDF의 오탈자나 이미지를 조금 수정할 수 있나요?', '간단한 보완 가능성을 먼저 확인하지만 PDF는 수정 가능한 원본파일이 아닙니다. 텍스트·레이아웃·이미지 수정이 많으면 재편집 범위가 됩니다.'],
+  ['전자책 앞표지를 종이책에도 쓸 수 있나요?', '앞표지 이미지는 활용할 수 있지만 종이책에는 최종 페이지 수와 제본 사양에 맞춘 책등·뒤표지 포함 펼침면이 추가로 필요합니다.'],
 ]
 
 const jsonLd = {
@@ -36,7 +39,7 @@ const jsonLd = {
     { '@type': 'BreadcrumbList', itemListElement: [
       { '@type': 'ListItem', position: 1, name: '홈', item: 'https://mightybooks.kr/' },
       { '@type': 'ListItem', position: 2, name: '출판 안내', item: 'https://mightybooks.kr/support/guide' },
-      { '@type': 'ListItem', position: 3, name: '전자책·PDF 소량 종이책 제작', item: 'https://mightybooks.kr/support/pdf-to-printed-book' },
+      { '@type': 'ListItem', position: 3, name: '완성 PDF 소량 종이책 제작', item: 'https://mightybooks.kr/support/pdf-to-printed-book' },
     ] },
     { '@type': 'FAQPage', mainEntity: faqItems.map(([name, text]) => ({ '@type': 'Question', name, acceptedAnswer: { '@type': 'Answer', text } })) },
   ],
@@ -49,11 +52,11 @@ export default function PdfToPrintedBookPage() {
     <div className={styles.wrap}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }} />
       <header className={styles.hero}>
-        <nav className={styles.breadcrumb} aria-label="현재 위치"><Link href="/">홈</Link> &gt; <Link href="/support/guide">출판 안내</Link> &gt; 전자책·PDF 소량 종이책 제작</nav>
+        <nav className={styles.breadcrumb} aria-label="현재 위치"><Link href="/">홈</Link> &gt; <Link href="/support/guide">출판 안내</Link> &gt; 완성 PDF 소량 종이책 제작</nav>
         <span className={styles.tag}>PDF to Printed Book</span>
-        <h1 className={styles.title}>전자책·PDF를<br /><em>소량 종이책으로 만들려면</em></h1>
+        <h1 className={styles.title}>완성된 PDF로<br /><em>5권·10권 소량 책을 만들 수 있나요?</em></h1>
         <div className={styles.line} />
-        <p className={styles.heroSub}>이미 전자책이나 PDF까지 완성했다면 전체 출판 제작을 처음부터 다시 의뢰할 필요 없이, 현재 파일을 점검한 뒤 필요한 공정만 진행할 수 있습니다.</p>
+        <p className={styles.heroSub}>이미 PDF까지 완성했다면 전체 출판 제작을 처음부터 다시 의뢰할 필요 없이, 현재 파일을 점검한 뒤 필요한 소량 인쇄·제본 공정만 진행할 수 있습니다.</p>
       </header>
       <main className={styles.content}>
         <div className={styles.lead}>PDF라는 이름만으로 바로 인쇄할 수 있는지는 판단할 수 없습니다. 실제 책 크기, 재단 여백, 이미지와 글꼴, 수정 원본과 종이책용 표지 상태를 함께 확인해야 합니다.</div>
@@ -77,6 +80,13 @@ export default function PdfToPrintedBookPage() {
         </section>
 
         <section className={styles.section}>
+          <h2>PDF는 수정 가능한 원본파일이 아닙니다</h2>
+          <p>내용 수정이 없고 실제 제작 판형과 여백이 맞는 PDF라면 파일 점검 후 인쇄·제본 중심으로 빠르게 진행할 수 있습니다.</p>
+          <p>반대로 텍스트 수정, 대규모 판형 변경, 이미지 교체, 레이아웃 수정과 페이지 재구성이 필요하면 단순 소량 제작이 아니라 별도 재편집 범위가 될 수 있습니다.</p>
+          <blockquote className={styles.quote}>이미 완료한 작업은 다시 맡길 필요가 없지만, PDF에서 원본 문서처럼 자유롭게 수정할 수 있는 것은 아닙니다.</blockquote>
+        </section>
+
+        <section className={styles.section}>
           <h2>전자책 앞표지와 종이책 표지는 다릅니다</h2>
           <p>전자책은 보통 앞표지 한 장을 사용하지만 종이책 인쇄 파일에는 앞표지, 책등과 뒤표지가 이어진 펼침면이 필요합니다. 책등 폭은 최종 페이지 수, 용지와 제본 방식이 정해진 뒤 계산하므로 앞표지 이미지가 있어도 종이책용 표지 작업이 추가될 수 있습니다.</p>
         </section>
@@ -92,13 +102,17 @@ export default function PdfToPrintedBookPage() {
           <div className={styles.faqList}>{faqItems.map(([question, answer]) => <details key={question}><summary>{question}</summary><p>{answer}</p></details>)}</div>
         </section>
 
-        <div className={styles.cta}>
-          <div className={styles.ctaText}>현재 PDF와 원본파일, 표지와 희망 수량을 기준으로 필요한 제작 방식을 먼저 확인해 보세요.</div>
-          <div className={styles.ctaBtns}>
-            <Link href="/tools/publishing-guide" className={styles.ctaBtn}>내 파일 상태 확인하기</Link>
-            <Link href="/business/epub" className={styles.ctaBtnGhost}>전자책·웹북 제작 안내</Link>
+        <section className={styles.section}>
+          <h2>파일 상태에 맞는 관련 안내</h2>
+          <div className={styles.linkGrid}>
+            <Link className={styles.linkCard} href="/support/ebook-pdf-to-printed-book">전자책 PDF를 종이책으로 바꾸는 기준 →</Link>
+            <Link className={styles.linkCard} href="/support/canva-pdf-to-printed-book">Canva에서 만든 PDF 제작 기준 →</Link>
+            <Link className={styles.linkCard} href="/support/print-ready-pdf-check">인쇄 직전 PDF 점검 항목 →</Link>
+            <Link className={styles.linkCard} href="/support/small-run-book-printing">10권·20권 소량 제작 기준 →</Link>
           </div>
-        </div>
+        </section>
+
+        <PublishingGuideCta />
       </main>
     </div>
   )

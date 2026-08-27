@@ -1,6 +1,7 @@
 import { getPublishedLibrarySitemapEntries } from '@/lib/library-content'
 import { getAuthorResourceLinks } from '@/lib/library-author-resources'
 import { localPublishingSlugs } from '@/app/support/local-publishing-data'
+import { lastMileGuideRoutes } from '@/app/support/last-mile-routes'
 
 export const dynamic = 'force-dynamic'
 
@@ -42,7 +43,7 @@ const routes = [
   ['/blog/500-fiction', 0.66],
   ['/support/education', 0.5],
   ['/support/personal-content-diagnosis', 0.5],
-  ['/support/pdf-to-printed-book', 0.7],
+  ...lastMileGuideRoutes.map((path) => [path, path === '/support/pdf-to-printed-book' ? 0.7 : 0.66]),
   ['/tools', 0.58],
   ['/tools/publishing-guide', 0.72],
   ['/tools/memoir-schedule', 0.68],
