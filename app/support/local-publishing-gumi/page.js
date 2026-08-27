@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import RegionalTravelConsultation from '../../business/autobiography/RegionalTravelConsultation'
 import styles from '../../reference/reference.module.css'
 
 const pagePath = '/support/local-publishing-gumi'
@@ -196,6 +197,8 @@ export default function LocalPublishingGumiPage() {
             <Link className={styles.linkCard} href="/business/booklet">기관·기업 소책자 제작 서비스 보기 →</Link>
           </div>
         </section>
+
+        <RegionalTravelConsultation regionName="구미" />
 
         <section className={styles.section}>
           <h2>인쇄만 필요한 경우와 출판 제작이 필요한 경우</h2>

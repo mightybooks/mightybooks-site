@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import RegionalTravelConsultation from '../../business/autobiography/RegionalTravelConsultation'
 import styles from '../../reference/reference.module.css'
 import {
   commonScope,
@@ -182,6 +183,8 @@ export default async function LocalPublishingRegionPage({ params }) {
             방문은 필수가 아니며 첫 상담부터 전화·카카오톡·이메일 등으로 진행하고, 원고와 자료 전달, 교정·디자인 시안 확인과 제작 협의도 원격으로 이어갈 수 있습니다.
           </p>
         </section>
+
+        <RegionalTravelConsultation regionName={region.city} />
 
         <section className={styles.section}>
           <h2>{region.city}에서 만들 수 있는 개인 저서</h2>

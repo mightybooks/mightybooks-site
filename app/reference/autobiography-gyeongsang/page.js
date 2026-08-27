@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { AUTOBIOGRAPHY_TRAVEL_CONSULTATION } from '../../business/autobiography/consultationPolicy'
 import styles from '../reference.module.css'
 
 export const metadata = {
@@ -124,12 +125,16 @@ export default function AutobiographyGyeongsangReferencePage() {
         </section>
 
         <section className={styles.section}>
-          <h2>대면 상담과 비대면 상담의 차이</h2>
+          <h2>본사 방문, 출장, 비대면 상담의 차이</h2>
           <p>
-            대면 상담은 사진, 원고, 가족 자료를 함께 보며 방향을 잡기 좋습니다. 특히 대구·경북·경남 고객은 일정에 따라 방문 상담이나 지역 기반 상담을 검토할 수 있습니다.
+            대구 본사 방문상담은 고객이 안심역 인근 사무실로 예약 방문하는 방식입니다. 직접 이동하기 어렵거나 가족과 함께 사진·원고·기록물을 펼쳐보아야 한다면 대구·경북 출장상담을 선택할 수 있습니다.
+          </p>
+          <p className={styles.quote}>
+            <strong>{AUTOBIOGRAPHY_TRAVEL_CONSULTATION.title} {AUTOBIOGRAPHY_TRAVEL_CONSULTATION.startingPrice}</strong><br />
+            {AUTOBIOGRAPHY_TRAVEL_CONSULTATION.priceGuide} {AUTOBIOGRAPHY_TRAVEL_CONSULTATION.contractCredit}
           </p>
           <p>
-            비대면 상담은 자료 전달과 일정 조율이 빠르다는 장점이 있습니다. 전화, 화상, 이메일, 카카오톡을 활용하면 지역 밖에 있거나 가족 구성원이 여러 곳에 나뉘어 있어도 제작 방향을 정리할 수 있습니다.
+            전국 비대면 상담은 전화와 카카오톡으로 먼저 시작하고 필요한 자료를 이메일 등 협의한 온라인 방식으로 전달합니다. 지역 밖에 있거나 가족 구성원이 여러 곳에 나뉘어 있어도 제작 방향을 정리할 수 있습니다.
           </p>
         </section>
 

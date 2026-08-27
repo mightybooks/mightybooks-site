@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { AUTOBIOGRAPHY_TRAVEL_CONSULTATION } from '../../business/autobiography/consultationPolicy'
 import styles from '../guide/guide.module.css'
 
 export const metadata = {
@@ -99,7 +100,17 @@ export default function AutobiographyGuidePage() {
         </div>
 
         <div className={styles.section}>
-          <h2 className={styles.h2}>4. 가족 보관용과 서점 유통용은 기준이 다릅니다</h2>
+          <h2 className={styles.h2}>4. 대구·경북 출장상담을 선택할 수 있습니다</h2>
+          <p>
+            직접 이동하기 어렵거나 가족과 함께 사진·기록물·수기자료를 확인해야 하는 자서전 상담에는 문수림이 직접 방문할 수 있습니다.
+            <strong> {AUTOBIOGRAPHY_TRAVEL_CONSULTATION.title}은 {AUTOBIOGRAPHY_TRAVEL_CONSULTATION.startingPrice}</strong>이며, {AUTOBIOGRAPHY_TRAVEL_CONSULTATION.priceGuide}
+          </p>
+          <p><strong>{AUTOBIOGRAPHY_TRAVEL_CONSULTATION.contractCredit}</strong></p>
+          <p><Link href="/business/autobiography">출장상담 일정·변경·취소 정책 자세히 보기 →</Link></p>
+        </div>
+
+        <div className={styles.section}>
+          <h2 className={styles.h2}>5. 가족 보관용과 서점 유통용은 기준이 다릅니다</h2>
           <p>
             가족 보관용 자서전은 읽는 사람이 분명합니다. 가족과 가까운 지인이 이해하기 쉬운 구성,
             사진과 기록의 보존, 적정 부수와 품질이 중요합니다.

@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import RegionalTravelConsultation from '../../business/autobiography/RegionalTravelConsultation'
 import styles from '../guide/guide.module.css'
 import { localPublishingRegions } from '../local-publishing-data'
 
@@ -72,6 +73,8 @@ export default function LocalPublishingDaeguPage() {
             상담이 구체적입니다. 원고가 없어도 자서전 제작은 인터뷰 기반으로 시작할 수 있습니다.
           </p>
         </div>
+
+        <RegionalTravelConsultation regionName="대구" />
 
         <div className={styles.section}>
           <h2 className={styles.h2}>3. 지역 출판 상담에서 확인할 기준</h2>

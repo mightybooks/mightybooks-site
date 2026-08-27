@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react'
+import { AUTOBIOGRAPHY_TRAVEL_FAQ } from '../../business/autobiography/consultationPolicy'
 import styles from './faq.module.css'
 
 const EMAIL = 'novelstudylab@naver.com'
@@ -10,7 +11,7 @@ const faqs = [
     q: '모든 문의와 상담이 유료인가요?',
     a: [
       '아닙니다. 제작 가능 여부, 상담 경로, 기본 진행 방식처럼 간단한 문의는 무료로 가능합니다.',
-      '다만 원고를 직접 검토해야 하거나, 기획출간 가능성 판단, 출간 방식 분석, 제작비 구조 점검처럼 구체적인 검토가 필요한 경우에는 기획출간 유료상담으로 진행합니다.',
+      '다만 원고를 직접 검토하는 기획출간 상담이나 문수림이 고객에게 찾아가는 대구·경북 출장상담처럼 별도의 시간과 전문 검토가 필요한 서비스는 유료로 진행합니다.',
     ],
   },
   {
@@ -85,6 +86,7 @@ const faqs = [
       '원거리 의뢰자는 전화, 카카오톡, 이메일, 온라인 자료 전달을 통해 비대면으로도 상담할 수 있습니다.',
     ],
   },
+  AUTOBIOGRAPHY_TRAVEL_FAQ,
   {
     q: '상담은 어떤 방식으로 신청하면 되나요?',
     a: [

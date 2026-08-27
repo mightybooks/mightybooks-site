@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import RegionalTravelConsultation from '../../business/autobiography/RegionalTravelConsultation'
 import styles from '../../reference/reference.module.css'
 
 const pagePath = '/support/local-publishing-gyeongsan'
@@ -142,6 +143,8 @@ export default function LocalPublishingGyeongsanPage() {
             <Link className={styles.linkCard} href="/support/autobiography-guide">자서전 준비 기본 가이드 보기 →</Link>
           </div>
         </section>
+
+        <RegionalTravelConsultation regionName="경산" />
 
         <section className={styles.section}>
           <h2>개인 시집·문집·에세이 제작</h2>

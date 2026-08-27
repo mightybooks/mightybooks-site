@@ -11,6 +11,10 @@ import {
 import AutobiographyPlanFinder from './AutobiographyPlanFinder'
 import BookPreviewTrigger from '../components/book-preview/BookPreviewTrigger'
 import { autobiographyPreview } from '../components/book-preview/bookPreviews'
+import {
+  AUTOBIOGRAPHY_CONSULTATION_MODES,
+  AUTOBIOGRAPHY_TRAVEL_CONSULTATION,
+} from './consultationPolicy'
 import styles from './autobiography.module.css'
 
 const AUTOBIOGRAPHY_WEBBOOK_PRICE = '110만 원부터'
@@ -27,8 +31,9 @@ const PRIVATE_WEBBOOK_INCLUDED = [
 
 const heroBadges = [  
   '프로 작가 문수림 1:1 직접 진행',
-  '대구·경북·경남 대면 상담',
-  '전국 전화·화상·채팅 상담',
+  '대구 본사 예약 방문상담',
+  '대구·경북 출장상담 20만 원부터',
+  '전국 전화·카카오톡·이메일 상담',
 ]
 
 const fitCases = [
@@ -207,7 +212,7 @@ const checklist = [
   '예상 부수: 웹북만 제작 또는 종이책 10부, 30부, 50부, 100부 등',
   '희망 제본: 무선, 양장, 아직 미정',
   '희망 일정과 대략적인 예산 범위',
-  '대구·경북·경남 대면 상담 가능 여부',
+  '희망 상담 방식: 대구 본사 방문, 대구·경북 출장, 전국 비대면 중 선택',
 ]
 
 const guideNotes = [
@@ -218,7 +223,7 @@ const guideNotes = [
   '가족 소장용은 ISBN 없이 제작할 수 있습니다.',
   '칠순·팔순 기념 책, 가족 기념 서적, 커플 기념 서적도 제작 가능합니다.',
   '정식 출간을 원하면 ISBN과 온라인서점 유통도 상담 가능합니다.',
-  '대구·경북·경남은 대면 상담, 그 외 지역은 비대면 진행이 가능합니다.',
+  '대구 본사 방문상담, 대구·경북 유료 출장상담, 전국 비대면 상담 중 선택할 수 있습니다.',
   '개인 자료와 가족의 기억은 제작 목적 외 사용하지 않습니다.',
 ]
 
@@ -320,7 +325,7 @@ export default function AutobiographyPage() {
             </p>
             <p className={styles.heroSubcopy}>
               부모님 자서전 · 칠순 기념 책 · 팔순 기념 책 · 커플 기념 서적 제작<br />
-              1:1 맞춤형 출판 제작소, 대구·경북·경남 오프라인 상담, 전국 온라인 상담 가능
+              1:1 맞춤형 출판 제작소, 대구 본사 방문 · 대구·경북 출장 · 전국 비대면 상담
             </p>
             <div className={styles.heroBadges} aria-label="자서전 제작 상담 특징">
               {heroBadges.map(badge => <span key={badge}>{badge}</span>)}
@@ -435,6 +440,37 @@ export default function AutobiographyPage() {
         </div>
       </section>
 
+      <section className={styles.consultationSection} aria-labelledby="consultation-heading">
+        <div className={styles.sectionHeader}>
+          <span className={styles.tag}>Consultation Options</span>
+          <h2 id="consultation-heading" className={styles.sectionTitle}>상황에 맞는 <em>세 가지 상담 방식</em></h2>
+          <p className={styles.sectionLead}>
+            사무실 방문이 어렵거나 가족과 함께 여러 자료를 펼쳐보아야 한다면 출장상담을 선택할 수 있습니다. 지역과 관계없이 비대면으로도 시작할 수 있습니다.
+          </p>
+        </div>
+        <div className={styles.consultationGrid}>
+          {AUTOBIOGRAPHY_CONSULTATION_MODES.map(mode => (
+            <article key={mode.number} className={`${styles.consultationCard} ${mode.number === '02' ? styles.consultationCardFeatured : ''}`}>
+              <span className={styles.consultationNumber}>{mode.number}</span>
+              <h3>{mode.title}</h3>
+              <strong>{mode.label}</strong>
+              <p>{mode.description}</p>
+              {mode.number === '02' && <p className={styles.priceGuide}>{AUTOBIOGRAPHY_TRAVEL_CONSULTATION.priceGuide}</p>}
+            </article>
+          ))}
+        </div>
+        <div className={styles.travelPolicy}>
+          <h3>출장상담 예약과 비용 처리 안내</h3>
+          <p className={styles.contractCredit}>{AUTOBIOGRAPHY_TRAVEL_CONSULTATION.contractCredit}</p>
+          <dl>
+            <div><dt>일정 확정</dt><dd>{AUTOBIOGRAPHY_TRAVEL_CONSULTATION.confirmation}</dd></div>
+            <div><dt>일정 변경</dt><dd>{AUTOBIOGRAPHY_TRAVEL_CONSULTATION.reschedule}</dd></div>
+            <div><dt>계약하지 않는 경우</dt><dd>{AUTOBIOGRAPHY_TRAVEL_CONSULTATION.noContract}</dd></div>
+            <div><dt>당일 취소</dt><dd>{AUTOBIOGRAPHY_TRAVEL_CONSULTATION.cancellation}</dd></div>
+          </dl>
+        </div>
+      </section>
+
       <section className={styles.formatSection} ref={ref(4)} aria-labelledby="format-heading">
         <div className={styles.sectionHeader}>
           <span className={styles.tag}>Webbook / Printed Book</span>
@@ -475,8 +511,8 @@ export default function AutobiographyPage() {
           <span className={styles.tag}>Nationwide Service</span>
           <h2 id="local-heading" className={styles.sectionTitle}>지역 기반 · <em>전국 진행 가능</em></h2>
           <p>
-            마이티북스는 대구에 기반을 둔 1:1 출판 제작소입니다. 대구를 비롯해 인근 경북·경남 지역은 대면 상담이 가능하고,
-            그 외 지역은 전화, 화상, 이메일, 카카오톡 자료 전달로 원고 없는 자서전 제작과 인터뷰 기반 자서전 제작을 진행합니다.
+            마이티북스는 대구에 기반을 둔 1:1 출판 제작소입니다. 대구 본사는 예약 후 방문할 수 있고, 대구·경북은 문수림이 고객에게 찾아가는 유료 출장상담을 선택할 수 있습니다.
+            전국에서는 전화, 카카오톡, 이메일과 협의한 온라인 자료 전달 방식으로 원고 없는 자서전 제작과 인터뷰 기반 자서전 제작을 진행합니다.
           </p>
           <p>
             대면 상담 가능 지역과는 별도로, 대구·경북에서 종이책 출간을 의뢰하고 결제한 고객에게는 완성된 책을 웹에서 열람할 수 있는 마이티북스 온라인 서가를 별도 제작비 없이 출간 후 1년간 제공합니다.
