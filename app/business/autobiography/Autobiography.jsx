@@ -32,7 +32,7 @@ const PRIVATE_WEBBOOK_INCLUDED = [
 const heroBadges = [  
   '프로 작가 문수림 1:1 직접 진행',
   '대구 본사 예약 방문상담',
-  '대구·경북 출장상담 20만 원부터',
+  '대구·경북·경남 출장상담 20만 원부터',
   '전국 전화·카카오톡·이메일 상담',
 ]
 
@@ -212,7 +212,7 @@ const checklist = [
   '예상 부수: 웹북만 제작 또는 종이책 10부, 30부, 50부, 100부 등',
   '희망 제본: 무선, 양장, 아직 미정',
   '희망 일정과 대략적인 예산 범위',
-  '희망 상담 방식: 대구 본사 방문, 대구·경북 출장, 전국 비대면 중 선택',
+  '희망 상담 방식: 대구 본사 방문, 대구·경북·경남 출장, 전국 비대면 중 선택',
 ]
 
 const guideNotes = [
@@ -325,7 +325,7 @@ export default function AutobiographyPage() {
             </p>
             <p className={styles.heroSubcopy}>
               부모님 자서전 · 칠순 기념 책 · 팔순 기념 책 · 커플 기념 서적 제작<br />
-              1:1 맞춤형 출판 제작소, 대구 본사 방문 · 대구·경북 출장 · 전국 비대면 상담
+              1:1 맞춤형 출판 제작소, 대구 본사 방문 · 대구·경북·경남 출장 · 전국 비대면 상담
             </p>
             <div className={styles.heroBadges} aria-label="자서전 제작 상담 특징">
               {heroBadges.map(badge => <span key={badge}>{badge}</span>)}
@@ -511,7 +511,7 @@ export default function AutobiographyPage() {
           <span className={styles.tag}>Nationwide Service</span>
           <h2 id="local-heading" className={styles.sectionTitle}>지역 기반 · <em>전국 진행 가능</em></h2>
           <p>
-            마이티북스는 대구에 기반을 둔 1:1 출판 제작소입니다. 대구 본사는 예약 후 방문할 수 있고, 대구·경북은 문수림이 고객에게 찾아가는 유료 출장상담을 선택할 수 있습니다.
+            마이티북스는 대구에 기반을 둔 1:1 출판 제작소입니다. 대구 본사는 예약 후 방문할 수 있고, 대구·경북·경남은 문수림이 고객에게 찾아가는 유료 출장상담을 선택할 수 있습니다.
             전국에서는 전화, 카카오톡, 이메일과 협의한 온라인 자료 전달 방식으로 원고 없는 자서전 제작과 인터뷰 기반 자서전 제작을 진행합니다.
           </p>
           <p>

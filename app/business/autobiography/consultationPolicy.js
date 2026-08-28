@@ -1,5 +1,5 @@
 export const AUTOBIOGRAPHY_TRAVEL_CONSULTATION = {
-  title: '대구·경북 출장상담',
+  title: '대구·경북·경남 출장상담',
   startingPrice: '20만 원부터',
   priceGuide: '지역과 실제 이동시간에 따라 20만·25만·30만 원으로 사전에 안내드립니다.',
   purpose: '직접 이동하기 어렵거나 가족이 함께 상담해야 하는 경우, 사진·기록물·수기자료·녹취자료를 한자리에서 확인해야 하는 경우 문수림이 직접 방문합니다.',
@@ -32,9 +32,9 @@ export const AUTOBIOGRAPHY_CONSULTATION_MODES = [
 ]
 
 export const AUTOBIOGRAPHY_TRAVEL_FAQ = {
-  q: '자서전 상담을 위해 대구·경북으로 직접 방문해 주실 수 있나요?',
+  q: '자서전 상담을 위해 대구·경북·경남으로 직접 방문해 주실 수 있나요?',
   a: [
-    `가능합니다. 대구·경북 출장상담은 ${AUTOBIOGRAPHY_TRAVEL_CONSULTATION.startingPrice}이며, ${AUTOBIOGRAPHY_TRAVEL_CONSULTATION.priceGuide}`,
+    `가능합니다. 대구·경북·경남 출장상담은 ${AUTOBIOGRAPHY_TRAVEL_CONSULTATION.startingPrice}이며, ${AUTOBIOGRAPHY_TRAVEL_CONSULTATION.priceGuide}`,
     AUTOBIOGRAPHY_TRAVEL_CONSULTATION.contractCredit,
     `${AUTOBIOGRAPHY_TRAVEL_CONSULTATION.confirmation} ${AUTOBIOGRAPHY_TRAVEL_CONSULTATION.reschedule}`,
     `${AUTOBIOGRAPHY_TRAVEL_CONSULTATION.noContract} ${AUTOBIOGRAPHY_TRAVEL_CONSULTATION.cancellation}`,

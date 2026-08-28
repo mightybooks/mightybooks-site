@@ -66,7 +66,7 @@ export default function Home() {
         <span className={styles.tag}>Mighty Books · Daegu</span>
         <h2 id="intro-title" className={styles.bigTitle}>마이티북스가 <em>하는 일</em></h2>
         <p className={styles.introLead}>마이티북스는 대구를 기반으로 운영되는 출판사이자 출판 제작업체입니다.</p>
-        <p className={styles.introText}>자서전·회고록, 시집·문집, 전문서·실용서, 기관·기업 소책자의 기획과 원고 편집, 윤문, 교정, 표지 디자인, 내지 디자인, 인쇄 제작까지 진행합니다. 대구·경북·경남 지역은 방문 상담이 가능하며, 그 외 지역은 전국 비대면으로 출판 제작을 진행합니다.</p>
+        <p className={styles.introText}>자서전·회고록, 시집·문집, 전문서·실용서, 기관·기업 소책자의 기획과 원고 편집, 윤문, 교정, 표지 디자인, 내지 디자인, 인쇄 제작까지 진행합니다. 대구·경북·경남 지역은 대면 상담이 가능하며, 그 외 지역은 전국 비대면으로 출판 제작을 진행합니다.</p>
       </section>
 
       <section className={styles.business} id="business" aria-labelledby="services-title">
@@ -93,7 +93,7 @@ export default function Home() {
             <li>일괄 제작도 가능하지만 모든 원고에 동일한 패키지를 적용하지 않습니다.</li>
             <li>개인 저자는 부족한 단계만, 출판사·기관·기업은 자체 출판사명과 ISBN을 유지하며 제작 실무만 의뢰할 수 있습니다.</li>
             <li>소량 제작, 정식 출판, 기존 원고 재편집 등 목적에 따라 범위를 다르게 구성합니다.</li>
-            <li>대구·경북·경남 방문 상담 또는 전국 비대면 협의로 수정 사항을 세부적으로 반영합니다.</li>
+            <li>대구·경북·경남 대면 상담 또는 전국 비대면 협의로 수정 사항을 세부적으로 반영합니다.</li>
           </ul>
         </div>
         <div className={styles.methodGuideCta}>
