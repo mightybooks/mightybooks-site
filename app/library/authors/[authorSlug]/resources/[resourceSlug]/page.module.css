@@ -30,8 +30,7 @@
 
 .eyebrow,
 .sectionHeading > p,
-.pdfLabel,
-.modalEyebrow {
+.pdfLabel {
   color: #d8a9b2;
   font-size: 11px;
   font-weight: 800;
@@ -209,7 +208,7 @@
 
 .downloadGrid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 18px;
 }
 
@@ -243,8 +242,7 @@
   word-break: keep-all;
 }
 
-.downloadButton,
-.instagramButton {
+.downloadButton {
   display: inline-flex;
   min-height: 50px;
   align-items: center;
@@ -261,16 +259,13 @@
   transition: background .2s, border-color .2s, transform .2s;
 }
 
-.downloadButton:hover,
-.instagramButton:hover {
+.downloadButton:hover {
   border-color: #624667;
   background: #624667;
   transform: translateY(-2px);
 }
 
-.downloadButton:focus-visible,
-.instagramButton:focus-visible,
-.modalClose:focus-visible {
+.downloadButton:focus-visible {
   outline: 3px solid rgba(173, 111, 121, .42);
   outline-offset: 3px;
 }
@@ -309,75 +304,6 @@
 .backLink:focus-visible {
   outline: 2px solid var(--meditation-pink);
   outline-offset: 4px;
-}
-
-.modalBackdrop {
-  --meditation-purple: #3f2d45;
-  --meditation-pink: #ad6f79;
-  position: fixed;
-  inset: 0;
-  z-index: 10000;
-  display: grid;
-  width: 100%;
-  height: 100dvh;
-  place-items: center;
-  overflow-y: auto;
-  padding: 24px;
-  background: rgba(24, 17, 27, .78);
-  backdrop-filter: blur(7px);
-  overscroll-behavior: contain;
-}
-
-.modal {
-  position: relative;
-  width: min(100%, 500px);
-  max-height: calc(100dvh - 48px);
-  overflow-y: auto;
-  padding: 50px 38px 38px;
-  color: #2b222c;
-  text-align: center;
-  border-top: 4px solid var(--meditation-pink);
-  background: #faf6f1;
-  box-shadow: 0 28px 80px rgba(18, 12, 20, .42);
-}
-
-.modalClose {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  display: grid;
-  width: 44px;
-  height: 44px;
-  place-items: center;
-  color: #49384c;
-  font-size: 27px;
-  line-height: 1;
-  border: 0;
-  background: transparent;
-  cursor: pointer;
-}
-
-.modalEyebrow {
-  color: var(--meditation-pink);
-}
-
-.modal h2 {
-  margin-top: 8px;
-  font-size: 30px;
-  letter-spacing: -.04em;
-}
-
-.modalDescription {
-  margin-top: 20px;
-  color: #655a61;
-  line-height: 1.85;
-  word-break: keep-all;
-}
-
-.instagramButton {
-  width: min(100%, 300px);
-  margin: 28px auto 0;
-  text-decoration: none;
 }
 
 @media (max-width: 760px) {
@@ -429,24 +355,14 @@
     min-height: 260px;
   }
 
-  .modalBackdrop {
-    padding: 16px;
-  }
-
-  .modal {
-    max-height: calc(100dvh - 32px);
-    padding: 50px 22px 28px;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .downloadButton,
-  .instagramButton {
+  .downloadButton {
     transition: none;
   }
 
-  .downloadButton:hover,
-  .instagramButton:hover {
+  .downloadButton:hover {
     transform: none;
   }
 }

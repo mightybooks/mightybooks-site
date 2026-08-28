@@ -92,7 +92,7 @@ export default async function AuthorResourcePage({ params }) {
           <div className={styles.sectionHeading}>
             <p>Class Materials</p>
             <h2 id="materials-title">수업 자료 안내</h2>
-            <span>개강 전에는 자료가 공개되지 않으며, 버튼을 누르면 개강 안내를 확인할 수 있습니다.</span>
+            <span>아래 버튼을 누르면 각 수업 자료 PDF를 다운로드할 수 있습니다.</span>
           </div>
 
           <ResourceDownloads materials={resource.materials} />
