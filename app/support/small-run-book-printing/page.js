@@ -1,5 +1,6 @@
 import LastMileGuidePage from '../components/LastMileGuidePage'
 import styles from '../../reference/reference.module.css'
+import Link from 'next/link'
 
 const path = '/support/small-run-book-printing'
 const title = '책을 10권·20권만 소량 제작할 수 있나요? | 마이티북스'
@@ -20,6 +21,6 @@ export default function SmallRunBookPrintingPage() {
     <section className={styles.section}><h2>결론부터: 필요한 만큼 소량 제작할 수 있습니다</h2><p>10권이나 20권처럼 가족·지인에게 나누거나 개인이 보관할 수량으로 제작할 수 있습니다. 파일이 인쇄 가능한 상태라면 점검 후 인쇄·제본 중심으로 진행할 가능성이 높습니다.</p><p>반대로 판형 변경, 텍스트 수정, 표지 책등 제작과 이미지 보완이 필요하면 해당 작업 범위가 추가됩니다.</p></section>
     <section className={styles.section}><h2>같은 10권이어도 비용이 달라지는 이유</h2><div className={styles.grid}>{[['판형','책 크기와 종이 사용 방식이 달라집니다.'],['페이지','본문 분량과 책등 폭에 영향을 줍니다.'],['컬러','흑백과 컬러 페이지 구성에 따라 제작 조건이 달라집니다.'],['종이','본문·표지 용지와 두께를 선택합니다.'],['제본','무선·양장 등 형태와 후가공을 확인합니다.'],['파일 상태','인쇄용 완성 파일인지 재편집이 필요한지 구분합니다.']].map(([name,text],i)=><article className={styles.card} key={name}><div className={styles.cardNum}>{String(i+1).padStart(2,'0')}</div><h3>{name}</h3><p>{text}</p></article>)}</div></section>
     <section className={styles.section}><h2>수량이 늘면 전체 제작비를 다시 비교합니다</h2><p>30권 전후부터는 수량 증가에 따른 전체 비용을 체감할 수 있어 꼭 필요한 부수인지, 사양을 조정할지 다시 검토합니다. 이는 업계의 고정 기준이 아니라 책 사양에 따라 달라지는 실무 판단입니다.</p><p>수백 권이 필요하다면 디지털 방식의 수량만 계속 늘리지 않고 옵셋 제작 견적도 함께 비교해야 합니다.</p><blockquote className={styles.quote}>소량 여부보다 먼저 현재 파일과 필요한 제작 사양을 확인해야 정확한 방향을 정할 수 있습니다.</blockquote></section>
+    <section className={styles.section}><h2>실제 제작을 의뢰하려면</h2><p>한 권부터 필요한 수량만 제작하는 서비스의 파일 조건, 과정과 견적 요소는 <Link href="/business/small-printing">개인 책 소량 인쇄·제작 페이지</Link>에서 확인할 수 있습니다.</p></section>
   </LastMileGuidePage>
 }
-

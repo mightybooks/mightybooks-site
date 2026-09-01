@@ -1,5 +1,6 @@
 import LastMileGuidePage from '../components/LastMileGuidePage'
 import styles from '../../reference/reference.module.css'
+import Link from 'next/link'
 
 const path = '/support/ebook-pdf-to-printed-book'
 const title = '전자책 PDF를 종이책으로 만들 수 있을까요? | 마이티북스'
@@ -29,5 +30,6 @@ export default function EbookPdfToPrintedBookPage() {
       <div className={styles.listItem}><strong>PDF</strong><span>페이지가 고정된 결과물이므로 희망 판형과 기존 페이지의 비율, 수정 가능한 범위를 먼저 점검해야 합니다.</span></div>
     </div></section>
     <section className={styles.section}><h2>기존 모습을 유지할지, 종이책답게 재편집할지 정합니다</h2><p>전자책의 화면 구성을 그대로 보존하는 것이 중요하다면 현재 PDF에 맞는 판형을 찾는 방향이 적합할 수 있습니다. 휴대성과 일반적인 단행본 읽기 경험이 더 중요하다면 판형·글자·행간·여백을 새로 맞추는 재편집이 필요할 수 있습니다.</p><blockquote className={styles.quote}>PDF는 수정 가능한 원본이 아닙니다. 내용과 레이아웃 수정이 많아질수록 단순 제작이 아니라 별도 재편집 범위가 됩니다.</blockquote></section>
+    <section className={styles.section}><h2>전자책을 실제 종이책으로 제작하려면</h2><p>기존 파일 활용, 종이책용 재편집과 소량 인쇄를 함께 검토하는 과정은 <Link href="/business/ebook-to-print">전자책·PDF 종이책 제작 페이지</Link>에서 확인할 수 있습니다.</p></section>
   </LastMileGuidePage>
 }

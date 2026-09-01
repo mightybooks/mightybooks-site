@@ -24,6 +24,8 @@ const services = [
   { name: '전문서·실용서·개인 출판', desc: '전문 지식, 교육 자료, 연구 성과와 실무 경험을 정식 단행본으로 제작합니다.', href: '/business/self-publishing', img: '/image/home/main001.avif' },
   { name: '기관·기업 소책자', desc: '기관 보고서, 사업 기록, 교육자료, 홍보책자와 성과집의 편집·디자인·인쇄를 진행합니다.', href: '/business/booklet', img: '/image/home/main005.png' },
   { name: '전자책·웹북', desc: '종이책 원고를 전자책이나 웹에서 읽을 수 있는 디지털 콘텐츠로 제작합니다.', href: '/business/epub', img: '/image/home/surimji_cover3d.png' },
+  { name: '개인 책 소량 인쇄·제작', desc: '인쇄용 PDF나 원고 상태를 확인한 뒤 한 권부터 필요한 수량만 종이책으로 제작합니다.', href: '/business/small-printing', img: '/image/home/here004.png' },
+  { name: '전자책·PDF 종이책 제작', desc: '화면용 전자책과 PDF를 점검하고 필요한 경우 실제 종이책 판형에 맞게 다시 편집합니다.', href: '/business/ebook-to-print', img: '/image/home/main001.avif' },
 ]
 
 const process = [

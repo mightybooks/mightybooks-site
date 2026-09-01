@@ -14,6 +14,8 @@ const navItems = [
       { label: '전문서적, 실용서적', href: '/business/self-publishing' },
       { label: '기관ㆍ기업 소책자', href: '/business/booklet' },
       { label: '전자책, 웹북', href: '/business/epub' },
+      { label: '개인 책 소량 제작', href: '/business/small-printing' },
+      { label: '전자책·PDF 종이책 제작', href: '/business/ebook-to-print' },
     ],
   },
   {

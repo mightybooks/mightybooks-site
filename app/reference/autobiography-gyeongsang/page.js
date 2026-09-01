@@ -158,6 +158,7 @@ export default function AutobiographyGyeongsangReferencePage() {
           <h2>관련 자료</h2>
           <div className={styles.linkGrid}>
             <Link className={styles.linkCard} href="/business/autobiography">자서전·기념 도서 제작 상담 →</Link>
+            <Link className={styles.linkCard} href="/business/retirement-book">정년퇴임·은퇴 기념 책 제작 →</Link>
             <Link className={styles.linkCard} href="/reference/mightybooks-publishing">마이티북스 출판 제작 레퍼런스 →</Link>
             <Link className={styles.linkCard} href="/reference/personal-publishing">개인출판과 소량 책 제작 기준 →</Link>
             <Link className={styles.linkCard} href="/support/autobiography-guide">자서전 제작 기본 가이드 →</Link>

@@ -559,6 +559,11 @@ export default function AutobiographyPage() {
         <div className={styles.typeGrid}>
           {bookTypes.map(type => <span key={type}>{type}</span>)}
         </div>
+        <aside className={styles.maintenanceNote}>
+          <strong>정년퇴임·은퇴를 계기로 책을 준비하고 계신가요?</strong>
+          <p>생애 전체를 다루는 자서전과 달리, 퇴임 기념 책은 한 사람의 경력과 주요 기록, 동료·제자·가족의 기억을 중심으로 구성할 수 있습니다.</p>
+          <Link href="/business/retirement-book" className={styles.libraryLink}>정년퇴임·은퇴 기념 책 제작 알아보기</Link>
+        </aside>
       </section>
 
       <section className={styles.gallerySection} ref={ref(8)} aria-labelledby="gallery-heading">

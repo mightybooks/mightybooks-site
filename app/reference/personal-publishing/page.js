@@ -154,6 +154,7 @@ export default function PersonalPublishingReferencePage() {
             <Link className={styles.linkCard} href="/business/autobiography">자서전·기념 도서 제작 →</Link>
             <Link className={styles.linkCard} href="/business/poetry">시집·문집 제작 →</Link>
             <Link className={styles.linkCard} href="/business/booklet">소책자 제작 →</Link>
+            <Link className={styles.linkCard} href="/business/small-printing">개인 책 소량 인쇄·제작 →</Link>
             <Link className={styles.linkCard} href="/reference/mightybooks-publishing">마이티북스 출판 제작 레퍼런스 →</Link>
             <Link className={styles.linkCard} href="/reference/autobiography-gyeongsang">대구·경북·경남 자서전 제작 기준 →</Link>
           </div>
