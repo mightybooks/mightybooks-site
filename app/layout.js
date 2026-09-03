@@ -2,6 +2,7 @@ import './globals.css'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import PublishingGuideLauncher from '@/components/publishing-guide/PublishingGuideLauncher'
+import { GeneralInquiryProvider } from '@/components/general-inquiry/GeneralInquiryProvider'
 import { SITE_URL } from '@/lib/site-url'
 
 export const metadata = {
@@ -89,10 +90,12 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body>
-        <Nav />
-        <main>{children}</main>
-        <Footer />
-        <PublishingGuideLauncher />
+        <GeneralInquiryProvider>
+          <Nav />
+          <main>{children}</main>
+          <Footer />
+          <PublishingGuideLauncher />
+        </GeneralInquiryProvider>
       </body>
     </html>
   )

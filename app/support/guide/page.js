@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import styles from './guide.module.css'
 import { SITE_URL } from '@/lib/site-url'
+import { GeneralInquiryTrigger } from '@/components/general-inquiry/GeneralInquiryProvider'
 
 export const metadata = {
   title: '출판 가이드 | 책 출간 전 확인해야 할 기준 | 마이티북스',
@@ -325,9 +326,9 @@ export default function GuidePage() {
             <Link href="/support/faq" className={styles.ctaBtn}>
               자주 묻는 질문 보기 →
             </Link>
-            <a href="mailto:novelstudylab@naver.com" className={styles.ctaBtnGhost}>
+            <GeneralInquiryTrigger className={styles.ctaBtnGhost} source="출판 가이드">
               사전 문의하기 →
-            </a>
+            </GeneralInquiryTrigger>
           </div>
         </div>
 

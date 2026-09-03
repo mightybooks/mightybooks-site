@@ -3,8 +3,8 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
+import { GeneralInquiryTrigger } from '@/components/general-inquiry/GeneralInquiryProvider'
 import {
-  EMAIL_ADDRESS,
   KAKAO_URL,
   PhoneConsultModal,
 } from '../components/ServiceContactCta'
@@ -142,7 +142,7 @@ const personalPlans = [
   {
     name: '웹북 플랜',
     price: AUTOBIOGRAPHY_WEBBOOK_PRICE,
-    target: '최적화된 고품질 웹북 맞춤형 제작',
+    target: '프라이빗 링크로 열람하는 고품질 디지털 자서전 웹북 제작',
     interview: '인터뷰 2회 기준',
     writing: '원고 편집 및 웹북용 콘텐츠 최적화',
     design: '표지·내지 디자인 강화 및 페이지 수 증가에 따라 추가 견적이 발생할 수 있습니다.',
@@ -260,13 +260,13 @@ function ContactButtons({ primaryLabel = '오픈채팅 문의' }) {
         >
           전화 문의
         </button>
-        <a
-          href={`mailto:${EMAIL_ADDRESS}`}
+        <GeneralInquiryTrigger
           className={styles.ctaBtnGhost}
+          source="자서전 제작 페이지"
           aria-label="이메일로 문의하기"
         >
           이메일 문의
-        </a>
+        </GeneralInquiryTrigger>
       </div>
       {isPhoneOpen && (
         <PhoneConsultModal
@@ -474,10 +474,10 @@ export default function AutobiographyPage() {
       <section className={styles.formatSection} ref={ref(4)} aria-labelledby="format-heading">
         <div className={styles.sectionHeader}>
           <span className={styles.tag}>Webbook / Printed Book</span>
-          <h2 id="format-heading" className={styles.sectionTitle}>책은 종이로도,<br /><em>웹북으로도 남길 수 있습니다</em></h2>
+          <h2 id="format-heading" className={styles.sectionTitle}>책은 종이로도,<br /><em>디지털 자서전 웹북으로도 남길 수 있습니다</em></h2>
           <p className={styles.sectionLead}>
             자서전과 기념도서는 종이책으로 제작할 수도 있고, 종이책을 인쇄하지 않고 프라이빗 링크와 고화질 플립북으로만 제작할 수도 있습니다.
-            웹북 플랜은 가족과 지인이 확인할 수 있는 프라이빗 링크로 제공되며, 링크나 QR로 공유할 수 있습니다.
+            마이티북스의 디지털 자서전은 PDF 파일을 전달하는 방식이 아니라, 프라이빗 링크를 통해 PC와 모바일의 브라우저에서 바로 열람하는 웹북으로 제공됩니다. 링크나 QR로 가족·지인과 공유할 수 있습니다.
           </p>
         </div>
         <div className={styles.formatGrid}>

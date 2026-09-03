@@ -3,7 +3,8 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
-import { EMAIL_ADDRESS, KAKAO_URL, PhoneConsultModal } from '../components/ServiceContactCta'
+import { GeneralInquiryTrigger } from '@/components/general-inquiry/GeneralInquiryProvider'
+import { KAKAO_URL, PhoneConsultModal } from '../components/ServiceContactCta'
 import caseStyles from './epubCase.module.css'
 import libraryStyles from './onlineLibrary.module.css'
 import styles from './epub.module.css'
@@ -79,7 +80,7 @@ const breadcrumbJsonLd = { '@context':'https://schema.org','@type':'BreadcrumbLi
 const serviceJsonLd = { '@context':'https://schema.org','@type':'Service',name:'전자책·웹북 제작',provider:{'@type':'Organization',name:'마이티북스',url:'https://mightybooks.kr/'},areaServed:'대한민국',url:'https://mightybooks.kr/business/epub' }
 const faqJsonLd = { '@context':'https://schema.org','@type':'FAQPage',mainEntity:faqs.map(([name,text])=>({'@type':'Question',name,acceptedAnswer:{'@type':'Answer',text}})) }
 
-function ContactButtons() { const [open,setOpen]=useState(false); return <><div className={styles.contactRow}><a href={KAKAO_URL} target="_blank" rel="noopener noreferrer" className={styles.ctaBtn}>오픈채팅 문의</a><button type="button" className={styles.ctaBtnGhost} onClick={()=>setOpen(true)}>전화 문의</button><a href={`mailto:${EMAIL_ADDRESS}`} className={styles.ctaBtnGhost}>이메일 문의</a></div>{open&&<PhoneConsultModal styles={styles} onClose={()=>setOpen(false)}/>}</> }
+function ContactButtons() { const [open,setOpen]=useState(false); return <><div className={styles.contactRow}><a href={KAKAO_URL} target="_blank" rel="noopener noreferrer" className={styles.ctaBtn}>오픈채팅 문의</a><button type="button" className={styles.ctaBtnGhost} onClick={()=>setOpen(true)}>전화 문의</button><GeneralInquiryTrigger className={styles.ctaBtnGhost} source="전자책·웹북 페이지">이메일 문의</GeneralInquiryTrigger></div>{open&&<PhoneConsultModal styles={styles} onClose={()=>setOpen(false)}/>}</> }
 function Header({ eyebrow,title,children }) { return <div className={styles.sectionHeader}><span>{eyebrow}</span><h2>{title}</h2>{children&&<p>{children}</p>}</div> }
 function List({ items }) { return <ul className={styles.list}>{items.map(item=><li key={item}>{item}</li>)}</ul> }
 

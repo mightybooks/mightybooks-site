@@ -1,5 +1,6 @@
 import styles from './location.module.css'
 import { SITE_URL } from '@/lib/site-url'
+import { GeneralInquiryTrigger } from '@/components/general-inquiry/GeneralInquiryProvider'
 
 export const metadata = {
   title: '마이티북스 오시는 길 | 대구 동구 출판사 방문 상담 안내',
@@ -75,7 +76,7 @@ export default function LocationPage() {
           <div className={styles.infoIcon}>✉️</div>
           <div className={styles.infoLabel}>E-MAIL</div>
           <div className={styles.infoValue}>
-            <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
+            <GeneralInquiryTrigger source="오시는 길" ariaLabel="이메일 문의 작성하기">{EMAIL}</GeneralInquiryTrigger>
           </div>
         </div>
 

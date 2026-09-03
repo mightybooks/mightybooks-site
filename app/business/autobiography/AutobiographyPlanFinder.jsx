@@ -1,6 +1,7 @@
 'use client'
 import { useMemo, useState } from 'react'
-import { EMAIL_ADDRESS, KAKAO_URL, PhoneConsultModal } from '../components/ServiceContactCta'
+import { GeneralInquiryTrigger } from '@/components/general-inquiry/GeneralInquiryProvider'
+import { KAKAO_URL, PhoneConsultModal } from '../components/ServiceContactCta'
 import styles from './autobiography.module.css'
 
 const planInfo = {
@@ -229,9 +230,9 @@ export default function AutobiographyPlanFinder() {
           <button type="button" className={styles.ctaBtnGhost} onClick={() => setIsPhoneOpen(true)}>
             전화 문의
           </button>
-          <a href={`mailto:${EMAIL_ADDRESS}`} className={styles.ctaBtnGhost}>
+          <GeneralInquiryTrigger className={styles.ctaBtnGhost} source="자서전 플랜 찾기 결과">
             이메일 문의
-          </a>
+          </GeneralInquiryTrigger>
           <button type="button" className={styles.ctaBtnGhost} onClick={reset}>
             다시 선택하기
           </button>

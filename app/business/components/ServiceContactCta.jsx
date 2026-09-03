@@ -1,8 +1,8 @@
 'use client'
 import { useState } from 'react'
+import { GeneralInquiryTrigger } from '@/components/general-inquiry/GeneralInquiryProvider'
 
 export const PHONE_NUMBER = '010-5148-9433'
-export const EMAIL_ADDRESS = 'novelstudylab@naver.com'
 export const KAKAO_URL = 'https://open.kakao.com/me/mightybooks'
 
 export function PhoneConsultModal({ styles, onClose }) {
@@ -70,9 +70,9 @@ export default function ServiceContactCta({ styles }) {
         >
           전화 문의
         </button>
-        <a href={`mailto:${EMAIL_ADDRESS}`} className={styles.ctaBtnGhost}>
+        <GeneralInquiryTrigger className={styles.ctaBtnGhost} source="출판 서비스 페이지">
           이메일 문의
-        </a>
+        </GeneralInquiryTrigger>
       </div>
       {isPhoneOpen && (
         <PhoneConsultModal

@@ -3,7 +3,8 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
-import { EMAIL_ADDRESS, KAKAO_URL, PhoneConsultModal } from '../components/ServiceContactCta'
+import { GeneralInquiryTrigger } from '@/components/general-inquiry/GeneralInquiryProvider'
+import { KAKAO_URL, PhoneConsultModal } from '../components/ServiceContactCta'
 import BookPreviewTrigger from '../components/book-preview/BookPreviewTrigger'
 import { poetryPreview } from '../components/book-preview/bookPreviews'
 import {
@@ -69,7 +70,7 @@ function ContactButtons() {
   return <><div className={styles.contactRow}>
     <a href={KAKAO_URL} target="_blank" rel="noopener noreferrer" className={styles.ctaBtn}>오픈채팅 문의</a>
     <button type="button" className={styles.ctaBtnGhost} onClick={() => setPhoneOpen(true)}>전화 문의</button>
-    <a href={`mailto:${EMAIL_ADDRESS}`} className={styles.ctaBtnGhost}>이메일 문의</a>
+    <GeneralInquiryTrigger className={styles.ctaBtnGhost} source="시집 제작 페이지">이메일 문의</GeneralInquiryTrigger>
   </div>{phoneOpen && <PhoneConsultModal styles={styles} onClose={() => setPhoneOpen(false)} />}</>
 }
 

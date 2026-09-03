@@ -1,10 +1,10 @@
 'use client'
 
 import { useState } from 'react'
+import { GeneralInquiryTrigger } from '@/components/general-inquiry/GeneralInquiryProvider'
 import styles from './personal-content-diagnosis.module.css'
 
 const KAKAO_URL = 'https://open.kakao.com/me/mightybooks'
-const EMAIL = 'novelstudylab@naver.com'
 const PHONE_NUMBER = '010-5148-9433'
 
 export default function PersonalContentDiagnosisCta() {
@@ -13,9 +13,9 @@ export default function PersonalContentDiagnosisCta() {
   return (
     <>
       <div className={styles.ctaBtns}>
-        <a href={`mailto:${EMAIL}`} className={styles.ctaBtn}>
+        <GeneralInquiryTrigger className={styles.ctaBtn} source="개인 콘텐츠 출판 가능성 진단">
           이메일 문의 →
-        </a>
+        </GeneralInquiryTrigger>
         <a
           href={KAKAO_URL}
           target="_blank"

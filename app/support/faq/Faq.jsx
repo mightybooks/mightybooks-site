@@ -1,9 +1,9 @@
 'use client'
 import { useState } from 'react'
+import { GeneralInquiryTrigger } from '@/components/general-inquiry/GeneralInquiryProvider'
 import { AUTOBIOGRAPHY_TRAVEL_FAQ } from '../../business/autobiography/consultationPolicy'
 import styles from './faq.module.css'
 
-const EMAIL = 'novelstudylab@naver.com'
 const KAKAO_URL = 'https://open.kakao.com/me/mightybooks'
 
 const faqs = [
@@ -187,9 +187,9 @@ export default function FaqPage() {
             >
               카톡 메신저 상담
             </a>
-            <a href={`mailto:${EMAIL}`} className={styles.ctaBtnGhost}>
+            <GeneralInquiryTrigger className={styles.ctaBtnGhost} source="자주 묻는 질문">
               메일
-            </a>
+            </GeneralInquiryTrigger>
           </div>
         </div>
       </section>

@@ -2,12 +2,16 @@ import assert from 'node:assert/strict'
 import test from 'node:test'
 import {
   attemptConsultationNotification,
+  attemptGeneralInquiryNotification,
   buildConsultationNotification,
+  buildGeneralInquiryNotification,
   getQuantityReviewLabel,
   getSmtpConfiguration,
   sendConsultationNotification,
+  sendGeneralInquiryNotification,
 } from '../lib/mail/sendConsultationNotification.mjs'
 import { persistConsultation } from '../lib/publishing-guide/persistConsultation.mjs'
+import { validateGeneralInquiry } from '../lib/mail/generalInquiryValidation.mjs'
 
 const smtpEnv = {
   SMTP_HOST: 'smtp.naver.com',
@@ -80,6 +84,73 @@ test('SMTP 설정이 있으면 HTML과 text 메일을 transporter로 전달한�
   assert.equal(sentMessage.subject, '[1~10권 | PRINT_READY] 출판 길라잡이 신규 상담')
   assert.match(sentMessage.html, /PRINT_READY/)
   assert.match(sentMessage.text, /인쇄용 PDF 상태 점검/)
+})
+
+test('일반 문의는 기존 SMTP 설정과 수신자를 재사용하고 회신 주소를 Reply-To로 지정한다', async () => {
+  let sentMessage
+  const inquiry = {
+    email: 'reader@example.com',
+    phone: '',
+    message: '<script>alert(1)</script>\n책 제작을 문의합니다.',
+    source: '홈페이지 연락처',
+    receivedAt: new Date('2026-09-03T01:00:00.000Z'),
+  }
+  const result = await sendGeneralInquiryNotification(inquiry, {
+    env: smtpEnv,
+    transporter: {
+      sendMail: async message => {
+        sentMessage = message
+        return { messageId: 'general-inquiry-message-id' }
+      },
+    },
+  })
+
+  assert.equal(result.status, 'sent')
+  assert.equal(sentMessage.from, smtpEnv.MAIL_FROM)
+  assert.equal(sentMessage.to, smtpEnv.CONSULTATION_NOTIFICATION_EMAIL)
+  assert.equal(sentMessage.replyTo, inquiry.email)
+  assert.equal(sentMessage.subject, '[마이티북스 일반문의] 새 문의가 도착했습니다')
+  assert.match(sentMessage.text, /전화번호:\n미입력/)
+  assert.match(sentMessage.text, /접수 시각:/)
+  assert.doesNotMatch(sentMessage.html, /<script>alert/)
+  assert.match(sentMessage.html, /&lt;script&gt;alert\(1\)&lt;\/script&gt;/)
+})
+
+test('일반 문의 SMTP 실패는 민감정보 없이 실패 상태로 변환한다', async () => {
+  const errors = []
+  const result = await attemptGeneralInquiryNotification(
+    buildGeneralInquiryNotification({
+      email: 'reader@example.com', phone: '', message: '문의', receivedAt: new Date(),
+    }),
+    {
+      logger: { error: (...args) => errors.push(args) },
+      send: async () => { throw Object.assign(new Error('authentication failed'), { code: 'EAUTH' }) },
+    }
+  )
+
+  assert.equal(result.status, 'failed')
+  assert.equal(errors[0][1].code, 'EAUTH')
+})
+
+test('일반 문의는 이메일과 문의 내용을 서버에서도 검증하고 선택 전화번호를 허용한다', () => {
+  assert.equal(validateGeneralInquiry({ email: 'not-an-email', message: '문의' }).valid, false)
+  assert.equal(validateGeneralInquiry({ email: 'reader@example.com', message: '   ' }).valid, false)
+  assert.equal(validateGeneralInquiry({ email: 'reader@example.com', message: 'a'.repeat(3001) }).valid, false)
+
+  const valid = validateGeneralInquiry({
+    email: ' reader@example.com ',
+    phone: '',
+    message: ' 제작 문의입니다. ',
+    source: 'FAQ',
+  })
+  assert.equal(valid.valid, true)
+  assert.deepEqual(valid.inquiry, {
+    email: 'reader@example.com',
+    phone: '',
+    message: '제작 문의입니다.',
+    source: 'FAQ',
+    website: '',
+  })
 })
 
 test('SMTP 설정이 없으면 전송하지 않고 누락된 키를 로그에 남긴다', async () => {

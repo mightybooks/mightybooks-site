@@ -1,5 +1,6 @@
 import HeroSlider from '@/components/HeroSlider'
 import ContactPhoneButton from '@/components/ContactPhoneButton'
+import { GeneralInquiryTrigger } from '@/components/general-inquiry/GeneralInquiryProvider'
 import HomeProductionCases from './HomeProductionCases'
 import styles from './page.module.css'
 import Link from 'next/link'
@@ -181,7 +182,7 @@ export default function Home() {
             ['상담 방식', '대구·경북·경남 대면상담 / 전국 비대면 상담'],
             ['상담시간', '월-금 09:00-17:00 / 주말, 공휴일 휴무'],
             ['연락처', <ContactPhoneButton key="phone-contact" styles={styles} />],
-            ['이메일', <a key="email-contact" href="mailto:novelstudylab@naver.com">메일 보내기 →</a>],
+            ['이메일', <GeneralInquiryTrigger key="email-contact" source="홈페이지 연락처" ariaLabel="이메일 문의 작성하기">메일 보내기 →</GeneralInquiryTrigger>],
             ['카카오톡', <a key="kakao-contact" href="https://open.kakao.com/me/mightybooks" target="_blank" rel="noopener noreferrer">문의하기 →</a>],
           ].map(([key, value]) => (
             <div key={key} className={styles.contactRow}>
